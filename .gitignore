@@ -4,3 +4,6 @@ dist/
 .env.local
 *.log
 firebase/node_modules/
+
+API Keys/
+API_Key/
