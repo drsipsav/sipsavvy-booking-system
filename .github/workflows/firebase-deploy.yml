@@ -14,37 +14,41 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # —— 1. Source ————————————————————————————————————————————————————————
+      # —— 1. Source ———————————————————————————————————————————————————
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # —— 2. Runtime ———————————————————————————————————————————————————————
+      # —— 2. Runtime ——————————————————————————————————————————————————
       - name: Set up Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      # —— 3. Dependencies ——————————————————————————————————————————————————
+      # —— 3. Root dependencies (only if package.json exists) ——————————
       - name: Install root dependencies
+        if: hashFiles('package.json') != ''
         run: npm install
 
+      # —— 4. Root build (only if build script exists) —————————————————
+      - name: Build root project
+        if: hashFiles('package.json') != ''
+        run: npm run build --if-present
+
+      # —— 5. Functions dependencies ———————————————————————————————————
       - name: Install Functions dependencies
         working-directory: functions
         run: npm install
 
-      # —— 4. Build —————————————————————————————————————————————————————————
-      - name: Build root project
-        run: npm run build --if-present
-
+      # —— 6. Functions build ——————————————————————————————————————————
       - name: Build Firebase Functions
         working-directory: functions
         run: npm run build --if-present
 
-      # —— 5. Firebase CLI ——————————————————————————————————————————————————
+      # —— 7. Firebase CLI —————————————————————————————————————————————
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
-      # —— 6. Deploy ————————————————————————————————————————————————————————
+      # —— 8. Deploy ———————————————————————————————————————————————————
       - name: Deploy Hosting & Functions to Firebase
         run: |
           firebase use ${{ secrets.FIREBASE_PROJECT_ID }}
