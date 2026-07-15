@@ -1,0 +1,426 @@
+<div>
+<div>
+  <div>
+  <!-- ── Summary Sidebar ─────────────────────────────────── -->
+  <aside>
+<!-- ════ Booking Summary Box (outside booking panel) ════════ --> 
+ 
+<div id="bookingSummaryBox" style="
+  max-width:680px;
+  margin:36px auto 48px;
+  background:#F3E8FF;
+  border-radius:18px;
+  border:2px solid #DDCCCC;
+  overflow:hidden;
+  box-shadow:0 6px 28px rgba(44,32,32,0.12);
+">
+  <!-- Header bar -->
+  <div style="background:#722F37;padding:15px 24px;display:flex;align-items:center;justify-content:space-between;">
+    <span style="font-family:'Playfair Display',Georgia,serif;font-size:1rem;font-weight:700;color:#fff;letter-spacing:-0.01em;">Booking Summary</span>
+    <span style="font-family:'Inter',sans-serif;font-size:0.67rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#C48C95;">Live Preview</span>
+  </div>
+
+  <!-- Package row -->
+<!-- Step 2: Booking Summary -->
+<div id="booking-step-2" style="display:none;">
+  <!-- your booking summary form content -->
+</div>
+  <div style="padding:18px 24px;border-bottom:1px solid #EDE4E4;display:flex;align-items:center;justify-content:space-between;gap:16px;">
+    <div>
+      <div style="font-family:'Inter',sans-serif;font-size:0.67rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#7A6A6A;margin-bottom:4px;">Package</div>      
+      <div id="bsSummaryName" style="font-family:'Playfair Display',Georgia,serif;font-size:0.95rem;font-weight:700;color:#2C2020;line-height:1.25;">CHOOSE ONE</div>
+      <div id="bsSummaryGuests" style="font-family:'Inter',sans-serif;font-size:0.75rem;color:#7A6A6A;margin-top:2px;"></div>
+    </div>
+    <div id="bsSummaryPkgPrice" style="font-family:'Playfair Display',Georgia,serif;font-size:1.4rem;font-weight:900;color:#722F37;white-space:nowrap;flex-shrink:0;">$0</div>
+  </div>
+
+<!-- ══ FL Date Picker ═══════════════════════════════════════ -->
+<div id="bsFlDateWrap" style="padding:0 24px 14px;border-bottom:1px solid #EDE4E4;">
+  <div style="font-family:'Inter',sans-serif;font-size:0.67rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#7A6A6A;margin:14px 0 6px;">Event Date</div>
+  <!-- trigger field -->
+  <div id="bsFlDateField" onclick="bsToggleCal()"
+       style="position:relative;border:1.5px solid #DDCCCC;border-radius:10px;background:#FAFAFA;padding:10px 40px 10px 14px;cursor:pointer;transition:border-color .2s;min-height:46px;display:flex;align-items:center;">
+    <div id="bsFlDateValue"
+         style="font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:600;color:#2C2020;flex:1;">
+      <span id="bsFlDatePlaceholder" style="color:#9CA3AF;font-weight:400;font-size:0.82rem;">Select a date…</span>
+    </div>
+    <span style="position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:1.1rem;pointer-events:none;">&#128197;</span>
+  </div>
+  <!-- calendar dropdown -->
+  <div id="bsCalDropdown" style="display:none;margin-top:6px;background:#FAFAFA;border:1.5px solid #722F37;border-radius:12px;padding:14px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+      <button type="button" onclick="ssCalPrev()" style="width:28px;height:28px;border-radius:50%;border:1.5px solid #DDCCCC;background:#fff;cursor:pointer;font-size:1rem;color:#4A3A3A;display:flex;align-items:center;justify-content:center;flex-shrink:0;">&#8249;</button>
+      <span id="ssCalMonth" style="font-family:'Playfair Display',Georgia,serif;font-size:0.9rem;font-weight:700;color:#2C2020;"></span>
+      <button type="button" onclick="ssCalNext()" style="width:28px;height:28px;border-radius:50%;border:1.5px solid #DDCCCC;background:#fff;cursor:pointer;font-size:1rem;color:#4A3A3A;display:flex;align-items:center;justify-content:center;flex-shrink:0;">&#8250;</button>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);text-align:center;margin-bottom:5px;">
+      <div style="font-size:0.58rem;font-weight:700;color:#7A6A6A;padding:2px 0;">Su</div>
+      <div style="font-size:0.58rem;font-weight:700;color:#DDCCCC;padding:2px 0;">Mo</div>
+      <div style="font-size:0.58rem;font-weight:700;color:#DDCCCC;padding:2px 0;">Tu</div>
+      <div style="font-size:0.58rem;font-weight:700;color:#DDCCCC;padding:2px 0;">We</div>
+      <div style="font-size:0.58rem;font-weight:700;color:#7A6A6A;padding:2px 0;">Th</div>
+      <div style="font-size:0.58rem;font-weight:700;color:#7A6A6A;padding:2px 0;">Fr</div>
+      <div style="font-size:0.58rem;font-weight:700;color:#7A6A6A;padding:2px 0;">Sa</div>
+    </div>
+    <div id="ssCalGrid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;"></div>
+    <div style="margin-top:10px;padding-top:8px;border-top:1px solid #EDE4E4;display:flex;gap:10px;flex-wrap:wrap;">
+      <span style="font-size:0.6rem;color:#7A6A6A;display:flex;align-items:center;gap:4px;"><span style="width:9px;height:9px;background:#F3F4F6;border:1px solid #D1D5DB;border-radius:2px;display:inline-block;"></span>Unavailable</span>
+      <span style="font-size:0.6rem;color:#7A6A6A;display:flex;align-items:center;gap:4px;"><span style="width:9px;height:9px;background:#722F37;border-radius:2px;display:inline-block;"></span>Selected</span>
+      <span style="font-size:0.6rem;color:#7A6A6A;display:flex;align-items:center;gap:4px;"><span style="width:9px;height:9px;background:#F5E9EA;border:1px solid #722F37;border-radius:2px;display:inline-block;"></span>Today</span>
+    </div>
+    <div id="ssRefundBox" style="display:none;margin-top:8px;border-radius:10px;overflow:hidden;font-family:'Inter',sans-serif;font-size:0.74rem;line-height:1.5;"></div>
+  </div>
+</div>
+
+<!-- ══ FL Time Picker ════════════════════════════════════════ -->
+<div id="bsFlTimeWrap" style="padding:0 24px 14px;border-bottom:1px solid #EDE4E4;">
+  <div style="font-family:'Inter',sans-serif;font-size:0.67rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#7A6A6A;margin:14px 0 6px;">Event Start Time</div>
+  <!-- trigger field -->
+  <div id="bsFlTimeField" onclick="bsToggleTime()"
+       style="position:relative;border:1.5px solid #DDCCCC;border-radius:10px;background:#FAFAFA;padding:10px 40px 10px 14px;cursor:pointer;transition:border-color .2s;min-height:46px;display:flex;align-items:center;">
+    <div id="bsFlTimeValue"
+         style="font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:600;color:#2C2020;flex:1;">
+      <span id="bsFlTimePlaceholder" style="color:#9CA3AF;font-weight:400;font-size:0.82rem;">Select a time…</span>
+    </div>
+    <span style="position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:1.1rem;pointer-events:none;">&#128336;</span>
+  </div>
+  <!-- time dropdown -->
+  <div id="bsTimeDropdown" style="display:none;margin-top:6px;background:#FAFAFA;border:1.5px solid #722F37;border-radius:12px;padding:14px;">
+    <label style="font-family:'Inter',sans-serif;font-size:0.74rem;font-weight:600;color:#4A3A3A;display:block;margin-bottom:6px;">What time does your event start?</label>
+    <input type="time" id="ssTimeInput" oninput="ssOnTime(this.value)"
+           style="width:100%;padding:10px 12px;border:2px solid #DDCCCC;border-radius:8px;font-family:'Inter',sans-serif;font-size:1rem;font-weight:600;color:#2C2020;background:#fff;outline:none;box-sizing:border-box;cursor:pointer;transition:border-color .15s;"
+           onfocus="this.style.borderColor='#722F37';"
+           onblur="this.style.borderColor='#DDCCCC';">
+    <p style="font-family:'Inter',sans-serif;font-size:0.66rem;color:#9CA3AF;margin:5px 0 0;">Click the clock icon or type the time directly</p>
+    <div style="border-top:1px solid #EDE4E4;margin:14px 0;"></div>
+    <div style="font-family:'Inter',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#7A6A6A;margin-bottom:6px;">Service Duration</div>
+    <div style="background:#FDF3DC;border-radius:8px;padding:10px 12px;">
+      <div id="ssDurName"
+                        style="font-family:'Playfair Display',Georgia,serif;font-size:0.88rem;font-weight:700;color:#A07C2E;">
+      </div>
+      <div id="ssDurText" style="font-family:'Inter',sans-serif;font-size:0.74rem;color:#4A3A3A;margin-top:3px;">Service runs approximately <strong>3 hours</strong> from your start time.</div>
+      <div id="ssDurEnd" style="font-family:'Inter',sans-serif;font-size:0.72rem;color:#A07C2E;margin-top:6px;font-weight:700;"></div>
+    </div>
+  </div>
+</div> 
+
+<!-- EVENT LOCATION -->
+
+<div id="bsFlLocationWrap" style="padding:0 24px 14px;border-bottom:1px solid #EDE4E4;">
+  <div style="font-family:'Inter',sans-serif;font-size:0.67rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#7A6A6A;margin:14px 0 6px;">
+    Event Location
+  </div>
+
+  <div id="bsFlLocationField"
+       style="position:relative;border:1.5px solid #DDCCCC;border-radius:10px;background:#FAFAFA;padding:10px 14px;cursor:text;transition:border-color .2s;min-height:46px;display:flex;align-items:center;">
+    
+    <input 
+      type="text"
+      id="eventLocation"
+      placeholder="Enter event address…"
+      onfocus="bsFocusField(this)"
+      onblur="bsBlurField(this)"
+      style="flex:1;border:none;outline:none;background:transparent;font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:600;color:#2C2020;"
+    >
+
+    <!-- ICON (does NOT change size) -->
+    <span style="position:absolute;
+                 right:12px;
+                 top:50%;
+                 transform:translateY(-50%);
+                 font-size:1.1rem;
+                 pointer-events:none;">📍</span>
+
+  </div>
+  <div id="miniMap" 
+     style="width:100%;
+            height:160px;
+            border-radius:10px;
+            margin-top:10px;
+            overflow:hidden;
+            display:none;">
+</div>
+<!-- USE MY LOCATION BUTTON -->
+<button onclick="useMyLocation()"
+        style="margin-top:10px;
+               background:#722F37;
+               color:white;
+               padding:8px 14px;
+               border:none;
+               border-radius:8px;
+               font-size:0.8rem;
+               cursor:pointer;">
+  Use My Location
+</button>
+
+</div>
+
+<div id="bsFlZipWrap" style="padding:0 24px 14px;border-bottom:1px solid #EDE4E4;">
+  <div style="font-family:'Inter',sans-serif;font-size:0.67rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#7A6A6A;margin:14px 0 6px;">
+    ZIP Code
+  </div>
+
+  <div id="bsFlZipField"
+       style="position:relative;border:1.5px solid #DDCCCC;border-radius:10px;background:#FAFAFA;padding:10px 14px;cursor:text;transition:border-color .2s;min-height:46px;display:flex;align-items:center;">
+    
+    <input 
+      type="text"
+      id="eventZip"
+      placeholder="Enter ZIP Code…"
+      onfocus="bsFocusField(this)"
+      onblur="bsBlurField(this)"
+      oninput="formatZip(this)"
+      oninput="formatZip(this); handleZipChange(this.value)"
+
+      maxlength="5"
+      style="flex:1;border:none;outline:none;background:transparent;font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:600;color:#2C2020;"
+    >
+
+    <!-- ICON (does NOT change size) -->
+    <span style="position:absolute;
+                 right:12px;
+                 top:50%;
+                 transform:translateY(-50%);
+                 font-size:1.1rem;
+                 pointer-events:none;">🏷️</span>
+
+  </div>
+</div>
+
+<!-- Refund eligibility row --> 
+<div id="bsRefundRow" style="display:none;padding:12px 24px;border-bottom:1px solid #EDE4E4;align-items:center;justify-content:space-between;gap:12px;">
+  <div style="font-family:'Inter',sans-serif;font-size:0.67rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#7A6A6A;">Refund Deadline</div>
+  <div id="bsRefundLine" style="font-family:'Inter',sans-serif;font-size:0.78rem;text-align:right;"></div>
+</div>
+
+<!-- Date row -->
+<div id="bsDateRow" style="display:none;padding:12px 24px;border-bottom:1px solid #EDE4E4;align-items:center;gap:12px;">
+  <div style="font-family:'Inter',sans-serif;font-size:0.67rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#7A6A6A;flex-shrink:0;">Event Date</div>
+  <div id="bsDateLine" style="font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:600;color:#2C2020;text-align:right;flex:1;"></div>
+</div>
+
+<!-- Time row -->
+<div id="bsTimeRow" style="display:none;padding:12px 24px;border-bottom:1px solid #EDE4E4;align-items:center;gap:12px;">
+  <div style="font-family:'Inter',sans-serif;font-size:0.67rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#7A6A6A;flex-shrink:0;">Start Time</div>
+  <div id="bsTimeLine" style="font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:600;color:#2C2020;text-align:right;flex:1;"></div>
+</div>
+
+  <!-- Add-ons row (hidden until selected) -->
+  <div id="bsAddonsRow" style="display:none;padding:14px 24px;border-bottom:1px solid #EDE4E4;">
+    <div style="font-family:'Inter',sans-serif;font-size:0.67rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#7A6A6A;margin-bottom:10px;">Add-Ons</div>
+    <div id="bsAddonsList" style="display:flex;flex-direction:column;gap:7px;"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:8px;border-top:1px dashed #EDE4E4;">
+      <span style="font-family:'Inter',sans-serif;font-size:0.75rem;font-weight:600;color:#7A6A6A;">Add-Ons Subtotal</span>
+      <span id="bsAddonsSubtotal" style="font-family:'Inter',sans-serif;font-size:0.85rem;font-weight:700;color:#541E25;">$0</span>
+    </div>
+  </div>
+
+<!-- Contact: Name -->
+<div id="bsContactRow" style="display:none;padding:10px 24px;border-bottom:1px solid #EDE4E4;display:flex;align-items:center;justify-content:space-between;gap:12px;">
+  <div style="font-family:'Inter',sans-serif;font-size:0.67rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#7A6A6A;">Name</div>
+  <div id="bsContactLine" style="font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:600;color:#2C2020;text-align:right;"></div>
+</div>
+
+<!-- Contact: Email -->
+<div id="bsEmailRow" style="display:none;padding:10px 24px;border-bottom:1px solid #EDE4E4;display:flex;align-items:center;justify-content:space-between;gap:12px;">
+  <div style="font-family:'Inter',sans-serif;font-size:0.67rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#7A6A6A;">Email</div>
+  <div id="bsEmailLine" style="font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:600;color:#2C2020;text-align:right;word-break:break-all;"></div>
+</div>
+
+<!-- Contact: Phone -->
+<div id="bsPhoneRow" style="display:none;padding:10px 24px;border-bottom:1px solid #EDE4E4;display:flex;align-items:center;justify-content:space-between;gap:12px;">
+  <div style="font-family:'Inter',sans-serif;font-size:0.67rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#7A6A6A;">Phone</div>
+  <div id="bsPhoneLine" style="font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:600;color:#2C2020;text-align:right;"></div>
+</div>
+
+<!-- Contact: Note -->
+<div id="bsNoteRow" style="display:none;padding:10px 24px;border-bottom:1px solid #EDE4E4;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">
+  <div style="font-family:'Inter',sans-serif;font-size:0.67rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#7A6A6A;flex-shrink:0;">Note</div>
+  <div id="bsNoteLine" style="font-family:'Inter',sans-serif;font-size:0.78rem;color:#4A3A3A;text-align:right;font-style:italic;"></div>
+</div>
+
+<!-- Travel Fee row -->
+<div id="bsTravelFeeRow" 
+     style="display:flex;align-items:center;justify-content:space-between;
+            padding:12px 24px;border-bottom:1px solid #EDE4E4;gap:12px;">
+
+  <div style="display:flex;align-items:center;gap:6px;">
+    <span style="font-family:'Inter',sans-serif;font-size:0.67rem;font-weight:700;
+                 letter-spacing:0.16em;text-transform:uppercase;color:#7A6A6A;">
+      Travel Fee
+    </span>
+
+    <span style="cursor:pointer;font-size:1rem;"
+          onmouseover="showTravelTooltip()"
+          onmouseout="hideTravelTooltip()">
+      ❓
+    </span>
+  </div>
+
+  <div id="bsTravelFeeLine"
+       style="font-family:'Inter',sans-serif;font-size:0.85rem;font-weight:700;
+              color:#541E25;text-align:right;">
+    <span data-ss-travel="fee">—</span>        <!-- e.g., "$45" -->
+  </div>
+
+  <span data-ss-travel="distance">—</span>   <!-- e.g., "23.4 mi" -->
+<span data-ss-travel="summary">No travel area selected</span>
+
+</div>
+
+<div id="distanceLoading"
+     style="display:none;padding:0 24px 6px;
+            font-family:'Inter',sans-serif;font-size:0.75rem;
+            color:#9CA3AF;text-align:right;">
+  Calculating distance…
+</div>
+
+<!-- Tooltip -->
+<div id="travelTooltip"
+     style="display:none;position:absolute;right:24px;margin-top:-6px;
+            background:white;border:1px solid #E0D4D4;padding:10px 14px;
+            border-radius:8px;font-family:'Inter',sans-serif;font-size:0.75rem;
+            color:#4A3A3A;width:240px;box-shadow:0 4px 12px rgba(0,0,0,0.08);z-index:20;">
+  Travel fee is calculated based on driving distance from our Waldorf, MD headquarters.
+</div>
+
+<!-- Distance Badge -->
+<div id="distanceBadge" 
+     style="display:none;padding:0 24px 4px;
+            font-family:'Inter',sans-serif;font-size:0.78rem;
+            color:#7A6A6A;text-align:right;">
+</div>
+
+<!-- Distance Zone -->
+<div id="distanceZone"
+     style="display:none;padding:0 24px 4px;
+            font-family:'Inter',sans-serif;font-size:0.75rem;
+            color:#A07C2E;text-align:right;font-weight:700;">
+</div>
+
+<!-- Travel Fee Breakdown -->
+<div id="travelFeeBreakdown"
+     style="display:none;padding:0 24px 10px;
+            font-family:'Inter',sans-serif;font-size:0.75rem;
+            color:#7A6A6A;text-align:right;">
+</div>
+
+<div id="recommendedFee"
+     style="display:none;padding:0 24px 14px;
+            font-family:'Inter',sans-serif;font-size:0.75rem;
+            color:#4A3A3A;text-align:right;font-style:italic;">
+</div>
+
+<!-- ⭐ TOOLTIP BOX ⭐ -->
+<div id="travelTooltipPrint"
+     style="display:none;position:absolute;right:24px;margin-top:-6px;
+            background:white;border:1px solid #E0D4D4;padding:10px 14px;
+            border-radius:8px;font-family:'Inter',sans-serif;font-size:0.75rem;
+            color:#4A3A3A;width:240px;box-shadow:0 4px 12px rgba(0,0,0,0.08);z-index:20;">
+  Travel fee is calculated based on driving distance from our Waldorf, MD headquarters.
+</div>
+
+  <!-- Grand total row -->
+<!-- ⭐ CONTAINER 2 — ESTIMATED TOTAL + PACKAGE + ADD‑ONS ⭐ -->
+<div style="
+  padding:18px 24px;
+  background:#FDF3DC;
+  border-radius:18px 18px 0 0;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:20px;
+">
+  <!-- LEFT SIDE — LABELS + BREAKDOWN -->
+  <div style="display:flex;flex-direction:column;gap:8px;">
+
+    <!-- Section Title -->
+    <div style="
+      font-family:'Inter',sans-serif;
+      font-size:0.67rem;
+      font-weight:700;
+      letter-spacing:0.16em;
+      text-transform:uppercase;
+      color:#A07C2E;
+    ">
+      Estimated Total
+    </div>
+
+    <!-- Subtitle -->
+    <div style="
+      font-family:'Inter',sans-serif;
+      font-size:0.72rem;
+      color:#A07C2E;
+      opacity:0.75;
+    ">
+      Package + Add‑Ons
+    </div>
+
+      <!-- Breakdown Lines -->
+    <div style="font-family:'Inter',sans-serif;font-size:0.75rem;color:#4A3A3A;">
+      Package Price:
+      <span id="selected-package-price" style="font-weight:600;">$0</span>
+    </div>
+
+    <div style="font-family:'Inter',sans-serif;font-size:0.75rem;color:#4A3A3A;">
+      Add‑Ons Total:
+      <span id="addons-total" style="font-weight:600;">$0</span>
+    </div>
+
+    <div style="font-family:'Inter',sans-serif;font-size:0.75rem;color:#4A3A3A;">
+      Grand Total:
+      <span id="grand-total" style="font-weight:700;color:#A07C2E;">$0</span>
+    </div>
+    </div>
+
+<div class="travel-summary-box">
+  <h3>Distance To Your Event</h3>
+  <p><strong>Destination:</strong> <span data-ss-travel="summary">Loading…</span></p>
+  <p><strong>Distance:</strong> <span id="c2TravelReason"></span><span>—</span></p>
+  <p><strong>Travel Fee:</strong> <span id="bsSummaryTravelFee"></span><span></span>—</span></p>
+  
+  <!-- <p><strong>Travel Fee:</strong> <span data-ss-travel="fee">—</span></p> -->
+   <!--  bsSummaryTravelFee
+  <button data-ss-travel="change-area" class="change-travel-btn">
+    Change Travel Area
+  </button> -->
+</div>
+
+
+<!-- STATIC TRAVEL SUMMARY (Container 2) -->
+<!-- STATIC TRAVEL SUMMARY — CONTAINER 2 -->
+<div id="ssContainer2Travel" class="ss-travel-summary">
+  <div class="ss-travel-row">
+
+    <span class="ss-travel-label">Miles:</span>
+    <div id="c2TravelMiles"></div>
+    
+    <span class="ss-travel-label">Travel Fee:</span>
+    <div id="c2TravelFee"></div>
+
+    <span class="ss-travel-label">Zone:</span>
+    <div id="c2TravelZone"></div>
+
+    <span class="ss-travel-label">Reason:</span>
+    <div id="c2TravelReason"></div>
+
+  </div>
+</div>
+
+
+
+  </div> 
+<div style="width:100%; display:flex; justify-content:center; margin-top:14px;">
+  <button onclick="bkActivateStep3()"
+          style="width:50%; padding:12px 16px; background:var(--color-wine);
+                 color:white; border:none; border-radius:8px; font-size:0.9rem;
+                 font-weight:600; cursor:pointer;">
+    Continue to Your Details
+  </button>
+</div>
+
+
+
+</div>
+  </aside>
+</div>

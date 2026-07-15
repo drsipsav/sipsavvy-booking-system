@@ -1,0 +1,13 @@
+| Function / Handler | Purpose | File |
+| --- | --- | --- |
+| **applyUnifiedTravelFee** | Travel fee engine | ``packages.js`` |
+| **updateTotalsDisplay** | Totals engine | ``totals.js`` |
+| **updateContainer1** | Booking summary | ``booking.js`` |
+| **updateContainer2** | Contact info | ``booking.js`` |
+| **updateContainer3** | Event details | ``booking.js`` |
+| **updateContainer4Summary** | Final summary | ``booking.js`` |
+| **unifiedReset** | Reset engine | ``resetEngine.js`` |
+| **waitForFinalDOM** | DOM wait | ``booking_fixed.js`` |
+| **waitForStableDOM** | DOM wait | ``booking_fixed.js`` |
+| **syncTravelFeeFromUI** | Travel UI sync | ``updateTravelUI.js`` |
+| **Reset buttons** | Button handlers | ``booking.js`` |

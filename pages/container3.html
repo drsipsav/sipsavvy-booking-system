@@ -1,0 +1,187 @@
+<div>
+<!-- ════ Details Section (filled in next phase) ════════════════ -->
+<!-- ════ Contact Details Section ════════════════════════════════ -->
+<div id="bookingDetailsSection" style="
+  max-width:680px;
+  margin:0 auto 80px;
+  background:#F3E8FF;
+  border-radius:18px;
+  border:2px solid #DDCCCC;
+  overflow:hidden;
+  box-shadow:0 6px 28px rgba(44,32,32,0.12);
+">
+  <!-- Header -->
+  <div style="background:#722F37;padding:18px 28px;display:flex;align-items:center;justify-content:space-between;">
+    <div>
+      <div style="font-family:'Playfair Display',Georgia,serif;font-size:1.05rem;font-weight:700;color:#fff;">Your Details  container3</div>
+      <div style="font-family:'Inter',sans-serif;font-size:0.72rem;color:#C48C95;margin-top:2px;">All fields required except additional note</div>
+    </div>
+    <span style="font-size:1.4rem;">📋</span>
+  </div>
+
+  <!-- Form body -->
+  <div style="padding:28px;">
+
+    <!-- First & Last Name -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px;">
+      <div>
+        <label style="font-family:'Inter',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#7A6A6A;display:block;margin-bottom:6px;">First Name</label>
+        <input
+          type="text"
+          id="cd_firstName"
+          placeholder="e.g. Amara"
+          oninput="cdSync()"
+          style="width:100%;padding:11px 14px;border:2px solid #DDCCCC;border-radius:10px;font-family:'Inter',sans-serif;font-size:0.88rem;color:#2C2020;background:#FAFAFA;outline:none;box-sizing:border-box;transition:border-color .15s;"
+          onfocus="this.style.borderColor='#722F37';this.style.background='#fff';"
+          onblur="this.style.borderColor='#DDCCCC';this.style.background='#FAFAFA';"
+        >
+      </div>
+      <div>
+        <label style="font-family:'Inter',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#7A6A6A;display:block;margin-bottom:6px;">Last Name</label>
+        <input
+          type="text"
+          id="cd_lastName"
+          placeholder="e.g. Johnson"
+          oninput="cdSync()"
+          style="width:100%;padding:11px 14px;border:2px solid #DDCCCC;border-radius:10px;font-family:'Inter',sans-serif;font-size:0.88rem;color:#2C2020;background:#FAFAFA;outline:none;box-sizing:border-box;transition:border-color .15s;"
+          onfocus="this.style.borderColor='#722F37';this.style.background='#fff';"
+          onblur="this.style.borderColor='#DDCCCC';this.style.background='#FAFAFA';"
+        >
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div style="margin-bottom:18px;">
+      <label style="font-family:'Inter',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#7A6A6A;display:block;margin-bottom:6px;">Email Address</label>
+      <input
+        type="email"
+        id="cd_email"
+        placeholder="e.g. amara@example.com"
+        oninput="cdSync()"
+        style="width:100%;padding:11px 14px;border:2px solid #DDCCCC;border-radius:10px;font-family:'Inter',sans-serif;font-size:0.88rem;color:#2C2020;background:#FAFAFA;outline:none;box-sizing:border-box;transition:border-color .15s;"
+        onfocus="this.style.borderColor='#722F37';this.style.background='#fff';"
+        onblur="this.style.borderColor='#DDCCCC';this.style.background='#FAFAFA';"
+      >
+      <div id="cd_emailError" style="display:none;font-size:0.7rem;color:#B91C1C;margin-top:4px;font-family:'Inter',sans-serif;">Please enter a valid email address.</div>
+    </div>
+
+    <!-- Phone -->
+    <div style="margin-bottom:18px;">
+      <label style="font-family:'Inter',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#7A6A6A;display:block;margin-bottom:6px;">Phone Number</label>
+      <input
+        type="tel"
+        id="cd_phone"
+        placeholder="(555) 000-0000"
+        oninput="cdFormatPhone(this)"
+        maxlength="14"
+        style="width:100%;padding:11px 14px;border:2px solid #DDCCCC;border-radius:10px;font-family:'Inter',sans-serif;font-size:0.88rem;color:#2C2020;background:#FAFAFA;outline:none;box-sizing:border-box;transition:border-color .15s;"
+        onfocus="this.style.borderColor='#722F37';this.style.background='#fff';"
+        onblur="this.style.borderColor='#DDCCCC';this.style.background='#FAFAFA';"
+      >
+    </div>
+
+    <!-- Additional Note -->
+    <div style="margin-bottom:24px;">
+      <label style="font-family:'Inter',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#7A6A6A;display:block;margin-bottom:6px;">
+        Additional Note <span style="font-weight:400;text-transform:none;letter-spacing:0;color:#BBAAAA;">(optional)</span>
+      </label>
+      <textarea
+        id="cd_note"
+        rows="3"
+        placeholder="Any special requests, setup preferences, or details we should know..."
+        oninput="cdSync()"
+        style="width:100%;padding:11px 14px;border:2px solid #DDCCCC;border-radius:10px;font-family:'Inter',sans-serif;font-size:0.88rem;color:#2C2020;background:#FAFAFA;outline:none;box-sizing:border-box;resize:vertical;transition:border-color .15s;"
+        onfocus="this.style.borderColor='#722F37';this.style.background='#fff';"
+        onblur="this.style.borderColor='#DDCCCC';this.style.background='#FAFAFA';"
+      ></textarea>
+    </div>
+
+    <!-- Submit -->
+    <button
+      onclick="cdSubmit()"
+      style="width:100%;padding:14px;background:#722F37;color:#fff;border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:0.85rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:background .15s;"
+      onmouseenter="this.style.background='#541E25';"
+      onmouseleave="this.style.background='#722F37';"
+    >Confirm Booking Details</button>
+
+    <!-- Confirmation message (hidden until submit) -->
+    <div id="cd_confirm" style="display:none;margin-top:16px;padding:14px 16px;background:#F0FDF4;border-radius:10px;border-left:3px solid #2E7D4F;font-family:'Inter',sans-serif;font-size:0.82rem;color:#2C2020;">
+      ✔ <strong>Details saved.</strong> Use the <strong>Print</strong> or <strong>Email Summary</strong> buttons in the summary box above to get a copy of your booking.
+    </div>
+
+
+    <!-- Event Details Summary (Step 2) -->
+<div id="bsSummaryDate" ></div>
+<div id="bsSummaryTime"  ></div>
+<div id="bsSummaryAddress"  ></div> 
+<div id="bsSummaryZip"  ></div>
+
+<!-- Contact Summary (Step 2) -->
+<div id="bsSummaryFirst" ></div>
+<div id="bsSummaryLast" ></div>
+<div id="bsSummaryEmail" ></div>
+<div id="bsSummaryPhone" ></div>
+<div id="bsSummaryNote" ></div>
+
+<!-- Travel Summary (Step 2) -->
+<div id="bsSummaryZone"  ></div>
+<div id="bsSummaryTravelFee"  ></div>
+
+<!--<div id="bsSummaryDate" style="display:none;"></div>
+<div id="bsSummaryTime"  style="display:none;"></div>
+<div id="bsSummaryAddress"  style="display:none;"></div> 
+<div id="bsSummaryZip"  style="display:none;"></div> -->
+
+<!-- Contact Summary (Step 2) -->
+<!--<div id="bsSummaryFirst" style="display:none;"></div>
+<div id="bsSummaryLast" style="display:none;"></div>
+<div id="bsSummaryEmail" style="display:none;"></div>
+<div id="bsSummaryPhone" style="display:none;"></div>
+<div id="bsSummaryNote" style="display:none;"></div> -->
+
+<!-- Travel Summary (Step 2) -->
+<!--<div id="bsSummaryZone"  style="display:none;"></div>
+<div id="bsSummaryTravelFee"  style="display:none;"></div> -->
+
+<!-- Grand Total Summary (Step 2) -->
+<div id="bsSummaryTotal" style="display:none;"></div>
+
+  <!-- Trust badges -->
+<div style="
+  border-top:1px solid #EDE4E4;
+  padding:16px 24px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  background:#FAFAFA;
+  border-radius:0 0 18px 18px;
+">
+  <div style="display:flex;align-items:center;gap:10px;">
+    <span style="font-size:1.1rem;flex-shrink:0;">🔒</span>
+    <span style="font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:600;color:#2C2020;">Secure Checkout</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <span style="font-size:1.1rem;flex-shrink:0;">↩️</span>
+    <span style="font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:600;color:#2C2020;">Free Cancellation <span style="font-weight:400;color:#7A6A6A;">— 8 days or more before your event</span></span>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <span style="font-size:1.1rem;flex-shrink:0;">⚡</span>
+    <span style="font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:600;color:#2C2020;">Instant Confirmation <span style="font-weight:400;color:#7A6A6A;">— on payment received</span></span>
+  </div>
+</div>
+
+<!-- Print + Email actions -->
+<div style="padding:16px 24px;background:#F9F6F6;border-top:1px solid #EDE4E4;border-radius:0 0 18px 18px;display:flex;gap:10px;">
+  <button
+    onclick="bkPrint()"
+    style="flex:1;padding:11px;background:#722F37;color:#fff;border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.10em;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:background .15s;"
+    onmouseenter="this.style.background='#541E25';" onmouseleave="this.style.background='#722F37';"
+  >🖨 Print Summary</button> 
+
+  <button
+    onclick="bkEmailSummary()"
+    style="flex:1;padding:11px;background:#fff;color:#722F37;border:2px solid #722F37;border-radius:10px;font-family:'Inter',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.10em;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all .15s;"
+    onmouseenter="this.style.background='#F5E9EA';" onmouseleave="this.style.background='#fff';"
+  >✉ Email Summary</button>
+</div>
+  </div>

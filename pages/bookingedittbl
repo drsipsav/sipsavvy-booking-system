@@ -1,0 +1,8 @@
+﻿#,Location,Issue,Fix Applied
+1,Step 1 — #box5Wrapper,width:300% was blowing the summary box 3× off the page,Changed to width:100%
+2,"Step 3 — #bsContactRow, #bsEmailRow, #bsPhoneRow, #bsNoteRow",Had both display:none and display:flex in the same inline style — the flex was winning and making those rows always visible,Removed the conflicting display:flex so JS can properly toggle them
+3,"Container 4 — id=""finalConfirmBtn""",Appeared twice — a basic class-based version and a fully styled oval version,Removed the bare class-based duplicate; kept the styled oval version
+4,Container 4 — duplicate c4-actions block,"A second action block with another Confirm button, Print, and Email buttons existed below the first",Removed the duplicate block entirely
+5,"Container 4 — id=""booking-step-4""",The outer wrapper div AND the inner final-summary div both had the same ID,Merged into one clean single container — no nested duplicate
+6,Container 4 — closing structure,Trailing stray </div> tags left over from the removed duplicate sections,Cleaned up to match the new single-container structure
+7,Step 3 — Continue button wrapper,Was wrapped in a flex-direction:column div with gap:10px for a single button only,Removed unnecessary wrapper

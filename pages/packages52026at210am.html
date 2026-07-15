@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sipsavvy Services — Packages</title>
+  <link rel="icon" href="data:,">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../styles/reset.css">
+  <link rel="stylesheet" href="../styles/variables.css">
+  <link rel="stylesheet" href="../styles/animations.css">
+  <link rel="stylesheet" href="../styles/buttons.css">
+  <link rel="stylesheet" href="../styles/cards.css">
+  <link rel="stylesheet" href="../styles/forms.css">
+  <link rel="stylesheet" href="../styles/global.css">
+  <link rel="stylesheet" href="../styles/header.css">
+  <link rel="stylesheet" href="../styles/packages.css">
+</head>
+
+<body>
+
+<header class="site-header" id="top">
+  <div class="header-inner">
+    <div class="header-logo">
+      <img src="../components/assets/images/logo.png" alt="Sipsavvy Services">
+      <div>
+        <span class="header-logo-wordmark">Sipsavvy Services</span>
+        <span class="header-logo-tagline">Mobile Bartending</span>
+      </div>
+    </div>
+
+    <nav>
+      <ul class="header-nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a class="is-current" style="pointer-events:none; opacity:0.6;">Packages</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="experiences.html">Experiences</a></li>
+      </ul>
+    </nav>
+
+    <a href="booking.html" class="btn-gold">Book Now</a>
+  </div>
+</header>
+
+<section class="packages-hero">
+  <span class="packages-hero-eyebrow">Tailored for Every Occasion</span>
+  <h1 class="packages-hero-heading">Service Packages</h1>
+  <p class="packages-hero-sub">
+    Choose the experience that fits your event — from intimate gatherings to large-scale celebrations.
+  </p>
+</section>
+
+<section class="pricing-section">
+  <div class="pricing-grid">
+
+    <div class="pricing-card package-card"
+         data-package-name="The Essential Package"
+         data-package-price="600">
+      <h3 class="pricing-card-title">The Essential Package</h3>
+      <p class="pricing-card-guests">Up to 40 Guests</p>
+      <hr class="pricing-card-divider">
+      <ul class="pricing-features">
+        <li>Professional Bartender</li>
+        <li>Custom Cocktail Menu</li>
+        <li>Mixers &amp; Garnishes</li>
+        <li>Luxury Bar Tools</li>
+      </ul>
+      <div class="pricing-price">$600</div>
+      <div class="package-actions">
+          <button class="package-select-btn">Select</button>
+          <button class="package-selected-btn">Selected</button>
+      </div>
+    </div>
+
+    <div class="pricing-card package-card"
+         data-package-name="Luxe Experience"
+         data-package-price="900">
+      <h3 class="pricing-card-title">The Luxe Experience</h3>
+      <p class="pricing-card-guests">Up to 75 Guests</p>
+      <hr class="pricing-card-divider">
+      <ul class="pricing-features">
+        <li>Professional Bartender</li>
+        <li>Signature Cocktail Design</li>
+        <li>Premium Mixers &amp; Garnishes</li>
+        <li>Mobile Bar Setup</li>
+      </ul>
+      <div class="pricing-price">$900</div>
+      <div class="package-actions">
+          <button class="package-select-btn">Select</button>
+          <button class="package-selected-btn">Selected</button>
+      </div>
+    </div>
+
+    <div class="pricing-card package-card"
+         data-package-name="Signature SipSavvy Experience"
+         data-package-price="1200">
+      <h3 class="pricing-card-title">The Signature SipSavvy Experience</h3>
+      <p class="pricing-card-guests">Up to 100 Guests</p>
+      <hr class="pricing-card-divider">
+      <ul class="pricing-features">
+        <li>Professional Bartender</li>
+        <li>Full Signature Cocktail Program</li>
+        <li>Premium Mixers, Garnishes &amp; Decor</li>
+        <li>Luxury Mobile Bar Setup</li>
+      </ul>
+      <div class="pricing-price">$1200</div>
+      <div class="package-actions">
+          <button class="package-select-btn">Select</button>
+          <button class="package-selected-btn">Selected</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="addons-section-wrap">
+  <div class="packages-addons">
+
+    <h3 class="addons-heading">✦ Add‑Ons</h3>
+    <p class="addons-subhead">Select any extras to include with your booking.</p>
+
+    <!-- Extra Hour -->
+    <div class="addon-check-row addon-extra-hour" data-addon="extra-hour">
+      <div class="addon-check-top">
+        <div class="addon-check-left">
+          <div class="addon-icon">⏱️</div>
+          <div>
+            <div class="addon-check-label">Extra Hours</div>
+            <div class="addon-check-desc">$125 per hour — choose amount</div>
+          </div>
+        </div>
+        <div class="addon-check-price extra-hour-total">$0</div>
+      </div>
+
+      <div class="extra-hour-buttons">
+        <button class="hour-btn" data-hours="1">1 hr</button>
+        <button class="hour-btn" data-hours="2">2 hrs</button>
+        <button class="hour-btn" data-hours="3">3 hrs</button>
+        <button class="hour-btn" data-hours="4">4 hrs</button>
+        <button class="hour-btn none-btn" data-hours="0">De‑select</button>
+      </div>
+    </div>
+
+
+    <!-- Travel Fee -->
+    <div class="addon-check-row addon-travel-fee" data-addon="travel-fee">
+      <div class="addon-check-top">
+        <div class="addon-check-left">
+          <div class="addon-icon">🚗</div>
+          <div>
+            <div class="addon-check-label">Travel Fee</div>
+            <div class="addon-check-desc">Select your region and city</div>
+          </div>
+        </div>
+        <div class="addon-check-price travel-fee-total">$0</div>
+      </div>
+
+      <!-- Sector Buttons -->
+      <div class="travel-sector-buttons">
+        <button class="sector-btn" data-sector="dc-nw">Washington DC</button>
+        <button class="sector-btn" data-sector="md-north">Maryland‑North</button>
+        <button class="sector-btn" data-sector="md-south-charles">Southern Maryland</button>
+        <button class="sector-btn" data-sector="nova">Northern Virginia</button>
+        <button class="sector-btn clear-btn" data-sector="none">Clear</button>
+      </div>
+
+      <!-- Region Dropdown (NEW) -->
+      <div class="travel-region-dropdown">
+        <label>Select Region:</label>
+        <select class="travel-region-select">
+          <option value="">Choose a region…</option>
+
+          <option value="dc-nw">Washington DC — NW</option>
+          <option value="dc-ne">Washington DC — NE</option>
+          <option value="dc-se">Washington DC — SE</option>
+          <option value="dc-sw">Washington DC — SW</option>
+
+          <option value="md-north">Maryland — PG County (North)</option>
+          <option value="md-south-charles">Maryland — Charles County</option>
+          <option value="md-south-stmarys">Maryland — St. Mary’s County</option>
+          <option value="md-south-calvert">Maryland — Calvert County</option>
+
+          <option value="md-baltimore">Maryland — Baltimore City</option>
+          <option value="md-montgomery">Maryland — Montgomery County</option>
+          <option value="md-anne-arundel">Maryland — Anne Arundel County</option>
+          <option value="md-howard">Maryland — Howard County</option>
+          <option value="md-frederick">Maryland — Frederick County</option>
+          <option value="md-carroll">Maryland — Carroll County</option>
+          <option value="md-harford">Maryland — Harford County</option>
+          <option value="md-cecil">Maryland — Cecil County</option>
+
+          <option value="nova">Northern Virginia (NOVA)</option>
+        </select>
+      </div>
+
+      <!-- City Dropdown -->
+      <div class="travel-city-dropdown hidden">
+        <label>Select City:</label>
+        <select class="travel-city-select">
+          <option value="">Choose a city…</option>
+        </select>
+      </div>
+
+      <!-- ZIP Input -->
+      <div class="travel-zip-input">
+        <label>Or enter ZIP code:</label>
+        <input type="text" id="travel-zip" placeholder="e.g., 20001">
+      </div>
+
+    </div>
+
+
+    <!-- Champagne Toast -->
+    <div class="addon-check-row addon-champagne" data-addon="champagne-toast">
+      <div class="addon-check-top">
+        <div class="addon-check-left">
+          <div class="addon-icon">🥂</div>
+          <div>
+            <div class="addon-check-label">Champagne Toast Setup</div>
+            <div class="addon-check-desc">Select guest count range</div>
+          </div>
+        </div>
+        <div class="addon-check-price champagne-total">$0</div>
+      </div>
+
+      <div class="champagne-buttons">
+        <button class="champagne-btn" data-price="30">Up to 40 Guests</button>
+        <button class="champagne-btn" data-price="45">41–75 Guests</button>
+        <button class="champagne-btn" data-price="50">76–100 Guests</button>
+        <button class="champagne-btn clear-btn" data-price="0">Clear</button>
+      </div>
+    </div>
+
+  </div>
+</section> 
+
+
+<div class="totals-row">
+  <span>Package:</span>
+  <span class="package-total">$0</span>
+</div>
+<div class="totals-row">
+  <span>Add‑Ons:</span>
+  <span class="addons-total">$0</span>
+</div>
+<div class="totals-row grand">
+  <span>Total:</span>
+  <span class="grand-total">$0</span>
+</div>
+
+<div class="checkout-wrapper"> 
+  <div id="checkoutBar" class="checkout-bar">
+    <div class="checkout-header">The Sipsavvy Experiences</div>
+    <div class="checkout-content">
+      <span id="checkoutPackage">Package: None Selected</span>
+      <span id="checkoutAddons">Add‑Ons: $0</span>
+      <span id="checkoutTotal">Total: $0</span>
+      <a href="add-ons.html" id="checkoutContinue" class="checkout-btn">Continue →</a> 
+    </div>
+  </div>
+</div> 
+
+<script src="../scripts/travelLocations.js"></script>
+<script src="../scripts/packages.js"></script>
+
+<script 
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKkzsct1oV6maX5ED46b_BeuYEdJLeZsM&libraries=places&callback=googleMapsReady" 
+  async defer>
+</script>
+
+</body>
+</html>

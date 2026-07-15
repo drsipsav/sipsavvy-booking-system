@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SipSavvy Add‑Ons</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="../components/assets/icons/favicon.ico">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../styles/reset.css">
+  <link rel="stylesheet" href="../styles/variables.css">
+  <link rel="stylesheet" href="../styles/animations.css">
+  <link rel="stylesheet" href="../styles/buttons.css">
+  <link rel="stylesheet" href="../styles/cards.css">
+  <link rel="stylesheet" href="../styles/forms.css">
+  <link rel="stylesheet" href="../styles/global.css">
+  <link rel="stylesheet" href="../styles/header.css">
+  <link rel="stylesheet" href="../styles/packages.css">
+  <link rel="stylesheet" href="../styles/add-ons.css"> 
+
+
+      <style>
+      body.addons-page {
+      background-color: #FFF1C9; /* buttermilk */
+    }
+      </style>
+
+<!-- 
+  <style>
+    body {
+      background: linear-gradient(180deg, #3a0012 0%, #100000 100%);
+      color: #ffffff;
+      min-height: 100vh;
+    }
+    section { background: transparent !important; }
+  </style>
+
+
+  <style>
+    @media (max-width: 480px) {
+      body { font-size: 18px; }
+      h1, .addons-hero-heading { font-size: 2rem; }
+      h2, .addon-section-title { font-size: 1.6rem; }
+      p, span, .summary-row span { font-size: 1.1rem; }
+    }
+  </style> 
+-->
+
+
+  <script>
+// ⭐ HARD RESET ON ANY PAGE LOAD
+localStorage.clear();
+</script>
+</head>
+
+<body class="page-addons">
+
+<!-- HEADER -->
+<header class="site-header" id="top">
+  <div class="header-inner">
+
+    <div class="header-logo">
+      <div class="header-logo-mark">
+        <img src="../components/assets/images/logo.png" alt="SipSavvy Mobile Bartending">
+      </div>
+      <div>
+        <span class="header-logo-wordmark">SipSavvy</span>
+        <span class="header-logo-tagline">Mobile Bartending</span>
+      </div>
+    </div>
+
+    <nav aria-label="Primary">
+      <ul class="header-nav">
+        <li><a href="index.html" class="header-nav-link">Home</a></li>
+        <li><a href="services.html" class="header-nav-link">Services</a></li>
+        <li><a href="packages.html" class="header-nav-link">Packages</a></li>
+        <li><a href="gallery.html" class="header-nav-link">Gallery</a></li>
+        <li><a href="experiences.html" class="header-nav-link">Experiences</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-cta">
+      <a href="packages.html" id="backBtn" class="btn-back">← Back</a>
+      <button class="header-menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+      <a href="booking.html" class="btn-gold">Book Now →</a>
+    </div>
+
+  </div>
+</header>
+
+<!-- MOBILE NAV -->
+<nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
+  <ul class="mobile-nav-list">
+    <li><a href="index.html" class="mobile-nav-link">Home</a></li>
+    <li><a href="services.html" class="mobile-nav-link">Services</a></li>
+    <li><a href="packages.html" class="mobile-nav-link">Packages</a></li>
+    <li><a href="gallery.html" class="mobile-nav-link">Gallery</a></li>
+    <li><a href="experiences.html" class="mobile-nav-link">Experiences</a></li>
+  </ul>
+  <div class="mobile-back-wrap">
+    <a href="packages.html" id="mobileBackBtn" class="btn-back">← Back</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="addons-hero">
+  <span class="addons-hero-eyebrow">Customize Your Event</span>
+  <h1 class="addons-hero-heading">SipSavvy Add‑Ons</h1>
+  <p class="addons-hero-sub">Enhance your experience with premium additions tailored to your event.</p>
+</section>
+
+<!-- NAV CARDS -->
+<section class="addons-nav-section">
+  <div class="addons-nav-grid">
+
+    <a href="#extra-hour" class="addon-nav-card">
+      <div class="addon-nav-icon">⏱</div>
+      <h2 class="addon-nav-title">Extra Hour</h2>
+      <p class="addon-nav-desc">Extend your bar service by up to 4 additional hours.</p>
+      <span class="addon-nav-arrow">↓ View Options</span>
+    </a>
+
+    <a href="#travel-fee" class="addon-nav-card">
+      <div class="addon-nav-icon">🚗</div>
+      <h2 class="addon-nav-title">Travel Fee</h2>
+      <p class="addon-nav-desc">DC, Maryland & Northern Virginia — dynamically calculated.</p>
+      <span class="addon-nav-arrow">↓ View Areas</span>
+    </a>
+
+    <a href="#champagne-toast" class="addon-nav-card">
+      <div class="addon-nav-icon">🥂</div>
+      <h2 class="addon-nav-title">Champagne Toast Setup</h2>
+      <p class="addon-nav-desc">Elegant toast service priced by your guest count.</p>
+      <span class="addon-nav-arrow">↓ View Pricing</span>
+    </a>
+
+  </div>
+</section>
+
+<!-- EXTRA HOUR -->
+<hr class="addon-section-divider">
+<section id="extra-hour" class="addon-section">
+
+  <h2 class="addon-section-title">Extra Hour</h2>
+  <p class="addon-section-sub">Extend your bartending service — choose up to 4 additional hours.</p>
+
+  <div class="extra-hour-box">
+
+    <div class="extra-hour-hd">
+      <div class="extra-hour-hd-icon">⏱</div>
+      <div>
+        <h3>Extra Hour Add‑On</h3>
+        <p>Select the number of additional hours needed for your event.</p>
+      </div>
+    </div>
+
+    <!-- Options -->
+    <button class="hour-option" data-price="125" data-hours="1">
+      <div class="hour-radio"><div class="hour-radio-dot"></div></div>
+      <div class="hour-info">
+        <div class="hour-label">+ 1 Hour <span class="hour-badge">Most Popular</span></div>
+        <div class="hour-sub">One additional hour of bartending service</div>
+      </div>
+      <div class="hour-price">$125.00</div>
+    </button>
+
+    <button class="hour-option" data-price="250" data-hours="2">
+      <div class="hour-radio"><div class="hour-radio-dot"></div></div>
+      <div class="hour-info">
+        <div class="hour-label">+ 2 Hours</div>
+        <div class="hour-sub">Two additional hours of bartending service</div>
+      </div>
+      <div class="hour-price">$250.00</div>
+    </button>
+
+    <button class="hour-option" data-price="375" data-hours="3">
+      <div class="hour-radio"><div class="hour-radio-dot"></div></div>
+      <div class="hour-info">
+        <div class="hour-label">+ 3 Hours</div>
+        <div class="hour-sub">Three additional hours of bartending service</div>
+      </div>
+      <div class="hour-price">$375.00</div>
+    </button>
+
+    <button class="hour-option" data-price="500" data-hours="4">
+      <div class="hour-radio"><div class="hour-radio-dot"></div></div>
+      <div class="hour-info">
+        <div class="hour-label">+ 4 Hours <span class="hour-badge">Maximum</span></div>
+        <div class="hour-sub">Four additional hours of bartending service</div>
+      </div>
+      <div class="hour-price">$500.00</div>
+    </button>
+
+    <!-- Footer -->
+    <div class="addon-footer">
+      <div class="addon-footer-label">Extra Hour Sub‑Total</div>
+      <div id="hourTotal" class="addon-footer-total">No hours selected</div>
+      <button id="hourClearBtn" class="addon-footer-clear" style="display:none;">✕ Clear</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- TRAVEL FEE -->
+<hr class="addon-section-divider">
+<section id="travel-fee" class="addon-section">
+
+  <h2 class="addon-section-title">Travel Fee</h2>
+  <p class="addon-section-sub">Select your event location area. Travel fees are dynamically calculated.</p>
+
+  <div class="travel-fee-box">
+
+    <div class="travel-fee-hd">
+      <div class="travel-fee-hd-icon">🚗</div>
+      <div>
+        <h3>Travel Fee Zones</h3>
+        <p>Choose the region that best matches your event location.</p>
+      </div>
+    </div>
+
+    <!-- Travel Buttons (Dynamic Fees) -->
+    <button class="travel-area-btn" data-region="southern-md">
+      <div class="travel-radio"><div class="travel-radio-dot"></div></div>
+      <div class="travel-info">
+        <div class="travel-label">Southern Maryland</div>
+        <div class="travel-sub">Charles, Calvert, St. Mary’s</div>
+      </div>
+      <div class="travel-price">$—</div>
+    </button>
+
+    <button class="travel-area-btn" data-region="pg-county">
+      <div class="travel-radio"><div class="travel-radio-dot"></div></div>
+      <div class="travel-info">
+        <div class="travel-label">Prince George’s County</div>
+        <div class="travel-sub">All PG County cities</div>
+      </div>
+      <div class="travel-price">$—</div>
+    </button>
+
+    <button class="travel-area-btn" data-region="central-md">
+      <div class="travel-radio"><div class="travel-radio-dot"></div></div>
+      <div class="travel-info">
+        <div class="travel-label">Central Maryland</div>
+        <div class="travel-sub">Anne Arundel, Howard, Montgomery</div>
+      </div>
+      <div class="travel-price">$—</div>
+    </button>
+
+    <button class="travel-area-btn" data-region="baltimore-metro">
+      <div class="travel-radio"><div class="travel-radio-dot"></div></div>
+      <div class="travel-info">
+        <div class="travel-label">Baltimore Metro</div>
+        <div class="travel-sub">Baltimore City & County, Harford, Frederick</div>
+      </div>
+      <div class="travel-price">$—</div>
+    </button>
+
+    <button class="travel-area-btn" data-region="nova">
+      <div class="travel-radio"><div class="travel-radio-dot"></div></div>
+      <div class="travel-info">
+        <div class="travel-label">Northern Virginia</div>
+        <div class="travel-sub">Alexandria, Arlington, Fairfax</div>
+      </div>
+      <div class="travel-price">$—</div>
+    </button>
+
+    <!-- Footer -->
+    <div class="addon-footer">
+      <div class="addon-footer-label">Travel Fee Sub‑Total</div>
+      <div id="travelTotal" class="addon-footer-total">No area selected</div>
+      <button id="travelClearBtn" class="addon-footer-clear" style="display:none;">✕ Clear</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- CHAMPAGNE TOAST -->
+<hr class="addon-section-divider">
+<section id="champagne-toast" class="addon-section">
+
+  <h2 class="addon-section-title">Champagne Toast Setup</h2>
+  <p class="addon-section-sub">Add an elegant champagne toast service for your guests.</p>
+
+  <div class="champagne-box">
+
+    <div class="champagne-hd">
+      <div class="champagne-hd-icon">🥂</div>
+      <div>
+        <h3>Champagne Toast Add‑On</h3>
+        <p>Select the guest range that matches your event.</p>
+      </div>
+    </div>
+
+    <!-- Options -->
+    <button class="toast-option" data-price="40">
+      <div class="toast-radio"><div class="toast-radio-dot"></div></div>
+      <div class="toast-info">
+        <div class="toast-label">Up to 25 Guests</div>
+        <div class="toast-sub">Includes setup, glassware, and service</div>
+      </div>
+      <div class="toast-price">$40.00</div>
+    </button>
+
+    <button class="toast-option" data-price="80">
+      <div class="toast-radio"><div class="toast-radio-dot"></div></div>
+      <div class="toast-info">
+        <div class="toast-label">26 – 50 Guests</div>
+        <div class="toast-sub">Includes setup, glassware, and service</div>
+      </div>
+      <div class="toast-price">$80.00</div>
+    </button>
+
+    <button class="toast-option" data-price="120">
+      <div class="toast-radio"><div class="toast-radio-dot"></div></div>
+      <div class="toast-info">
+        <div class="toast-label">51 – 75 Guests</div>
+        <div class="toast-sub">Includes setup, glassware, and service</div>
+      </div>
+      <div class="toast-price">$120.00</div>
+    </button>
+
+    <button class="toast-option" data-price="160">
+      <div class="toast-radio"><div class="toast-radio-dot"></div></div>
+      <div class="toast-info">
+        <div class="toast-label">76 – 100 Guests</div>
+        <div class="toast-sub">Includes setup, glassware, and service</div>
+      </div>
+      <div class="toast-price">$160.00</div>
+    </button>
+
+    <button class="toast-option" data-price="200">
+      <div class="toast-radio"><div class="toast-radio-dot"></div></div>
+      <div class="toast-info">
+        <div class="toast-label">101 – 150 Guests</div>
+        <div class="toast-sub">Includes setup, glassware, and service</div>
+      </div>
+      <div class="toast-price">$200.00</div>
+    </button>
+
+    <!-- Footer -->
+    <div class="addon-footer">
+      <div class="addon-footer-label">Champagne Toast Sub‑Total</div>
+      <div id="toastTotal" class="addon-footer-total">No tier selected</div>
+      <button id="toastClearBtn" class="addon-footer-clear" style="display:none;">✕ Clear</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- SUMMARY -->
+<section class="addons-summary-final winegold-box">
+
+  <h2 class="addons-summary-title">Add‑Ons Summary</h2>
+
+  <div class="addons-summary-grid">
+
+    <div class="summary-row">
+      <span>Package:</span>
+      <span id="summaryPackage">$0</span>
+    </div>
+
+    <div class="summary-row">
+      <span>Extra Hour:</span>
+      <span id="summaryExtraHour">$0</span>
+    </div>
+
+    <div class="summary-row">
+      <span>Travel Fee:</span>
+      <span id="summaryTravelFee">$0</span>
+    </div>
+
+    <div class="summary-row">
+      <span>Champagne Toast:</span>
+      <span id="summaryToast">$0</span>
+    </div>
+
+    <div class="summary-row">
+      <span>Other Add‑Ons:</span>
+      <span id="summaryOtherAddons">$0</span>
+    </div>
+
+    <hr class="summary-divider">
+
+    <div class="summary-row total-row">
+      <span>Add‑Ons Total:</span>
+      <span id="summaryAddonsTotal">$0</span>
+    </div>
+
+    <div class="summary-row grand-row">
+      <span>Grand Total:</span>
+      <span id="summaryGrandTotal">$0</span>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p>© 2026 SipSavvy Mobile Bartending. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- SCRIPTS (Correct Order) -->
+<!-- DATASET -->
+<script src="../scripts/travelLocationsMiles.js?v=2"></script>
+
+<!-- TRAVEL UI + TRAVEL FEE -->
+<script src="../scripts/location.js?v=2"></script>
+<script src="../scripts/travelFee.js"></script>
+
+<!-- GLOBAL TOTALS ENGINE -->
+<script src="../scripts/totals.js"></script>
+<script src="../scripts/updateTotals.js"></script>
+
+<!-- ADD-ONS ENGINE -->
+<script src="../scripts/addons.js"></script>
+
+<!-- ADDONS PAGE UI -->
+<script src="../scripts/addons-page.js"></script>
+
+
+<!-- ADD THIS HERE -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  if (typeof updateSummary === "function") updateSummary();
+  if (typeof updateFooterTotals === "function") updateFooterTotals();
+});
+</script>
+
+</body>
+</html>
+
+</body>
+</html>

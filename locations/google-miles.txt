@@ -1,0 +1,1175 @@
+PS C:\Users\lara\sipsavvy-LIVE> node tools/generateDistances.js
+✔ Waldorf, Charles County, MD → 1.8 miles
+✔ La Plata, Charles County, MD → 11.4 miles
+✔ Hughesville, Charles County, MD → 9.5 miles
+✔ Bryans Road, Charles County, MD → 12.6 miles
+✔ Indian Head, Charles County, MD → 18.8 miles
+✔ Bel Alton, Charles County, MD → 16.6 miles
+✔ Benedict, Charles County, MD → 16.2 miles
+✔ Brandywine, Charles County, MD → 12.2 miles
+✔ Charlotte Hall, Charles County, MD → 13.4 miles
+✔ Faulkner, Charles County, MD → 19.4 miles
+✔ Ironsides, Charles County, MD → 23.1 miles
+✔ Issue, Charles County, MD → 32.1 miles
+✔ Marbury, Charles County, MD → 19 miles
+✔ Mount Victoria, Charles County, MD → 26.8 miles
+✔ Nanjemoy, Charles County, MD → 27 miles
+✔ Port Tobacco, Charles County, MD → 14.4 miles
+✔ Rison, Charles County, MD → 21.2 miles
+✔ Welcome, Charles County, MD → 19.3 miles
+✔ Lexington Park, St. Mary's County, MD → 37.8 miles
+✔ California, St. Mary's County, MD → 33.3 miles
+✔ Leonardtown, St. Mary's County, MD → 30.5 miles
+✔ Mechanicsville, St. Mary's County, MD → 16.7 miles
+✔ Charlotte Hall, St. Mary's County, MD → 13.4 miles
+✔ Hollywood, St. Mary's County, MD → 16.7 miles
+✔ Great Mills, St. Mary's County, MD → 37.9 miles
+✔ Piney Point, St. Mary's County, MD → 45.5 miles
+✔ Callaway, St. Mary's County, MD → 38.3 miles
+✔ Loveville, St. Mary's County, MD → 24.2 miles
+✔ Morganza, St. Mary's County, MD → 23 miles
+✔ Ridge, St. Mary's County, MD → 48.8 miles
+✔ Prince Frederick, Calvert County, MD → 22.4 miles
+✔ Huntingtown, Calvert County, MD → 27.9 miles
+✔ Dunkirk, Calvert County, MD → 27.7 miles
+✔ Owings, Calvert County, MD → 28.7 miles
+✔ Chesapeake Beach, Calvert County, MD → 32.9 miles
+✔ North Beach, Calvert County, MD → 33.9 miles
+✔ Lusby, Calvert County, MD → 38.9 miles
+✔ Solomons, Calvert County, MD → 37.4 miles
+✔ Bowie, Prince George's County, MD → 27.5 miles
+✔ Upper Marlboro, Prince George's County, MD → 17.9 miles
+✔ Clinton, Prince George's County, MD → 12.7 miles
+✔ Fort Washington, Prince George's County, MD → 14.8 miles
+✔ Oxon Hill, Prince George's County, MD → 21 miles
+✔ Temple Hills, Prince George's County, MD → 18.1 miles
+✔ District Heights, Prince George's County, MD → 21.6 miles
+✔ Suitland, Prince George's County, MD → 19.3 miles
+✔ Capitol Heights, Prince George's County, MD → 22.5 miles
+✔ Hyattsville, Prince George's County, MD → 33.6 miles
+✔ College Park, Prince George's County, MD → 35.8 miles
+✔ Greenbelt, Prince George's County, MD → 32.5 miles
+✔ Lanham, Prince George's County, MD → 29.3 miles
+✔ Laurel, Prince George's County, MD → 39.2 miles
+✔ Riverdale, Prince George's County, MD → 34.6 miles
+✔ Bladensburg, Prince George's County, MD → 31.7 miles
+✔ Mount Rainier, Prince George's County, MD → 34.6 miles
+✔ Brentwood, Prince George's County, MD → 33.5 miles
+✔ Glenn Dale, Prince George's County, MD → 32.5 miles
+✔ Bethesda, Montgomery County, MD → 44.5 miles
+✔ Chevy Chase, Montgomery County, MD → 42.9 miles
+✔ Potomac, Montgomery County, MD → 51.7 miles
+✔ Rockville, Montgomery County, MD → 50.4 miles
+✔ Gaithersburg, Montgomery County, MD → 55.8 miles
+✔ Germantown, Montgomery County, MD → 60.5 miles
+✔ Olney, Montgomery County, MD → 52.5 miles
+✔ Brookeville, Montgomery County, MD → 54.1 miles
+✔ Derwood, Montgomery County, MD → 53.9 miles
+✔ Cabin John, Montgomery County, MD → 47.7 miles
+✔ Annapolis, Anne Arundel County, MD → 41.3 miles
+✔ Glen Burnie, Anne Arundel County, MD → 45.7 miles
+✔ Hanover, Anne Arundel County, MD → 48.4 miles
+✔ Odenton, Anne Arundel County, MD → 38.7 miles
+✔ Severn, Anne Arundel County, MD → 46.9 miles
+✔ Severna Park, Anne Arundel County, MD → 46.3 miles
+✔ Pasadena, Anne Arundel County, MD → 61.1 miles
+✔ Crownsville, Anne Arundel County, MD → 42.5 miles
+✔ Arnold, Anne Arundel County, MD → 42.9 miles
+✔ Gambrills, Anne Arundel County, MD → 39.7 miles
+✔ Columbia, Howard County, MD → 49.3 miles
+✔ Ellicott City, Howard County, MD → 55.9 miles
+✔ Laurel, Howard County, MD → 62.1 miles
+✔ Clarksville, Howard County, MD → 54.8 miles
+✔ Dayton, Howard County, MD → 56 miles
+✔ Elkridge, Howard County, MD → 48.6 miles
+✔ Fulton, Howard County, MD → 50.5 miles
+✔ Glenelg, Howard County, MD → 59 miles
+✔ Glenwood, Howard County, MD → 61.2 miles
+✔ Highland, Howard County, MD → 50.5 miles
+✔ Jessup, Howard County, MD → 44.5 miles
+✔ Marriottsville, Howard County, MD → 65 miles
+✔ Savage, Howard County, MD → 44.7 miles
+✔ West Friendship, Howard County, MD → 61.1 miles
+✔ Woodstock, Howard County, MD → 62.4 miles
+✔ Frederick, Frederick County, MD → 78.3 miles
+✔ Urbana, Frederick County, MD → 70.8 miles
+✔ Middletown, Frederick County, MD → 84 miles
+✔ Walkersville, Frederick County, MD → 85.6 miles
+✔ New Market, Frederick County, MD → 80.4 miles
+✔ Thurmont, Frederick County, MD → 94.2 miles
+✔ Brunswick, Frederick County, MD → 90.4 miles
+✔ Baltimore, Baltimore City, MD → 57.1 miles
+✔ Towson, Baltimore County, MD → 73.5 miles
+✔ Catonsville, Baltimore County, MD → 54.7 miles
+✔ Dundalk, Baltimore County, MD → 61.6 miles
+✔ Essex, Baltimore County, MD → 64.9 miles
+✔ Middle River, Baltimore County, MD → 68.6 miles
+✔ Parkville, Baltimore County, MD → 69.6 miles
+✔ Pikesville, Baltimore County, MD → 66.9 miles
+✔ Owings Mills, Baltimore County, MD → 68.7 miles
+✔ Reisterstown, Baltimore County, MD → 73.4 miles
+✔ Lutherville Timonium, Baltimore County, MD → 74.8 miles
+✔ Cockeysville, Baltimore County, MD → 76.6 miles
+✔ Halethorpe, Baltimore County, MD → 52.1 miles
+✔ Rosedale, Baltimore County, MD → 63.8 miles
+✔ Nottingham, Baltimore County, MD → 70.3 miles
+✔ Sparrows Point, Baltimore County, MD → 68.7 miles
+✔ Gwynn Oak, Baltimore County, MD → 64.9 miles
+✔ Westminster, Carroll County, MD → 85.1 miles
+✔ Eldersburg, Carroll County, MD → 69 miles
+✔ Sykesville, Carroll County, MD → 66.4 miles
+✔ Mount Airy, Carroll County, MD → 75.1 miles
+✔ Taneytown, Carroll County, MD → 96.3 miles
+✔ Hampstead, Carroll County, MD → 82.5 miles
+✔ Manchester, Carroll County, MD → 87.4 miles
+✔ New Windsor, Carroll County, MD → 84.5 miles
+✔ Bel Air, Harford County, MD → 84.4 miles
+✔ Aberdeen, Harford County, MD → 88.4 miles
+✔ Havre de Grace, Harford County, MD → 93.5 miles
+✔ Edgewood, Harford County, MD → 80.9 miles
+✔ Joppa, Harford County, MD → 77 miles
+✔ Fallston, Harford County, MD → 81.7 miles
+✔ Forest Hill, Harford County, MD → 87.5 miles
+✔ Elkton, Cecil County, MD → 109 miles
+✔ North East, Cecil County, MD → 104 miles
+✔ Perryville, Cecil County, MD → 95.4 miles
+✔ Rising Sun, Cecil County, MD → 103 miles
+✔ Chesapeake City, Cecil County, MD → 115 miles
+✔ Alexandria City, Alexandria, MD → 25.1 miles
+✔ Arlington, Arlington County, MD → 36.9 miles
+✔ Rosslyn, Arlington County, MD → 29.1 miles
+✔ Crystal City, Arlington County, MD → 27.9 miles
+✔ Pentagon City, Arlington County, MD → 27.9 miles
+✔ Ballston, Arlington County, MD → 30.7 miles
+✔ Clarendon, Arlington County, MD → 30.4 miles
+✔ Fairfax, Fairfax County, MD → 38.6 miles
+✔ McLean, Fairfax County, MD → 44 miles
+✔ Reston, Fairfax County, MD → 51.2 miles
+✔ Herndon, Fairfax County, MD → 53.4 miles
+✔ Vienna, Fairfax County, MD → 43.5 miles
+✔ Annandale, Fairfax County, MD → 36.4 miles
+✔ Burke, Fairfax County, MD → 37.6 miles
+✔ Springfield, Fairfax County, MD → 32.9 miles
+✔ Falls Church, Fairfax County, MD → 36.9 miles
+✔ Lorton, Fairfax County, MD → 37.8 miles
+✔ Centreville, Fairfax County, MD → 52.1 miles
+✔ Chantilly, Fairfax County, MD → 54.9 miles
+✔ Ashburn, Loudoun County, MD → 63.8 miles
+✔ Leesburg, Loudoun County, MD → 69.1 miles
+✔ Sterling, Loudoun County, MD → 58 miles
+✔ Aldie, Loudoun County, MD → 67.9 miles
+✔ Purcellville, Loudoun County, MD → 79.3 miles
+✔ Woodbridge, Prince William County, MD → 41.2 miles
+✔ Dumfries, Prince William County, MD → 50.4 miles
+✔ Manassas, Prince William County, MD → 58.5 miles
+✔ Gainesville, Prince William County, MD → 63.6 miles
+✔ Haymarket, Prince William County, MD → 65.1 miles
+✔ Adams Morgan, Northwest (NW), MD → 28.4 miles
+✔ American University Park, Northwest (NW), MD → 36.9 miles
+✔ Brightwood, Northwest (NW), MD → 36.9 miles
+✔ Burleith, Northwest (NW), MD → 36.9 miles
+✔ Cathedral Heights, Northwest (NW), MD → 31 miles
+✔ Chevy Chase, Northwest (NW), MD → 42.9 miles
+✔ Cleveland Park, Northwest (NW), MD → 30.7 miles
+✔ Columbia Heights, Northwest (NW), MD → 36.9 miles
+✔ Downtown, Northwest (NW), MD → 57 miles
+✔ Dupont Circle, Northwest (NW), MD → 36.9 miles
+✔ Foggy Bottom, Northwest (NW), MD → 27.5 miles
+✔ Friendship Heights, Northwest (NW), MD → 46 miles
+✔ Georgetown, Northwest (NW), MD → 30.5 miles
+✔ Glover Park, Northwest (NW), MD → 31.7 miles
+✔ Logan Circle, Northwest (NW), MD → 36.9 miles
+✔ Petworth, Northwest (NW), MD → 30.3 miles
+✔ Shaw, Northwest (NW), MD → 36.9 miles
+✔ Tenleytown, Northwest (NW), MD → 33.9 miles
+✔ U Street Corridor, Northwest (NW), MD → 27.1 miles
+✔ West End, Northwest (NW), MD → 36.9 miles
+✔ Woodley Park, Northwest (NW), MD → 29.2 miles
+✔ Brookland, Northeast (NE), MD → 1 miles
+✔ Brentwood, Northeast (NE), MD → 33.5 miles
+✔ Capitol Hill (NE), Northeast (NE), MD → 1 miles
+✔ Catholic University, Northeast (NE), MD → 1 miles
+✔ Deanwood, Northeast (NE), MD → 1 miles
+✔ Eckington, Northeast (NE), MD → 1 miles
+✔ Fort Totten, Northeast (NE), MD → 104 miles
+✔ Gallaudet University, Northeast (NE), MD → 104 miles
+✔ H Street Corridor, Northeast (NE), MD → 1 miles
+✔ Ivy City, Northeast (NE), MD → 104 miles
+✔ Langdon, Northeast (NE), MD → 1 miles
+✔ Lamond Riggs, Northeast (NE), MD → 36.7 miles
+✔ Marshall Heights, Northeast (NE), MD → 22.3 miles
+✔ Michigan Park, Northeast (NE), MD → 754 miles
+✔ National Arboretum, Northeast (NE), MD → 104 miles
+✔ Near Northeast, Northeast (NE), MD → 36.9 miles
+✔ NoMa, Northeast (NE), MD → 104 miles
+✔ Riggs Park, Northeast (NE), MD → 104 miles
+✔ Takoma, Northeast (NE), MD → 1 miles
+✔ Trinidad, Northeast (NE), MD → 1 miles
+✔ Union Market, Northeast (NE), MD → 104 miles
+✔ Union Station, Northeast (NE), MD → 1 miles
+✔ Woodridge, Northeast (NE), MD → 1 miles
+✔ Anacostia, Southeast (SE), MD → 21.5 miles
+✔ Barracks Row, Southeast (SE), MD → 36.9 miles
+✔ Bellevue, Southeast (SE), MD → 88.4 miles
+✔ Capitol Hill (SE), Southeast (SE), MD → 2 miles
+✔ Congress Heights, Southeast (SE), MD → 23.9 miles
+✔ Dupont Park, Southeast (SE), MD → 36.9 miles
+✔ Fairlawn, Southeast (SE), MD → 36.9 miles
+✔ Fort Dupont, Southeast (SE), MD → 21 miles
+✔ Garfield Heights, Southeast (SE), MD → 36.9 miles
+✔ Hillcrest, Southeast (SE), MD → 55.8 miles
+✔ Navy Yard, Southeast (SE), MD → 36.9 miles
+✔ Penn Branch, Southeast (SE), MD → 36.9 miles
+✔ Randle Highlands, Southeast (SE), MD → 20.7 miles
+✔ Shipley Terrace, Southeast (SE), MD → 20 miles
+✔ Southwest Waterfront (SE), Southeast (SE), MD → 36.9 miles
+✔ Twining, Southeast (SE), MD → 20.6 miles
+✔ Washington Highlands, Southeast (SE), MD → 22.1 miles
+✔ Arena Stage, Southwest (SW), MD → 36.9 miles
+✔ Buzzard Point, Southwest (SW), MD → 23.1 miles
+✔ Fort McNair, Southwest (SW), MD → 23.3 miles
+✔ L’Enfant Plaza, Southwest (SW), MD → 36.9 miles
+✔ National Mall, Southwest (SW), MD → 36.9 miles
+✔ Southwest Federal Center, Southwest (SW), MD → 36.9 miles
+✔ The Wharf, Southwest (SW), MD → 36.9 miles
+
+
+window.TRAVEL_LOCATIONS_WITH_MILES =
+{
+  "southern-maryland": {
+    "Waldorf": {
+      "county": "Charles County",
+      "miles": 1.8
+    },
+    "La Plata": {
+      "county": "Charles County",
+      "miles": 11.4
+    },
+    "Hughesville": {
+      "county": "Charles County",
+      "miles": 9.5
+    },
+    "Bryans Road": {
+      "county": "Charles County",
+      "miles": 12.6
+    },
+    "Indian Head": {
+      "county": "Charles County",
+      "miles": 18.8
+    },
+    "Bel Alton": {
+      "county": "Charles County",
+      "miles": 16.6
+    },
+    "Benedict": {
+      "county": "Charles County",
+      "miles": 16.2
+    },
+    "Brandywine": {
+      "county": "Charles County",
+      "miles": 12.2
+    },
+    "Charlotte Hall": {
+      "county": "St. Mary's County",
+      "miles": 13.4
+    },
+    "Faulkner": {
+      "county": "Charles County",
+      "miles": 19.4
+    },
+    "Ironsides": {
+      "county": "Charles County",
+      "miles": 23.1
+    },
+    "Issue": {
+      "county": "Charles County",
+      "miles": 32.1
+    },
+    "Marbury": {
+      "county": "Charles County",
+      "miles": 19
+    },
+    "Mount Victoria": {
+      "county": "Charles County",
+      "miles": 26.8
+    },
+    "Nanjemoy": {
+      "county": "Charles County",
+      "miles": 27
+    },
+    "Port Tobacco": {
+      "county": "Charles County",
+      "miles": 14.4
+    },
+    "Rison": {
+      "county": "Charles County",
+      "miles": 21.2
+    },
+    "Welcome": {
+      "county": "Charles County",
+      "miles": 19.3
+    },
+    "Lexington Park": {
+      "county": "St. Mary's County",
+      "miles": 37.8
+    },
+    "California": {
+      "county": "St. Mary's County",
+      "miles": 33.3
+    },
+    "Leonardtown": {
+      "county": "St. Mary's County",
+      "miles": 30.5
+    },
+    "Mechanicsville": {
+      "county": "St. Mary's County",
+      "miles": 16.7
+    },
+    "Hollywood": {
+      "county": "St. Mary's County",
+      "miles": 16.7
+    },
+    "Great Mills": {
+      "county": "St. Mary's County",
+      "miles": 37.9
+    },
+    "Piney Point": {
+      "county": "St. Mary's County",
+      "miles": 45.5
+    },
+    "Callaway": {
+      "county": "St. Mary's County",
+      "miles": 38.3
+    },
+    "Loveville": {
+      "county": "St. Mary's County",
+      "miles": 24.2
+    },
+    "Morganza": {
+      "county": "St. Mary's County",
+      "miles": 23
+    },
+    "Ridge": {
+      "county": "St. Mary's County",
+      "miles": 48.8
+    },
+    "Prince Frederick": {
+      "county": "Calvert County",
+      "miles": 22.4
+    },
+    "Huntingtown": {
+      "county": "Calvert County",
+      "miles": 27.9
+    },
+    "Dunkirk": {
+      "county": "Calvert County",
+      "miles": 27.7
+    },
+    "Owings": {
+      "county": "Calvert County",
+      "miles": 28.7
+    },
+    "Chesapeake Beach": {
+      "county": "Calvert County",
+      "miles": 32.9
+    },
+    "North Beach": {
+      "county": "Calvert County",
+      "miles": 33.9
+    },
+    "Lusby": {
+      "county": "Calvert County",
+      "miles": 38.9
+    },
+    "Solomons": {
+      "county": "Calvert County",
+      "miles": 37.4
+    }
+  },
+  "central-maryland": {
+    "Bowie": {
+      "county": "Prince George's County",
+      "miles": 27.5
+    },
+    "Upper Marlboro": {
+      "county": "Prince George's County",
+      "miles": 17.9
+    },
+    "Clinton": {
+      "county": "Prince George's County",
+      "miles": 12.7
+    },
+    "Fort Washington": {
+      "county": "Prince George's County",
+      "miles": 14.8
+    },
+    "Oxon Hill": {
+      "county": "Prince George's County",
+      "miles": 21
+    },
+    "Temple Hills": {
+      "county": "Prince George's County",
+      "miles": 18.1
+    },
+    "District Heights": {
+      "county": "Prince George's County",
+      "miles": 21.6
+    },
+    "Suitland": {
+      "county": "Prince George's County",
+      "miles": 19.3
+    },
+    "Capitol Heights": {
+      "county": "Prince George's County",
+      "miles": 22.5
+    },
+    "Hyattsville": {
+      "county": "Prince George's County",
+      "miles": 33.6
+    },
+    "College Park": {
+      "county": "Prince George's County",
+      "miles": 35.8
+    },
+    "Greenbelt": {
+      "county": "Prince George's County",
+      "miles": 32.5
+    },
+    "Lanham": {
+      "county": "Prince George's County",
+      "miles": 29.3
+    },
+    "Laurel": {
+      "county": "Howard County",
+      "miles": 62.1
+    },
+    "Riverdale": {
+      "county": "Prince George's County",
+      "miles": 34.6
+    },
+    "Bladensburg": {
+      "county": "Prince George's County",
+      "miles": 31.7
+    },
+    "Mount Rainier": {
+      "county": "Prince George's County",
+      "miles": 34.6
+    },
+    "Brentwood": {
+      "county": "Prince George's County",
+      "miles": 33.5
+    },
+    "Glenn Dale": {
+      "county": "Prince George's County",
+      "miles": 32.5
+    },
+    "Bethesda": {
+      "county": "Montgomery County",
+      "miles": 44.5
+    },
+    "Chevy Chase": {
+      "county": "Montgomery County",
+      "miles": 42.9
+    },
+    "Potomac": {
+      "county": "Montgomery County",
+      "miles": 51.7
+    },
+    "Rockville": {
+      "county": "Montgomery County",
+      "miles": 50.4
+    },
+    "Gaithersburg": {
+      "county": "Montgomery County",
+      "miles": 55.8
+    },
+    "Germantown": {
+      "county": "Montgomery County",
+      "miles": 60.5
+    },
+    "Olney": {
+      "county": "Montgomery County",
+      "miles": 52.5
+    },
+    "Brookeville": {
+      "county": "Montgomery County",
+      "miles": 54.1
+    },
+    "Derwood": {
+      "county": "Montgomery County",
+      "miles": 53.9
+    },
+    "Cabin John": {
+      "county": "Montgomery County",
+      "miles": 47.7
+    },
+    "Annapolis": {
+      "county": "Anne Arundel County",
+      "miles": 41.3
+    },
+    "Glen Burnie": {
+      "county": "Anne Arundel County",
+      "miles": 45.7
+    },
+    "Hanover": {
+      "county": "Anne Arundel County",
+      "miles": 48.4
+    },
+    "Odenton": {
+      "county": "Anne Arundel County",
+      "miles": 38.7
+    },
+    "Severn": {
+      "county": "Anne Arundel County",
+      "miles": 46.9
+    },
+    "Severna Park": {
+      "county": "Anne Arundel County",
+      "miles": 46.3
+    },
+    "Pasadena": {
+      "county": "Anne Arundel County",
+      "miles": 61.1
+    },
+    "Crownsville": {
+      "county": "Anne Arundel County",
+      "miles": 42.5
+    },
+    "Arnold": {
+      "county": "Anne Arundel County",
+      "miles": 42.9
+    },
+    "Gambrills": {
+      "county": "Anne Arundel County",
+      "miles": 39.7
+    },
+    "Columbia": {
+      "county": "Howard County",
+      "miles": 49.3
+    },
+    "Ellicott City": {
+      "county": "Howard County",
+      "miles": 55.9
+    },
+    "Clarksville": {
+      "county": "Howard County",
+      "miles": 54.8
+    },
+    "Dayton": {
+      "county": "Howard County",
+      "miles": 56
+    },
+    "Elkridge": {
+      "county": "Howard County",
+      "miles": 48.6
+    },
+    "Fulton": {
+      "county": "Howard County",
+      "miles": 50.5
+    },
+    "Glenelg": {
+      "county": "Howard County",
+      "miles": 59
+    },
+    "Glenwood": {
+      "county": "Howard County",
+      "miles": 61.2
+    },
+    "Highland": {
+      "county": "Howard County",
+      "miles": 50.5
+    },
+    "Jessup": {
+      "county": "Howard County",
+      "miles": 44.5
+    },
+    "Marriottsville": {
+      "county": "Howard County",
+      "miles": 65
+    },
+    "Savage": {
+      "county": "Howard County",
+      "miles": 44.7
+    },
+    "West Friendship": {
+      "county": "Howard County",
+      "miles": 61.1
+    },
+    "Woodstock": {
+      "county": "Howard County",
+      "miles": 62.4
+    },
+    "Frederick": {
+      "county": "Frederick County",
+      "miles": 78.3
+    },
+    "Urbana": {
+      "county": "Frederick County",
+      "miles": 70.8
+    },
+    "Middletown": {
+      "county": "Frederick County",
+      "miles": 84
+    },
+    "Walkersville": {
+      "county": "Frederick County",
+      "miles": 85.6
+    },
+    "New Market": {
+      "county": "Frederick County",
+      "miles": 80.4
+    },
+    "Thurmont": {
+      "county": "Frederick County",
+      "miles": 94.2
+    },
+    "Brunswick": {
+      "county": "Frederick County",
+      "miles": 90.4
+    }
+  },
+  "baltimore-metro": {
+    "Baltimore": {
+      "county": "Baltimore City",
+      "miles": 57.1
+    },
+    "Towson": {
+      "county": "Baltimore County",
+      "miles": 73.5
+    },
+    "Catonsville": {
+      "county": "Baltimore County",
+      "miles": 54.7
+    },
+    "Dundalk": {
+      "county": "Baltimore County",
+      "miles": 61.6
+    },
+    "Essex": {
+      "county": "Baltimore County",
+      "miles": 64.9
+    },
+    "Middle River": {
+      "county": "Baltimore County",
+      "miles": 68.6
+    },
+    "Parkville": {
+      "county": "Baltimore County",
+      "miles": 69.6
+    },
+    "Pikesville": {
+      "county": "Baltimore County",
+      "miles": 66.9
+    },
+    "Owings Mills": {
+      "county": "Baltimore County",
+      "miles": 68.7
+    },
+    "Reisterstown": {
+      "county": "Baltimore County",
+      "miles": 73.4
+    },
+    "Lutherville Timonium": {
+      "county": "Baltimore County",
+      "miles": 74.8
+    },
+    "Cockeysville": {
+      "county": "Baltimore County",
+      "miles": 76.6
+    },
+    "Halethorpe": {
+      "county": "Baltimore County",
+      "miles": 52.1
+    },
+    "Rosedale": {
+      "county": "Baltimore County",
+      "miles": 63.8
+    },
+    "Nottingham": {
+      "county": "Baltimore County",
+      "miles": 70.3
+    },
+    "Sparrows Point": {
+      "county": "Baltimore County",
+      "miles": 68.7
+    },
+    "Gwynn Oak": {
+      "county": "Baltimore County",
+      "miles": 64.9
+    },
+    "Westminster": {
+      "county": "Carroll County",
+      "miles": 85.1
+    },
+    "Eldersburg": {
+      "county": "Carroll County",
+      "miles": 69
+    },
+    "Sykesville": {
+      "county": "Carroll County",
+      "miles": 66.4
+    },
+    "Mount Airy": {
+      "county": "Carroll County",
+      "miles": 75.1
+    },
+    "Taneytown": {
+      "county": "Carroll County",
+      "miles": 96.3
+    },
+    "Hampstead": {
+      "county": "Carroll County",
+      "miles": 82.5
+    },
+    "Manchester": {
+      "county": "Carroll County",
+      "miles": 87.4
+    },
+    "New Windsor": {
+      "county": "Carroll County",
+      "miles": 84.5
+    }
+  },
+  "upper-chesapeake": {
+    "Bel Air": {
+      "county": "Harford County",
+      "miles": 84.4
+    },
+    "Aberdeen": {
+      "county": "Harford County",
+      "miles": 88.4
+    },
+    "Havre de Grace": {
+      "county": "Harford County",
+      "miles": 93.5
+    },
+    "Edgewood": {
+      "county": "Harford County",
+      "miles": 80.9
+    },
+    "Joppa": {
+      "county": "Harford County",
+      "miles": 77
+    },
+    "Fallston": {
+      "county": "Harford County",
+      "miles": 81.7
+    },
+    "Forest Hill": {
+      "county": "Harford County",
+      "miles": 87.5
+    },
+    "Elkton": {
+      "county": "Cecil County",
+      "miles": 109
+    },
+    "North East": {
+      "county": "Cecil County",
+      "miles": 104
+    },
+    "Perryville": {
+      "county": "Cecil County",
+      "miles": 95.4
+    },
+    "Rising Sun": {
+      "county": "Cecil County",
+      "miles": 103
+    },
+    "Chesapeake City": {
+      "county": "Cecil County",
+      "miles": 115
+    }
+  },
+  "northern-virginia": {
+    "Alexandria City": {
+      "county": "Alexandria",
+      "miles": 25.1
+    },
+    "Arlington": {
+      "county": "Arlington County",
+      "miles": 36.9
+    },
+    "Rosslyn": {
+      "county": "Arlington County",
+      "miles": 29.1
+    },
+    "Crystal City": {
+      "county": "Arlington County",
+      "miles": 27.9
+    },
+    "Pentagon City": {
+      "county": "Arlington County",
+      "miles": 27.9
+    },
+    "Ballston": {
+      "county": "Arlington County",
+      "miles": 30.7
+    },
+    "Clarendon": {
+      "county": "Arlington County",
+      "miles": 30.4
+    },
+    "Fairfax": {
+      "county": "Fairfax County",
+      "miles": 38.6
+    },
+    "McLean": {
+      "county": "Fairfax County",
+      "miles": 44
+    },
+    "Reston": {
+      "county": "Fairfax County",
+      "miles": 51.2
+    },
+    "Herndon": {
+      "county": "Fairfax County",
+      "miles": 53.4
+    },
+    "Vienna": {
+      "county": "Fairfax County",
+      "miles": 43.5
+    },
+    "Annandale": {
+      "county": "Fairfax County",
+      "miles": 36.4
+    },
+    "Burke": {
+      "county": "Fairfax County",
+      "miles": 37.6
+    },
+    "Springfield": {
+      "county": "Fairfax County",
+      "miles": 32.9
+    },
+    "Falls Church": {
+      "county": "Fairfax County",
+      "miles": 36.9
+    },
+    "Lorton": {
+      "county": "Fairfax County",
+      "miles": 37.8
+    },
+    "Centreville": {
+      "county": "Fairfax County",
+      "miles": 52.1
+    },
+    "Chantilly": {
+      "county": "Fairfax County",
+      "miles": 54.9
+    },
+    "Ashburn": {
+      "county": "Loudoun County",
+      "miles": 63.8
+    },
+    "Leesburg": {
+      "county": "Loudoun County",
+      "miles": 69.1
+    },
+    "Sterling": {
+      "county": "Loudoun County",
+      "miles": 58
+    },
+    "Aldie": {
+      "county": "Loudoun County",
+      "miles": 67.9
+    },
+    "Purcellville": {
+      "county": "Loudoun County",
+      "miles": 79.3
+    },
+    "Woodbridge": {
+      "county": "Prince William County",
+      "miles": 41.2
+    },
+    "Dumfries": {
+      "county": "Prince William County",
+      "miles": 50.4
+    },
+    "Manassas": {
+      "county": "Prince William County",
+      "miles": 58.5
+    },
+    "Gainesville": {
+      "county": "Prince William County",
+      "miles": 63.6
+    },
+    "Haymarket": {
+      "county": "Prince William County",
+      "miles": 65.1
+    }
+  },
+  "washington-dc": {
+    "Adams Morgan": {
+      "county": "Northwest (NW)",
+      "miles": 28.4
+    },
+    "American University Park": {
+      "county": "Northwest (NW)",
+      "miles": 36.9
+    },
+    "Brightwood": {
+      "county": "Northwest (NW)",
+      "miles": 36.9
+    },
+    "Burleith": {
+      "county": "Northwest (NW)",
+      "miles": 36.9
+    },
+    "Cathedral Heights": {
+      "county": "Northwest (NW)",
+      "miles": 31
+    },
+    "Chevy Chase": {
+      "county": "Northwest (NW)",
+      "miles": 42.9
+    },
+    "Cleveland Park": {
+      "county": "Northwest (NW)",
+      "miles": 30.7
+    },
+    "Columbia Heights": {
+      "county": "Northwest (NW)",
+      "miles": 36.9
+    },
+    "Downtown": {
+      "county": "Northwest (NW)",
+      "miles": 57
+    },
+    "Dupont Circle": {
+      "county": "Northwest (NW)",
+      "miles": 36.9
+    },
+    "Foggy Bottom": {
+      "county": "Northwest (NW)",
+      "miles": 27.5
+    },
+    "Friendship Heights": {
+      "county": "Northwest (NW)",
+      "miles": 46
+    },
+    "Georgetown": {
+      "county": "Northwest (NW)",
+      "miles": 30.5
+    },
+    "Glover Park": {
+      "county": "Northwest (NW)",
+      "miles": 31.7
+    },
+    "Logan Circle": {
+      "county": "Northwest (NW)",
+      "miles": 36.9
+    },
+    "Petworth": {
+      "county": "Northwest (NW)",
+      "miles": 30.3
+    },
+    "Shaw": {
+      "county": "Northwest (NW)",
+      "miles": 36.9
+    },
+    "Tenleytown": {
+      "county": "Northwest (NW)",
+      "miles": 33.9
+    },
+    "U Street Corridor": {
+      "county": "Northwest (NW)",
+      "miles": 27.1
+    },
+    "West End": {
+      "county": "Northwest (NW)",
+      "miles": 36.9
+    },
+    "Woodley Park": {
+      "county": "Northwest (NW)",
+      "miles": 29.2
+    },
+    "Brookland": {
+      "county": "Northeast (NE)",
+      "miles": 1
+    },
+    "Brentwood": {
+      "county": "Northeast (NE)",
+      "miles": 33.5
+    },
+    "Capitol Hill (NE)": {
+      "county": "Northeast (NE)",
+      "miles": 1
+    },
+    "Catholic University": {
+      "county": "Northeast (NE)",
+      "miles": 1
+    },
+    "Deanwood": {
+      "county": "Northeast (NE)",
+      "miles": 1
+    },
+    "Eckington": {
+      "county": "Northeast (NE)",
+      "miles": 1
+    },
+    "Fort Totten": {
+      "county": "Northeast (NE)",
+      "miles": 104
+    },
+    "Gallaudet University": {
+      "county": "Northeast (NE)",
+      "miles": 104
+    },
+    "H Street Corridor": {
+      "county": "Northeast (NE)",
+      "miles": 1
+    },
+    "Ivy City": {
+      "county": "Northeast (NE)",
+      "miles": 104
+    },
+    "Langdon": {
+      "county": "Northeast (NE)",
+      "miles": 1
+    },
+    "Lamond Riggs": {
+      "county": "Northeast (NE)",
+      "miles": 36.7
+    },
+    "Marshall Heights": {
+      "county": "Northeast (NE)",
+      "miles": 22.3
+    },
+    "Michigan Park": {
+      "county": "Northeast (NE)",
+      "miles": 754
+    },
+    "National Arboretum": {
+      "county": "Northeast (NE)",
+      "miles": 104
+    },
+    "Near Northeast": {
+      "county": "Northeast (NE)",
+      "miles": 36.9
+    },
+    "NoMa": {
+      "county": "Northeast (NE)",
+      "miles": 104
+    },
+    "Riggs Park": {
+      "county": "Northeast (NE)",
+      "miles": 104
+    },
+    "Takoma": {
+      "county": "Northeast (NE)",
+      "miles": 1
+    },
+    "Trinidad": {
+      "county": "Northeast (NE)",
+      "miles": 1
+    },
+    "Union Market": {
+      "county": "Northeast (NE)",
+      "miles": 104
+    },
+    "Union Station": {
+      "county": "Northeast (NE)",
+      "miles": 1
+    },
+    "Woodridge": {
+      "county": "Northeast (NE)",
+      "miles": 1
+    },
+    "Anacostia": {
+      "county": "Southeast (SE)",
+      "miles": 21.5
+    },
+    "Barracks Row": {
+      "county": "Southeast (SE)",
+      "miles": 36.9
+    },
+    "Bellevue": {
+      "county": "Southeast (SE)",
+      "miles": 88.4
+    },
+    "Capitol Hill (SE)": {
+      "county": "Southeast (SE)",
+      "miles": 2
+    },
+    "Congress Heights": {
+      "county": "Southeast (SE)",
+      "miles": 23.9
+    },
+    "Dupont Park": {
+      "county": "Southeast (SE)",
+      "miles": 36.9
+    },
+    "Fairlawn": {
+      "county": "Southeast (SE)",
+      "miles": 36.9
+    },
+    "Fort Dupont": {
+      "county": "Southeast (SE)",
+      "miles": 21
+    },
+    "Garfield Heights": {
+      "county": "Southeast (SE)",
+      "miles": 36.9
+    },
+    "Hillcrest": {
+      "county": "Southeast (SE)",
+      "miles": 55.8
+    },
+    "Navy Yard": {
+      "county": "Southeast (SE)",
+      "miles": 36.9
+    },
+    "Penn Branch": {
+      "county": "Southeast (SE)",
+      "miles": 36.9
+    },
+    "Randle Highlands": {
+      "county": "Southeast (SE)",
+      "miles": 20.7
+    },
+    "Shipley Terrace": {
+      "county": "Southeast (SE)",
+      "miles": 20
+    },
+    "Southwest Waterfront (SE)": {
+      "county": "Southeast (SE)",
+      "miles": 36.9
+    },
+    "Twining": {
+      "county": "Southeast (SE)",
+      "miles": 20.6
+    },
+    "Washington Highlands": {
+      "county": "Southeast (SE)",
+      "miles": 22.1
+    },
+    "Arena Stage": {
+      "county": "Southwest (SW)",
+      "miles": 36.9
+    },
+    "Buzzard Point": {
+      "county": "Southwest (SW)",
+      "miles": 23.1
+    },
+    "Fort McNair": {
+      "county": "Southwest (SW)",
+      "miles": 23.3
+    },
+    "L’Enfant Plaza": {
+      "county": "Southwest (SW)",
+      "miles": 36.9
+    },
+    "National Mall": {
+      "county": "Southwest (SW)",
+      "miles": 36.9
+    },
+    "Southwest Federal Center": {
+      "county": "Southwest (SW)",
+      "miles": 36.9
+    },
+    "The Wharf": {
+      "county": "Southwest (SW)",
+      "miles": 36.9
+    }
+  }
+}

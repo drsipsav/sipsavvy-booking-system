@@ -1,0 +1,138 @@
+/* ============================
+   SipSavvy Dark Mode — Deep Wine Noir
+   ============================ */
+
+:root {
+  --dark-bg: #2A0A15;
+  --dark-bg-light: #3C0F1E;
+  --dark-panel: #3F1420;
+  --dark-border: rgba(255, 255, 255, 0.08);
+
+  --wine: #5C1228;
+  --gold: #FFD700;
+  --rose: #E8C4B8;
+}
+
+/* BODY */
+body.dark {
+  background: var(--dark-bg);
+  color: white;
+}
+
+/* SIDEBAR */
+body.dark .sidebar {
+  background: var(--dark-bg-light);
+  border-right: 1px solid var(--dark-border);
+}
+
+body.dark .nav-item {
+  color: white;
+}
+
+body.dark .nav-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+body.dark .nav-item .icon {
+  color: white;
+}
+
+body.dark .nav-item:hover .icon {
+  color: var(--gold);
+}
+
+/* HERO BAR */
+body.dark .hero-bar {
+  background: var(--dark-bg-light);
+  border-bottom: 1px solid var(--dark-border);
+}
+
+body.dark .hero-bar h2 {
+  color: var(--gold);
+}
+
+.hero-bar {
+  background: #ffffff; !important;
+}
+
+/* TOGGLE BUTTON */
+.theme-toggle {
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: var(--gold);
+  margin-left: auto;
+  transition: 0.3s ease;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.15);
+}
+
+/* FILTERS */
+body.dark .filters input,
+body.dark .filters select {
+  background: var(--dark-panel);
+  color: white;
+  border: 1px solid var(--dark-border);
+}
+
+body.dark .filters input::placeholder {
+  color: #c9aab3;
+}
+
+/* TABLE */
+body.dark .booking-table {
+  background: var(--dark-panel);
+  color: white;
+}
+
+body.dark .booking-table th {
+  background: var(--wine);
+}
+
+body.dark .booking-table td {
+  border-bottom: 1px solid var(--dark-border);
+}
+
+body.dark .customer-link {
+  color: var(--gold);
+}
+
+/* PAGINATION */
+body.dark .pagination button {
+  background: var(--dark-bg-light);
+  color: var(--gold);
+  border: 1px solid var(--dark-border);
+}
+
+body.dark .pagination button:hover {
+  background: var(--wine);
+}
+
+/* MODALS */
+body.dark .modal-content {
+  background: var(--dark-panel);
+  color: white;
+  border: 1px solid var(--dark-border);
+}
+
+body.dark .close-modal {
+  color: var(--gold);
+}
+
+/* GOLD BUTTON */
+body.dark .gold-btn {
+  background: var(--gold);
+  color: var(--dark-bg);
+}
+
+/* ANIMATIONS */
+body.dark .modal-content {
+  animation: slideUp 0.5s ease;
+}
+
+header.hero-bar {
+  background: #ffffff; !important;
+}

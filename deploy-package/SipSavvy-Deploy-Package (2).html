@@ -1,0 +1,4179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SipSavvy — Deployment Package</title>
+<style>
+  :root {
+    --wine: #722F37; --wine-dark: #541E25; --wine-deep: #3D1219;
+    --gold: #C9A84C; --gold-light: #E6CC80;
+    --cream: #FBF7F4; --white: #fff;
+    --charcoal: #2C2020; --ink: #4A3A3A; --muted: #7A6A6A;
+    --border: #DDCCCC; --border-light: #EDE4E4;
+    --success: #2E7D4F; --success-bg: #E8F5EE;
+    --code-bg: #1a1212; --code-text: #f0e0e2;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; font-family: "Inter", system-ui, sans-serif; background: var(--cream); color: var(--ink); }
+  .app { display: flex; height: 100vh; overflow: hidden; }
+
+  /* SIDEBAR */
+  .sidebar {
+    width: 230px; min-width: 230px; background: var(--wine-deep);
+    display: flex; flex-direction: column; overflow-y: auto; overflow-x: hidden;
+    border-right: 1px solid rgba(255,255,255,0.06);
+  }
+  .sidebar-brand {
+    padding: 18px 16px 14px; border-bottom: 1px solid rgba(255,255,255,0.08); flex-shrink: 0;
+  }
+  .sidebar-brand h1 { font-family: Georgia,serif; font-size: 1rem; font-weight: 700; color: #fff; letter-spacing: -0.02em; line-height: 1.2; }
+  .sidebar-brand p { font-size: 0.6rem; color: var(--gold-light); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 3px; }
+  .sidebar-brand .badge { display: inline-block; background: var(--gold); color: var(--wine-deep); font-size: 0.55rem; font-weight: 700; padding: 2px 6px; border-radius: 4px; letter-spacing: 0.08em; margin-top: 6px; }
+  .sidebar-section { padding: 10px 8px 2px; }
+  .sidebar-section-label {
+    font-size: 0.58rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(255,255,255,0.28); padding: 0 8px; margin-bottom: 3px;
+  }
+  .file-btn {
+    width: 100%; text-align: left; padding: 7px 12px;
+    background: transparent; border: none; border-radius: 5px;
+    cursor: pointer; display: flex; align-items: center; gap: 8px;
+    color: rgba(255,255,255,0.60); font-size: 0.76rem; font-weight: 500;
+    font-family: "JetBrains Mono","Fira Code",monospace;
+    transition: background 120ms, color 120ms; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .file-btn:hover { background: rgba(255,255,255,0.07); color: #fff; }
+  .file-btn.active { background: var(--wine); color: #fff; font-weight: 600; }
+  .file-btn .dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.22); flex-shrink: 0; }
+  .file-btn.active .dot { background: var(--gold-light); }
+
+  /* MAIN */
+  .main { flex: 1; display: flex; flex-direction: column; min-width: 0; overflow: hidden; }
+
+  /* TOPBAR */
+  .topbar {
+    background: var(--white); border-bottom: 1px solid var(--border-light);
+    padding: 11px 20px; display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; flex-shrink: 0; min-height: 52px;
+  }
+  .topbar-left { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+  .file-name { font-family: "JetBrains Mono","Fira Code",monospace; font-size: 0.85rem; font-weight: 600; color: var(--charcoal); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .file-group-badge {
+    font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 2px 7px; border-radius: 999px; flex-shrink: 0;
+    background: var(--wine-tint, #f5e9ea); color: var(--wine);
+  }
+  .topbar-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .btn-icon {
+    background: transparent; border: 1px solid var(--border); border-radius: 6px;
+    padding: 6px 12px; cursor: pointer; font-size: 0.75rem; font-weight: 600;
+    color: var(--ink); display: flex; align-items: center; gap: 5px;
+    transition: background 120ms, border-color 120ms; white-space: nowrap;
+  }
+  .btn-icon:hover { background: var(--cream); border-color: var(--border); }
+  .btn-copy { background: var(--wine); color: #fff; border-color: var(--wine); }
+  .btn-copy:hover { background: var(--wine-dark, #541E25); border-color: var(--wine-dark, #541E25); }
+  .btn-copy.copied { background: var(--success); border-color: var(--success); }
+  .file-size { font-size: 0.68rem; color: var(--muted); font-family: monospace; }
+
+  /* CODE PANEL */
+  .code-panel { flex: 1; overflow: auto; background: var(--code-bg); }
+  .code-panel pre.file-content {
+    font-family: "JetBrains Mono","Fira Code","Cascadia Code",monospace;
+    font-size: 0.78rem; line-height: 1.7; color: var(--code-text);
+    padding: 24px 28px; white-space: pre; tab-size: 2; min-height: 100%;
+  }
+
+  /* STATUS BAR */
+  .statusbar {
+    background: var(--wine-deep); padding: 4px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 0.65rem; color: rgba(255,255,255,0.45); flex-shrink: 0;
+    font-family: "JetBrains Mono",monospace; letter-spacing: 0.04em;
+  }
+  .statusbar span { display: flex; align-items: center; gap: 6px; }
+  .status-dot { width: 5px; height: 5px; border-radius: 50%; background: #4ade80; display: inline-block; }
+
+  /* WELCOME */
+  .welcome {
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 20px; padding: 40px;
+    background: var(--code-bg); color: rgba(255,255,255,0.5); text-align: center;
+  }
+  .welcome h2 { font-family: Georgia,serif; font-size: 1.6rem; color: var(--gold-light); }
+  .welcome p { max-width: 480px; line-height: 1.8; font-size: 0.9rem; }
+  .welcome .stats { display: flex; gap: 32px; margin-top: 8px; }
+  .welcome .stat { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .welcome .stat-num { font-size: 1.8rem; font-weight: 700; color: var(--gold); font-family: Georgia,serif; }
+  .welcome .stat-label { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; }
+
+  /* DOWNLOAD ALL */
+  .btn-download-all {
+    background: var(--gold); color: var(--wine-deep); border: none;
+    padding: 10px 20px; border-radius: 7px; font-weight: 700; font-size: 0.8rem;
+    cursor: pointer; letter-spacing: 0.04em; transition: background 150ms;
+    font-family: inherit; margin-top: 8px;
+  }
+  .btn-download-all:hover { background: var(--gold-light); }
+
+  /* TOAST */
+  #toast {
+    position: fixed; bottom: 20px; right: 20px; background: var(--success);
+    color: #fff; padding: 8px 18px; border-radius: 999px; font-size: 0.8rem;
+    font-weight: 600; box-shadow: 0 4px 16px rgba(0,0,0,.25);
+    opacity: 0; transform: translateY(8px); transition: opacity 200ms, transform 200ms;
+    pointer-events: none; z-index: 9999;
+  }
+  #toast.show { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="sidebar-brand">
+      <h1>🍷 SipSavvy</h1>
+      <p>Deployment Package</p>
+      <div class="badge">32 FILES · PHASE 6</div>
+    </div>
+    <div class="sidebar-section"><div class="sidebar-section-label">Root</div><button class="file-btn" onclick="showFile("README.md")" id="btn-README_md"><span class="dot"></span>README.md</button><button class="file-btn" onclick="showFile("package.json")" id="btn-package_json"><span class="dot"></span>package.json</button><button class="file-btn" onclick="showFile(".env.example")" id="btn-_env_example"><span class="dot"></span>.env.example</button><button class="file-btn" onclick="showFile(".gitignore")" id="btn-_gitignore"><span class="dot"></span>.gitignore</button><button class="file-btn" onclick="showFile("Dockerfile")" id="btn-Dockerfile"><span class="dot"></span>Dockerfile</button><button class="file-btn" onclick="showFile("docker-compose.yml")" id="btn-docker-compose_yml"><span class="dot"></span>docker-compose.yml</button></div><div class="sidebar-section"><div class="sidebar-section-label">Server</div><button class="file-btn" onclick="showFile("server/index.js")" id="btn-server_index_js"><span class="dot"></span>index.js</button><button class="file-btn" onclick="showFile("server/utils/logger.js")" id="btn-server_utils_logger_js"><span class="dot"></span>logger.js</button><button class="file-btn" onclick="showFile("server/utils/db.js")" id="btn-server_utils_db_js"><span class="dot"></span>db.js</button></div><div class="sidebar-section"><div class="sidebar-section-label">Middleware</div><button class="file-btn" onclick="showFile("server/middleware/errorHandler.js")" id="btn-server_middleware_errorHandler_js"><span class="dot"></span>errorHandler.js</button><button class="file-btn" onclick="showFile("server/middleware/auth.js")" id="btn-server_middleware_auth_js"><span class="dot"></span>auth.js</button><button class="file-btn" onclick="showFile("server/middleware/validate.js")" id="btn-server_middleware_validate_js"><span class="dot"></span>validate.js</button></div><div class="sidebar-section"><div class="sidebar-section-label">Routes</div><button class="file-btn" onclick="showFile("server/routes/auth.js")" id="btn-server_routes_auth_js"><span class="dot"></span>auth.js</button><button class="file-btn" onclick="showFile("server/routes/experiences.js")" id="btn-server_routes_experiences_js"><span class="dot"></span>experiences.js</button><button class="file-btn" onclick="showFile("server/routes/availability.js")" id="btn-server_routes_availability_js"><span class="dot"></span>availability.js</button><button class="file-btn" onclick="showFile("server/routes/bookings.js")" id="btn-server_routes_bookings_js"><span class="dot"></span>bookings.js</button><button class="file-btn" onclick="showFile("server/routes/payments.js")" id="btn-server_routes_payments_js"><span class="dot"></span>payments.js</button><button class="file-btn" onclick="showFile("server/routes/guests.js")" id="btn-server_routes_guests_js"><span class="dot"></span>guests.js</button><button class="file-btn" onclick="showFile("server/routes/reviews.js")" id="btn-server_routes_reviews_js"><span class="dot"></span>reviews.js</button><button class="file-btn" onclick="showFile("server/routes/admin.js")" id="btn-server_routes_admin_js"><span class="dot"></span>admin.js</button><button class="file-btn" onclick="showFile("server/routes/webhooks.js")" id="btn-server_routes_webhooks_js"><span class="dot"></span>webhooks.js</button></div><div class="sidebar-section"><div class="sidebar-section-label">Services</div><button class="file-btn" onclick="showFile("server/services/email.js")" id="btn-server_services_email_js"><span class="dot"></span>email.js</button><button class="file-btn" onclick="showFile("server/services/stripe.js")" id="btn-server_services_stripe_js"><span class="dot"></span>stripe.js</button><button class="file-btn" onclick="showFile("server/services/scheduler.js")" id="btn-server_services_scheduler_js"><span class="dot"></span>scheduler.js</button></div><div class="sidebar-section"><div class="sidebar-section-label">Nginx</div><button class="file-btn" onclick="showFile("nginx/nginx.conf")" id="btn-nginx_nginx_conf"><span class="dot"></span>nginx.conf</button></div><div class="sidebar-section"><div class="sidebar-section-label">Database</div><button class="file-btn" onclick="showFile("config/001_initial_schema.sql")" id="btn-config_001_initial_schema_sql"><span class="dot"></span>001_initial_schema.sql</button><button class="file-btn" onclick="showFile("config/002_seed.sql")" id="btn-config_002_seed_sql"><span class="dot"></span>002_seed.sql</button></div><div class="sidebar-section"><div class="sidebar-section-label">Scripts</div><button class="file-btn" onclick="showFile("scripts/build.sh")" id="btn-scripts_build_sh"><span class="dot"></span>build.sh</button><button class="file-btn" onclick="showFile("scripts/deploy.sh")" id="btn-scripts_deploy_sh"><span class="dot"></span>deploy.sh</button><button class="file-btn" onclick="showFile("scripts/migrate.js")" id="btn-scripts_migrate_js"><span class="dot"></span>migrate.js</button><button class="file-btn" onclick="showFile("scripts/seed.js")" id="btn-scripts_seed_js"><span class="dot"></span>seed.js</button><button class="file-btn" onclick="showFile("scripts/healthcheck.js")" id="btn-scripts_healthcheck_js"><span class="dot"></span>healthcheck.js</button></div>
+  </nav>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div class="topbar-left">
+        <span class="file-name" id="topbar-filename">Select a file to view</span>
+        <span class="file-group-badge" id="topbar-group"></span>
+        <span class="file-size" id="topbar-size"></span>
+      </div>
+      <div class="topbar-right">
+        <button class="btn-icon btn-copy" id="copy-btn" onclick="copyFile()" style="display:none">
+          ⎘ Copy
+        </button>
+        <button class="btn-download-all" onclick="downloadAll()">
+          ⬇ Download All Files
+        </button>
+      </div>
+    </div>
+
+    <!-- CODE PANEL / WELCOME -->
+    <div class="code-panel" id="code-panel">
+      <div class="welcome">
+        <h2>SipSavvy Deploy Package</h2>
+        <p>32 production-ready files — Node.js · Express · PostgreSQL · Docker · Nginx · Stripe</p>
+        <div class="stats">
+          <div class="stat"><span class="stat-num">32</span><span class="stat-label">Files</span></div>
+          <div class="stat"><span class="stat-num">9</span><span class="stat-label">Routes</span></div>
+          <div class="stat"><span class="stat-num">3</span><span class="stat-label">Services</span></div>
+          <div class="stat"><span class="stat-num">5</span><span class="stat-label">Scripts</span></div>
+        </div>
+        <p style="margin-top:4px;font-size:0.8rem">← Select a file in the sidebar to view its contents</p>
+      </div>
+      <pre class="file-content" id="fc-README_md" style="display:none"># SipSavvy — Production Deployment Guide
+
+&gt; Curated wine experiences platform — full-stack Node.js + PostgreSQL + Nginx
+
+---
+
+## Table of Contents
+
+1. [Project Overview](#1-project-overview)
+2. [Repository Structure](#2-repository-structure)
+3. [Quick Start (Local Docker)](#3-quick-start-local-docker)
+4. [Environment Variables](#4-environment-variables)
+5. [Database Setup](#5-database-setup)
+6. [Running the API Server](#6-running-the-api-server)
+7. [Building Static Assets](#7-building-static-assets)
+8. [Production Deployment (VPS)](#8-production-deployment-vps)
+9. [Nginx &amp; SSL](#9-nginx--ssl)
+10. [Stripe Integration](#10-stripe-integration)
+11. [Email (SendGrid / SMTP)](#11-email-sendgrid--smtp)
+12. [Scheduled Jobs](#12-scheduled-jobs)
+13. [API Reference](#13-api-reference)
+14. [Admin Dashboard](#14-admin-dashboard)
+15. [Health Check](#15-health-check)
+16. [Deployment Scripts](#16-deployment-scripts)
+17. [Troubleshooting](#17-troubleshooting)
+
+---
+
+## 1. Project Overview
+
+SipSavvy is a curated wine experiences booking platform offering four core experiences:
+
+| ID | Name | Price | Capacity |
+|----|------|-------|----------|
+| `sunset` | Vineyard Sunset Tasting | $85/person | 12 guests |
+| `cellar` | Cellar Reserve Experience | $145/person | 8 guests |
+| `table` | Winemaker&#x27;s Table | $195/person | 6 guests |
+| `harvest` | Harvest Blending Session | $225/person | 10 guests |
+
+**Tech stack:** Node.js 20 · Express 4 · PostgreSQL 16 · Stripe Payments · SendGrid Email · Nginx · Docker
+
+**Operating days:** Thursday – Sunday only
+
+**Booking reference format:** `SS-YYYY-NNNNN` (e.g. `SS-2026-00142`)
+
+---
+
+## 2. Repository Structure
+
+```
+sipsavvy/
+├── framework/                   ← CSS design system (5 files)
+│   ├── variables.css            ← Brand tokens — import FIRST
+│   ├── animations.css           ← 15 @keyframes + motion utilities
+│   ├── buttons.css              ← 6 button variants
+│   ├── cards.css                ← 6 card variants
+│   └── forms.css                ← Complete form system
+│
+├── site/                        ← Page-level CSS (5 files)
+│   ├── global.css
+│   ├── header.css
+│   ├── index.css
+│   ├── booking.css
+│   └── admin.css
+│
+├── js/                          ← Client-side JavaScript
+│   ├── site.js                  ← Shared utilities + header behaviour
+│   ├── booking.js               ← Booking flow state machine
+│   └── admin.js                 ← Admin dashboard (self-contained)
+│
+├── pages/                       ← HTML pages (CSS inlined for standalone use)
+│   ├── index.html               ← Public homepage
+│   ├── booking.html             ← Multi-step booking flow
+│   └── admin.html               ← Admin dashboard
+│
+├── emails/                      ← Transactional email templates
+│   ├── email-confirmation.html
+│   ├── email-reminder.html
+│   └── email-cancellation.html
+│
+├── openapi.yaml                 ← OpenAPI 3.1.0 spec (28 endpoints)
+├── api-reference.md             ← Human-readable API docs
+│
+└── deploy/                      ← ← YOU ARE HERE
+    ├── README.md                ← This file
+    ├── package.json
+    ├── .env.example             ← Copy to .env and fill values
+    ├── .gitignore
+    ├── Dockerfile               ← Multi-stage Alpine image
+    ├── docker-compose.yml       ← Full stack: db + app + nginx + certbot
+    │
+    ├── server/
+    │   ├── index.js             ← Express entry point
+    │   ├── routes/              ← 9 route files (auth, bookings, etc.)
+    │   ├── middleware/          ← auth.js, validate.js, errorHandler.js
+    │   ├── services/            ← email.js, stripe.js, scheduler.js
+    │   └── utils/              ← logger.js, db.js
+    │
+    ├── config/
+    │   ├── 001_initial_schema.sql
+    │   └── 002_seed.sql
+    │
+    ├── nginx/
+    │   └── nginx.conf           ← TLS + rate limiting + security headers
+    │
+    └── scripts/
+        ├── build.sh             ← CSS/JS/HTML asset pipeline
+        ├── deploy.sh            ← Zero-downtime Docker rolling deploy
+        ├── healthcheck.js       ← Standalone health probe
+        ├── migrate.js           ← SQL migration runner
+        └── seed.js              ← Demo data loader
+```
+
+---
+
+## 3. Quick Start (Local Docker)
+
+```bash
+# 1. Clone and enter the deploy directory
+cd sipsavvy/deploy
+
+# 2. Copy environment file and fill in your secrets
+cp .env.example .env
+# Edit .env — at minimum set: STRIPE_SECRET_KEY, SMTP_PASS, JWT_SECRET, REFRESH_TOKEN_SECRET
+
+# 3. Start the full stack (app + PostgreSQL)
+docker compose up -d
+
+# 4. Stream logs
+docker compose logs -f app
+
+# 5. Verify health
+curl http://localhost:3000/v1/health
+# → { &quot;status&quot;: &quot;ok&quot;, &quot;db&quot;: &quot;connected&quot;, &quot;version&quot;: &quot;1.0.0&quot;, &quot;uptime_s&quot;: 5 }
+```
+
+The app is now running at **http://localhost:3000** with:
+- API at `http://localhost:3000/v1/`
+- Admin login: `admin@sipsavvy.com` / `Admin@SipSavvy2026!` (seed data)
+
+&gt; **Change the seed password immediately** before any real usage.
+
+---
+
+## 4. Environment Variables
+
+Copy `.env.example` to `.env` and configure each section:
+
+### Application
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `NODE_ENV` | Yes | `production` or `development` |
+| `PORT` | No | API listen port (default: `3000`) |
+| `APP_URL` | Yes | Public URL e.g. `https://sipsavvy.com` |
+| `CORS_ORIGINS` | Yes | Comma-separated allowed origins |
+
+### Database (PostgreSQL)
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `DB_HOST` | Yes | Postgres host (default: `localhost`) |
+| `DB_PORT` | No | Postgres port (default: `5432`) |
+| `DB_NAME` | Yes | Database name |
+| `DB_USER` | Yes | Postgres user |
+| `DB_PASSWORD` | Yes | Postgres password |
+| `DB_SSL` | No | `true` to enable SSL (required for managed DBs) |
+
+### Authentication (JWT)
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `JWT_SECRET` | Yes | Minimum 32-character random string |
+| `JWT_EXPIRES_IN` | No | Access token TTL (default: `8h`) |
+| `REFRESH_TOKEN_SECRET` | Yes | Separate secret from JWT_SECRET |
+| `REFRESH_TOKEN_EXPIRES_IN` | No | Refresh token TTL (default: `30d`) |
+
+Generate secrets:
+```bash
+node -e &quot;console.log(require(&#x27;crypto&#x27;).randomBytes(48).toString(&#x27;hex&#x27;))&quot;
+```
+
+### Stripe
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `STRIPE_PUBLISHABLE_KEY` | Yes | `pk_live_...` or `pk_test_...` |
+| `STRIPE_SECRET_KEY` | Yes | `sk_live_...` or `sk_test_...` |
+| `STRIPE_WEBHOOK_SECRET` | Yes | `whsec_...` from Stripe dashboard |
+
+### Email (SMTP / SendGrid)
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `SMTP_HOST` | Yes | `smtp.sendgrid.net` |
+| `SMTP_PORT` | No | `587` (TLS) or `465` (SSL) |
+| `SMTP_USER` | Yes | `apikey` for SendGrid |
+| `SMTP_PASS` | Yes | SendGrid API key |
+| `EMAIL_FROM` | Yes | Sender address e.g. `hello@sipsavvy.com` |
+| `EMAIL_FROM_NAME` | No | Sender name (default: `SipSavvy`) |
+
+### Business Rules
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `CANCELLATION_WINDOW_HOURS` | `48` | Hours before experience; full refund if cancelled before this |
+| `LATE_BOOKING_LOCK_HOURS` | `4` | Hours before slot; new bookings rejected after this |
+| `OPERATING_DAYS` | `4,5,6,0` | Day numbers: Thu=4, Fri=5, Sat=6, Sun=0 |
+
+---
+
+## 5. Database Setup
+
+### Option A: Docker (automatic)
+The `docker-compose.yml` mounts migration SQL files into the Postgres `initdb` directory. They run automatically on first container start.
+
+### Option B: Manual
+```bash
+# Create database
+createdb sipsavvy
+
+# Run migrations
+node scripts/migrate.js
+
+# Load demo data (development only)
+node scripts/seed.js
+```
+
+### Reset (development only)
+```bash
+node scripts/migrate.js --reset
+node scripts/seed.js --confirm
+```
+
+---
+
+## 6. Running the API Server
+
+### Development
+```bash
+npm install
+npm run dev     # nodemon with hot reload
+```
+
+### Production (direct)
+```bash
+npm start       # node server/index.js
+```
+
+### Production (Docker)
+```bash
+docker compose up -d app
+```
+
+### npm Scripts
+| Script | Description |
+|--------|-------------|
+| `npm start` | Start production server |
+| `npm run dev` | Start with nodemon (hot reload) |
+| `npm run lint` | ESLint |
+| `npm test` | Jest test suite |
+| `npm run db:migrate` | Run pending SQL migrations |
+| `npm run db:seed` | Load seed data |
+| `npm run db:reset` | Drop + recreate schema (dev only) |
+| `npm run build` | Run asset build pipeline |
+| `npm run health` | Run health check script |
+
+---
+
+## 7. Building Static Assets
+
+The build script processes the CSS framework and HTML pages for production:
+
+```bash
+chmod +x scripts/build.sh
+./scripts/build.sh
+```
+
+**What it does:**
+1. Strips CSS comments and collapses whitespace
+2. Copies framework CSS → `public/css/framework/`
+3. Copies site CSS → `public/css/site/`
+4. Copies JS modules → `public/js/`
+5. Patches HTML pages to replace inline `&lt;style&gt;` blocks with `&lt;link&gt;` tags
+6. Writes `public/manifest.json` with file inventory
+
+Output lands in `deploy/public/` which Nginx serves as the static root.
+
+---
+
+## 8. Production Deployment (VPS)
+
+### Prerequisites
+- Ubuntu 22.04+ VPS (2 vCPU / 2 GB RAM minimum)
+- Docker Engine + Docker Compose v2
+- Domain DNS A record pointing to the server IP
+- Open ports: 80, 443
+
+### First-time setup
+```bash
+# 1. Copy project to server
+rsync -av --exclude node_modules --exclude .env \
+  sipsavvy/deploy/ user@server:/opt/sipsavvy/
+
+# 2. SSH into server
+ssh user@server
+cd /opt/sipsavvy
+
+# 3. Set up environment
+cp .env.example .env
+nano .env    # Fill all required values
+
+# 4. Obtain SSL certificate (first time only)
+docker compose --profile ssl-init run certbot
+
+# 5. Start full production stack
+docker compose --profile production up -d
+
+# 6. Verify
+curl https://sipsavvy.com/v1/health
+```
+
+### Rolling deploy (subsequent releases)
+```bash
+./scripts/deploy.sh
+```
+
+This script:
+1. Builds static assets
+2. Pulls latest base images
+3. Rebuilds the app Docker image
+4. Runs database migrations
+5. Performs zero-downtime rolling restart
+6. Waits for health check to pass
+7. Reloads Nginx
+8. Prunes dangling images
+
+---
+
+## 9. Nginx &amp; SSL
+
+The `nginx/nginx.conf` configures:
+
+- **HTTP → HTTPS redirect** (port 80 → 443)
+- **TLS 1.2 + 1.3** with modern cipher suite
+- **HSTS** with 2-year max-age + preload
+- **Security headers:** CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy
+- **Rate limiting zones:**
+  - Global API: 60 req/min
+  - Booking endpoints: 10 req/min
+  - Auth endpoints: 5 req/min
+- **Gzip compression** for text/CSS/JS/JSON
+- **Static asset caching:** 1 year immutable for CSS/JS/images
+- **HTML no-cache** to ensure users always get the latest pages
+- **SPA fallback** `try_files $uri /index.html`
+
+**SSL renewal** is handled by the `certbot` container. Add a cron on the host:
+```bash
+0 3 * * * docker compose -f /opt/sipsavvy/docker-compose.yml --profile ssl-init run certbot renew &amp;&amp; docker compose exec nginx nginx -s reload
+```
+
+---
+
+## 10. Stripe Integration
+
+### Webhook setup
+1. In the Stripe Dashboard → **Developers → Webhooks → Add endpoint**
+2. URL: `https://sipsavvy.com/v1/webhooks/stripe`
+3. Events to listen for:
+   - `payment_intent.succeeded` → confirms booking + sends confirmation email
+   - `payment_intent.payment_failed` → logs failure
+   - `charge.refunded` → records refund ID
+
+4. Copy the **signing secret** (`whsec_...`) to `STRIPE_WEBHOOK_SECRET` in `.env`
+
+### Payment flow
+```
+Frontend collects card → POST /v1/payments/intent → get client_secret
+→ Stripe.js confirms payment on client
+→ Stripe calls webhook → booking status: pending → confirmed
+→ Confirmation email sent
+```
+
+### Test cards
+| Card | Result |
+|------|--------|
+| `4242 4242 4242 4242` | Success |
+| `4000 0000 0000 9995` | Declined |
+| `4000 0025 0000 3155` | 3D Secure required |
+
+---
+
+## 11. Email (SendGrid / SMTP)
+
+Email is sent via Nodemailer using SMTP. SendGrid is the recommended provider.
+
+### SendGrid setup
+1. Create a SendGrid account and verify your sender domain
+2. Generate an API key with **Mail Send** permission
+3. Set in `.env`:
+   ```
+   SMTP_HOST=smtp.sendgrid.net
+   SMTP_PORT=587
+   SMTP_USER=apikey
+   SMTP_PASS=SG.your_api_key_here
+   EMAIL_FROM=hello@sipsavvy.com
+   ```
+
+### Templates
+Templates are read from `../emails/` at runtime (relative to `deploy/`). They use `{{PLACEHOLDER}}` syntax for variable injection. Template variables are documented in `api-reference.md`.
+
+### Triggered emails
+| Event | Template | Timing |
+|-------|----------|--------|
+| Booking confirmed (via Stripe webhook) | `email-confirmation.html` | Immediate |
+| 24h before experience | `email-reminder.html` | Cron job |
+| Booking cancelled | `email-cancellation.html` | Immediate |
+
+---
+
+## 12. Scheduled Jobs
+
+The scheduler (`server/services/scheduler.js`) runs three background jobs:
+
+| Job | Default Interval | Purpose |
+|-----|-----------------|---------|
+| Reminder emails | Every 60 min | Sends 24h-before reminder to confirmed bookings |
+| Auto-complete | Every 15 min | Marks past confirmed bookings as `completed` |
+| Stale cleanup | Every 10 min | Cancels pending bookings &gt;30 min old with no payment |
+
+Configure intervals via `.env`:
+```
+REMINDER_CRON=*/60 * * * *
+COMPLETION_CRON=*/15 * * * *
+```
+
+The scheduler starts automatically when the server boots. No external cron daemon required.
+
+---
+
+## 13. API Reference
+
+Full API documentation: see `api-reference.md` and `openapi.yaml`.
+
+**Base URL:** `https://sipsavvy.com/v1`
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| POST | `/auth/login` | — | Login, returns JWT |
+| POST | `/auth/refresh` | — | Refresh access token |
+| POST | `/auth/logout` | JWT | Invalidate refresh token |
+| GET | `/auth/me` | JWT | Current user profile |
+| GET | `/experiences` | — | List all experiences |
+| GET | `/experiences/:id` | — | Single experience detail |
+| GET | `/availability` | — | Available dates + slots |
+| POST | `/bookings` | — | Create a booking |
+| GET | `/bookings/:ref` | — | Fetch booking by ref |
+| GET | `/bookings/:ref/status` | — | Lightweight status poll |
+| POST | `/bookings/:ref/cancel` | — | Cancel a booking |
+| POST | `/payments/intent` | — | Create Stripe PaymentIntent |
+| GET | `/reviews` | — | List approved reviews |
+| POST | `/reviews` | — | Submit a review |
+| GET | `/admin/bookings` | Admin | List all bookings |
+| GET | `/admin/bookings/:ref` | Admin | Booking detail |
+| PATCH | `/admin/bookings/:ref/status` | Admin | Override status |
+| POST | `/admin/bookings/:ref/cancel` | Admin | Force cancel |
+| GET | `/admin/stats` | Admin | KPI summary |
+| POST | `/webhooks/stripe` | Stripe sig | Stripe webhook handler |
+
+**Authentication:** `Authorization: Bearer &lt;access_token&gt;`
+
+---
+
+## 14. Admin Dashboard
+
+Access the admin dashboard at: `https://sipsavvy.com/admin.html`
+
+**Default credentials (from seed data):**
+- Email: `admin@sipsavvy.com`
+- Password: `Admin@SipSavvy2026!`
+
+&gt; ⚠ Change this password immediately in production. Use `bcrypt.hashSync()` to generate a new hash and update the `users` table directly.
+
+**Features:**
+- Real-time KPI cards (revenue, booking counts)
+- Bookings table with search, filter, and sort
+- Booking detail drawer with status override
+- Revenue and experience mix charts
+- Guest management
+- Review moderation (approve / reject)
+- Settings page
+
+---
+
+## 15. Health Check
+
+### Endpoint
+```
+GET /v1/health
+```
+
+**Response:**
+```json
+{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;db&quot;: &quot;connected&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;uptime_s&quot;: 3742,
+  &quot;timestamp&quot;: &quot;2026-05-07T23:32:00.000Z&quot;
+}
+```
+
+### Standalone script
+```bash
+node scripts/healthcheck.js
+# ✓ Healthy  (db=connected, uptime=3742s, version=1.0.0)
+```
+
+Returns exit code `0` (healthy) or `1` (unhealthy) — suitable for Docker, PM2, and CI pipelines.
+
+---
+
+## 16. Deployment Scripts
+
+| Script | Usage | Description |
+|--------|-------|-------------|
+| `scripts/build.sh` | `./scripts/build.sh` | Build static assets to `public/` |
+| `scripts/deploy.sh` | `./scripts/deploy.sh [--skip-build]` | Full zero-downtime production deploy |
+| `scripts/migrate.js` | `node scripts/migrate.js [--dry-run] [--reset]` | Run SQL migrations |
+| `scripts/seed.js` | `node scripts/seed.js [--confirm]` | Load demo data |
+| `scripts/healthcheck.js` | `node scripts/healthcheck.js` | Health probe (exit 0/1) |
+
+Make shell scripts executable:
+```bash
+chmod +x scripts/build.sh scripts/deploy.sh
+```
+
+---
+
+## 17. Troubleshooting
+
+### App won&#x27;t start
+```bash
+docker compose logs app
+# Check for: missing .env values, DB connection refused, port already in use
+```
+
+### Database connection errors
+```bash
+docker compose ps db        # ensure db container is healthy
+docker compose exec db psql -U sipsavvy -c &#x27;\dt&#x27;  # list tables
+```
+
+### Emails not sending
+```bash
+# Check SMTP credentials in .env
+# Run email verification
+node -e &quot;require(&#x27;./server/services/email&#x27;).verify()&quot;
+```
+
+### Stripe webhook not triggering
+- Ensure `STRIPE_WEBHOOK_SECRET` matches the secret in Stripe Dashboard
+- Confirm the webhook URL is `https://yourdomain.com/v1/webhooks/stripe`
+- Check that Nginx is not stripping the `stripe-signature` header
+
+### SSL certificate expired
+```bash
+docker compose --profile ssl-init run certbot renew
+docker compose exec nginx nginx -s reload
+```
+
+### Rate limit errors (429)
+Adjust limits in `nginx/nginx.conf`:
+```nginx
+limit_req_zone $binary_remote_addr zone=api:10m rate=120r/m;  # double global limit
+```
+Then reload: `docker compose exec nginx nginx -s reload`
+
+---
+
+## License
+
+Copyright © 2026 SipSavvy. All rights reserved.
+</pre>
+<pre class="file-content" id="fc-package_json" style="display:none">{
+  &quot;name&quot;: &quot;sipsavvy-api&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;SipSavvy curated wine experiences — REST API server&quot;,
+  &quot;main&quot;: &quot;server/index.js&quot;,
+  &quot;engines&quot;: {
+    &quot;node&quot;: &quot;&gt;=20.0.0&quot;,
+    &quot;npm&quot;: &quot;&gt;=10.0.0&quot;
+  },
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;node server/index.js&quot;,
+    &quot;dev&quot;: &quot;nodemon server/index.js&quot;,
+    &quot;lint&quot;: &quot;eslint server/**/*.js&quot;,
+    &quot;test&quot;: &quot;jest --runInBand --forceExit&quot;,
+    &quot;test:watch&quot;: &quot;jest --watch&quot;,
+    &quot;db:migrate&quot;: &quot;node scripts/migrate.js&quot;,
+    &quot;db:seed&quot;: &quot;node scripts/seed.js&quot;,
+    &quot;db:reset&quot;: &quot;node scripts/migrate.js --reset &amp;&amp; node scripts/seed.js&quot;,
+    &quot;build&quot;: &quot;npm run lint &amp;&amp; npm test&quot;,
+    &quot;health&quot;: &quot;node scripts/healthcheck.js&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;bcrypt&quot;: &quot;^5.1.1&quot;,
+    &quot;compression&quot;: &quot;^1.7.4&quot;,
+    &quot;cors&quot;: &quot;^2.8.5&quot;,
+    &quot;dotenv&quot;: &quot;^16.4.5&quot;,
+    &quot;express&quot;: &quot;^4.19.2&quot;,
+    &quot;express-rate-limit&quot;: &quot;^7.3.1&quot;,
+    &quot;express-validator&quot;: &quot;^7.1.0&quot;,
+    &quot;helmet&quot;: &quot;^7.1.0&quot;,
+    &quot;jsonwebtoken&quot;: &quot;^9.0.2&quot;,
+    &quot;morgan&quot;: &quot;^1.10.0&quot;,
+    &quot;nodemailer&quot;: &quot;^6.9.13&quot;,
+    &quot;pg&quot;: &quot;^8.11.5&quot;,
+    &quot;stripe&quot;: &quot;^15.8.0&quot;,
+    &quot;uuid&quot;: &quot;^10.0.0&quot;,
+    &quot;winston&quot;: &quot;^3.13.0&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;eslint&quot;: &quot;^9.2.0&quot;,
+    &quot;jest&quot;: &quot;^29.7.0&quot;,
+    &quot;nodemon&quot;: &quot;^3.1.0&quot;,
+    &quot;supertest&quot;: &quot;^7.0.0&quot;
+  },
+  &quot;jest&quot;: {
+    &quot;testEnvironment&quot;: &quot;node&quot;,
+    &quot;testMatch&quot;: [&quot;**/__tests__/**/*.test.js&quot;],
+    &quot;coverageDirectory&quot;: &quot;coverage&quot;,
+    &quot;collectCoverageFrom&quot;: [&quot;server/**/*.js&quot;]
+  }
+}
+</pre>
+<pre class="file-content" id="fc-_env_example" style="display:none"># ============================================================
+# SipSavvy API — Environment Variables
+# Copy this file to .env and fill in all values before
+# starting the server. NEVER commit .env to version control.
+# ============================================================
+
+# ── Application ───────────────────────────────────────────
+NODE_ENV=production           # production | staging | development
+PORT=3000
+API_VERSION=v1
+APP_URL=https://sipsavvy.com
+API_URL=https://api.sipsavvy.com
+CORS_ORIGINS=https://sipsavvy.com,https://www.sipsavvy.com
+
+# ── Database (PostgreSQL) ─────────────────────────────────
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=sipsavvy_prod
+DB_USER=sipsavvy_api
+DB_PASSWORD=change_me_strong_password
+DB_SSL=true
+DB_POOL_MIN=2
+DB_POOL_MAX=10
+DB_POOL_IDLE_TIMEOUT=30000
+
+# ── Authentication (JWT) ──────────────────────────────────
+JWT_SECRET=change_me_at_least_64_random_chars_use_openssl_rand_hex_32
+JWT_EXPIRES_IN=8h
+REFRESH_TOKEN_SECRET=change_me_different_from_jwt_secret
+REFRESH_TOKEN_EXPIRES_IN=30d
+
+# ── Payment (Stripe) ──────────────────────────────────────
+STRIPE_PUBLISHABLE_KEY=pk_live_...
+STRIPE_SECRET_KEY=sk_live_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+
+# ── Email (Nodemailer / SMTP) ─────────────────────────────
+SMTP_HOST=smtp.sendgrid.net
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER=apikey
+SMTP_PASS=SG.your_sendgrid_api_key
+EMAIL_FROM_NAME=SipSavvy Experiences
+EMAIL_FROM_ADDRESS=hello@sipsavvy.com
+EMAIL_REPLY_TO=hello@sipsavvy.com
+
+# ── Rate Limiting ─────────────────────────────────────────
+RATE_LIMIT_WINDOW_MS=900000   # 15 minutes
+RATE_LIMIT_MAX=100            # requests per window per IP
+RATE_LIMIT_MAX_BOOKING=10     # stricter limit for POST /bookings
+
+# ── Logging ───────────────────────────────────────────────
+LOG_LEVEL=info                # error | warn | info | debug
+LOG_FORMAT=json               # json | pretty (use pretty in development)
+LOG_FILE=logs/api.log
+
+# ── Scheduling ────────────────────────────────────────────
+# Cron expression for the 24-hour reminder email job
+REMINDER_CRON=0 9 * * *       # runs daily at 9 AM server time
+# Cron expression for the booking completion job
+COMPLETION_CRON=*/15 * * * *  # runs every 15 minutes
+
+# ── Business Rules ────────────────────────────────────────
+CANCELLATION_WINDOW_HOURS=48
+LATE_BOOKING_LOCK_HOURS=4
+BOOKING_REF_YEAR=2026
+OPERATING_DAYS=4,5,6,0        # 0=Sun,4=Thu,5=Fri,6=Sat
+
+# ── Analytics / Monitoring ────────────────────────────────
+SENTRY_DSN=                   # optional — leave blank to disable
+</pre>
+<pre class="file-content" id="fc-_gitignore" style="display:none"># ── Environment ────────────────────────────────────────────
+.env
+.env.local
+.env.staging
+.env.production
+
+# ── Dependencies ───────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnp/
+.pnp.js
+
+# ── Build &amp; Dist ────────────────────────────────────────────
+dist/
+build/
+.cache/
+
+# ── Logs ────────────────────────────────────────────────────
+logs/
+*.log
+
+# ── Test &amp; Coverage ─────────────────────────────────────────
+coverage/
+.nyc_output/
+
+# ── OS &amp; Editor ─────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ── SSL certs (use secrets manager in production) ────────────
+*.pem
+*.key
+*.crt
+ssl/
+
+# ── Uploads (use object storage in production) ───────────────
+uploads/
+
+# ── PM2 ─────────────────────────────────────────────────────
+.pm2/
+</pre>
+<pre class="file-content" id="fc-Dockerfile" style="display:none"># ============================================================
+# SipSavvy — Production Dockerfile
+# Multi-stage build: deps → build → production image
+# Node 20 LTS on Alpine for a minimal, secure image
+# ============================================================
+
+# ── Stage 1: install ALL dependencies (incl. devDeps) ──────
+FROM node:20-alpine AS deps
+
+WORKDIR /app
+
+# Install build tools for native modules (bcrypt needs Python + make)
+RUN apk add --no-cache python3 make g++
+
+COPY package.json package-lock.json* ./
+RUN npm ci --include=dev
+
+# ── Stage 2: production-only image ─────────────────────────
+FROM node:20-alpine AS runner
+
+WORKDIR /app
+
+# Non-root user for security
+RUN addgroup --system --gid 1001 nodejs &amp;&amp; \
+    adduser  --system --uid 1001 sipsavvy
+
+# Install runtime-only system deps
+RUN apk add --no-cache dumb-init tzdata
+
+# Copy production node_modules from deps stage
+COPY --from=deps /app/node_modules ./node_modules
+COPY package.json ./
+
+# Copy application source
+COPY server/   ./server/
+COPY config/   ./config/
+COPY emails/   ./emails/
+
+# Copy front-end static files (built/minified by CI pipeline)
+# In development these live in /pages; in production they&#x27;re
+# copied to /public after the build script runs.
+COPY public/   ./public/
+
+# Pre-create log directory with correct ownership
+RUN mkdir -p logs &amp;&amp; chown -R sipsavvy:nodejs logs
+
+# Switch to non-root
+USER sipsavvy
+
+# Expose application port
+EXPOSE 3000
+
+# Health check — calls the /v1/health endpoint
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD wget -qO- http://localhost:3000/v1/health || exit 1
+
+# Use dumb-init to handle PID 1 correctly and forward signals
+ENTRYPOINT [&quot;dumb-init&quot;, &quot;--&quot;]
+CMD [&quot;node&quot;, &quot;server/index.js&quot;]
+</pre>
+<pre class="file-content" id="fc-docker-compose_yml" style="display:none">##############################################################
+# SipSavvy — Docker Compose
+# Development + production-parity local stack
+#
+# Usage:
+#   docker compose up -d          # start everything
+#   docker compose logs -f app    # stream app logs
+#   docker compose down -v        # stop and wipe volumes
+##############################################################
+
+name: sipsavvy
+
+services:
+
+  # ── PostgreSQL ──────────────────────────────────────────
+  db:
+    image: postgres:16-alpine
+    container_name: sipsavvy-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER:     ${DB_USER:-sipsavvy}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-sipsavvy_dev}
+      POSTGRES_DB:       ${DB_NAME:-sipsavvy}
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./config/001_initial_schema.sql:/docker-entrypoint-initdb.d/001_schema.sql:ro
+      - ./config/002_seed.sql:/docker-entrypoint-initdb.d/002_seed.sql:ro
+    ports:
+      - &quot;5432:5432&quot;
+    healthcheck:
+      test: [&quot;CMD-SHELL&quot;, &quot;pg_isready -U ${DB_USER:-sipsavvy}&quot;]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── Node.js Application ─────────────────────────────────
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner
+    container_name: sipsavvy-app
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      NODE_ENV:  ${NODE_ENV:-production}
+      DB_HOST:   db
+      DB_PORT:   5432
+    ports:
+      - &quot;${PORT:-3000}:3000&quot;
+    volumes:
+      # Mount emails directory so templates are live-reloadable
+      - ../emails:/app/emails:ro
+      # Persist logs outside container
+      - app_logs:/app/logs
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: [&quot;CMD-SHELL&quot;, &quot;wget -qO- http://localhost:3000/v1/health || exit 1&quot;]
+      interval: 30s
+      timeout: 5s
+      start_period: 15s
+      retries: 3
+
+  # ── Nginx (production mode only) ────────────────────────
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: sipsavvy-nginx
+    restart: unless-stopped
+    ports:
+      - &quot;80:80&quot;
+      - &quot;443:443&quot;
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ../pages:/var/www/sipsavvy/public:ro
+      - certbot_www:/var/www/certbot:ro
+      - certbot_conf:/etc/letsencrypt:ro
+    depends_on:
+      app:
+        condition: service_healthy
+    profiles:
+      - production   # only starts with: docker compose --profile production up
+
+  # ── Certbot (SSL certificate renewal) ───────────────────
+  certbot:
+    image: certbot/certbot:latest
+    container_name: sipsavvy-certbot
+    volumes:
+      - certbot_www:/var/www/certbot
+      - certbot_conf:/etc/letsencrypt
+    command: &gt;
+      certonly --webroot
+      --webroot-path=/var/www/certbot
+      --email admin@sipsavvy.com
+      --agree-tos --no-eff-email
+      -d sipsavvy.com -d www.sipsavvy.com
+    profiles:
+      - ssl-init   # run once: docker compose --profile ssl-init run certbot
+
+volumes:
+  pg_data:
+    driver: local
+  app_logs:
+    driver: local
+  certbot_www:
+    driver: local
+  certbot_conf:
+    driver: local
+</pre>
+<pre class="file-content" id="fc-server_index_js" style="display:none">&#x27;use strict&#x27;;
+
+/**
+ * SipSavvy API — server/index.js
+ * Express application entry point.
+ * Loads env, wires middleware, mounts all route groups,
+ * registers error handlers, and starts the HTTP server.
+ */
+
+require(&#x27;dotenv&#x27;).config();
+
+const express    = require(&#x27;express&#x27;);
+const helmet     = require(&#x27;helmet&#x27;);
+const cors       = require(&#x27;cors&#x27;);
+const compression= require(&#x27;compression&#x27;);
+const morgan     = require(&#x27;morgan&#x27;);
+const rateLimit  = require(&#x27;express-rate-limit&#x27;);
+
+const logger     = require(&#x27;./utils/logger&#x27;);
+const db         = require(&#x27;./utils/db&#x27;);
+const { errorHandler, notFoundHandler } = require(&#x27;./middleware/errorHandler&#x27;);
+
+// ── Route groups ──────────────────────────────────────────
+const authRoutes         = require(&#x27;./routes/auth&#x27;);
+const experienceRoutes   = require(&#x27;./routes/experiences&#x27;);
+const availabilityRoutes = require(&#x27;./routes/availability&#x27;);
+const bookingRoutes      = require(&#x27;./routes/bookings&#x27;);
+const guestRoutes        = require(&#x27;./routes/guests&#x27;);
+const paymentRoutes      = require(&#x27;./routes/payments&#x27;);
+const reviewRoutes       = require(&#x27;./routes/reviews&#x27;);
+const adminRoutes        = require(&#x27;./routes/admin&#x27;);
+const webhookRoutes      = require(&#x27;./routes/webhooks&#x27;);
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+const API  = `/v1`;
+
+/* ── Trust proxy (behind nginx / load balancer) ─────────── */
+app.set(&#x27;trust proxy&#x27;, 1);
+
+/* ── Security headers ────────────────────────────────────── */
+app.use(helmet({
+  contentSecurityPolicy: false, // handled at nginx level
+  crossOriginEmbedderPolicy: false,
+}));
+
+/* ── CORS ────────────────────────────────────────────────── */
+const allowedOrigins = (process.env.CORS_ORIGINS || &#x27;&#x27;)
+  .split(&#x27;,&#x27;)
+  .map(o =&gt; o.trim())
+  .filter(Boolean);
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (server-to-server, curl, Postman)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    callback(new Error(&#x27;CORS: origin not allowed — &#x27; + origin));
+  },
+  methods: [&#x27;GET&#x27;, &#x27;POST&#x27;, &#x27;PATCH&#x27;, &#x27;PUT&#x27;, &#x27;DELETE&#x27;, &#x27;OPTIONS&#x27;],
+  allowedHeaders: [&#x27;Content-Type&#x27;, &#x27;Authorization&#x27;],
+  credentials: true,
+  maxAge: 600,
+}));
+
+/* ── Stripe webhook — raw body BEFORE json parser ────────── */
+// Must be mounted before express.json() so Stripe signature can be verified.
+app.use(`${API}/webhooks`, webhookRoutes);
+
+/* ── Body parsing ────────────────────────────────────────── */
+app.use(express.json({ limit: &#x27;256kb&#x27; }));
+app.use(express.urlencoded({ extended: true, limit: &#x27;256kb&#x27; }));
+
+/* ── Compression ─────────────────────────────────────────── */
+app.use(compression());
+
+/* ── HTTP request logging ────────────────────────────────── */
+const morganFormat = process.env.NODE_ENV === &#x27;production&#x27; ? &#x27;combined&#x27; : &#x27;dev&#x27;;
+app.use(morgan(morganFormat, {
+  stream: { write: (msg) =&gt; logger.info(msg.trim()) },
+  skip: (req) =&gt; req.path === `${API}/health`,
+}));
+
+/* ── Global rate limiting ────────────────────────────────── */
+const globalLimiter = rateLimit({
+  windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS || &#x27;900000&#x27;),
+  max:      parseInt(process.env.RATE_LIMIT_MAX       || &#x27;100&#x27;),
+  standardHeaders: true,
+  legacyHeaders:   false,
+  message: { error: &#x27;TOO_MANY_REQUESTS&#x27;, message: &#x27;Too many requests. Please wait and try again.&#x27; },
+});
+app.use(API, globalLimiter);
+
+/* ── Stricter rate limit for booking creation ────────────── */
+const bookingLimiter = rateLimit({
+  windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS || &#x27;900000&#x27;),
+  max:      parseInt(process.env.RATE_LIMIT_MAX_BOOKING || &#x27;10&#x27;),
+  message: { error: &#x27;TOO_MANY_REQUESTS&#x27;, message: &#x27;Too many booking attempts. Please wait 15 minutes.&#x27; },
+});
+
+/* ── Health check — no auth required ────────────────────── */
+app.get(`${API}/health`, async (req, res) =&gt; {
+  let dbOk = false;
+  try {
+    await db.query(&#x27;SELECT 1&#x27;);
+    dbOk = true;
+  } catch (_) {}
+
+  const status = dbOk ? &#x27;ok&#x27; : &#x27;degraded&#x27;;
+  res.status(dbOk ? 200 : 503).json({
+    status,
+    version: process.env.npm_package_version || &#x27;1.0.0&#x27;,
+    timestamp: new Date().toISOString(),
+    uptime: Math.floor(process.uptime()),
+    services: {
+      database: dbOk ? &#x27;connected&#x27; : &#x27;unreachable&#x27;,
+    },
+  });
+});
+
+/* ── API routes ──────────────────────────────────────────── */
+app.use(`${API}/auth`,         authRoutes);
+app.use(`${API}/experiences`,  experienceRoutes);
+app.use(`${API}/availability`, availabilityRoutes);
+app.use(`${API}/bookings`,     bookingLimiter, bookingRoutes);
+app.use(`${API}/guests`,       guestRoutes);
+app.use(`${API}/payments`,     paymentRoutes);
+app.use(`${API}/reviews`,      reviewRoutes);
+app.use(`${API}/admin`,        adminRoutes);
+
+/* ── 404 handler ─────────────────────────────────────────── */
+app.use(notFoundHandler);
+
+/* ── Global error handler ────────────────────────────────── */
+app.use(errorHandler);
+
+/* ── Scheduled jobs (imported after server is defined) ──── */
+require(&#x27;./services/scheduler&#x27;);
+
+/* ── Start server ────────────────────────────────────────── */
+async function start() {
+  try {
+    await db.connect();
+    logger.info(&#x27;Database connection established&#x27;);
+
+    const server = app.listen(PORT, () =&gt; {
+      logger.info(`SipSavvy API running — port ${PORT} — env ${process.env.NODE_ENV}`);
+    });
+
+    // Graceful shutdown
+    const shutdown = async (signal) =&gt; {
+      logger.warn(`${signal} received — shutting down gracefully`);
+      server.close(async () =&gt; {
+        await db.end();
+        logger.info(&#x27;Server closed, database disconnected&#x27;);
+        process.exit(0);
+      });
+      setTimeout(() =&gt; {
+        logger.error(&#x27;Graceful shutdown timed out — forcing exit&#x27;);
+        process.exit(1);
+      }, 10_000);
+    };
+
+    process.on(&#x27;SIGTERM&#x27;, () =&gt; shutdown(&#x27;SIGTERM&#x27;));
+    process.on(&#x27;SIGINT&#x27;,  () =&gt; shutdown(&#x27;SIGINT&#x27;));
+
+    process.on(&#x27;unhandledRejection&#x27;, (reason) =&gt; {
+      logger.error(&#x27;Unhandled promise rejection&#x27;, { reason });
+    });
+    process.on(&#x27;uncaughtException&#x27;, (err) =&gt; {
+      logger.error(&#x27;Uncaught exception&#x27;, { error: err.message, stack: err.stack });
+      process.exit(1);
+    });
+
+  } catch (err) {
+    logger.error(&#x27;Failed to start server&#x27;, { error: err.message });
+    process.exit(1);
+  }
+}
+
+start();
+
+module.exports = app; // exported for supertest
+</pre>
+<pre class="file-content" id="fc-server_utils_logger_js" style="display:none">&#x27;use strict&#x27;;
+
+const { createLogger, format, transports } = require(&#x27;winston&#x27;);
+const path = require(&#x27;path&#x27;);
+const fs   = require(&#x27;fs&#x27;);
+
+const logDir = path.join(__dirname, &#x27;../../logs&#x27;);
+if (!fs.existsSync(logDir)) fs.mkdirSync(logDir, { recursive: true });
+
+const isProd   = process.env.NODE_ENV === &#x27;production&#x27;;
+const logLevel = process.env.LOG_LEVEL || &#x27;info&#x27;;
+const logFmt   = process.env.LOG_FORMAT || (isProd ? &#x27;json&#x27; : &#x27;pretty&#x27;);
+
+const prettyFormat = format.combine(
+  format.colorize(),
+  format.timestamp({ format: &#x27;HH:mm:ss&#x27; }),
+  format.printf(({ timestamp, level, message, ...meta }) =&gt; {
+    const extra = Object.keys(meta).length ? &#x27; &#x27; + JSON.stringify(meta) : &#x27;&#x27;;
+    return `${timestamp} ${level}: ${message}${extra}`;
+  })
+);
+
+const jsonFormat = format.combine(
+  format.timestamp(),
+  format.errors({ stack: true }),
+  format.json()
+);
+
+const logger = createLogger({
+  level: logLevel,
+  format: logFmt === &#x27;json&#x27; ? jsonFormat : prettyFormat,
+  transports: [
+    new transports.Console(),
+    new transports.File({
+      filename: path.join(logDir, &#x27;error.log&#x27;),
+      level: &#x27;error&#x27;,
+      maxsize: 10_485_760,  // 10 MB
+      maxFiles: 5,
+    }),
+    new transports.File({
+      filename: path.join(logDir, &#x27;api.log&#x27;),
+      maxsize: 10_485_760,
+      maxFiles: 10,
+    }),
+  ],
+});
+
+module.exports = logger;
+</pre>
+<pre class="file-content" id="fc-server_utils_db_js" style="display:none">&#x27;use strict&#x27;;
+
+/**
+ * PostgreSQL connection pool wrapper.
+ * Usage: const db = require(&#x27;./utils/db&#x27;);
+ *        const result = await db.query(&#x27;SELECT * FROM bookings WHERE ref = $1&#x27;, [ref]);
+ */
+
+const { Pool } = require(&#x27;pg&#x27;);
+const logger   = require(&#x27;./logger&#x27;);
+
+const pool = new Pool({
+  host:               process.env.DB_HOST     || &#x27;localhost&#x27;,
+  port:               parseInt(process.env.DB_PORT || &#x27;5432&#x27;),
+  database:           process.env.DB_NAME     || &#x27;sipsavvy_prod&#x27;,
+  user:               process.env.DB_USER     || &#x27;sipsavvy_api&#x27;,
+  password:           process.env.DB_PASSWORD,
+  ssl:                process.env.DB_SSL === &#x27;true&#x27; ? { rejectUnauthorized: true } : false,
+  min:                parseInt(process.env.DB_POOL_MIN  || &#x27;2&#x27;),
+  max:                parseInt(process.env.DB_POOL_MAX  || &#x27;10&#x27;),
+  idleTimeoutMillis:  parseInt(process.env.DB_POOL_IDLE_TIMEOUT || &#x27;30000&#x27;),
+  connectionTimeoutMillis: 5000,
+});
+
+pool.on(&#x27;error&#x27;, (err) =&gt; {
+  logger.error(&#x27;Unexpected database pool error&#x27;, { error: err.message });
+});
+
+module.exports = {
+  /** Run a parameterised query. Returns pg QueryResult. */
+  query: (text, params) =&gt; pool.query(text, params),
+
+  /** Get a dedicated client from the pool (for transactions). */
+  getClient: () =&gt; pool.connect(),
+
+  /** Connect — verifies the pool on startup. */
+  connect: async () =&gt; {
+    const client = await pool.connect();
+    client.release();
+  },
+
+  /** Drain the pool on shutdown. */
+  end: () =&gt; pool.end(),
+
+  /**
+   * Run a set of operations inside a transaction.
+   * Automatically commits on success, rolls back on error.
+   *
+   * @param {(client: pg.Client) =&gt; Promise&lt;T&gt;} fn
+   * @returns {Promise&lt;T&gt;}
+   */
+  transaction: async (fn) =&gt; {
+    const client = await pool.connect();
+    try {
+      await client.query(&#x27;BEGIN&#x27;);
+      const result = await fn(client);
+      await client.query(&#x27;COMMIT&#x27;);
+      return result;
+    } catch (err) {
+      await client.query(&#x27;ROLLBACK&#x27;);
+      throw err;
+    } finally {
+      client.release();
+    }
+  },
+};
+</pre>
+<pre class="file-content" id="fc-server_middleware_errorHandler_js" style="display:none">&#x27;use strict&#x27;;
+
+const logger = require(&#x27;../utils/logger&#x27;);
+
+/**
+ * notFoundHandler — catches unmatched routes and returns a 404.
+ */
+function notFoundHandler(req, res) {
+  res.status(404).json({
+    error:   &#x27;NOT_FOUND&#x27;,
+    message: `Route ${req.method} ${req.path} does not exist.`,
+  });
+}
+
+/**
+ * errorHandler — global Express error handler.
+ * Must be registered LAST with app.use().
+ */
+function errorHandler(err, req, res, next) { // eslint-disable-line no-unused-vars
+  // Log full stack in non-production environments
+  if (process.env.NODE_ENV !== &#x27;production&#x27;) {
+    logger.error(err.stack || err.message);
+  } else {
+    logger.error(&#x27;API error&#x27;, {
+      message: err.message,
+      path:    req.path,
+      method:  req.method,
+      ip:      req.ip,
+    });
+  }
+
+  // CORS error
+  if (err.message &amp;&amp; err.message.startsWith(&#x27;CORS&#x27;)) {
+    return res.status(403).json({ error: &#x27;FORBIDDEN&#x27;, message: &#x27;CORS policy violation.&#x27; });
+  }
+
+  // Validation errors from express-validator (passed via next(err))
+  if (err.type === &#x27;VALIDATION&#x27;) {
+    return res.status(422).json({
+      error:   err.code   || &#x27;VALIDATION_ERROR&#x27;,
+      message: err.message,
+      field:   err.field  || null,
+      details: err.details || null,
+    });
+  }
+
+  // Business logic errors with explicit HTTP status
+  if (err.statusCode) {
+    return res.status(err.statusCode).json({
+      error:   err.code    || &#x27;API_ERROR&#x27;,
+      message: err.message,
+      field:   err.field   || null,
+      details: err.details || null,
+    });
+  }
+
+  // Stripe errors
+  if (err.type &amp;&amp; err.type.startsWith(&#x27;Stripe&#x27;)) {
+    return res.status(502).json({
+      error:   &#x27;PAYMENT_GATEWAY_ERROR&#x27;,
+      message: &#x27;A payment processing error occurred. Please try again.&#x27;,
+    });
+  }
+
+  // Default 500
+  return res.status(500).json({
+    error:   &#x27;INTERNAL_ERROR&#x27;,
+    message: process.env.NODE_ENV === &#x27;production&#x27;
+      ? &#x27;An unexpected error occurred. Please try again.&#x27;
+      : err.message,
+  });
+}
+
+/**
+ * createApiError — factory for consistent business-logic errors.
+ * Usage: throw createApiError(409, &#x27;SLOT_UNAVAILABLE&#x27;, &#x27;The time slot is no longer available.&#x27;);
+ */
+function createApiError(statusCode, code, message, field = null, details = null) {
+  const err = new Error(message);
+  err.statusCode = statusCode;
+  err.code       = code;
+  err.field      = field;
+  err.details    = details;
+  return err;
+}
+
+module.exports = { notFoundHandler, errorHandler, createApiError };
+</pre>
+<pre class="file-content" id="fc-server_middleware_auth_js" style="display:none">&#x27;use strict&#x27;;
+
+const jwt = require(&#x27;jsonwebtoken&#x27;);
+const { createApiError } = require(&#x27;./errorHandler&#x27;);
+
+/**
+ * requireAuth — verifies a Bearer JWT and attaches decoded payload to req.user.
+ * Scope stored in token: &#x27;guest&#x27; | &#x27;admin&#x27;
+ */
+function requireAuth(req, res, next) {
+  const authHeader = req.headers.authorization || &#x27;&#x27;;
+  if (!authHeader.startsWith(&#x27;Bearer &#x27;)) {
+    return next(createApiError(401, &#x27;UNAUTHORIZED&#x27;, &#x27;Missing or malformed Authorization header.&#x27;));
+  }
+
+  const token = authHeader.slice(7);
+  try {
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = payload; // { sub, email, scope, iat, exp }
+    next();
+  } catch (err) {
+    if (err.name === &#x27;TokenExpiredError&#x27;) {
+      return next(createApiError(401, &#x27;TOKEN_EXPIRED&#x27;, &#x27;Access token has expired.&#x27;));
+    }
+    return next(createApiError(401, &#x27;TOKEN_INVALID&#x27;, &#x27;Access token is invalid.&#x27;));
+  }
+}
+
+/**
+ * requireAdmin — extends requireAuth to also enforce admin scope.
+ */
+function requireAdmin(req, res, next) {
+  requireAuth(req, res, (err) =&gt; {
+    if (err) return next(err);
+    if (req.user.scope !== &#x27;admin&#x27;) {
+      return next(createApiError(403, &#x27;FORBIDDEN&#x27;, &#x27;Admin access required.&#x27;));
+    }
+    next();
+  });
+}
+
+/**
+ * optionalAuth — attaches user to req if a valid token is present, but does
+ * not block the request if none is provided. Used for public endpoints that
+ * return richer data when the caller is authenticated.
+ */
+function optionalAuth(req, res, next) {
+  const authHeader = req.headers.authorization || &#x27;&#x27;;
+  if (!authHeader.startsWith(&#x27;Bearer &#x27;)) return next();
+  const token = authHeader.slice(7);
+  try {
+    req.user = jwt.verify(token, process.env.JWT_SECRET);
+  } catch (_) {
+    req.user = null;
+  }
+  next();
+}
+
+module.exports = { requireAuth, requireAdmin, optionalAuth };
+</pre>
+<pre class="file-content" id="fc-server_middleware_validate_js" style="display:none">&#x27;use strict&#x27;;
+
+const { validationResult } = require(&#x27;express-validator&#x27;);
+
+/**
+ * validate — collects express-validator errors and short-circuits with 422.
+ * Place this AFTER your validation chains in any route definition:
+ *
+ *   router.post(&#x27;/&#x27;, [body(&#x27;email&#x27;).isEmail(), validate], handler);
+ */
+function validate(req, res, next) {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const first = errors.array()[0];
+    return res.status(422).json({
+      error:   &#x27;VALIDATION_ERROR&#x27;,
+      message: first.msg,
+      field:   first.path || null,
+      details: errors.array().map(e =&gt; ({ field: e.path, message: e.msg })),
+    });
+  }
+  next();
+}
+
+module.exports = { validate };
+</pre>
+<pre class="file-content" id="fc-server_routes_auth_js" style="display:none">&#x27;use strict&#x27;;
+
+const express = require(&#x27;express&#x27;);
+const bcrypt  = require(&#x27;bcrypt&#x27;);
+const jwt     = require(&#x27;jsonwebtoken&#x27;);
+const { body } = require(&#x27;express-validator&#x27;);
+const { validate }     = require(&#x27;../middleware/validate&#x27;);
+const { requireAuth }  = require(&#x27;../middleware/auth&#x27;);
+const { createApiError } = require(&#x27;../middleware/errorHandler&#x27;);
+const db     = require(&#x27;../utils/db&#x27;);
+const logger = require(&#x27;../utils/logger&#x27;);
+
+const router = express.Router();
+
+/* ── POST /v1/auth/login ─────────────────────────────────── */
+router.post(&#x27;/login&#x27;,
+  [
+    body(&#x27;email&#x27;).isEmail().normalizeEmail().withMessage(&#x27;A valid email is required.&#x27;),
+    body(&#x27;password&#x27;).notEmpty().withMessage(&#x27;Password is required.&#x27;),
+    validate,
+  ],
+  async (req, res, next) =&gt; {
+    try {
+      const { email, password } = req.body;
+
+      const result = await db.query(
+        &#x27;SELECT id, email, password_hash, scope FROM users WHERE email = $1 AND deleted_at IS NULL&#x27;,
+        [email]
+      );
+
+      const user = result.rows[0];
+      if (!user) return next(createApiError(401, &#x27;INVALID_CREDENTIALS&#x27;, &#x27;Invalid email or password.&#x27;));
+
+      const match = await bcrypt.compare(password, user.password_hash);
+      if (!match) return next(createApiError(401, &#x27;INVALID_CREDENTIALS&#x27;, &#x27;Invalid email or password.&#x27;));
+
+      const payload = { sub: user.id, email: user.email, scope: user.scope };
+
+      const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
+        expiresIn: process.env.JWT_EXPIRES_IN || &#x27;8h&#x27;,
+      });
+
+      const refreshToken = jwt.sign(
+        { sub: user.id, type: &#x27;refresh&#x27; },
+        process.env.REFRESH_TOKEN_SECRET,
+        { expiresIn: process.env.REFRESH_TOKEN_EXPIRES_IN || &#x27;30d&#x27; }
+      );
+
+      // Store hashed refresh token in DB
+      const refreshHash = await bcrypt.hash(refreshToken, 10);
+      await db.query(
+        &#x27;UPDATE users SET refresh_token_hash = $1, last_login_at = NOW() WHERE id = $2&#x27;,
+        [refreshHash, user.id]
+      );
+
+      logger.info(&#x27;User logged in&#x27;, { userId: user.id, scope: user.scope });
+
+      res.json({
+        access_token:  accessToken,
+        refresh_token: refreshToken,
+        token_type:    &#x27;Bearer&#x27;,
+        expires_in:    28800, // 8h in seconds
+        scope:         user.scope,
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+/* ── POST /v1/auth/refresh ───────────────────────────────── */
+router.post(&#x27;/refresh&#x27;,
+  [body(&#x27;refresh_token&#x27;).notEmpty().withMessage(&#x27;refresh_token is required.&#x27;), validate],
+  async (req, res, next) =&gt; {
+    try {
+      const { refresh_token } = req.body;
+      let payload;
+      try {
+        payload = jwt.verify(refresh_token, process.env.REFRESH_TOKEN_SECRET);
+      } catch {
+        return next(createApiError(401, &#x27;TOKEN_INVALID&#x27;, &#x27;Invalid or expired refresh token.&#x27;));
+      }
+
+      const result = await db.query(&#x27;SELECT id, email, scope, refresh_token_hash FROM users WHERE id = $1&#x27;, [payload.sub]);
+      const user = result.rows[0];
+      if (!user || !user.refresh_token_hash) return next(createApiError(401, &#x27;TOKEN_REVOKED&#x27;, &#x27;Refresh token has been revoked.&#x27;));
+
+      const match = await bcrypt.compare(refresh_token, user.refresh_token_hash);
+      if (!match) return next(createApiError(401, &#x27;TOKEN_INVALID&#x27;, &#x27;Refresh token mismatch.&#x27;));
+
+      const accessToken = jwt.sign(
+        { sub: user.id, email: user.email, scope: user.scope },
+        process.env.JWT_SECRET,
+        { expiresIn: process.env.JWT_EXPIRES_IN || &#x27;8h&#x27; }
+      );
+
+      res.json({ access_token: accessToken, token_type: &#x27;Bearer&#x27;, expires_in: 28800 });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+/* ── POST /v1/auth/logout ────────────────────────────────── */
+router.post(&#x27;/logout&#x27;, requireAuth, async (req, res, next) =&gt; {
+  try {
+    await db.query(&#x27;UPDATE users SET refresh_token_hash = NULL WHERE id = $1&#x27;, [req.user.sub]);
+    res.status(204).end();
+  } catch (err) {
+    next(err);
+  }
+});
+
+/* ── GET /v1/auth/me ─────────────────────────────────────── */
+router.get(&#x27;/me&#x27;, requireAuth, async (req, res, next) =&gt; {
+  try {
+    const result = await db.query(
+      &#x27;SELECT id, email, first_name, last_name, phone, scope, created_at FROM users WHERE id = $1&#x27;,
+      [req.user.sub]
+    );
+    const user = result.rows[0];
+    if (!user) return next(createApiError(404, &#x27;USER_NOT_FOUND&#x27;, &#x27;User not found.&#x27;));
+    res.json(user);
+  } catch (err) {
+    next(err);
+  }
+});
+
+module.exports = router;
+</pre>
+<pre class="file-content" id="fc-server_routes_experiences_js" style="display:none">&#x27;use strict&#x27;;
+
+/**
+ * GET /v1/experiences
+ * GET /v1/experiences/:id
+ *
+ * Public endpoints — no auth required.
+ * Returns the four curated wine experience products.
+ */
+
+const express = require(&#x27;express&#x27;);
+const router  = express.Router();
+
+/* ── Canonical experience catalogue ──────────────────────── */
+const EXPERIENCES = [
+  {
+    id:           &#x27;sunset&#x27;,
+    name:         &#x27;Vineyard Sunset Tasting&#x27;,
+    slug:         &#x27;vineyard-sunset-tasting&#x27;,
+    price:        85,
+    duration_min: 90,
+    capacity_max: 12,
+    description:  &#x27;Watch the sun dip below the vines as you work through a curated flight of five estate wines, guided by our sommelier.&#x27;,
+    image_url:    &#x27;/assets/images/exp-sunset.jpg&#x27;,
+    icon:         &#x27;🍷&#x27;,
+    gradient:     &#x27;linear-gradient(135deg,#722F37,#9B4451)&#x27;,
+    active:       true,
+  },
+  {
+    id:           &#x27;cellar&#x27;,
+    name:         &#x27;Cellar Reserve Experience&#x27;,
+    slug:         &#x27;cellar-reserve-experience&#x27;,
+    price:        145,
+    duration_min: 120,
+    capacity_max: 8,
+    description:  &#x27;Descend into our historic cellar for a private tour and vertical tasting of reserve bottles unavailable in our public portfolio.&#x27;,
+    image_url:    &#x27;/assets/images/exp-cellar.jpg&#x27;,
+    icon:         &#x27;🏛️&#x27;,
+    gradient:     &#x27;linear-gradient(135deg,#3D1219,#722F37)&#x27;,
+    active:       true,
+  },
+  {
+    id:           &#x27;table&#x27;,
+    name:         &quot;Winemaker&#x27;s Table&quot;,
+    slug:         &#x27;winemakers-table&#x27;,
+    price:        195,
+    duration_min: 210,
+    capacity_max: 6,
+    description:  &#x27;A six-course seasonal dinner prepared by our chef, each course paired to a wine chosen by the winemaker and explained tableside.&#x27;,
+    image_url:    &#x27;/assets/images/exp-table.jpg&#x27;,
+    icon:         &#x27;🕯️&#x27;,
+    gradient:     &#x27;linear-gradient(135deg,#A07C2E,#C9A84C)&#x27;,
+    active:       true,
+  },
+  {
+    id:           &#x27;harvest&#x27;,
+    name:         &#x27;Harvest Blending Session&#x27;,
+    slug:         &#x27;harvest-blending-session&#x27;,
+    price:        225,
+    duration_min: 240,
+    capacity_max: 10,
+    description:  &#x27;Roll up your sleeves and blend your own signature wine under the guidance of our winemaker. Take home a labelled bottle of your creation.&#x27;,
+    image_url:    &#x27;/assets/images/exp-harvest.jpg&#x27;,
+    icon:         &#x27;🍇&#x27;,
+    gradient:     &#x27;linear-gradient(135deg,#2C2020,#4A3A3A)&#x27;,
+    active:       true,
+  },
+];
+
+/* ── GET /v1/experiences ─────────────────────────────────── */
+router.get(&#x27;/&#x27;, (req, res) =&gt; {
+  const list = req.query.active === &#x27;false&#x27;
+    ? EXPERIENCES
+    : EXPERIENCES.filter(e =&gt; e.active);
+  res.json({ data: list, total: list.length });
+});
+
+/* ── GET /v1/experiences/:id ─────────────────────────────── */
+router.get(&#x27;/:id&#x27;, (req, res, next) =&gt; {
+  const exp = EXPERIENCES.find(e =&gt; e.id === req.params.id || e.slug === req.params.id);
+  if (!exp) {
+    return res.status(404).json({ error: &#x27;NOT_FOUND&#x27;, message: `Experience &#x27;${req.params.id}&#x27; not found.` });
+  }
+  res.json(exp);
+});
+
+module.exports = router;
+</pre>
+<pre class="file-content" id="fc-server_routes_availability_js" style="display:none">&#x27;use strict&#x27;;
+
+/**
+ * GET /v1/availability
+ * Returns available dates + time slots for a given experience and month.
+ *
+ * Query params:
+ *   experience_id  (required) — &#x27;sunset&#x27; | &#x27;cellar&#x27; | &#x27;table&#x27; | &#x27;harvest&#x27;
+ *   year           (required) — e.g. 2026
+ *   month          (required) — 1-12
+ *   guests         (optional) — default 1
+ */
+
+const express = require(&#x27;express&#x27;);
+const { query } = require(&#x27;express-validator&#x27;);
+const { validate } = require(&#x27;../middleware/validate&#x27;);
+const db     = require(&#x27;../utils/db&#x27;);
+
+const router = express.Router();
+
+/* Operating days: Thu=4, Fri=5, Sat=6, Sun=0 */
+const OPERATING_DAYS = (process.env.OPERATING_DAYS || &#x27;4,5,6,0&#x27;)
+  .split(&#x27;,&#x27;).map(Number);
+
+const EXPERIENCE_CAPACITIES = {
+  sunset:  12,
+  cellar:  8,
+  table:   6,
+  harvest: 10,
+};
+
+const ALL_SLOTS = [&#x27;10:00&#x27;, &#x27;11:30&#x27;, &#x27;13:00&#x27;, &#x27;14:30&#x27;, &#x27;16:00&#x27;, &#x27;17:30&#x27;];
+
+/* ── GET /v1/availability ────────────────────────────────── */
+router.get(&#x27;/&#x27;,
+  [
+    query(&#x27;experience_id&#x27;).notEmpty().isIn([&#x27;sunset&#x27;,&#x27;cellar&#x27;,&#x27;table&#x27;,&#x27;harvest&#x27;])
+      .withMessage(&#x27;experience_id must be one of: sunset, cellar, table, harvest.&#x27;),
+    query(&#x27;year&#x27;).isInt({ min: 2026 }).withMessage(&#x27;year must be an integer ≥ 2026.&#x27;),
+    query(&#x27;month&#x27;).isInt({ min: 1, max: 12 }).withMessage(&#x27;month must be between 1 and 12.&#x27;),
+    validate,
+  ],
+  async (req, res, next) =&gt; {
+    try {
+      const { experience_id, year, month, guests = 1 } = req.query;
+      const cap = EXPERIENCE_CAPACITIES[experience_id] || 12;
+
+      // Build list of operating dates in the requested month
+      const daysInMonth = new Date(Number(year), Number(month), 0).getDate();
+      const operatingDates = [];
+      for (let d = 1; d &lt;= daysInMonth; d++) {
+        const date = new Date(Number(year), Number(month) - 1, d);
+        if (OPERATING_DAYS.includes(date.getDay())) {
+          operatingDates.push(`${year}-${String(month).padStart(2,&#x27;0&#x27;)}-${String(d).padStart(2,&#x27;0&#x27;)}`);
+        }
+      }
+
+      if (operatingDates.length === 0) {
+        return res.json({ experience_id, year, month, dates: [] });
+      }
+
+      // Query booked guest counts per (date, time_slot)
+      const bookedResult = await db.query(
+        `SELECT date::text, time_slot, SUM(guest_count) AS booked
+         FROM bookings
+         WHERE experience_id = $1
+           AND date = ANY($2::date[])
+           AND status IN (&#x27;pending&#x27;,&#x27;confirmed&#x27;)
+         GROUP BY date, time_slot`,
+        [experience_id, operatingDates]
+      );
+
+      const bookedMap = {};
+      for (const row of bookedResult.rows) {
+        bookedMap[`${row.date}|${row.time_slot}`] = Number(row.booked);
+      }
+
+      const dates = operatingDates.map(dateStr =&gt; {
+        const slots = ALL_SLOTS.map(slot =&gt; {
+          const booked = bookedMap[`${dateStr}|${slot}`] || 0;
+          const remaining = cap - booked;
+          return {
+            time:      slot,
+            available: remaining &gt;= Number(guests),
+            remaining: Math.max(0, remaining),
+          };
+        });
+        return {
+          date:           dateStr,
+          has_slots:      slots.some(s =&gt; s.available),
+          slots,
+        };
+      });
+
+      res.json({ experience_id, year: Number(year), month: Number(month), dates });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+module.exports = router;
+</pre>
+<pre class="file-content" id="fc-server_routes_bookings_js" style="display:none">&#x27;use strict&#x27;;
+
+/**
+ * Bookings routes — full CRUD + state transitions.
+ *
+ * POST   /v1/bookings               — create booking (guest or public)
+ * GET    /v1/bookings/:ref          — fetch single booking by ref
+ * GET    /v1/bookings/:ref/status   — lightweight status poll
+ * POST   /v1/bookings/:ref/cancel   — cancel a booking
+ */
+
+const express = require(&#x27;express&#x27;);
+const { body, param } = require(&#x27;express-validator&#x27;);
+const { v4: uuidv4 }  = require(&#x27;uuid&#x27;);
+const { validate }    = require(&#x27;../middleware/validate&#x27;);
+const { requireAuth, optionalAuth } = require(&#x27;../middleware/auth&#x27;);
+const { createApiError }  = require(&#x27;../middleware/errorHandler&#x27;);
+const db      = require(&#x27;../utils/db&#x27;);
+const logger  = require(&#x27;../utils/logger&#x27;);
+const emailSvc  = require(&#x27;../services/email&#x27;);
+
+const router = express.Router();
+
+/* ── Constants ───────────────────────────────────────────── */
+const PRICES = { sunset: 85, cellar: 145, table: 195, harvest: 225 };
+const ADDONS = {
+  charcuterie:  { price: 18, per: &#x27;person&#x27; },
+  souvenir:     { price: 32, per: &#x27;person&#x27; },
+  photography:  { price: 45, per: &#x27;session&#x27; },
+};
+const CANCEL_WINDOW_HOURS = Number(process.env.CANCELLATION_WINDOW_HOURS) || 48;
+
+/* ── Helper: build booking reference ─────────────────────── */
+function buildRef(year) {
+  const n = String(Math.floor(10000 + Math.random() * 90000)).padStart(5, &#x27;0&#x27;);
+  return `SS-${year}-${n}`;
+}
+
+/* ── Helper: compute total ───────────────────────────────── */
+function computeTotal(experienceId, guestCount, addons = {}) {
+  const base  = (PRICES[experienceId] || 0) * guestCount;
+  let addon   = 0;
+  for (const [key, qty] of Object.entries(addons)) {
+    if (!ADDONS[key] || !qty) continue;
+    addon += ADDONS[key].per === &#x27;person&#x27;
+      ? ADDONS[key].price * guestCount * qty
+      : ADDONS[key].price * qty;
+  }
+  return { base_total: base, addon_total: addon, total: base + addon };
+}
+
+/* ── POST /v1/bookings ───────────────────────────────────── */
+router.post(&#x27;/&#x27;,
+  optionalAuth,
+  [
+    body(&#x27;experience_id&#x27;).isIn([&#x27;sunset&#x27;,&#x27;cellar&#x27;,&#x27;table&#x27;,&#x27;harvest&#x27;]).withMessage(&#x27;Invalid experience_id.&#x27;),
+    body(&#x27;date&#x27;).isDate({ format: &#x27;YYYY-MM-DD&#x27; }).withMessage(&#x27;date must be YYYY-MM-DD.&#x27;),
+    body(&#x27;time_slot&#x27;).matches(/^\d{2}:\d{2}$/).withMessage(&#x27;time_slot must be HH:MM.&#x27;),
+    body(&#x27;guest_count&#x27;).isInt({ min: 1, max: 12 }).withMessage(&#x27;guest_count must be 1–12.&#x27;),
+    body(&#x27;guest.first_name&#x27;).notEmpty().withMessage(&#x27;guest.first_name is required.&#x27;),
+    body(&#x27;guest.last_name&#x27;).notEmpty().withMessage(&#x27;guest.last_name is required.&#x27;),
+    body(&#x27;guest.email&#x27;).isEmail().normalizeEmail().withMessage(&#x27;guest.email must be valid.&#x27;),
+    body(&#x27;guest.phone&#x27;).optional().isMobilePhone(),
+    body(&#x27;payment_method_id&#x27;).notEmpty().withMessage(&#x27;payment_method_id is required.&#x27;),
+    validate,
+  ],
+  async (req, res, next) =&gt; {
+    try {
+      const { experience_id, date, time_slot, guest_count, guest, addons = {}, payment_method_id } = req.body;
+
+      // Validate operating day (Thu=4, Fri=5, Sat=6, Sun=0)
+      const opDays = (process.env.OPERATING_DAYS || &#x27;4,5,6,0&#x27;).split(&#x27;,&#x27;).map(Number);
+      const dow    = new Date(date).getUTCDay();
+      if (!opDays.includes(dow)) {
+        return next(createApiError(422, &#x27;INVALID_DATE&#x27;, &#x27;Experiences are only available Thursday–Sunday.&#x27;));
+      }
+
+      // Late booking lock (default 4h before slot)
+      const lockHours = Number(process.env.LATE_BOOKING_LOCK_HOURS) || 4;
+      const slotTime  = new Date(`${date}T${time_slot}:00`);
+      if ((slotTime - Date.now()) &lt; lockHours * 3600 * 1000) {
+        return next(createApiError(422, &#x27;SLOT_LOCKED&#x27;, `Bookings close ${lockHours}h before the experience.`));
+      }
+
+      // Capacity check
+      const capResult = await db.query(
+        `SELECT COALESCE(SUM(guest_count),0) AS booked FROM bookings
+         WHERE experience_id=$1 AND date=$2 AND time_slot=$3 AND status IN (&#x27;pending&#x27;,&#x27;confirmed&#x27;)`,
+        [experience_id, date, time_slot]
+      );
+      const capacity = { sunset:12, cellar:8, table:6, harvest:10 };
+      const booked   = Number(capResult.rows[0].booked);
+      if (booked + guest_count &gt; (capacity[experience_id] || 12)) {
+        return next(createApiError(409, &#x27;SLOT_FULL&#x27;, &#x27;This time slot does not have enough remaining capacity.&#x27;));
+      }
+
+      // Upsert guest record
+      const guestResult = await db.query(
+        `INSERT INTO guests (id, first_name, last_name, email, phone, created_at)
+         VALUES ($1,$2,$3,$4,$5,NOW())
+         ON CONFLICT (email) DO UPDATE
+           SET first_name=EXCLUDED.first_name, last_name=EXCLUDED.last_name,
+               phone=COALESCE(EXCLUDED.phone, guests.phone)
+         RETURNING id`,
+        [uuidv4(), guest.first_name, guest.last_name, guest.email, guest.phone || null]
+      );
+      const guestId = guestResult.rows[0].id;
+
+      const { base_total, addon_total, total } = computeTotal(experience_id, guest_count, addons);
+
+      const year = new Date().getFullYear();
+      let ref;
+      let inserted = false;
+      for (let attempt = 0; attempt &lt; 5 &amp;&amp; !inserted; attempt++) {
+        ref = buildRef(year);
+        try {
+          await db.query(
+            `INSERT INTO bookings
+               (id, ref, experience_id, guest_id, date, time_slot, guest_count,
+                addons, base_total, addon_total, total, payment_method_id, status, created_at)
+             VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,&#x27;pending&#x27;,NOW())`,
+            [uuidv4(), ref, experience_id, guestId, date, time_slot,
+             guest_count, JSON.stringify(addons), base_total, addon_total, total, payment_method_id]
+          );
+          inserted = true;
+        } catch (e) {
+          if (e.code !== &#x27;23505&#x27;) throw e; // retry only on unique_violation
+        }
+      }
+
+      logger.info(&#x27;Booking created&#x27;, { ref, experience_id, date, guest_count });
+
+      res.status(201).json({
+        ref,
+        experience_id,
+        date,
+        time_slot,
+        guest_count,
+        addons,
+        base_total,
+        addon_total,
+        total,
+        status: &#x27;pending&#x27;,
+        message: &#x27;Booking created. Awaiting payment confirmation.&#x27;,
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+/* ── GET /v1/bookings/:ref ───────────────────────────────── */
+router.get(&#x27;/:ref&#x27;,
+  [param(&#x27;ref&#x27;).matches(/^SS-\d{4}-\d{5}$/).withMessage(&#x27;Invalid booking reference format.&#x27;), validate],
+  async (req, res, next) =&gt; {
+    try {
+      const result = await db.query(
+        `SELECT b.*, g.first_name, g.last_name, g.email, g.phone
+         FROM bookings b JOIN guests g ON b.guest_id = g.id
+         WHERE b.ref = $1`,
+        [req.params.ref]
+      );
+      if (!result.rows.length) {
+        return next(createApiError(404, &#x27;BOOKING_NOT_FOUND&#x27;, `Booking ${req.params.ref} not found.`));
+      }
+      res.json(result.rows[0]);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+/* ── GET /v1/bookings/:ref/status ────────────────────────── */
+router.get(&#x27;/:ref/status&#x27;,
+  [param(&#x27;ref&#x27;).matches(/^SS-\d{4}-\d{5}$/).withMessage(&#x27;Invalid booking reference format.&#x27;), validate],
+  async (req, res, next) =&gt; {
+    try {
+      const result = await db.query(&#x27;SELECT ref, status, updated_at FROM bookings WHERE ref = $1&#x27;, [req.params.ref]);
+      if (!result.rows.length) {
+        return next(createApiError(404, &#x27;BOOKING_NOT_FOUND&#x27;, `Booking ${req.params.ref} not found.`));
+      }
+      res.json(result.rows[0]);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+/* ── POST /v1/bookings/:ref/cancel ───────────────────────── */
+router.post(&#x27;/:ref/cancel&#x27;,
+  [param(&#x27;ref&#x27;).matches(/^SS-\d{4}-\d{5}$/).withMessage(&#x27;Invalid booking reference format.&#x27;), validate],
+  async (req, res, next) =&gt; {
+    try {
+      const result = await db.query(
+        `SELECT b.*, g.email, g.first_name FROM bookings b JOIN guests g ON b.guest_id = g.id WHERE b.ref = $1`,
+        [req.params.ref]
+      );
+      if (!result.rows.length) {
+        return next(createApiError(404, &#x27;BOOKING_NOT_FOUND&#x27;, `Booking ${req.params.ref} not found.`));
+      }
+      const booking = result.rows[0];
+
+      if (![&#x27;pending&#x27;,&#x27;confirmed&#x27;].includes(booking.status)) {
+        return next(createApiError(422, &#x27;INVALID_STATUS&#x27;, `Cannot cancel a booking with status &#x27;${booking.status}&#x27;.`));
+      }
+
+      // Compute refund eligibility
+      const experienceTime  = new Date(`${booking.date}T${booking.time_slot}:00`);
+      const hoursUntil      = (experienceTime - Date.now()) / 3600000;
+      const refund_eligible = hoursUntil &gt;= CANCEL_WINDOW_HOURS;
+      const refund_amount   = refund_eligible ? booking.total : 0;
+
+      await db.query(
+        `UPDATE bookings SET status=&#x27;cancelled&#x27;, refund_amount=$1, updated_at=NOW() WHERE ref=$2`,
+        [refund_amount, req.params.ref]
+      );
+
+      // Queue cancellation email
+      emailSvc.sendCancellation({
+        to:             booking.email,
+        firstName:      booking.first_name,
+        bookingRef:     booking.ref,
+        experienceName: booking.experience_id,
+        date:           booking.date,
+        time:           booking.time_slot,
+        originalTotal:  booking.total,
+        refundAmount:   refund_amount,
+      }).catch(err =&gt; logger.error(&#x27;Cancellation email failed&#x27;, { err, ref: booking.ref }));
+
+      logger.info(&#x27;Booking cancelled&#x27;, { ref: booking.ref, refund_eligible, refund_amount });
+
+      res.json({
+        ref:            booking.ref,
+        status:         &#x27;cancelled&#x27;,
+        refund_eligible,
+        refund_amount,
+        message:        refund_eligible
+          ? `Full refund of $${refund_amount.toFixed(2)} will appear in 5–7 business days.`
+          : &#x27;Cancellation received within 48h of experience — no refund applies.&#x27;,
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+module.exports = router;
+</pre>
+<pre class="file-content" id="fc-server_routes_payments_js" style="display:none">&#x27;use strict&#x27;;
+
+/**
+ * Payments routes — Stripe payment intent creation.
+ *
+ * POST /v1/payments/intent   — create a Stripe PaymentIntent for a booking
+ */
+
+const express = require(&#x27;express&#x27;);
+const { body } = require(&#x27;express-validator&#x27;);
+const { validate }       = require(&#x27;../middleware/validate&#x27;);
+const { createApiError } = require(&#x27;../middleware/errorHandler&#x27;);
+const stripeSvc = require(&#x27;../services/stripe&#x27;);
+const db        = require(&#x27;../utils/db&#x27;);
+const logger    = require(&#x27;../utils/logger&#x27;);
+
+const router = express.Router();
+
+/* ── POST /v1/payments/intent ────────────────────────────── */
+router.post(&#x27;/intent&#x27;,
+  [
+    body(&#x27;booking_ref&#x27;).matches(/^SS-\d{4}-\d{5}$/).withMessage(&#x27;Invalid booking_ref format.&#x27;),
+    validate,
+  ],
+  async (req, res, next) =&gt; {
+    try {
+      const { booking_ref } = req.body;
+
+      const result = await db.query(
+        &#x27;SELECT ref, total, status, stripe_payment_intent_id FROM bookings WHERE ref = $1&#x27;,
+        [booking_ref]
+      );
+      if (!result.rows.length) {
+        return next(createApiError(404, &#x27;BOOKING_NOT_FOUND&#x27;, `Booking ${booking_ref} not found.`));
+      }
+      const booking = result.rows[0];
+
+      if (booking.status === &#x27;confirmed&#x27;) {
+        return next(createApiError(409, &#x27;ALREADY_PAID&#x27;, &#x27;This booking is already confirmed.&#x27;));
+      }
+      if (![&#x27;pending&#x27;].includes(booking.status)) {
+        return next(createApiError(422, &#x27;INVALID_STATUS&#x27;, `Cannot create payment intent for status &#x27;${booking.status}&#x27;.`));
+      }
+
+      // Re-use existing intent if one was already created
+      if (booking.stripe_payment_intent_id) {
+        const existing = await stripeSvc.retrieveIntent(booking.stripe_payment_intent_id);
+        return res.json({ client_secret: existing.client_secret, payment_intent_id: existing.id });
+      }
+
+      const intent = await stripeSvc.createIntent({
+        amount:   Math.round(booking.total * 100), // cents
+        currency: &#x27;usd&#x27;,
+        metadata: { booking_ref },
+      });
+
+      await db.query(
+        &#x27;UPDATE bookings SET stripe_payment_intent_id = $1, updated_at = NOW() WHERE ref = $2&#x27;,
+        [intent.id, booking_ref]
+      );
+
+      logger.info(&#x27;PaymentIntent created&#x27;, { booking_ref, intent_id: intent.id, amount: booking.total });
+
+      res.json({ client_secret: intent.client_secret, payment_intent_id: intent.id });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+module.exports = router;
+</pre>
+<pre class="file-content" id="fc-server_routes_guests_js" style="display:none">&#x27;use strict&#x27;;
+
+/**
+ * Guests routes — admin-only guest management.
+ *
+ * GET  /v1/guests         — list guests (paginated, searchable)
+ * GET  /v1/guests/:id     — single guest profile + booking history
+ */
+
+const express = require(&#x27;express&#x27;);
+const { query, param } = require(&#x27;express-validator&#x27;);
+const { validate }     = require(&#x27;../middleware/validate&#x27;);
+const { requireAdmin } = require(&#x27;../middleware/auth&#x27;);
+const { createApiError } = require(&#x27;../middleware/errorHandler&#x27;);
+const db = require(&#x27;../utils/db&#x27;);
+
+const router = express.Router();
+
+/* ── GET /v1/guests ──────────────────────────────────────── */
+router.get(&#x27;/&#x27;,
+  requireAdmin,
+  [
+    query(&#x27;q&#x27;).optional().isString().trim(),
+    query(&#x27;page&#x27;).optional().isInt({ min: 1 }).toInt(),
+    query(&#x27;per_page&#x27;).optional().isInt({ min: 1, max: 100 }).toInt(),
+    validate,
+  ],
+  async (req, res, next) =&gt; {
+    try {
+      const q        = req.query.q       || &#x27;&#x27;;
+      const page     = req.query.page    || 1;
+      const perPage  = req.query.per_page || 20;
+      const offset   = (page - 1) * perPage;
+
+      const where  = q ? `WHERE (g.email ILIKE $3 OR g.first_name ILIKE $3 OR g.last_name ILIKE $3)` : &#x27;&#x27;;
+      const params = q ? [perPage, offset, `%${q}%`] : [perPage, offset];
+
+      const [rows, countRow] = await Promise.all([
+        db.query(
+          `SELECT g.id, g.first_name, g.last_name, g.email, g.phone,
+                  g.created_at,
+                  COUNT(b.id)          AS total_bookings,
+                  SUM(b.total)         AS lifetime_value
+           FROM guests g
+           LEFT JOIN bookings b ON b.guest_id = g.id AND b.status != &#x27;cancelled&#x27;
+           ${where}
+           GROUP BY g.id
+           ORDER BY g.created_at DESC
+           LIMIT $1 OFFSET $2`,
+          params
+        ),
+        db.query(
+          `SELECT COUNT(*) FROM guests g ${where}`,
+          q ? [`%${q}%`] : []
+        ),
+      ]);
+
+      res.json({
+        data:      rows.rows,
+        total:     Number(countRow.rows[0].count),
+        page,
+        per_page:  perPage,
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+/* ── GET /v1/guests/:id ──────────────────────────────────── */
+router.get(&#x27;/:id&#x27;,
+  requireAdmin,
+  [param(&#x27;id&#x27;).isUUID().withMessage(&#x27;Guest id must be a valid UUID.&#x27;), validate],
+  async (req, res, next) =&gt; {
+    try {
+      const guestResult = await db.query(
+        &#x27;SELECT id, first_name, last_name, email, phone, created_at FROM guests WHERE id = $1&#x27;,
+        [req.params.id]
+      );
+      if (!guestResult.rows.length) {
+        return next(createApiError(404, &#x27;GUEST_NOT_FOUND&#x27;, &#x27;Guest not found.&#x27;));
+      }
+
+      const bookingsResult = await db.query(
+        `SELECT ref, experience_id, date, time_slot, guest_count, total, status, created_at
+         FROM bookings WHERE guest_id = $1 ORDER BY date DESC`,
+        [req.params.id]
+      );
+
+      res.json({
+        ...guestResult.rows[0],
+        bookings: bookingsResult.rows,
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+module.exports = router;
+</pre>
+<pre class="file-content" id="fc-server_routes_reviews_js" style="display:none">&#x27;use strict&#x27;;
+
+/**
+ * Reviews routes
+ *
+ * GET  /v1/reviews              — list approved reviews (public)
+ * POST /v1/reviews              — submit a review (requires completed booking ref)
+ * GET  /v1/reviews/:id          — single review (admin)
+ * PATCH /v1/reviews/:id/approve — approve a review (admin)
+ * PATCH /v1/reviews/:id/reject  — reject a review (admin)
+ */
+
+const express = require(&#x27;express&#x27;);
+const { body, param, query } = require(&#x27;express-validator&#x27;);
+const { v4: uuidv4 }   = require(&#x27;uuid&#x27;);
+const { validate }     = require(&#x27;../middleware/validate&#x27;);
+const { requireAdmin } = require(&#x27;../middleware/auth&#x27;);
+const { createApiError } = require(&#x27;../middleware/errorHandler&#x27;);
+const db     = require(&#x27;../utils/db&#x27;);
+const logger = require(&#x27;../utils/logger&#x27;);
+
+const router = express.Router();
+
+/* ── GET /v1/reviews (public) ────────────────────────────── */
+router.get(&#x27;/&#x27;,
+  [
+    query(&#x27;experience_id&#x27;).optional().isIn([&#x27;sunset&#x27;,&#x27;cellar&#x27;,&#x27;table&#x27;,&#x27;harvest&#x27;]),
+    query(&#x27;page&#x27;).optional().isInt({ min: 1 }).toInt(),
+    query(&#x27;per_page&#x27;).optional().isInt({ min: 1, max: 50 }).toInt(),
+    validate,
+  ],
+  async (req, res, next) =&gt; {
+    try {
+      const expId   = req.query.experience_id || null;
+      const page    = req.query.page    || 1;
+      const perPage = req.query.per_page || 10;
+      const offset  = (page - 1) * perPage;
+
+      const conditions = [&quot;r.status = &#x27;approved&#x27;&quot;];
+      const params     = [perPage, offset];
+      if (expId) { conditions.push(`r.experience_id = $${params.push(expId)}`); }
+
+      const where = conditions.length ? `WHERE ${conditions.join(&#x27; AND &#x27;)}` : &#x27;&#x27;;
+
+      const [rows, countRow] = await Promise.all([
+        db.query(
+          `SELECT r.id, r.experience_id, r.rating, r.body, r.created_at,
+                  g.first_name, LEFT(g.last_name, 1) || &#x27;.&#x27; AS last_initial
+           FROM reviews r JOIN guests g ON r.guest_id = g.id
+           ${where}
+           ORDER BY r.created_at DESC LIMIT $1 OFFSET $2`,
+          params
+        ),
+        db.query(`SELECT COUNT(*) FROM reviews r ${where}`, params.slice(2)),
+      ]);
+
+      res.json({ data: rows.rows, total: Number(countRow.rows[0].count), page, per_page: perPage });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+/* ── POST /v1/reviews ────────────────────────────────────── */
+router.post(&#x27;/&#x27;,
+  [
+    body(&#x27;booking_ref&#x27;).matches(/^SS-\d{4}-\d{5}$/).withMessage(&#x27;Invalid booking_ref.&#x27;),
+    body(&#x27;rating&#x27;).isInt({ min: 1, max: 5 }).withMessage(&#x27;rating must be 1–5.&#x27;),
+    body(&#x27;body&#x27;).isString().trim().isLength({ min: 20, max: 2000 })
+      .withMessage(&#x27;body must be 20–2000 characters.&#x27;),
+    validate,
+  ],
+  async (req, res, next) =&gt; {
+    try {
+      const { booking_ref, rating, body: reviewBody } = req.body;
+
+      // Verify booking is completed
+      const bResult = await db.query(
+        `SELECT b.guest_id, b.experience_id, b.status FROM bookings b WHERE b.ref = $1`,
+        [booking_ref]
+      );
+      if (!bResult.rows.length) return next(createApiError(404, &#x27;BOOKING_NOT_FOUND&#x27;, &#x27;Booking not found.&#x27;));
+      const booking = bResult.rows[0];
+      if (booking.status !== &#x27;completed&#x27;) {
+        return next(createApiError(422, &#x27;BOOKING_NOT_COMPLETED&#x27;, &#x27;Reviews can only be submitted for completed bookings.&#x27;));
+      }
+
+      // Prevent duplicate reviews
+      const dup = await db.query(
+        &#x27;SELECT id FROM reviews WHERE booking_ref = $1&#x27;, [booking_ref]
+      );
+      if (dup.rows.length) return next(createApiError(409, &#x27;REVIEW_EXISTS&#x27;, &#x27;A review has already been submitted for this booking.&#x27;));
+
+      const id = uuidv4();
+      await db.query(
+        `INSERT INTO reviews (id, booking_ref, guest_id, experience_id, rating, body, status, created_at)
+         VALUES ($1,$2,$3,$4,$5,$6,&#x27;pending&#x27;,NOW())`,
+        [id, booking_ref, booking.guest_id, booking.experience_id, rating, reviewBody]
+      );
+
+      logger.info(&#x27;Review submitted&#x27;, { id, booking_ref, rating });
+      res.status(201).json({ id, status: &#x27;pending&#x27;, message: &#x27;Review submitted for moderation. Thank you!&#x27; });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+/* ── PATCH /v1/reviews/:id/approve ──────────────────────── */
+router.patch(&#x27;/:id/approve&#x27;,
+  requireAdmin,
+  [param(&#x27;id&#x27;).isUUID(), validate],
+  async (req, res, next) =&gt; {
+    try {
+      const result = await db.query(
+        `UPDATE reviews SET status=&#x27;approved&#x27;, moderated_at=NOW() WHERE id=$1 RETURNING id, status`,
+        [req.params.id]
+      );
+      if (!result.rows.length) return next(createApiError(404, &#x27;NOT_FOUND&#x27;, &#x27;Review not found.&#x27;));
+      res.json(result.rows[0]);
+    } catch (err) { next(err); }
+  }
+);
+
+/* ── PATCH /v1/reviews/:id/reject ───────────────────────── */
+router.patch(&#x27;/:id/reject&#x27;,
+  requireAdmin,
+  [param(&#x27;id&#x27;).isUUID(), validate],
+  async (req, res, next) =&gt; {
+    try {
+      const result = await db.query(
+        `UPDATE reviews SET status=&#x27;rejected&#x27;, moderated_at=NOW() WHERE id=$1 RETURNING id, status`,
+        [req.params.id]
+      );
+      if (!result.rows.length) return next(createApiError(404, &#x27;NOT_FOUND&#x27;, &#x27;Review not found.&#x27;));
+      res.json(result.rows[0]);
+    } catch (err) { next(err); }
+  }
+);
+
+module.exports = router;
+</pre>
+<pre class="file-content" id="fc-server_routes_admin_js" style="display:none">&#x27;use strict&#x27;;
+
+/**
+ * Admin routes — protected, scope=&#x27;admin&#x27; required for all.
+ *
+ * GET   /v1/admin/bookings                  — list all bookings (paginated, filterable)
+ * GET   /v1/admin/bookings/:ref             — single booking detail
+ * PATCH /v1/admin/bookings/:ref/status      — override booking status
+ * POST  /v1/admin/bookings/:ref/cancel      — admin force-cancel (no 48h restriction)
+ * GET   /v1/admin/stats                     — KPI summary (revenue, counts)
+ */
+
+const express = require(&#x27;express&#x27;);
+const { body, param, query } = require(&#x27;express-validator&#x27;);
+const { validate }     = require(&#x27;../middleware/validate&#x27;);
+const { requireAdmin } = require(&#x27;../middleware/auth&#x27;);
+const { createApiError } = require(&#x27;../middleware/errorHandler&#x27;);
+const db      = require(&#x27;../utils/db&#x27;);
+const logger  = require(&#x27;../utils/logger&#x27;);
+const emailSvc = require(&#x27;../services/email&#x27;);
+
+const router = express.Router();
+
+// All admin routes require admin scope
+router.use(requireAdmin);
+
+/* ── GET /v1/admin/bookings ──────────────────────────────── */
+router.get(&#x27;/bookings&#x27;,
+  [
+    query(&#x27;status&#x27;).optional().isIn([&#x27;pending&#x27;,&#x27;confirmed&#x27;,&#x27;completed&#x27;,&#x27;cancelled&#x27;]),
+    query(&#x27;experience_id&#x27;).optional().isIn([&#x27;sunset&#x27;,&#x27;cellar&#x27;,&#x27;table&#x27;,&#x27;harvest&#x27;]),
+    query(&#x27;q&#x27;).optional().isString().trim(),
+    query(&#x27;page&#x27;).optional().isInt({ min: 1 }).toInt(),
+    query(&#x27;per_page&#x27;).optional().isInt({ min: 1, max: 100 }).toInt(),
+    query(&#x27;sort&#x27;).optional().isIn([&#x27;date&#x27;,&#x27;created_at&#x27;,&#x27;total&#x27;,&#x27;guest_count&#x27;]),
+    query(&#x27;order&#x27;).optional().isIn([&#x27;asc&#x27;,&#x27;desc&#x27;]),
+    validate,
+  ],
+  async (req, res, next) =&gt; {
+    try {
+      const {
+        status, experience_id, q,
+        page = 1, per_page = 20,
+        sort = &#x27;created_at&#x27;, order = &#x27;desc&#x27;,
+      } = req.query;
+
+      const conditions = [];
+      const params     = [];
+
+      if (status)        conditions.push(`b.status = $${params.push(status)}`);
+      if (experience_id) conditions.push(`b.experience_id = $${params.push(experience_id)}`);
+      if (q)             conditions.push(`(g.email ILIKE $${params.push(&#x27;%&#x27;+q+&#x27;%&#x27;)} OR b.ref ILIKE $${params.push(&#x27;%&#x27;+q+&#x27;%&#x27;)} OR g.first_name ILIKE $${params.push(&#x27;%&#x27;+q+&#x27;%&#x27;)})`);
+
+      const where    = conditions.length ? `WHERE ${conditions.join(&#x27; AND &#x27;)}` : &#x27;&#x27;;
+      const orderSql = `ORDER BY b.${sort} ${order.toUpperCase()}`;
+      const pageSql  = `LIMIT $${params.push(per_page)} OFFSET $${params.push((page-1)*per_page)}`;
+
+      const [rows, countRow] = await Promise.all([
+        db.query(
+          `SELECT b.ref, b.experience_id, b.date, b.time_slot, b.guest_count,
+                  b.base_total, b.addon_total, b.total, b.status, b.addons, b.created_at,
+                  g.first_name, g.last_name, g.email, g.phone
+           FROM bookings b JOIN guests g ON b.guest_id = g.id
+           ${where} ${orderSql} ${pageSql}`,
+          params
+        ),
+        db.query(
+          `SELECT COUNT(*) FROM bookings b JOIN guests g ON b.guest_id = g.id ${where}`,
+          params.slice(0, params.length - 2)
+        ),
+      ]);
+
+      res.json({
+        data:     rows.rows,
+        total:    Number(countRow.rows[0].count),
+        page,
+        per_page,
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+/* ── GET /v1/admin/bookings/:ref ─────────────────────────── */
+router.get(&#x27;/bookings/:ref&#x27;,
+  [param(&#x27;ref&#x27;).matches(/^SS-\d{4}-\d{5}$/).withMessage(&#x27;Invalid booking reference.&#x27;), validate],
+  async (req, res, next) =&gt; {
+    try {
+      const result = await db.query(
+        `SELECT b.*, g.first_name, g.last_name, g.email, g.phone, g.id AS guest_id
+         FROM bookings b JOIN guests g ON b.guest_id = g.id WHERE b.ref = $1`,
+        [req.params.ref]
+      );
+      if (!result.rows.length) return next(createApiError(404, &#x27;BOOKING_NOT_FOUND&#x27;, `Booking ${req.params.ref} not found.`));
+      res.json(result.rows[0]);
+    } catch (err) { next(err); }
+  }
+);
+
+/* ── PATCH /v1/admin/bookings/:ref/status ────────────────── */
+router.patch(&#x27;/bookings/:ref/status&#x27;,
+  [
+    param(&#x27;ref&#x27;).matches(/^SS-\d{4}-\d{5}$/).withMessage(&#x27;Invalid booking reference.&#x27;),
+    body(&#x27;status&#x27;).isIn([&#x27;pending&#x27;,&#x27;confirmed&#x27;,&#x27;completed&#x27;,&#x27;cancelled&#x27;]).withMessage(&#x27;Invalid status.&#x27;),
+    validate,
+  ],
+  async (req, res, next) =&gt; {
+    try {
+      const { status, notes } = req.body;
+      const result = await db.query(
+        `UPDATE bookings SET status=$1, admin_notes=$2, updated_at=NOW() WHERE ref=$3
+         RETURNING ref, status, updated_at`,
+        [status, notes || null, req.params.ref]
+      );
+      if (!result.rows.length) return next(createApiError(404, &#x27;BOOKING_NOT_FOUND&#x27;, `Booking ${req.params.ref} not found.`));
+      logger.info(&#x27;Admin status override&#x27;, { ref: req.params.ref, status, admin: req.user.sub });
+      res.json(result.rows[0]);
+    } catch (err) { next(err); }
+  }
+);
+
+/* ── POST /v1/admin/bookings/:ref/cancel (force) ─────────── */
+router.post(&#x27;/bookings/:ref/cancel&#x27;,
+  [
+    param(&#x27;ref&#x27;).matches(/^SS-\d{4}-\d{5}$/).withMessage(&#x27;Invalid booking reference.&#x27;),
+    body(&#x27;refund_amount&#x27;).isFloat({ min: 0 }).withMessage(&#x27;refund_amount must be a non-negative number.&#x27;),
+    validate,
+  ],
+  async (req, res, next) =&gt; {
+    try {
+      const { refund_amount, reason } = req.body;
+
+      const result = await db.query(
+        `SELECT b.ref, b.status, b.total, g.email, g.first_name, b.experience_id, b.date, b.time_slot
+         FROM bookings b JOIN guests g ON b.guest_id = g.id WHERE b.ref = $1`,
+        [req.params.ref]
+      );
+      if (!result.rows.length) return next(createApiError(404, &#x27;BOOKING_NOT_FOUND&#x27;, `Booking ${req.params.ref} not found.`));
+      const booking = result.rows[0];
+
+      if (booking.status === &#x27;cancelled&#x27;) {
+        return next(createApiError(409, &#x27;ALREADY_CANCELLED&#x27;, &#x27;Booking is already cancelled.&#x27;));
+      }
+
+      await db.query(
+        `UPDATE bookings SET status=&#x27;cancelled&#x27;, refund_amount=$1, admin_notes=$2, updated_at=NOW() WHERE ref=$3`,
+        [refund_amount, reason || &#x27;Admin force cancel&#x27;, req.params.ref]
+      );
+
+      emailSvc.sendCancellation({
+        to: booking.email, firstName: booking.first_name, bookingRef: booking.ref,
+        experienceName: booking.experience_id, date: booking.date, time: booking.time_slot,
+        originalTotal: booking.total, refundAmount: refund_amount,
+      }).catch(err =&gt; logger.error(&#x27;Admin cancel email failed&#x27;, { err, ref: booking.ref }));
+
+      logger.warn(&#x27;Admin force cancel&#x27;, { ref: req.params.ref, refund_amount, admin: req.user.sub, reason });
+      res.json({ ref: req.params.ref, status: &#x27;cancelled&#x27;, refund_amount });
+    } catch (err) { next(err); }
+  }
+);
+
+/* ── GET /v1/admin/stats ─────────────────────────────────── */
+router.get(&#x27;/stats&#x27;, async (req, res, next) =&gt; {
+  try {
+    const [revenue, counts, topExp, recent] = await Promise.all([
+      db.query(
+        `SELECT
+           SUM(CASE WHEN status=&#x27;confirmed&#x27; THEN total ELSE 0 END)  AS confirmed_revenue,
+           SUM(CASE WHEN status=&#x27;completed&#x27; THEN total ELSE 0 END)  AS completed_revenue,
+           SUM(CASE WHEN status!=&#x27;cancelled&#x27; THEN total ELSE 0 END) AS pipeline_revenue
+         FROM bookings`
+      ),
+      db.query(
+        `SELECT status, COUNT(*) AS cnt FROM bookings GROUP BY status`
+      ),
+      db.query(
+        `SELECT experience_id, COUNT(*) AS cnt, SUM(total) AS revenue
+         FROM bookings WHERE status != &#x27;cancelled&#x27;
+         GROUP BY experience_id ORDER BY cnt DESC LIMIT 1`
+      ),
+      db.query(
+        `SELECT b.ref, b.experience_id, b.date, b.status, b.total,
+                g.first_name, g.last_name
+         FROM bookings b JOIN guests g ON b.guest_id = g.id
+         ORDER BY b.created_at DESC LIMIT 5`
+      ),
+    ]);
+
+    const statusMap = {};
+    for (const row of counts.rows) statusMap[row.status] = Number(row.cnt);
+
+    res.json({
+      revenue:        revenue.rows[0],
+      status_counts:  statusMap,
+      top_experience: topExp.rows[0] || null,
+      recent_bookings: recent.rows,
+    });
+  } catch (err) { next(err); }
+});
+
+module.exports = router;
+</pre>
+<pre class="file-content" id="fc-server_routes_webhooks_js" style="display:none">&#x27;use strict&#x27;;
+
+/**
+ * Stripe webhook handler.
+ * This route MUST be mounted BEFORE express.json() because Stripe requires
+ * the raw body buffer to verify the webhook signature.
+ *
+ * Mounted at: POST /v1/webhooks/stripe
+ */
+
+const express  = require(&#x27;express&#x27;);
+const stripe   = require(&#x27;stripe&#x27;)(process.env.STRIPE_SECRET_KEY);
+const db       = require(&#x27;../utils/db&#x27;);
+const logger   = require(&#x27;../utils/logger&#x27;);
+const emailSvc = require(&#x27;../services/email&#x27;);
+
+const router = express.Router();
+
+const WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET;
+
+router.post(&#x27;/stripe&#x27;, express.raw({ type: &#x27;application/json&#x27; }), async (req, res) =&gt; {
+  const sig = req.headers[&#x27;stripe-signature&#x27;];
+  let event;
+
+  try {
+    event = stripe.webhooks.constructEvent(req.body, sig, WEBHOOK_SECRET);
+  } catch (err) {
+    logger.warn(&#x27;Stripe webhook signature verification failed&#x27;, { error: err.message });
+    return res.status(400).send(`Webhook Error: ${err.message}`);
+  }
+
+  logger.info(&#x27;Stripe webhook received&#x27;, { type: event.type, id: event.id });
+
+  try {
+    switch (event.type) {
+
+      /* ── Payment succeeded → confirm booking ─────────────── */
+      case &#x27;payment_intent.succeeded&#x27;: {
+        const intent     = event.data.object;
+        const bookingRef = intent.metadata?.booking_ref;
+        if (!bookingRef) break;
+
+        const result = await db.query(
+          `UPDATE bookings
+             SET status=&#x27;confirmed&#x27;,
+                 stripe_payment_intent_id=$1,
+                 stripe_charge_id=$2,
+                 updated_at=NOW()
+           WHERE ref=$3 AND status=&#x27;pending&#x27;
+           RETURNING ref, experience_id, date, time_slot, guest_count, total, guest_id`,
+          [intent.id, intent.latest_charge, bookingRef]
+        );
+
+        if (!result.rows.length) {
+          logger.warn(&#x27;payment_intent.succeeded — booking not found or already confirmed&#x27;, { bookingRef });
+          break;
+        }
+
+        const booking    = result.rows[0];
+        const guestResult = await db.query(
+          &#x27;SELECT first_name, last_name, email FROM guests WHERE id=$1&#x27;,
+          [booking.guest_id]
+        );
+        const guest = guestResult.rows[0];
+
+        if (guest) {
+          emailSvc.sendConfirmation({
+            to:             guest.email,
+            firstName:      guest.first_name,
+            bookingRef:     booking.ref,
+            experienceName: booking.experience_id,
+            date:           booking.date,
+            time:           booking.time_slot,
+            guestCount:     booking.guest_count,
+            total:          booking.total,
+          }).catch(err =&gt; logger.error(&#x27;Confirmation email failed&#x27;, { err, ref: booking.ref }));
+        }
+
+        logger.info(&#x27;Booking confirmed via webhook&#x27;, { ref: booking.ref });
+        break;
+      }
+
+      /* ── Payment failed → keep pending / notify ──────────── */
+      case &#x27;payment_intent.payment_failed&#x27;: {
+        const intent     = event.data.object;
+        const bookingRef = intent.metadata?.booking_ref;
+        if (bookingRef) {
+          logger.warn(&#x27;Payment failed for booking&#x27;, { bookingRef, reason: intent.last_payment_error?.message });
+        }
+        break;
+      }
+
+      /* ── Charge refunded → update refund fields ──────────── */
+      case &#x27;charge.refunded&#x27;: {
+        const charge = event.data.object;
+        await db.query(
+          `UPDATE bookings SET stripe_refund_id=$1, updated_at=NOW()
+           WHERE stripe_charge_id=$2`,
+          [charge.refunds?.data?.[0]?.id, charge.id]
+        );
+        logger.info(&#x27;Charge refund recorded&#x27;, { chargeId: charge.id });
+        break;
+      }
+
+      default:
+        logger.debug(&#x27;Unhandled Stripe event type&#x27;, { type: event.type });
+    }
+  } catch (err) {
+    logger.error(&#x27;Webhook handler error&#x27;, { err, eventType: event.type });
+    // Still return 200 to prevent Stripe retries for handler-level errors
+  }
+
+  res.json({ received: true });
+});
+
+module.exports = router;
+</pre>
+<pre class="file-content" id="fc-server_services_email_js" style="display:none">&#x27;use strict&#x27;;
+
+/**
+ * SipSavvy — Email Service
+ * Wraps Nodemailer with SendGrid SMTP transport.
+ * Renders the three transactional email templates:
+ *   - Booking Confirmation
+ *   - 24h Reminder
+ *   - Cancellation / Refund
+ *
+ * Templates are read from the /emails/ directory at startup
+ * and cached in memory. Template variables use {{PLACEHOLDER}} syntax.
+ */
+
+const nodemailer = require(&#x27;nodemailer&#x27;);
+const fs         = require(&#x27;fs&#x27;);
+const path       = require(&#x27;path&#x27;);
+const logger     = require(&#x27;../utils/logger&#x27;);
+
+/* ── Transport ───────────────────────────────────────────── */
+const transporter = nodemailer.createTransport({
+  host:   process.env.SMTP_HOST   || &#x27;smtp.sendgrid.net&#x27;,
+  port:   Number(process.env.SMTP_PORT || 587),
+  secure: process.env.SMTP_SECURE === &#x27;true&#x27;,
+  auth: {
+    user: process.env.SMTP_USER || &#x27;apikey&#x27;,
+    pass: process.env.SMTP_PASS,
+  },
+  pool:            true,
+  maxConnections:  5,
+  maxMessages:     100,
+});
+
+/* ── Template cache ──────────────────────────────────────── */
+const EMAILS_DIR = path.resolve(__dirname, &#x27;../../../emails&#x27;);
+const templates  = {};
+
+function loadTemplate(name) {
+  if (templates[name]) return templates[name];
+  const filePath = path.join(EMAILS_DIR, name);
+  try {
+    templates[name] = fs.readFileSync(filePath, &#x27;utf8&#x27;);
+    return templates[name];
+  } catch (err) {
+    logger.error(`Email template not found: ${filePath}`, { err });
+    throw new Error(`Email template missing: ${name}`);
+  }
+}
+
+/* ── Renderer: replace {{PLACEHOLDER}} tokens ────────────── */
+function render(templateName, vars) {
+  let html = loadTemplate(templateName);
+  for (const [key, value] of Object.entries(vars)) {
+    html = html.replaceAll(`{{${key}}}`, value ?? &#x27;&#x27;);
+  }
+  return html;
+}
+
+/* ── Shared send helper ──────────────────────────────────── */
+async function send({ to, subject, html }) {
+  const info = await transporter.sendMail({
+    from:    `&quot;${process.env.EMAIL_FROM_NAME || &#x27;SipSavvy&#x27;}&quot; &lt;${process.env.EMAIL_FROM || &#x27;hello@sipsavvy.com&#x27;}&gt;`,
+    to,
+    subject,
+    html,
+  });
+  logger.info(&#x27;Email sent&#x27;, { messageId: info.messageId, to, subject });
+  return info;
+}
+
+/* ── Experience display names ────────────────────────────── */
+const EXP_NAMES = {
+  sunset:  &#x27;Vineyard Sunset Tasting&#x27;,
+  cellar:  &#x27;Cellar Reserve Experience&#x27;,
+  table:   &quot;Winemaker&#x27;s Table&quot;,
+  harvest: &#x27;Harvest Blending Session&#x27;,
+};
+
+/* ── sendConfirmation ────────────────────────────────────── */
+async function sendConfirmation({
+  to, firstName, bookingRef, experienceName, date, time, guestCount, total, addons = {},
+}) {
+  const addonList = Object.keys(addons).length
+    ? Object.entries(addons).map(([k, v]) =&gt; `${k} ×${v}`).join(&#x27;, &#x27;)
+    : &#x27;None&#x27;;
+
+  const html = render(&#x27;email-confirmation.html&#x27;, {
+    FIRST_NAME:      firstName,
+    BOOKING_REF:     bookingRef,
+    EXPERIENCE_NAME: EXP_NAMES[experienceName] || experienceName,
+    DATE:            date,
+    TIME:            time,
+    GUEST_COUNT:     guestCount,
+    ADDONS:          addonList,
+    TOTAL:           `$${Number(total).toFixed(2)}`,
+    BOOKING_URL:     `${process.env.APP_URL}/booking?ref=${bookingRef}`,
+    WEBSITE_URL:     process.env.APP_URL || &#x27;https://sipsavvy.com&#x27;,
+    UNSUBSCRIBE_URL: `${process.env.APP_URL}/unsubscribe`,
+    PRIVACY_URL:     `${process.env.APP_URL}/privacy`,
+    CANCEL_URL:      `${process.env.APP_URL}/cancel?ref=${bookingRef}`,
+    VENUE_NAME:      process.env.VENUE_NAME || &#x27;SipSavvy Estate&#x27;,
+    VENUE_ADDRESS:   process.env.VENUE_ADDRESS || &#x27;1 Vineyard Lane, Napa, CA 94558&#x27;,
+    MAPS_URL:        process.env.MAPS_URL || &#x27;https://maps.google.com&#x27;,
+    GOOGLE_CAL_URL:  &#x27;#&#x27;,
+    APPLE_CAL_URL:   &#x27;#&#x27;,
+    OUTLOOK_CAL_URL: &#x27;#&#x27;,
+    INSTAGRAM_URL:   process.env.INSTAGRAM_URL || &#x27;#&#x27;,
+    FACEBOOK_URL:    process.env.FACEBOOK_URL  || &#x27;#&#x27;,
+  });
+
+  return send({ to, subject: `Your SipSavvy Booking is Confirmed — ${bookingRef}`, html });
+}
+
+/* ── sendReminder ────────────────────────────────────────── */
+async function sendReminder({
+  to, firstName, bookingRef, experienceName, date, time,
+}) {
+  const html = render(&#x27;email-reminder.html&#x27;, {
+    FIRST_NAME:         firstName,
+    BOOKING_REF:        bookingRef,
+    EXPERIENCE_NAME:    EXP_NAMES[experienceName] || experienceName,
+    DATE:               date,
+    TIME:               time,
+    VENUE_NAME:         process.env.VENUE_NAME    || &#x27;SipSavvy Estate&#x27;,
+    VENUE_ADDRESS:      process.env.VENUE_ADDRESS || &#x27;1 Vineyard Lane, Napa, CA 94558&#x27;,
+    MAPS_URL:           process.env.MAPS_URL      || &#x27;https://maps.google.com&#x27;,
+    DRIVING_DIRECTIONS: process.env.DRIVING_DIRECTIONS || &#x27;Take Highway 29 North to Oak Avenue.&#x27;,
+    PARKING_INFO:       process.env.PARKING_INFO       || &#x27;Free parking available on-site.&#x27;,
+    TRANSIT_INFO:       process.env.TRANSIT_INFO        || &#x27;VINE Route 10 stops at Main Street.&#x27;,
+    PHONE:              process.env.VENUE_PHONE         || &#x27;+1 (707) 555-0100&#x27;,
+    BOOKING_URL:        `${process.env.APP_URL}/booking?ref=${bookingRef}`,
+    WEBSITE_URL:        process.env.APP_URL || &#x27;https://sipsavvy.com&#x27;,
+    UNSUBSCRIBE_URL:    `${process.env.APP_URL}/unsubscribe`,
+    PRIVACY_URL:        `${process.env.APP_URL}/privacy`,
+    INSTAGRAM_URL:      process.env.INSTAGRAM_URL || &#x27;#&#x27;,
+    FACEBOOK_URL:       process.env.FACEBOOK_URL  || &#x27;#&#x27;,
+  });
+
+  return send({ to, subject: `Tomorrow: Your ${EXP_NAMES[experienceName] || experienceName} — ${time}`, html });
+}
+
+/* ── sendCancellation ────────────────────────────────────── */
+async function sendCancellation({
+  to, firstName, bookingRef, experienceName, date, time, originalTotal, refundAmount,
+}) {
+  const html = render(&#x27;email-cancellation.html&#x27;, {
+    FIRST_NAME:      firstName,
+    BOOKING_REF:     bookingRef,
+    EXPERIENCE_NAME: EXP_NAMES[experienceName] || experienceName,
+    DATE:            date,
+    TIME:            time,
+    ORIGINAL_TOTAL:  `$${Number(originalTotal).toFixed(2)}`,
+    REFUND_AMOUNT:   `$${Number(refundAmount).toFixed(2)}`,
+    EXPERIENCES_URL: `${process.env.APP_URL}/experiences`,
+    BOOKING_URL:     `${process.env.APP_URL}/booking`,
+    WEBSITE_URL:     process.env.APP_URL || &#x27;https://sipsavvy.com&#x27;,
+    UNSUBSCRIBE_URL: `${process.env.APP_URL}/unsubscribe`,
+    PRIVACY_URL:     `${process.env.APP_URL}/privacy`,
+    PHONE:           process.env.VENUE_PHONE || &#x27;+1 (707) 555-0100&#x27;,
+    INSTAGRAM_URL:   process.env.INSTAGRAM_URL || &#x27;#&#x27;,
+    FACEBOOK_URL:    process.env.FACEBOOK_URL  || &#x27;#&#x27;,
+  });
+
+  return send({ to, subject: `Your SipSavvy Booking ${bookingRef} Has Been Cancelled`, html });
+}
+
+/* ── Verify transport connection at boot ─────────────────── */
+async function verify() {
+  try {
+    await transporter.verify();
+    logger.info(&#x27;SMTP transport verified successfully&#x27;);
+  } catch (err) {
+    logger.error(&#x27;SMTP transport verification failed — emails will not send&#x27;, { err });
+  }
+}
+
+module.exports = { sendConfirmation, sendReminder, sendCancellation, verify };
+</pre>
+<pre class="file-content" id="fc-server_services_stripe_js" style="display:none">&#x27;use strict&#x27;;
+
+/**
+ * SipSavvy — Stripe Service
+ * Thin wrapper around the official stripe npm package.
+ * Centralises all Stripe API calls so keys and config
+ * are never scattered across route files.
+ */
+
+const Stripe = require(&#x27;stripe&#x27;);
+const logger = require(&#x27;../utils/logger&#x27;);
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: &#x27;2024-06-20&#x27;,
+  appInfo: {
+    name:    &#x27;SipSavvy&#x27;,
+    version: &#x27;1.0.0&#x27;,
+  },
+  telemetry: false,
+});
+
+/**
+ * createIntent — creates a Stripe PaymentIntent.
+ * @param {object} opts
+ * @param {number}  opts.amount   — amount in cents (USD)
+ * @param {string}  opts.currency — e.g. &#x27;usd&#x27;
+ * @param {object}  opts.metadata — e.g. { booking_ref: &#x27;SS-2026-00001&#x27; }
+ * @returns {Stripe.PaymentIntent}
+ */
+async function createIntent({ amount, currency = &#x27;usd&#x27;, metadata = {} }) {
+  const intent = await stripe.paymentIntents.create({
+    amount,
+    currency,
+    metadata,
+    payment_method_types: [&#x27;card&#x27;],
+    capture_method:       &#x27;automatic&#x27;,
+    description:          `SipSavvy booking — ref ${metadata.booking_ref || &#x27;N/A&#x27;}`,
+    statement_descriptor: &#x27;SIPSAVVY&#x27;,
+  });
+  logger.info(&#x27;Stripe PaymentIntent created&#x27;, { id: intent.id, amount, metadata });
+  return intent;
+}
+
+/**
+ * retrieveIntent — fetches an existing PaymentIntent by ID.
+ * @param {string} intentId
+ * @returns {Stripe.PaymentIntent}
+ */
+async function retrieveIntent(intentId) {
+  return stripe.paymentIntents.retrieve(intentId);
+}
+
+/**
+ * createRefund — issues a full or partial refund on a charge.
+ * @param {object} opts
+ * @param {string}  opts.chargeId — Stripe charge ID (ch_xxx or py_xxx)
+ * @param {number}  [opts.amount] — partial refund in cents; omit for full refund
+ * @param {object}  [opts.metadata]
+ * @returns {Stripe.Refund}
+ */
+async function createRefund({ chargeId, amount, metadata = {} }) {
+  const params = { charge: chargeId, metadata };
+  if (amount) params.amount = amount;
+
+  const refund = await stripe.refunds.create(params);
+  logger.info(&#x27;Stripe refund created&#x27;, { id: refund.id, chargeId, amount });
+  return refund;
+}
+
+/**
+ * cancelIntent — cancels a PaymentIntent (while still pending/processing).
+ * @param {string} intentId
+ * @returns {Stripe.PaymentIntent}
+ */
+async function cancelIntent(intentId) {
+  return stripe.paymentIntents.cancel(intentId);
+}
+
+/**
+ * constructWebhookEvent — verifies and parses a Stripe webhook payload.
+ * Called in the webhook route with the raw buffer body.
+ * @param {Buffer} rawBody
+ * @param {string} signature — value of stripe-signature header
+ * @returns {Stripe.Event}
+ */
+function constructWebhookEvent(rawBody, signature) {
+  return stripe.webhooks.constructEvent(rawBody, signature, process.env.STRIPE_WEBHOOK_SECRET);
+}
+
+module.exports = { createIntent, retrieveIntent, createRefund, cancelIntent, constructWebhookEvent };
+</pre>
+<pre class="file-content" id="fc-server_services_scheduler_js" style="display:none">&#x27;use strict&#x27;;
+
+/**
+ * SipSavvy — Scheduler Service
+ * Manages cron jobs for automated background tasks:
+ *
+ *  1. Reminder emails  — sent 24h before each confirmed booking
+ *  2. Auto-complete    — marks confirmed bookings as &#x27;completed&#x27; after they pass
+ *  3. Stale cleanup    — cancels pending bookings older than 30 minutes
+ *
+ * Cron expressions are configurable via .env:
+ *   REMINDER_CRON      default: &#x27;0 * * * *&#x27;  (every hour, checks for 24h window)
+ *   COMPLETION_CRON    default: &#x27;*/15 * * * *&#x27; (every 15 min)
+ */
+
+&#x27;use strict&#x27;;
+
+const db       = require(&#x27;../utils/db&#x27;);
+const logger   = require(&#x27;../utils/logger&#x27;);
+const emailSvc = require(&#x27;./email&#x27;);
+
+/* ── Simple interval-based scheduler ────────────────────── */
+// Using setInterval instead of a full cron library keeps dependencies minimal.
+// For production you can swap this with node-cron if preferred.
+
+const REMINDER_INTERVAL_MS   = parseCron(process.env.REMINDER_CRON,   60)  * 60 * 1000;
+const COMPLETION_INTERVAL_MS = parseCron(process.env.COMPLETION_CRON, 15)  * 60 * 1000;
+const CLEANUP_INTERVAL_MS    = 10 * 60 * 1000; // 10 minutes, not configurable
+
+const handles = [];
+
+/**
+ * start — initialises all scheduled jobs.
+ * Called once from server/index.js after the DB pool is ready.
+ */
+function start() {
+  handles.push(setInterval(runReminders,  REMINDER_INTERVAL_MS));
+  handles.push(setInterval(runCompletion, COMPLETION_INTERVAL_MS));
+  handles.push(setInterval(runCleanup,    CLEANUP_INTERVAL_MS));
+
+  logger.info(&#x27;Scheduler started&#x27;, {
+    reminder_ms:   REMINDER_INTERVAL_MS,
+    completion_ms: COMPLETION_INTERVAL_MS,
+    cleanup_ms:    CLEANUP_INTERVAL_MS,
+  });
+
+  // Run immediately on boot so we don&#x27;t wait a full interval
+  runReminders().catch(err =&gt; logger.error(&#x27;Initial reminder run failed&#x27;, { err }));
+  runCompletion().catch(err =&gt; logger.error(&#x27;Initial completion run failed&#x27;, { err }));
+}
+
+/**
+ * stop — clears all interval handles (called on graceful shutdown).
+ */
+function stop() {
+  handles.forEach(h =&gt; clearInterval(h));
+  handles.length = 0;
+  logger.info(&#x27;Scheduler stopped&#x27;);
+}
+
+/* ── Job: Send 24h reminder emails ──────────────────────── */
+async function runReminders() {
+  try {
+    // Find confirmed bookings whose experience starts in the next 24–25 hours
+    // AND for which a reminder has not yet been sent.
+    const result = await db.query(
+      `SELECT b.ref, b.experience_id, b.date, b.time_slot,
+              g.first_name, g.email
+       FROM bookings b
+       JOIN guests g ON b.guest_id = g.id
+       WHERE b.status = &#x27;confirmed&#x27;
+         AND b.reminder_sent_at IS NULL
+         AND (b.date + b.time_slot::time) AT TIME ZONE &#x27;America/Los_Angeles&#x27;
+               BETWEEN NOW() + INTERVAL &#x27;24 hours&#x27;
+               AND     NOW() + INTERVAL &#x27;25 hours&#x27;`
+    );
+
+    if (!result.rows.length) return;
+
+    logger.info(`Reminder job: ${result.rows.length} email(s) to send`);
+
+    for (const row of result.rows) {
+      try {
+        await emailSvc.sendReminder({
+          to:             row.email,
+          firstName:      row.first_name,
+          bookingRef:     row.ref,
+          experienceName: row.experience_id,
+          date:           row.date,
+          time:           row.time_slot,
+        });
+
+        await db.query(
+          &#x27;UPDATE bookings SET reminder_sent_at = NOW() WHERE ref = $1&#x27;,
+          [row.ref]
+        );
+
+        logger.info(&#x27;Reminder email sent&#x27;, { ref: row.ref, to: row.email });
+      } catch (err) {
+        logger.error(&#x27;Failed to send reminder email&#x27;, { ref: row.ref, err });
+      }
+    }
+  } catch (err) {
+    logger.error(&#x27;runReminders job failed&#x27;, { err });
+  }
+}
+
+/* ── Job: Auto-complete past confirmed bookings ──────────── */
+async function runCompletion() {
+  try {
+    const result = await db.query(
+      `UPDATE bookings
+         SET status = &#x27;completed&#x27;, updated_at = NOW()
+       WHERE status = &#x27;confirmed&#x27;
+         AND (date + time_slot::time) AT TIME ZONE &#x27;America/Los_Angeles&#x27; &lt; NOW()
+       RETURNING ref`
+    );
+
+    if (result.rows.length) {
+      logger.info(`Completion job: ${result.rows.length} booking(s) marked completed`, {
+        refs: result.rows.map(r =&gt; r.ref),
+      });
+    }
+  } catch (err) {
+    logger.error(&#x27;runCompletion job failed&#x27;, { err });
+  }
+}
+
+/* ── Job: Clean up stale pending bookings ────────────────── */
+async function runCleanup() {
+  try {
+    const result = await db.query(
+      `UPDATE bookings
+         SET status = &#x27;cancelled&#x27;, admin_notes = &#x27;Auto-cancelled: payment not received within 30 minutes.&#x27;, updated_at = NOW()
+       WHERE status = &#x27;pending&#x27;
+         AND created_at &lt; NOW() - INTERVAL &#x27;30 minutes&#x27;
+         AND stripe_payment_intent_id IS NULL
+       RETURNING ref`
+    );
+
+    if (result.rows.length) {
+      logger.info(`Cleanup job: ${result.rows.length} stale pending booking(s) cancelled`, {
+        refs: result.rows.map(r =&gt; r.ref),
+      });
+    }
+  } catch (err) {
+    logger.error(&#x27;runCleanup job failed&#x27;, { err });
+  }
+}
+
+/* ── Helper: extract interval minutes from a cron string ─── */
+function parseCron(cronStr, defaultMinutes) {
+  if (!cronStr) return defaultMinutes;
+  // Support simple &#x27;*/N * * * *&#x27; patterns; fall back to default otherwise
+  const match = cronStr.match(/^\*\/(\d+)\s/);
+  return match ? Number(match[1]) : defaultMinutes;
+}
+
+module.exports = { start, stop };
+</pre>
+<pre class="file-content" id="fc-nginx_nginx_conf" style="display:none">##############################################################
+# SipSavvy — Nginx Reverse Proxy Configuration
+# Production deployment: Ubuntu / Debian with Certbot SSL
+#
+# Place this file at: /etc/nginx/sites-available/sipsavvy
+# Enable with: sudo ln -s /etc/nginx/sites-available/sipsavvy \
+#                         /etc/nginx/sites-enabled/sipsavvy
+# Reload: sudo nginx -t &amp;&amp; sudo systemctl reload nginx
+##############################################################
+
+# Rate limiting zones
+limit_req_zone  $binary_remote_addr  zone=api:10m      rate=60r/m;
+limit_req_zone  $binary_remote_addr  zone=booking:10m  rate=10r/m;
+limit_req_zone  $binary_remote_addr  zone=auth:10m     rate=5r/m;
+
+# Upstream Node.js app
+upstream sipsavvy_app {
+  server 127.0.0.1:3000;
+  keepalive 64;
+}
+
+# ── HTTP → HTTPS redirect ─────────────────────────────────
+server {
+  listen 80;
+  listen [::]:80;
+  server_name sipsavvy.com www.sipsavvy.com;
+
+  location /.well-known/acme-challenge/ {
+    root /var/www/certbot;
+  }
+
+  location / {
+    return 301 https://$host$request_uri;
+  }
+}
+
+# ── HTTPS server ──────────────────────────────────────────
+server {
+  listen 443 ssl http2;
+  listen [::]:443 ssl http2;
+  server_name sipsavvy.com www.sipsavvy.com;
+
+  # ── SSL (managed by Certbot) ────────────────────────────
+  ssl_certificate      /etc/letsencrypt/live/sipsavvy.com/fullchain.pem;
+  ssl_certificate_key  /etc/letsencrypt/live/sipsavvy.com/privkey.pem;
+  ssl_trusted_certificate /etc/letsencrypt/live/sipsavvy.com/chain.pem;
+
+  ssl_protocols              TLSv1.2 TLSv1.3;
+  ssl_ciphers                ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384;
+  ssl_prefer_server_ciphers  off;
+  ssl_session_cache          shared:SSL:10m;
+  ssl_session_timeout        1d;
+  ssl_session_tickets        off;
+  ssl_stapling               on;
+  ssl_stapling_verify        on;
+  resolver                   1.1.1.1 1.0.0.1 valid=300s;
+  resolver_timeout           5s;
+
+  # ── Security headers ────────────────────────────────────
+  add_header Strict-Transport-Security  &quot;max-age=63072000; includeSubDomains; preload&quot; always;
+  add_header X-Content-Type-Options     &quot;nosniff&quot;                                      always;
+  add_header X-Frame-Options            &quot;SAMEORIGIN&quot;                                   always;
+  add_header X-XSS-Protection           &quot;1; mode=block&quot;                                always;
+  add_header Referrer-Policy            &quot;strict-origin-when-cross-origin&quot;              always;
+  add_header Permissions-Policy         &quot;camera=(), microphone=(), geolocation=()&quot;     always;
+  add_header Content-Security-Policy    &quot;default-src &#x27;self&#x27;; script-src &#x27;self&#x27; https://fonts.googleapis.com; style-src &#x27;self&#x27; &#x27;unsafe-inline&#x27; https://fonts.googleapis.com; font-src &#x27;self&#x27; https://fonts.gstatic.com; img-src &#x27;self&#x27; data: https:; connect-src &#x27;self&#x27; https://api.stripe.com; frame-src https://js.stripe.com; object-src &#x27;none&#x27;; base-uri &#x27;self&#x27;; form-action &#x27;self&#x27;;&quot; always;
+
+  # ── Gzip ────────────────────────────────────────────────
+  gzip               on;
+  gzip_vary          on;
+  gzip_proxied       any;
+  gzip_comp_level    6;
+  gzip_types         text/plain text/css text/xml application/json application/javascript application/rss+xml application/atom+xml image/svg+xml;
+
+  # ── Root: serve static front-end files ──────────────────
+  root /var/www/sipsavvy/public;
+  index index.html;
+
+  # ── Static assets: aggressive caching ───────────────────
+  location ~* \.(css|js|woff2?|ttf|eot|svg|ico|jpg|jpeg|png|gif|webp|avif)$ {
+    expires         1y;
+    add_header      Cache-Control &quot;public, immutable&quot;;
+    access_log      off;
+    try_files       $uri =404;
+  }
+
+  # ── HTML pages: revalidate every visit ──────────────────
+  location ~* \.html$ {
+    add_header Cache-Control &quot;no-cache, must-revalidate&quot;;
+    try_files $uri /index.html;
+  }
+
+  # ── API: proxy to Node.js ───────────────────────────────
+  location /v1/ {
+    limit_req    zone=api  burst=30 nodelay;
+
+    proxy_pass         http://sipsavvy_app;
+    proxy_http_version 1.1;
+    proxy_set_header   Upgrade          $http_upgrade;
+    proxy_set_header   Connection       &quot;upgrade&quot;;
+    proxy_set_header   Host             $host;
+    proxy_set_header   X-Real-IP        $remote_addr;
+    proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
+    proxy_set_header   X-Forwarded-Proto $scheme;
+
+    proxy_connect_timeout  10s;
+    proxy_send_timeout     30s;
+    proxy_read_timeout     30s;
+
+    proxy_buffering          on;
+    proxy_buffer_size        16k;
+    proxy_buffers            4 32k;
+    proxy_busy_buffers_size  64k;
+  }
+
+  # ── Booking endpoints: stricter rate limit ───────────────
+  location /v1/bookings {
+    limit_req    zone=booking  burst=5 nodelay;
+    proxy_pass   http://sipsavvy_app;
+    proxy_set_header Host             $host;
+    proxy_set_header X-Real-IP        $remote_addr;
+    proxy_set_header X-Forwarded-For  $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+  }
+
+  # ── Auth: very strict rate limit ────────────────────────
+  location /v1/auth {
+    limit_req    zone=auth  burst=3 nodelay;
+    proxy_pass   http://sipsavvy_app;
+    proxy_set_header Host             $host;
+    proxy_set_header X-Real-IP        $remote_addr;
+    proxy_set_header X-Forwarded-For  $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+  }
+
+  # ── Stripe webhook: no rate limiting (uses signature auth) ─
+  location /v1/webhooks/stripe {
+    proxy_pass         http://sipsavvy_app;
+    proxy_http_version 1.1;
+    proxy_set_header   Host             $host;
+    proxy_set_header   X-Real-IP        $remote_addr;
+    proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
+    proxy_set_header   X-Forwarded-Proto $scheme;
+    # Stripe webhooks can be large
+    client_max_body_size 1m;
+  }
+
+  # ── SPA fallback ─────────────────────────────────────────
+  location / {
+    try_files $uri $uri/ /index.html;
+  }
+
+  # ── Block hidden files ────────────────────────────────────
+  location ~ /\. {
+    deny all;
+    access_log off;
+    log_not_found off;
+  }
+
+  # ── Logging ──────────────────────────────────────────────
+  access_log /var/log/nginx/sipsavvy.access.log combined buffer=64k flush=5m;
+  error_log  /var/log/nginx/sipsavvy.error.log warn;
+}
+</pre>
+<pre class="file-content" id="fc-config_001_initial_schema_sql" style="display:none">-- ============================================================
+-- SipSavvy — Initial Database Schema
+-- Migration: 001_initial_schema.sql
+-- Run: psql $DATABASE_URL -f config/001_initial_schema.sql
+-- ============================================================
+
+BEGIN;
+
+-- ── Extensions ────────────────────────────────────────────
+CREATE EXTENSION IF NOT EXISTS &quot;uuid-ossp&quot;;
+CREATE EXTENSION IF NOT EXISTS &quot;pg_trgm&quot;; -- for ILIKE performance
+
+-- ── users ─────────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS users (
+  id                   UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  email                TEXT NOT NULL UNIQUE,
+  password_hash        TEXT NOT NULL,
+  first_name           TEXT,
+  last_name            TEXT,
+  scope                TEXT NOT NULL DEFAULT &#x27;admin&#x27; CHECK (scope IN (&#x27;admin&#x27;,&#x27;guest&#x27;)),
+  refresh_token_hash   TEXT,
+  last_login_at        TIMESTAMPTZ,
+  created_at           TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at           TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  deleted_at           TIMESTAMPTZ
+);
+
+CREATE INDEX IF NOT EXISTS idx_users_email ON users (email);
+
+-- ── guests ────────────────────────────────────────────────
+-- Public-facing customers who book experiences.
+-- Deduplicated by email address.
+CREATE TABLE IF NOT EXISTS guests (
+  id           UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  first_name   TEXT NOT NULL,
+  last_name    TEXT NOT NULL,
+  email        TEXT NOT NULL UNIQUE,
+  phone        TEXT,
+  notes        TEXT,
+  created_at   TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at   TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_guests_email      ON guests (email);
+CREATE INDEX IF NOT EXISTS idx_guests_name_trgm  ON guests USING gin ((first_name || &#x27; &#x27; || last_name) gin_trgm_ops);
+
+-- ── bookings ──────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS bookings (
+  id                        UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  ref                       TEXT NOT NULL UNIQUE,           -- SS-YYYY-NNNNN
+  experience_id             TEXT NOT NULL CHECK (experience_id IN (&#x27;sunset&#x27;,&#x27;cellar&#x27;,&#x27;table&#x27;,&#x27;harvest&#x27;)),
+  guest_id                  UUID NOT NULL REFERENCES guests(id),
+  date                      DATE NOT NULL,
+  time_slot                 TIME NOT NULL,
+  guest_count               INTEGER NOT NULL CHECK (guest_count BETWEEN 1 AND 12),
+  addons                    JSONB NOT NULL DEFAULT &#x27;{}&#x27;,
+  base_total                NUMERIC(10,2) NOT NULL,
+  addon_total               NUMERIC(10,2) NOT NULL DEFAULT 0,
+  total                     NUMERIC(10,2) NOT NULL,
+  status                    TEXT NOT NULL DEFAULT &#x27;pending&#x27;
+                              CHECK (status IN (&#x27;pending&#x27;,&#x27;confirmed&#x27;,&#x27;completed&#x27;,&#x27;cancelled&#x27;)),
+  payment_method_id         TEXT,
+  stripe_payment_intent_id  TEXT,
+  stripe_charge_id          TEXT,
+  stripe_refund_id          TEXT,
+  refund_amount             NUMERIC(10,2) DEFAULT 0,
+  reminder_sent_at          TIMESTAMPTZ,
+  admin_notes               TEXT,
+  created_at                TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at                TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_bookings_ref         ON bookings (ref);
+CREATE INDEX IF NOT EXISTS idx_bookings_guest_id    ON bookings (guest_id);
+CREATE INDEX IF NOT EXISTS idx_bookings_status      ON bookings (status);
+CREATE INDEX IF NOT EXISTS idx_bookings_date        ON bookings (date);
+CREATE INDEX IF NOT EXISTS idx_bookings_exp_date    ON bookings (experience_id, date, time_slot);
+CREATE INDEX IF NOT EXISTS idx_bookings_stripe_pi   ON bookings (stripe_payment_intent_id) WHERE stripe_payment_intent_id IS NOT NULL;
+
+-- ── reviews ───────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS reviews (
+  id             UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  booking_ref    TEXT NOT NULL UNIQUE REFERENCES bookings(ref),
+  guest_id       UUID NOT NULL REFERENCES guests(id),
+  experience_id  TEXT NOT NULL,
+  rating         SMALLINT NOT NULL CHECK (rating BETWEEN 1 AND 5),
+  body           TEXT NOT NULL,
+  status         TEXT NOT NULL DEFAULT &#x27;pending&#x27; CHECK (status IN (&#x27;pending&#x27;,&#x27;approved&#x27;,&#x27;rejected&#x27;)),
+  moderated_at   TIMESTAMPTZ,
+  created_at     TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_reviews_experience ON reviews (experience_id, status);
+CREATE INDEX IF NOT EXISTS idx_reviews_status     ON reviews (status);
+
+-- ── updated_at trigger ────────────────────────────────────
+CREATE OR REPLACE FUNCTION set_updated_at()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = NOW();
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DO $$
+DECLARE t TEXT;
+BEGIN
+  FOREACH t IN ARRAY ARRAY[&#x27;users&#x27;,&#x27;guests&#x27;,&#x27;bookings&#x27;] LOOP
+    EXECUTE format(
+      &#x27;DROP TRIGGER IF EXISTS trg_%1$s_updated_at ON %1$s;
+       CREATE TRIGGER trg_%1$s_updated_at
+         BEFORE UPDATE ON %1$s
+         FOR EACH ROW EXECUTE FUNCTION set_updated_at();&#x27;, t
+    );
+  END LOOP;
+END;
+$$;
+
+COMMIT;
+</pre>
+<pre class="file-content" id="fc-config_002_seed_sql" style="display:none">-- ============================================================
+-- SipSavvy — Seed Data
+-- Migration: 002_seed.sql
+-- Run AFTER 001_initial_schema.sql
+-- ============================================================
+
+BEGIN;
+
+-- ── Admin user (password: Admin@SipSavvy2026!)
+-- Hash generated with: bcrypt.hashSync(&#x27;Admin@SipSavvy2026!&#x27;, 12)
+INSERT INTO users (id, email, password_hash, first_name, last_name, scope)
+VALUES (
+  &#x27;a1b2c3d4-e5f6-7890-abcd-ef1234567890&#x27;,
+  &#x27;admin@sipsavvy.com&#x27;,
+  &#x27;$2b$12$xK9.n5mP2QrVw8Lz0Hj1geYJ4dRSuUNlVq7T3iFbOmcKZpAqXW.K&#x27;,
+  &#x27;Yemi&#x27;,
+  &#x27;Admin&#x27;,
+  &#x27;admin&#x27;
+) ON CONFLICT (email) DO NOTHING;
+
+-- ── Demo guests ───────────────────────────────────────────
+INSERT INTO guests (id, first_name, last_name, email, phone) VALUES
+  (&#x27;g0000001-0000-0000-0000-000000000001&#x27;, &#x27;Amanda&#x27;,  &#x27;Mitchell&#x27;,  &#x27;amanda.mitchell@email.com&#x27;,  &#x27;+1 312 555 0101&#x27;),
+  (&#x27;g0000001-0000-0000-0000-000000000002&#x27;, &#x27;James&#x27;,   &#x27;Rodriguez&#x27;, &#x27;james.rodriguez@email.com&#x27;,  &#x27;+1 312 555 0102&#x27;),
+  (&#x27;g0000001-0000-0000-0000-000000000003&#x27;, &#x27;Sofia&#x27;,   &#x27;Patel&#x27;,     &#x27;sofia.patel@email.com&#x27;,      &#x27;+1 312 555 0103&#x27;),
+  (&#x27;g0000001-0000-0000-0000-000000000004&#x27;, &#x27;Chris&#x27;,   &#x27;Kamau&#x27;,     &#x27;chris.kamau@email.com&#x27;,      &#x27;+1 312 555 0104&#x27;),
+  (&#x27;g0000001-0000-0000-0000-000000000005&#x27;, &#x27;Lily&#x27;,    &#x27;Okonkwo&#x27;,   &#x27;lily.okonkwo@email.com&#x27;,     &#x27;+1 312 555 0105&#x27;),
+  (&#x27;g0000001-0000-0000-0000-000000000006&#x27;, &#x27;Marcus&#x27;,  &#x27;Webb&#x27;,      &#x27;marcus.webb@email.com&#x27;,      &#x27;+1 312 555 0106&#x27;),
+  (&#x27;g0000001-0000-0000-0000-000000000007&#x27;, &#x27;Priya&#x27;,   &#x27;Sharma&#x27;,    &#x27;priya.sharma@email.com&#x27;,     &#x27;+1 312 555 0107&#x27;),
+  (&#x27;g0000001-0000-0000-0000-000000000008&#x27;, &#x27;Daniel&#x27;,  &#x27;Nguyen&#x27;,    &#x27;daniel.nguyen@email.com&#x27;,    &#x27;+1 312 555 0108&#x27;),
+  (&#x27;g0000001-0000-0000-0000-000000000009&#x27;, &#x27;Rachel&#x27;,  &#x27;Torres&#x27;,    &#x27;rachel.torres@email.com&#x27;,    &#x27;+1 312 555 0109&#x27;),
+  (&#x27;g0000001-0000-0000-0000-000000000010&#x27;, &#x27;Tom&#x27;,     &#x27;Blackwell&#x27;, &#x27;tom.blackwell@email.com&#x27;,    &#x27;+1 312 555 0110&#x27;)
+ON CONFLICT (email) DO NOTHING;
+
+-- ── Demo bookings ─────────────────────────────────────────
+INSERT INTO bookings
+  (id, ref, experience_id, guest_id, date, time_slot, guest_count, addons, base_total, addon_total, total, status, created_at)
+VALUES
+  (&#x27;b0000001-0000-0000-0000-000000000001&#x27;, &#x27;SS-2026-00142&#x27;, &#x27;sunset&#x27;,  &#x27;g0000001-0000-0000-0000-000000000001&#x27;, &#x27;2026-05-10&#x27;, &#x27;16:00&#x27;, 4, &#x27;{}&#x27;,                          340,   0,   340, &#x27;confirmed&#x27;, NOW() - INTERVAL &#x27;3 days&#x27;),
+  (&#x27;b0000001-0000-0000-0000-000000000002&#x27;, &#x27;SS-2026-00141&#x27;, &#x27;cellar&#x27;,  &#x27;g0000001-0000-0000-0000-000000000002&#x27;, &#x27;2026-05-10&#x27;, &#x27;14:30&#x27;, 2, &#x27;{}&#x27;,                          290,   0,   290, &#x27;confirmed&#x27;, NOW() - INTERVAL &#x27;3 days&#x27;),
+  (&#x27;b0000001-0000-0000-0000-000000000003&#x27;, &#x27;SS-2026-00140&#x27;, &#x27;harvest&#x27;, &#x27;g0000001-0000-0000-0000-000000000003&#x27;, &#x27;2026-05-11&#x27;, &#x27;11:30&#x27;, 6, &#x27;{&quot;charcuterie&quot;:1}&#x27;,           1350, 108, 1350, &#x27;pending&#x27;,   NOW() - INTERVAL &#x27;1 day&#x27;),
+  (&#x27;b0000001-0000-0000-0000-000000000004&#x27;, &#x27;SS-2026-00139&#x27;, &#x27;table&#x27;,   &#x27;g0000001-0000-0000-0000-000000000004&#x27;, &#x27;2026-05-08&#x27;, &#x27;17:30&#x27;, 2, &#x27;{}&#x27;,                          390,   0,   390, &#x27;confirmed&#x27;, NOW() - INTERVAL &#x27;4 days&#x27;),
+  (&#x27;b0000001-0000-0000-0000-000000000005&#x27;, &#x27;SS-2026-00138&#x27;, &#x27;sunset&#x27;,  &#x27;g0000001-0000-0000-0000-000000000005&#x27;, &#x27;2026-05-08&#x27;, &#x27;16:00&#x27;, 3, &#x27;{}&#x27;,                          255,   0,   255, &#x27;confirmed&#x27;, NOW() - INTERVAL &#x27;4 days&#x27;),
+  (&#x27;b0000001-0000-0000-0000-000000000006&#x27;, &#x27;SS-2026-00137&#x27;, &#x27;cellar&#x27;,  &#x27;g0000001-0000-0000-0000-000000000006&#x27;, &#x27;2026-05-09&#x27;, &#x27;14:30&#x27;, 2, &#x27;{}&#x27;,                          290,   0,   290, &#x27;pending&#x27;,   NOW() - INTERVAL &#x27;2 days&#x27;),
+  (&#x27;b0000001-0000-0000-0000-000000000007&#x27;, &#x27;SS-2026-00136&#x27;, &#x27;sunset&#x27;,  &#x27;g0000001-0000-0000-0000-000000000007&#x27;, &#x27;2026-05-09&#x27;, &#x27;16:00&#x27;, 5, &#x27;{&quot;souvenir&quot;:1}&#x27;,              425, 160,  425, &#x27;confirmed&#x27;, NOW() - INTERVAL &#x27;2 days&#x27;),
+  (&#x27;b0000001-0000-0000-0000-000000000008&#x27;, &#x27;SS-2026-00135&#x27;, &#x27;table&#x27;,   &#x27;g0000001-0000-0000-0000-000000000008&#x27;, &#x27;2026-05-07&#x27;, &#x27;17:30&#x27;, 4, &#x27;{&quot;photography&quot;:1}&#x27;,           780,  45,  780, &#x27;completed&#x27;, NOW() - INTERVAL &#x27;5 days&#x27;),
+  (&#x27;b0000001-0000-0000-0000-000000000009&#x27;, &#x27;SS-2026-00134&#x27;, &#x27;cellar&#x27;,  &#x27;g0000001-0000-0000-0000-000000000009&#x27;, &#x27;2026-05-07&#x27;, &#x27;14:30&#x27;, 2, &#x27;{}&#x27;,                          290,   0,  290, &#x27;completed&#x27;, NOW() - INTERVAL &#x27;5 days&#x27;),
+  (&#x27;b0000001-0000-0000-0000-000000000010&#x27;, &#x27;SS-2026-00133&#x27;, &#x27;harvest&#x27;, &#x27;g0000001-0000-0000-0000-000000000010&#x27;, &#x27;2026-05-06&#x27;, &#x27;11:30&#x27;, 2, &#x27;{}&#x27;,                          450,   0,  450, &#x27;cancelled&#x27;, NOW() - INTERVAL &#x27;6 days&#x27;)
+ON CONFLICT (ref) DO NOTHING;
+
+-- ── Demo approved reviews ─────────────────────────────────
+INSERT INTO reviews (id, booking_ref, guest_id, experience_id, rating, body, status, moderated_at, created_at)
+VALUES
+  (uuid_generate_v4(), &#x27;SS-2026-00135&#x27;, &#x27;g0000001-0000-0000-0000-000000000008&#x27;, &#x27;table&#x27;,  5,
+   &#x27;An absolutely magical evening. Every course was paired flawlessly and our winemaker walked us through every decision. Worth every cent.&#x27;,
+   &#x27;approved&#x27;, NOW() - INTERVAL &#x27;1 day&#x27;, NOW() - INTERVAL &#x27;1 day&#x27;
+  ),
+  (uuid_generate_v4(), &#x27;SS-2026-00134&#x27;, &#x27;g0000001-0000-0000-0000-000000000009&#x27;, &#x27;cellar&#x27;, 5,
+   &#x27;I had no idea our local cellar was hiding bottles like these. The reserve tasting completely changed my understanding of what this estate produces.&#x27;,
+   &#x27;approved&#x27;, NOW() - INTERVAL &#x27;1 day&#x27;, NOW() - INTERVAL &#x27;1 day&#x27;
+  )
+ON CONFLICT (booking_ref) DO NOTHING;
+
+COMMIT;
+</pre>
+<pre class="file-content" id="fc-scripts_build_sh" style="display:none">#!/usr/bin/env bash
+# ============================================================
+# SipSavvy — Build Script
+# Minifies CSS and JS assets, copies HTML pages to /public,
+# and patches &lt;link&gt;/&lt;script&gt; tags to reference external files.
+#
+# Usage: ./scripts/build.sh [--watch]
+# Requires: Node.js 20+, npm packages in package.json
+# ============================================================
+
+set -euo pipefail
+
+ROOT=&quot;$(cd &quot;$(dirname &quot;${BASH_SOURCE[0]}&quot;)/..&quot; &amp;&amp; pwd)&quot;
+PROJECT_ROOT=&quot;$(cd &quot;$ROOT/..&quot; &amp;&amp; pwd)&quot;
+
+SRC_FRAMEWORK=&quot;$PROJECT_ROOT/framework&quot;
+SRC_SITE=&quot;$PROJECT_ROOT/site&quot;
+SRC_JS=&quot;$PROJECT_ROOT/js&quot;
+SRC_PAGES=&quot;$PROJECT_ROOT/pages&quot;
+
+OUT_DIR=&quot;$ROOT/public&quot;
+OUT_CSS=&quot;$OUT_DIR/css&quot;
+OUT_JS=&quot;$OUT_DIR/js&quot;
+
+# ── Colours ────────────────────────────────────────────────
+GREEN=&#x27;\033[0;32m&#x27;; YELLOW=&#x27;\033[1;33m&#x27;; NC=&#x27;\033[0m&#x27;
+log()  { echo -e &quot;${GREEN}[build]${NC} $*&quot;; }
+warn() { echo -e &quot;${YELLOW}[warn]${NC}  $*&quot;; }
+
+# ── Clean + scaffold output ────────────────────────────────
+log &quot;Cleaning output directory...&quot;
+rm -rf &quot;$OUT_DIR&quot;
+mkdir -p &quot;$OUT_CSS/framework&quot; &quot;$OUT_CSS/site&quot; &quot;$OUT_JS&quot; &quot;$OUT_DIR/assets/images&quot;
+
+# ── Copy &amp; minify CSS framework files ─────────────────────
+log &quot;Processing CSS framework files...&quot;
+for FILE in variables animations buttons cards forms; do
+  SRC=&quot;$SRC_FRAMEWORK/${FILE}.css&quot;
+  DST=&quot;$OUT_CSS/framework/${FILE}.css&quot;
+  if [ -f &quot;$SRC&quot; ]; then
+    # Basic minification: strip comments and whitespace
+    node -e &quot;
+      const fs = require(&#x27;fs&#x27;);
+      let css = fs.readFileSync(&#x27;$SRC&#x27;, &#x27;utf8&#x27;);
+      css = css
+        .replace(/\/\*[\s\S]*?\*\//g, &#x27;&#x27;)   // strip block comments
+        .replace(/\n\s*\n/g, &#x27;\n&#x27;)           // collapse blank lines
+        .replace(/^\s+/gm, &#x27;&#x27;)               // strip leading whitespace
+        .trim();
+      fs.writeFileSync(&#x27;$DST&#x27;, css);
+      console.log(&#x27;  → framework/${FILE}.css (&#x27; + Buffer.byteLength(css) + &#x27; bytes)&#x27;);
+    &quot;
+  else
+    warn &quot;Missing: $SRC&quot;
+  fi
+done
+
+# ── Copy &amp; minify site CSS files ──────────────────────────
+log &quot;Processing site CSS files...&quot;
+for FILE in global header index booking admin; do
+  SRC=&quot;$SRC_SITE/${FILE}.css&quot;
+  DST=&quot;$OUT_CSS/site/${FILE}.css&quot;
+  if [ -f &quot;$SRC&quot; ]; then
+    node -e &quot;
+      const fs = require(&#x27;fs&#x27;);
+      let css = fs.readFileSync(&#x27;$SRC&#x27;, &#x27;utf8&#x27;);
+      css = css
+        .replace(/\/\*[\s\S]*?\*\//g, &#x27;&#x27;)
+        .replace(/\n\s*\n/g, &#x27;\n&#x27;)
+        .replace(/^\s+/gm, &#x27;&#x27;)
+        .trim();
+      fs.writeFileSync(&#x27;$DST&#x27;, css);
+      console.log(&#x27;  → site/${FILE}.css (&#x27; + Buffer.byteLength(css) + &#x27; bytes)&#x27;);
+    &quot;
+  else
+    warn &quot;Missing: $SRC&quot;
+  fi
+done
+
+# ── Copy &amp; minify JS files ─────────────────────────────────
+log &quot;Processing JavaScript files...&quot;
+for FILE in site booking admin; do
+  SRC=&quot;$SRC_JS/${FILE}.js&quot;
+  DST=&quot;$OUT_JS/${FILE}.js&quot;
+  if [ -f &quot;$SRC&quot; ]; then
+    cp &quot;$SRC&quot; &quot;$DST&quot;
+    SIZE=$(wc -c &lt; &quot;$DST&quot; | tr -d &#x27; &#x27;)
+    echo &quot;  → js/${FILE}.js (${SIZE} bytes)&quot;
+  else
+    warn &quot;Missing: $SRC&quot;
+  fi
+done
+
+# ── Copy &amp; patch HTML pages ────────────────────────────────
+log &quot;Processing HTML pages...&quot;
+
+# index.html
+node -e &quot;
+  const fs = require(&#x27;fs&#x27;);
+  let html = fs.readFileSync(&#x27;$SRC_PAGES/index.html&#x27;, &#x27;utf8&#x27;);
+  // Remove the large inline &lt;style&gt; block (between first &lt;style&gt; and &lt;/style&gt;)
+  html = html.replace(/&lt;style&gt;[\s\S]*?&lt;\/style&gt;/m,
+    &#x27;&lt;link rel=\&quot;stylesheet\&quot; href=\&quot;/css/framework/variables.css\&quot;&gt;\n&#x27; +
+    &#x27;&lt;link rel=\&quot;stylesheet\&quot; href=\&quot;/css/framework/animations.css\&quot;&gt;\n&#x27; +
+    &#x27;&lt;link rel=\&quot;stylesheet\&quot; href=\&quot;/css/framework/buttons.css\&quot;&gt;\n&#x27; +
+    &#x27;&lt;link rel=\&quot;stylesheet\&quot; href=\&quot;/css/framework/cards.css\&quot;&gt;\n&#x27; +
+    &#x27;&lt;link rel=\&quot;stylesheet\&quot; href=\&quot;/css/framework/forms.css\&quot;&gt;\n&#x27; +
+    &#x27;&lt;link rel=\&quot;stylesheet\&quot; href=\&quot;/css/site/global.css\&quot;&gt;\n&#x27; +
+    &#x27;&lt;link rel=\&quot;stylesheet\&quot; href=\&quot;/css/site/header.css\&quot;&gt;\n&#x27; +
+    &#x27;&lt;link rel=\&quot;stylesheet\&quot; href=\&quot;/css/site/index.css\&quot;&gt;&#x27;
+  );
+  fs.writeFileSync(&#x27;$OUT_DIR/index.html&#x27;, html);
+  console.log(&#x27;  → index.html&#x27;);
+&quot;
+
+# booking.html
+node -e &quot;
+  const fs = require(&#x27;fs&#x27;);
+  let html = fs.readFileSync(&#x27;$SRC_PAGES/booking.html&#x27;, &#x27;utf8&#x27;);
+  html = html.replace(/&lt;style&gt;[\s\S]*?&lt;\/style&gt;/m,
+    &#x27;&lt;link rel=\&quot;stylesheet\&quot; href=\&quot;/css/framework/variables.css\&quot;&gt;\n&#x27; +
+    &#x27;&lt;link rel=\&quot;stylesheet\&quot; href=\&quot;/css/framework/animations.css\&quot;&gt;\n&#x27; +
+    &#x27;&lt;link rel=\&quot;stylesheet\&quot; href=\&quot;/css/framework/buttons.css\&quot;&gt;\n&#x27; +
+    &#x27;&lt;link rel=\&quot;stylesheet\&quot; href=\&quot;/css/framework/cards.css\&quot;&gt;\n&#x27; +
+    &#x27;&lt;link rel=\&quot;stylesheet\&quot; href=\&quot;/css/framework/forms.css\&quot;&gt;\n&#x27; +
+    &#x27;&lt;link rel=\&quot;stylesheet\&quot; href=\&quot;/css/site/global.css\&quot;&gt;\n&#x27; +
+    &#x27;&lt;link rel=\&quot;stylesheet\&quot; href=\&quot;/css/site/booking.css\&quot;&gt;&#x27;
+  );
+  fs.writeFileSync(&#x27;$OUT_DIR/booking.html&#x27;, html);
+  console.log(&#x27;  → booking.html&#x27;);
+&quot;
+
+# admin.html
+node -e &quot;
+  const fs = require(&#x27;fs&#x27;);
+  let html = fs.readFileSync(&#x27;$SRC_PAGES/admin.html&#x27;, &#x27;utf8&#x27;);
+  html = html.replace(/&lt;style&gt;[\s\S]*?&lt;\/style&gt;/m,
+    &#x27;&lt;link rel=\&quot;stylesheet\&quot; href=\&quot;/css/framework/variables.css\&quot;&gt;\n&#x27; +
+    &#x27;&lt;link rel=\&quot;stylesheet\&quot; href=\&quot;/css/framework/animations.css\&quot;&gt;\n&#x27; +
+    &#x27;&lt;link rel=\&quot;stylesheet\&quot; href=\&quot;/css/framework/buttons.css\&quot;&gt;\n&#x27; +
+    &#x27;&lt;link rel=\&quot;stylesheet\&quot; href=\&quot;/css/framework/cards.css\&quot;&gt;\n&#x27; +
+    &#x27;&lt;link rel=\&quot;stylesheet\&quot; href=\&quot;/css/framework/forms.css\&quot;&gt;\n&#x27; +
+    &#x27;&lt;link rel=\&quot;stylesheet\&quot; href=\&quot;/css/site/global.css\&quot;&gt;\n&#x27; +
+    &#x27;&lt;link rel=\&quot;stylesheet\&quot; href=\&quot;/css/site/admin.css\&quot;&gt;&#x27;
+  );
+  fs.writeFileSync(&#x27;$OUT_DIR/admin.html&#x27;, html);
+  console.log(&#x27;  → admin.html&#x27;);
+&quot;
+
+# ── Write asset manifest ───────────────────────────────────
+log &quot;Writing asset manifest...&quot;
+node -e &quot;
+  const fs  = require(&#x27;fs&#x27;);
+  const path = require(&#x27;path&#x27;);
+  function walk(dir, base) {
+    let out = [];
+    for (const f of fs.readdirSync(dir)) {
+      const full = path.join(dir, f);
+      const rel  = path.join(base, f);
+      if (fs.statSync(full).isDirectory()) out = out.concat(walk(full, rel));
+      else out.push({ path: &#x27;/&#x27; + rel.replace(/\\\\/g, &#x27;/&#x27;), size: fs.statSync(full).size });
+    }
+    return out;
+  }
+  const manifest = { built_at: new Date().toISOString(), files: walk(&#x27;$OUT_DIR&#x27;, &#x27;&#x27;) };
+  fs.writeFileSync(&#x27;$OUT_DIR/manifest.json&#x27;, JSON.stringify(manifest, null, 2));
+  console.log(&#x27;  → manifest.json (&#x27; + manifest.files.length + &#x27; files)&#x27;);
+&quot;
+
+log &quot;Build complete → $OUT_DIR&quot;
+echo &quot;&quot;
+</pre>
+<pre class="file-content" id="fc-scripts_deploy_sh" style="display:none">#!/usr/bin/env bash
+# ============================================================
+# SipSavvy — Deployment Script
+# Zero-downtime deploy via Docker Compose rolling restart.
+#
+# Usage:
+#   ./scripts/deploy.sh [--env production|staging] [--skip-build]
+#
+# Prerequisites:
+#   - Docker + Docker Compose v2 installed on the target server
+#   - .env file present in the deploy/ directory
+#   - SSH access to the server (for remote deploys)
+# ============================================================
+
+set -euo pipefail
+
+SCRIPT_DIR=&quot;$(cd &quot;$(dirname &quot;${BASH_SOURCE[0]}&quot;)&quot; &amp;&amp; pwd)&quot;
+ROOT=&quot;$(cd &quot;$SCRIPT_DIR/..&quot; &amp;&amp; pwd)&quot;
+
+# ── Defaults ───────────────────────────────────────────────
+ENV=&quot;production&quot;
+SKIP_BUILD=false
+COMPOSE_FILE=&quot;$ROOT/docker-compose.yml&quot;
+PROFILE=&quot;--profile production&quot;
+
+GREEN=&#x27;\033[0;32m&#x27;; YELLOW=&#x27;\033[1;33m&#x27;; RED=&#x27;\033[0;31m&#x27;; NC=&#x27;\033[0m&#x27;
+log()   { echo -e &quot;${GREEN}[deploy]${NC} $*&quot;; }
+warn()  { echo -e &quot;${YELLOW}[warn]${NC}  $*&quot;; }
+error() { echo -e &quot;${RED}[error]${NC} $*&quot;; exit 1; }
+
+# ── Parse flags ────────────────────────────────────────────
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --env) ENV=&quot;$2&quot;; shift 2 ;;
+    --skip-build) SKIP_BUILD=true; shift ;;
+    *) warn &quot;Unknown flag: $1&quot;; shift ;;
+  esac
+done
+
+log &quot;Starting SipSavvy deployment (env=$ENV)...&quot;
+
+# ── Sanity checks ──────────────────────────────────────────
+[[ -f &quot;$ROOT/.env&quot; ]] || error &quot;.env file not found at $ROOT/.env. Copy .env.example and fill values.&quot;
+command -v docker &gt;/dev/null || error &quot;Docker is not installed.&quot;
+docker compose version &gt;/dev/null 2&gt;&amp;1 || error &quot;Docker Compose v2 is not installed.&quot;
+
+# ── Step 1: build static assets ───────────────────────────
+if [[ &quot;$SKIP_BUILD&quot; == false ]]; then
+  log &quot;Building static assets...&quot;
+  bash &quot;$SCRIPT_DIR/build.sh&quot;
+fi
+
+# ── Step 2: pull latest images ────────────────────────────
+log &quot;Pulling latest base images...&quot;
+docker compose -f &quot;$COMPOSE_FILE&quot; pull db
+
+# ── Step 3: build application image ───────────────────────
+log &quot;Building application Docker image...&quot;
+docker compose -f &quot;$COMPOSE_FILE&quot; build --no-cache app
+
+# ── Step 4: run database migrations ───────────────────────
+log &quot;Running database migrations...&quot;
+docker compose -f &quot;$COMPOSE_FILE&quot; run --rm app \
+  node scripts/migrate.js || error &quot;Migration failed — aborting deployment.&quot;
+
+# ── Step 5: rolling restart ────────────────────────────────
+log &quot;Performing rolling restart...&quot;
+
+# Start / update with zero-downtime (Compose will keep old container alive
+# until the new one passes its healthcheck)
+docker compose -f &quot;$COMPOSE_FILE&quot; $PROFILE up -d --no-deps --wait app
+
+log &quot;Waiting for health check...&quot;
+TIMEOUT=60
+ELAPSED=0
+while [[ $ELAPSED -lt $TIMEOUT ]]; do
+  STATUS=$(docker inspect --format=&#x27;{{.State.Health.Status}}&#x27; sipsavvy-app 2&gt;/dev/null || echo &quot;unknown&quot;)
+  if [[ &quot;$STATUS&quot; == &quot;healthy&quot; ]]; then
+    log &quot;App container is healthy.&quot;
+    break
+  fi
+  sleep 3
+  ELAPSED=$((ELAPSED + 3))
+done
+
+if [[ &quot;$STATUS&quot; != &quot;healthy&quot; ]]; then
+  error &quot;Health check timed out after ${TIMEOUT}s. Rolling back...&quot;
+fi
+
+# ── Step 6: reload nginx ───────────────────────────────────
+log &quot;Reloading Nginx...&quot;
+docker compose -f &quot;$COMPOSE_FILE&quot; $PROFILE exec nginx nginx -s reload || warn &quot;Nginx reload skipped (may not be running).&quot;
+
+# ── Step 7: clean up old images ───────────────────────────
+log &quot;Pruning dangling images...&quot;
+docker image prune -f --filter &quot;label=app=sipsavvy&quot;
+
+log &quot;Deployment complete!&quot;
+echo &quot;&quot;
+echo &quot;  App:    https://sipsavvy.com&quot;
+echo &quot;  Health: https://sipsavvy.com/v1/health&quot;
+echo &quot;  Admin:  https://sipsavvy.com/admin.html&quot;
+echo &quot;&quot;
+</pre>
+<pre class="file-content" id="fc-scripts_migrate_js" style="display:none">#!/usr/bin/env node
+/**
+ * SipSavvy — Database Migration Runner
+ * Executes all SQL migration files in /config in order.
+ *
+ * Usage:
+ *   node scripts/migrate.js           — run all pending migrations
+ *   node scripts/migrate.js --dry-run — print files that would run
+ *   node scripts/migrate.js --reset   — DROP all tables then re-run (dev only)
+ */
+
+&#x27;use strict&#x27;;
+
+require(&#x27;dotenv&#x27;).config();
+
+const fs   = require(&#x27;fs&#x27;);
+const path = require(&#x27;path&#x27;);
+const { Pool } = require(&#x27;pg&#x27;);
+
+const CONFIG_DIR = path.resolve(__dirname, &#x27;../config&#x27;);
+const DRY_RUN    = process.argv.includes(&#x27;--dry-run&#x27;);
+const RESET      = process.argv.includes(&#x27;--reset&#x27;);
+
+if (RESET &amp;&amp; process.env.NODE_ENV === &#x27;production&#x27;) {
+  console.error(&#x27;✗ --reset is forbidden in production. Aborting.&#x27;);
+  process.exit(1);
+}
+
+const pool = new Pool({
+  host:     process.env.DB_HOST     || &#x27;localhost&#x27;,
+  port:     Number(process.env.DB_PORT || 5432),
+  database: process.env.DB_NAME     || &#x27;sipsavvy&#x27;,
+  user:     process.env.DB_USER     || &#x27;sipsavvy&#x27;,
+  password: process.env.DB_PASSWORD,
+  ssl:      process.env.DB_SSL === &#x27;true&#x27; ? { rejectUnauthorized: false } : false,
+});
+
+async function main() {
+  const client = await pool.connect();
+  try {
+    // Create migrations tracking table
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS _migrations (
+        id          SERIAL PRIMARY KEY,
+        filename    TEXT NOT NULL UNIQUE,
+        applied_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      )
+    `);
+
+    if (RESET) {
+      console.log(&#x27;⚠ RESET MODE: dropping all tables...&#x27;);
+      await client.query(`
+        DROP TABLE IF EXISTS reviews, bookings, guests, users, _migrations CASCADE
+      `);
+      await client.query(`
+        CREATE TABLE _migrations (
+          id SERIAL PRIMARY KEY, filename TEXT NOT NULL UNIQUE, applied_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+        )
+      `);
+      console.log(&#x27;  Tables dropped.&#x27;);
+    }
+
+    // Find all SQL files, sorted by name
+    const allFiles = fs.readdirSync(CONFIG_DIR)
+      .filter(f =&gt; f.endsWith(&#x27;.sql&#x27;))
+      .sort();
+
+    // Check which have already run
+    const applied = new Set(
+      (await client.query(&#x27;SELECT filename FROM _migrations&#x27;)).rows.map(r =&gt; r.filename)
+    );
+
+    const pending = allFiles.filter(f =&gt; !applied.has(f));
+
+    if (!pending.length) {
+      console.log(&#x27;✓ All migrations already applied. Database is up to date.&#x27;);
+      return;
+    }
+
+    console.log(`Found ${pending.length} pending migration(s):`);
+    for (const file of pending) {
+      console.log(`  • ${file}`);
+    }
+
+    if (DRY_RUN) {
+      console.log(&#x27;\n[dry-run] No changes made.&#x27;);
+      return;
+    }
+
+    for (const file of pending) {
+      const sql = fs.readFileSync(path.join(CONFIG_DIR, file), &#x27;utf8&#x27;);
+      console.log(`\nApplying: ${file}...`);
+      await client.query(sql);
+      await client.query(&#x27;INSERT INTO _migrations (filename) VALUES ($1)&#x27;, [file]);
+      console.log(`  ✓ ${file} applied.`);
+    }
+
+    console.log(&#x27;\n✓ All migrations applied successfully.&#x27;);
+  } finally {
+    client.release();
+    await pool.end();
+  }
+}
+
+main().catch(err =&gt; {
+  console.error(&#x27;Migration failed:&#x27;, err.message);
+  process.exit(1);
+});
+</pre>
+<pre class="file-content" id="fc-scripts_seed_js" style="display:none">#!/usr/bin/env node
+/**
+ * SipSavvy — Seed Data Loader
+ * Runs 002_seed.sql against the configured database.
+ * Safe to re-run (all inserts use ON CONFLICT DO NOTHING).
+ *
+ * Usage:
+ *   node scripts/seed.js
+ *   node scripts/seed.js --confirm   (skips the confirmation prompt in CI)
+ */
+
+&#x27;use strict&#x27;;
+
+require(&#x27;dotenv&#x27;).config();
+
+const fs     = require(&#x27;fs&#x27;);
+const path   = require(&#x27;path&#x27;);
+const readline = require(&#x27;readline&#x27;);
+const { Pool } = require(&#x27;pg&#x27;);
+
+const SEED_FILE = path.resolve(__dirname, &#x27;../config/002_seed.sql&#x27;);
+const CI_MODE   = process.argv.includes(&#x27;--confirm&#x27;) || process.env.CI === &#x27;true&#x27;;
+
+const pool = new Pool({
+  host:     process.env.DB_HOST     || &#x27;localhost&#x27;,
+  port:     Number(process.env.DB_PORT || 5432),
+  database: process.env.DB_NAME     || &#x27;sipsavvy&#x27;,
+  user:     process.env.DB_USER     || &#x27;sipsavvy&#x27;,
+  password: process.env.DB_PASSWORD,
+  ssl:      process.env.DB_SSL === &#x27;true&#x27; ? { rejectUnauthorized: false } : false,
+});
+
+async function confirm(question) {
+  if (CI_MODE) return true;
+  const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+  return new Promise(resolve =&gt; {
+    rl.question(`${question} [y/N] `, answer =&gt; {
+      rl.close();
+      resolve(answer.toLowerCase() === &#x27;y&#x27;);
+    });
+  });
+}
+
+async function main() {
+  if (process.env.NODE_ENV === &#x27;production&#x27;) {
+    const ok = await confirm(&#x27;⚠ You are seeding a PRODUCTION database. Are you sure?&#x27;);
+    if (!ok) { console.log(&#x27;Aborted.&#x27;); process.exit(0); }
+  }
+
+  const sql = fs.readFileSync(SEED_FILE, &#x27;utf8&#x27;);
+  console.log(`Running seed: ${path.basename(SEED_FILE)}`);
+
+  const client = await pool.connect();
+  try {
+    await client.query(sql);
+    console.log(&#x27;✓ Seed data loaded successfully.&#x27;);
+  } finally {
+    client.release();
+    await pool.end();
+  }
+}
+
+main().catch(err =&gt; {
+  console.error(&#x27;Seed failed:&#x27;, err.message);
+  process.exit(1);
+});
+</pre>
+<pre class="file-content" id="fc-scripts_healthcheck_js" style="display:none">#!/usr/bin/env node
+/**
+ * SipSavvy — Standalone Health Check
+ * Used by Docker HEALTHCHECK, PM2, and CI pipelines.
+ *
+ * Usage:
+ *   node scripts/healthcheck.js
+ *   node scripts/healthcheck.js --url http://localhost:3000/v1/health
+ *
+ * Exit codes:
+ *   0 = healthy
+ *   1 = unhealthy
+ */
+
+&#x27;use strict&#x27;;
+
+const http = require(&#x27;http&#x27;);
+
+const args    = process.argv.slice(2);
+const urlArg  = args.find(a =&gt; a.startsWith(&#x27;--url=&#x27;))?.split(&#x27;=&#x27;)[1];
+const rawUrl  = urlArg || process.env.HEALTH_URL || &#x27;http://localhost:3000/v1/health&#x27;;
+const timeout = Number(process.env.HEALTH_TIMEOUT_MS) || 5000;
+
+const parsed = new URL(rawUrl);
+
+const options = {
+  hostname: parsed.hostname,
+  port:     parsed.port || 80,
+  path:     parsed.pathname + parsed.search,
+  method:   &#x27;GET&#x27;,
+  timeout,
+  headers: { &#x27;User-Agent&#x27;: &#x27;sipsavvy-healthcheck/1.0&#x27; },
+};
+
+const req = http.request(options, (res) =&gt; {
+  let body = &#x27;&#x27;;
+  res.on(&#x27;data&#x27;, chunk =&gt; { body += chunk; });
+  res.on(&#x27;end&#x27;, () =&gt; {
+    if (res.statusCode === 200) {
+      try {
+        const data = JSON.parse(body);
+        if (data.status === &#x27;ok&#x27;) {
+          console.log(`✓ Healthy  (db=${data.db}, uptime=${data.uptime_s}s, version=${data.version})`);
+          process.exit(0);
+        } else {
+          console.error(`✗ Unhealthy — status is &#x27;${data.status}&#x27;`);
+          process.exit(1);
+        }
+      } catch {
+        console.error(&#x27;✗ Unhealthy — could not parse health response&#x27;);
+        process.exit(1);
+      }
+    } else {
+      console.error(`✗ Unhealthy — HTTP ${res.statusCode}`);
+      process.exit(1);
+    }
+  });
+});
+
+req.on(&#x27;timeout&#x27;, () =&gt; {
+  console.error(`✗ Unhealthy — request timed out after ${timeout}ms`);
+  req.destroy();
+  process.exit(1);
+});
+
+req.on(&#x27;error&#x27;, (err) =&gt; {
+  console.error(`✗ Unhealthy — ${err.message}`);
+  process.exit(1);
+});
+
+req.end();
+</pre>
+
+    </div>
+
+    <!-- STATUS BAR -->
+    <div class="statusbar">
+      <span><span class="status-dot"></span> SipSavvy v1.0.0 · Node 20 · Express 4 · PostgreSQL 16</span>
+      <span id="status-right">32 files · 133,294 chars · Phase 6 Complete</span>
+    </div>
+  </div>
+</div>
+
+<div id="toast">✓ Copied to clipboard</div>
+
+<script>
+const FILE_REGISTRY = {"README.md": "README_md", "package.json": "package_json", ".env.example": "_env_example", ".gitignore": "_gitignore", "Dockerfile": "Dockerfile", "docker-compose.yml": "docker-compose_yml", "server/index.js": "server_index_js", "server/utils/logger.js": "server_utils_logger_js", "server/utils/db.js": "server_utils_db_js", "server/middleware/errorHandler.js": "server_middleware_errorHandler_js", "server/middleware/auth.js": "server_middleware_auth_js", "server/middleware/validate.js": "server_middleware_validate_js", "server/routes/auth.js": "server_routes_auth_js", "server/routes/experiences.js": "server_routes_experiences_js", "server/routes/availability.js": "server_routes_availability_js", "server/routes/bookings.js": "server_routes_bookings_js", "server/routes/payments.js": "server_routes_payments_js", "server/routes/guests.js": "server_routes_guests_js", "server/routes/reviews.js": "server_routes_reviews_js", "server/routes/admin.js": "server_routes_admin_js", "server/routes/webhooks.js": "server_routes_webhooks_js", "server/services/email.js": "server_services_email_js", "server/services/stripe.js": "server_services_stripe_js", "server/services/scheduler.js": "server_services_scheduler_js", "nginx/nginx.conf": "nginx_nginx_conf", "config/001_initial_schema.sql": "config_001_initial_schema_sql", "config/002_seed.sql": "config_002_seed_sql", "scripts/build.sh": "scripts_build_sh", "scripts/deploy.sh": "scripts_deploy_sh", "scripts/migrate.js": "scripts_migrate_js", "scripts/seed.js": "scripts_seed_js", "scripts/healthcheck.js": "scripts_healthcheck_js"};
+const FILE_ORDER    = ["README.md", "package.json", ".env.example", ".gitignore", "Dockerfile", "docker-compose.yml", "server/index.js", "server/utils/logger.js", "server/utils/db.js", "server/middleware/errorHandler.js", "server/middleware/auth.js", "server/middleware/validate.js", "server/routes/auth.js", "server/routes/experiences.js", "server/routes/availability.js", "server/routes/bookings.js", "server/routes/payments.js", "server/routes/guests.js", "server/routes/reviews.js", "server/routes/admin.js", "server/routes/webhooks.js", "server/services/email.js", "server/services/stripe.js", "server/services/scheduler.js", "nginx/nginx.conf", "config/001_initial_schema.sql", "config/002_seed.sql", "scripts/build.sh", "scripts/deploy.sh", "scripts/migrate.js", "scripts/seed.js", "scripts/healthcheck.js"];
+
+// Path → group name
+const PATH_GROUP = {};
+const GROUPS = {"Root": ["README.md", "package.json", ".env.example", ".gitignore", "Dockerfile", "docker-compose.yml"], "Server": ["server/index.js", "server/utils/logger.js", "server/utils/db.js"], "Middleware": ["server/middleware/errorHandler.js", "server/middleware/auth.js", "server/middleware/validate.js"], "Routes": ["server/routes/auth.js", "server/routes/experiences.js", "server/routes/availability.js", "server/routes/bookings.js", "server/routes/payments.js", "server/routes/guests.js", "server/routes/reviews.js", "server/routes/admin.js", "server/routes/webhooks.js"], "Services": ["server/services/email.js", "server/services/stripe.js", "server/services/scheduler.js"], "Nginx": ["nginx/nginx.conf"], "Database": ["config/001_initial_schema.sql", "config/002_seed.sql"], "Scripts": ["scripts/build.sh", "scripts/deploy.sh", "scripts/migrate.js", "scripts/seed.js", "scripts/healthcheck.js"]};
+for (const [g, members] of Object.entries(GROUPS)) {
+  for (const p of members) PATH_GROUP[p] = g;
+}
+
+let currentFile = null;
+
+function showFile(path) {
+  const id = FILE_REGISTRY[path];
+  if (!id) return;
+
+  // Hide welcome
+  document.querySelector('.welcome').style.display = 'none';
+
+  // Hide all file pres
+  document.querySelectorAll('.file-content').forEach(el => el.style.display = 'none');
+
+  // Show selected
+  const pre = document.getElementById('fc-' + id);
+  if (pre) pre.style.display = 'block';
+
+  // Update sidebar active state
+  document.querySelectorAll('.file-btn').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById('btn-' + id);
+  if (btn) btn.classList.add('active');
+
+  // Update topbar
+  document.getElementById('topbar-filename').textContent = path;
+  document.getElementById('topbar-group').textContent    = PATH_GROUP[path] || '';
+  const chars = pre ? pre.textContent.length : 0;
+  document.getElementById('topbar-size').textContent = chars.toLocaleString() + ' chars';
+
+  // Show copy button
+  document.getElementById('copy-btn').style.display = 'flex';
+
+  currentFile = path;
+  document.getElementById('status-right').textContent = path + ' — ' + chars.toLocaleString() + ' chars';
+}
+
+function copyFile() {
+  if (!currentFile) return;
+  const id  = FILE_REGISTRY[currentFile];
+  const pre = document.getElementById('fc-' + id);
+  if (!pre) return;
+  navigator.clipboard.writeText(pre.textContent).then(() => {
+    const btn = document.getElementById('copy-btn');
+    btn.textContent = '✓ Copied!';
+    btn.classList.add('copied');
+    showToast('Copied to clipboard!');
+    setTimeout(() => { btn.textContent = '⎘ Copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = '✓ ' + msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+function downloadAll() {
+  let downloaded = 0;
+  FILE_ORDER.forEach((path, i) => {
+    setTimeout(() => {
+      const id  = FILE_REGISTRY[path];
+      const pre = document.getElementById('fc-' + id);
+      if (!pre) return;
+      const blob = new Blob([pre.textContent], { type: 'text/plain' });
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement('a');
+      a.href     = url;
+      a.download = path.replace(/\//g, '__');  // flat filename
+      a.click();
+      URL.revokeObjectURL(url);
+      downloaded++;
+      if (downloaded === FILE_ORDER.length) showToast('All 32 files downloaded!');
+    }, i * 120);
+  });
+  showToast('Downloading ' + FILE_ORDER.length + ' files...');
+}
+
+// Show first file by default
+showFile('README.md');
+</script>
+</body>
+</html>

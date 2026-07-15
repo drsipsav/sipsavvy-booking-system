@@ -1,0 +1,13 @@
+Billing account
+Managed in Google Cloud Console
+
+Your billing account is the payment profile for your project. A billing account can be linked to multiple projects.
+
+Billing account name
+Firebase Payment
+
+Billing account ID
+01DC25-BBF131-7C43EB
+
+Billing account currency
+USD

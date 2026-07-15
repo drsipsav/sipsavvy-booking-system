@@ -1,0 +1,34 @@
+/* ============================
+   SipSavvy Analytics — Cinematic Luxury
+   ============================ */
+
+.analytics-grid {
+  padding: 32px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  gap: 28px;
+}
+
+.card {
+  background: white;
+  padding: 24px;
+  border-radius: 14px;
+  box-shadow: 0 8px 30px rgba(92, 18, 40, 0.12);
+  border: 1px solid rgba(92, 18, 40, 0.08);
+  animation: fadeIn 0.8s ease;
+}
+
+.card h3 {
+  margin-top: 0;
+  color: var(--wine);
+}
+
+/* DARK MODE */
+body.dark .card {
+  background: var(--dark-panel);
+  border: 1px solid var(--dark-border);
+}
+
+body.dark .card h3 {
+  color: var(--gold);
+}

@@ -1,0 +1,1568 @@
+/* ================================
+   GLOBAL BOOKING PAGE LAYOUT
+================================ */
+body * {
+  pointer-events: auto !important;
+}
+
+body {
+  background-color: #F8EDEE !important;
+}
+
+
+body {
+  background: #12040b;
+  color: #f7f2f4;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+
+/* ================================
+   STICKY SUMMARY SIDEBAR
+================================ */
+
+.booking-summary {
+  position: sticky;
+  top: 96px;
+  align-self: flex-start;
+  background: rgba(18, 4, 11, 0.96);
+  border-radius: 18px;
+  padding: 1.75rem 1.5rem;
+  border: 1px solid rgba(232, 196, 184, 0.35);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+}
+
+.booking-summary h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+.booking-summary h3 {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  opacity: 0.7;
+  margin-top: 1rem;
+  margin-bottom: 0.35rem;
+}
+
+.booking-summary ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.booking-summary li {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin-bottom: 0.35rem;
+}
+
+/* ================================
+   BOOKING FORM
+================================ */
+
+.booking-form {
+  background: rgba(24, 6, 16, 0.95);
+  border-radius: 18px;
+  padding: 2.5rem 2rem;
+  border: 1px solid rgba(232, 196, 184, 0.35);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+}
+
+.booking-form h1 {
+  font-family: "Playfair Display", serif;
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.04em;
+}
+
+/* Form rows */
+.form-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.4rem;
+}
+
+.form-row label {
+  font-size: 0.95rem;
+  margin-bottom: 0.4rem;
+  opacity: 0.85;
+}
+
+/* Inputs */
+input,
+textarea {
+  background: rgba(18, 4, 11, 0.6);
+  border: 1px solid rgba(232, 196, 184, 0.35);
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: #f7f2f4;
+  font-size: 1rem;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #FFD700;
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.18);
+  outline: none;
+}
+
+/* ================================
+   BUTTONS
+================================ */
+
+.btn-primary {
+  background: #FFD700;
+  color: #5C1228;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+}
+
+.btn-primary:hover {
+  background: #e6c200;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.45);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #FFD700;
+  border: 1px solid #FFD700;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 215, 0, 0.08);
+}
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 900px) {
+  .booking-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-summary {
+    position: static;
+    margin-bottom: 2rem;
+  }
+}
+
+/* Floating label wrapper */
+.form-floating {
+  position: relative;
+  margin-bottom: 1.6rem;
+}
+
+.form-floating input,
+.form-floating textarea {
+  width: 100%;
+  padding: 16px 14px 10px;
+  background: rgba(18, 4, 11, 0.6);
+  border: 1px solid rgba(232, 196, 184, 0.35);
+  border-radius: 10px;
+  color: #f7f2f4;
+  font-size: 1rem;
+}
+
+.form-floating label {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.65);
+  pointer-events: none;
+  transition: 0.25s ease;
+}
+
+/* When typing */
+.form-floating input:focus + label,
+.form-floating input:not(:placeholder-shown) + label,
+.form-floating textarea:focus + label,
+.form-floating textarea:not(:placeholder-shown) + label {
+  top: -8px;
+  left: 10px;
+  font-size: 0.75rem;
+  color: #FFD700;
+  background: #12040b;
+  padding: 0 6px;
+}
+
+.booking-form h1,
+.booking-summary h2 {
+  position: relative;
+  display: inline-block;
+}
+
+.booking-form h1::after,
+.booking-summary h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0%;
+  height: 3px;
+  background: #FFD700;
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+.booking-form h1:hover::after,
+.booking-summary h2:hover::after {
+  width: 100%;
+}
+
+.progress-steps {
+  display: flex;
+  gap: 1rem;
+  margin: 2rem 0 1rem;
+  padding: 0 6vw;
+}
+
+.step {
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  border: 1px solid rgba(232, 196, 184, 0.35);
+  opacity: 0.7;
+}
+
+.step.completed {
+  background: rgba(255, 215, 0, 0.15);
+  border-color: #FFD700;
+  opacity: 1;
+}
+
+.step.current {
+  background: #FFD700;
+  color: #5C1228;
+  font-weight: 600;
+  opacity: 1;
+}
+
+body {
+  background: #ffffff !important;
+}
+
+
+
+/* Vibrant lighter wine luxury boxes */
+.booking-summary,
+.booking-form {
+  background: linear-gradient(
+    145deg,
+    #992642 0%,
+    #5C1228 100%
+  );
+  border: 1px solid rgba(255, 215, 0, 0.35);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+}
+
+/* White page background */
+body {
+  background: #ffffff !important;
+}
+
+/* Match header layout from other pages */
+.ss-header {
+  background: linear-gradient(135deg, #992642 0%, #5C1228 100%);
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.55);
+}
+
+/* Progress steps BELOW header */
+.progress-steps {
+  margin-top: 20px;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.progress-steps .step {
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,0.2);
+  background: #f7f7f7;
+}
+
+.progress-steps .step.completed {
+  background: rgba(255, 215, 0, 0.18);
+  border-color: rgba(255, 215, 0, 0.7);
+}
+
+.progress-steps .step.current {
+  background: #FFD700;
+  color: #5C1228;
+  border-color: #FFD700;
+}
+
+.change-package-link {
+  display: inline-block;
+  margin-top: 6px;
+  color: #FFD700;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.change-package-link:hover {
+  color: #fff;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+}
+
+.calendar-day.today {
+  background: #5A001A;
+  color: white;
+  border-radius: 6px;
+}
+
+.calendar-day.today {
+  background-color: #5A001A; /* deep wine */
+  color: #fff;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+.calendar-day {
+  cursor: pointer;
+  padding: 10px;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.calendar-day:hover {
+  background-color: #f0e0e0;
+}
+
+.timeslot {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.timeslot:hover {
+  background-color: #f7f7f7;
+}
+
+.timeslot.selected {
+  background-color: #5A001A;
+  color: white;
+  border-color: #5A001A;
+}
+
+/* ============================
+   SipSavvy Booking Calendar — Deep Wine Theme
+   ============================ */
+
+/* Calendar container */
+.booking-calendar {
+  background: #FFF8EE; /* soft buttermilk backdrop */
+  border: 2px solid #5A001A;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 6px 20px rgba(90, 0, 26, 0.15);
+}
+
+/* Header */
+.booking-calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  color: #5A001A;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+/* Month title */
+.booking-calendar-month {
+  color: #5A001A;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* Navigation arrows */
+.booking-calendar-nav {
+  background: #5A001A;
+  color: #FFF8EE;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s ease;
+  font-size: 1.1rem;
+}
+
+.booking-calendar-nav:hover {
+  background: #7A003C;
+  transform: scale(1.05);
+}
+
+/* Calendar grid */
+.booking-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+/* Day cells */
+.calendar-day {
+  padding: 10px;
+  text-align: center;
+  background: white;
+  border: 1px solid #E6D6D6;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s ease;
+  color: #5A001A;
+  font-weight: 500;
+}
+
+.calendar-day:hover {
+  background: #FBEDE3;
+  border-color: #5A001A;
+}
+
+/* Today highlight */
+.calendar-day.today {
+  background: #5A001A;
+  color: white;
+  border-color: #5A001A;
+  font-weight: 700;
+}
+
+/* Selected day */
+.calendar-day.selected {
+  background: #7A003C;
+  color: white;
+  border-color: #7A003C;
+  font-weight: 700;
+}
+
+/* Empty placeholder cells */
+.booking-calendar-grid .empty {
+  background: transparent;
+}
+
+/* ============================
+   Timeslots — Deep Wine Theme
+   ============================ */
+
+.timeslot-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.timeslot {
+  padding: 10px;
+  background: white;
+  border: 1px solid #E6D6D6;
+  border-radius: 6px;
+  text-align: center;
+  cursor: pointer;
+  color: #5A001A;
+  font-weight: 500;
+  transition: 0.2s ease;
+}
+
+.timeslot:hover {
+  background: #FBEDE3;
+  border-color: #5A001A;
+}
+
+.timeslot.selected {
+  background: #5A001A;
+  color: white;
+  border-color: #5A001A;
+  font-weight: 700;
+}
+
+.live-time-box {
+  margin-bottom: 1.5rem;
+}
+
+.live-time-display {
+  background: #FFF8EE;
+  border: 2px solid #5A001A;
+  color: #5A001A;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  width: fit-content;
+  box-shadow: 0 4px 12px rgba(90, 0, 26, 0.15);
+}
+
+.live-time-box {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: rgba(255, 215, 0, 0.08); /* soft gold tint */
+  border: 1px solid rgba(255, 215, 0, 0.35);
+  border-radius: 10px;
+}
+
+.live-time-display {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 1px;
+  margin-top: 0.3rem;
+}
+
+/* -----------------------------------------------------------
+   FINAL BOOKING GRID LAYOUT — STABLE, EQUAL ROWS, NO COLLAPSE
+   ----------------------------------------------------------- */
+
+/* 2 columns, 2 equal-height rows */
+.booking-page .experience-picker {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;   /* equal-height rows */
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+/* Box 1 — top-left */
+.booking-page .box-1 {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+/* Box 2 — top-right */
+.booking-page .box-2 {
+  grid-row: 1;
+  grid-column: 2;
+}
+
+/* Box 3A — bottom-left */
+.booking-page .box-3a {
+  grid-row: 2;
+  grid-column: 1;
+  height: 100% !important;      /* fill row height */
+  overflow: visible !important;
+}
+
+/* Box 3B — bottom-right */
+.booking-page .box-3b {
+  grid-row: 2;
+  grid-column: 2;
+  height: 100% !important;
+  overflow: visible !important;
+}
+
+/* Box 4 — right column spanning both rows */
+.booking-page .box-4 {
+  grid-row: 1 / span 2;
+  grid-column: 2;
+  height: 100% !important;
+}
+
+/* -----------------------------------------------------------
+   FIX MEDIA BLOCKS SO THEY DON'T FORCE HEIGHT
+   ----------------------------------------------------------- */
+.booking-page .experience-option-media {
+  height: auto;
+  min-height: 0;
+}
+
+.experience-option.is-selected {
+  border: 3px solid #722F37 !important;
+  background: #FDF3DC !important;
+}
+
+
+.booking-page .experience-option-media > div {
+  height: auto !important;
+  min-height: 0 !important;
+}
+
+/* -----------------------------------------------------------
+   ENSURE ALL CARDS FILL THEIR GRID CELLS EVENLY
+   ----------------------------------------------------------- */
+.booking-page .experience-option {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.booking-page .experience-option-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* -----------------------------------------------------------
+   PRICE + BUTTON ON SAME LINE
+   ----------------------------------------------------------- */
+.exp-price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.exp-price-row p,
+.exp-price-row button {
+  white-space: nowrap;
+}
+
+/* ⭐ FORCE EXPERIENCE BOXES TO FILL THEIR GRID COLUMN ⭐ */
+.step1-row .experience-option {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* ⭐ FORCE STEP 1 GRID TO FULL WIDTH ⭐ */
+.step1-row {
+  width: 100% !important;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 20px !important;
+  justify-content: stretch !important;
+  align-items: stretch !important;
+}
+
+/* ⭐ FORCE BOXES TO FILL THEIR GRID COLUMN ⭐ */
+.step1-row .experience-option,
+.step1-row .addons-box,
+.step1-row .summary-box {
+  width: 100% !important;
+  max-width: 100% !important;
+  flex: 1 1 auto !important;
+  box-sizing: border-box !important;
+}
+
+.summary-row.total {
+  display: flex;
+  justify-content: flex-end;
+  font-weight: 900;
+  font-size: 1.2rem;
+  color: #722F37; /* wine color */
+}
+
+.form-step-dot {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px solid var(--color-wine);
+  color: var(--color-wine);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  transition: 0.25s ease;
+}
+
+.form-step.is-active .form-step-dot {
+  background: var(--color-wine);
+  color: white;
+}
+
+.form-step-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #777;
+  transition: 0.25s ease;
+}
+
+.form-step.is-active .form-step-label {
+  color: var(--color-wine);
+}
+
+/* Center Container 1 */
+#container1,
+.container1,
+.booking-container-1 {
+  width: 100%;
+  display: flex;
+  justify-content: center;   /* centers horizontally */
+  margin: 0 auto;
+  text-align: center;        /* centers text inside */
+}
+
+/* Center Step 1 container */
+#step1Container {
+  max-width: 1100px;        /* adjust to your preferred width */
+  margin-left: auto !important;
+  margin-right: auto !important;
+  display: block !important;
+}
+
+#box5Wrapper {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  max-width: 600px; /* optional */
+}
+
+/* Center the outer wrappers that contain Step 1 */
+#step1Container,
+#step1Container > div,
+#step1Container > div > div,
+#step1Container > div > div > div {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Center Step 1 exactly like Step 2 and Step 3 */
+#step1Container {
+  max-width: 1100px;
+  margin: 0 auto !important;
+  display: block;
+}
+
+/* Center Step 1 and all parent wrappers */
+#step1Container,
+#step1Container > div,
+#step1Container > div > div,
+#step1Container > div > div > div {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 100%;
+}
+
+/* Center the entire Step 1 block */
+#step1Container {
+  max-width: 1100px;
+  margin: 0 auto !important;
+}
+
+/* Center the parent wrappers that are forcing left alignment */
+#step1Container {
+  display: block;
+}
+
+#step1Container:where(:not([id])) {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Center the entire Step 1 block including its parent wrappers */
+#step1Container {
+  max-width: 1100px;
+  margin: 0 auto !important;
+  display: block;
+}
+
+/* Force the anonymous parent wrappers to center */
+#step1Container {
+  width: 100%;
+}
+
+#step1Container:where(:not([id])) {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Center the actual parent container of Step 1 */
+#step1Container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: block;
+}
+
+/* Force all anonymous parent wrappers to center */
+#step1Container {
+  width: 100%;
+}
+
+#step1Container:where(:not([id])) {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+#step1Container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: block;
+}
+
+
+.form-steps {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  width: 100%;
+}
+
+.form-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.form-step-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #8B4A52;
+  color: white;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative; /* ⭐ important */
+  z-index: 2;
+}
+
+.form-step-label {
+  margin-top: 0.35rem;
+  font-size: 0.85rem;
+  color: #333;
+  position: relative; /* ⭐ ensures it sits above background */
+  z-index: 1;
+}
+
+.form-step-line {
+  width: 2px;
+  height: 24px;
+  background: #d8c2d0;
+}
+
+
+.form-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.form-step-dot {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #8B4A52;
+  color: white;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* ⭐ REMOVE ANY ABSOLUTE POSITIONING */
+  position: relative;
+  top: 0;
+  left: 0;
+
+  /* ⭐ ENSURE DOT DOES NOT OVERLAP LABEL */
+  margin-bottom: 0.4rem;
+  z-index: 2;
+}
+
+.form-step-label {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.85rem;
+  color: #333;
+
+  /* ⭐ FORCE LABEL TO BE BELOW DOT */
+  position: relative;
+  z-index: 3;
+}
+
+.form-steps {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  width: 100%;
+}
+
+.form-steps {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 1.4rem !important;
+  width: 100%;
+  overflow: visible !important; /* ⭐ critical */
+}
+
+/* Main layout: sidebar + form */
+
+.booking-layout > div:first-child {
+  align-items: start;
+  margin: 0 auto;
+  justify-content: center;
+  justify-items: center;
+  justify-self: start;
+  display: grid;
+  grid-template-columns: minmax(250px, 1fr) minmax(2.2, 0fr);
+  gap: 2.5rem;
+  padding: 3rem 6vw 5rem;
+}
+
+html,
+body {
+  background-color: #98585e !important; /* blush pink */
+}
+
+/* kill any white page wrappers */
+.booking-page,
+.booking-layout,
+.container {
+  background: transparent !important;
+}
+
+html,
+body {
+  background-color: #98585e !important; /* blush pink */
+}
+
+
+/* RESET OLD HERO BAND RULES */
+.booking-hero-band,
+.booking-hero-band::before,
+.booking-hero-band .eyebrow,
+.booking-hero-band p {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* NEW CLEAN SPACING */
+.booking-hero-band {
+  padding-top: 20px !important; /* ~5mm */
+  padding-bottom: 10px !important;
+}
+
+.booking-hero-band {
+  background-color: #3D1219 !important; /* deep wine */
+  padding: 20px 0 14px 0; /* top ~5mm, bottom slightly smaller */
+  text-align: center;
+}
+
+.row {
+  margin-bottom: 20px;
+}
+
+.booking-hero-band h1,
+.booking-hero-band h3,
+.booking-hero-band h4,
+.booking-hero-band h5,
+.booking-hero-band p {
+  color: #FFFFFF !important;
+}
+
+.booking-hero-band {
+  margin-bottom: 20px !important; /* previously ~50px+ */
+}
+
+.booking-layout {
+  padding-top: 16px !important; /* 40px → 16px */
+}
+
+/* 1. Remove extra space under the hero 
+.booking-hero-band {
+  margin-bottom: 0 !important;
+  padding-bottom: 8px !important;
+}*/
+
+/* 2. Kill any top padding/margin on the layout + step 1 */
+.booking-layout,
+#step1Container {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* 3. If it STILL sits too low, gently pull Step 1 upward */
+#step1Container {
+  margin-top: 0px !important; /* pulls it up ~60% of the old gap */
+}
+
+.ss-header {
+  padding: 14px 0 !important; /* safe, elegant, not too tall */
+}
+
+
+.booking-hero-band {
+  margin-top: 0 !important;
+  padding-top: 14px !important;   /* thin blush strip */
+  padding-bottom: 10px !important;
+}
+
+.booking-layout {
+  padding-top: 12px !important; /* reduced from 40px → 12px */
+}
+
+/* ════════════════════════════════════════════════
+   HEADER — keep nav fully visible and stable
+   ════════════════════════════════════════════════ */
+.ss-header {
+  padding: 14px 0 !important; /* safe, elegant */
+  background-color: #3D1219 !important;
+  position: relative;
+  z-index: 999;
+}
+
+/* ════════════════════════════════════════════════
+   HERO BAND — deep wine box + tight spacing
+   ════════════════════════════════════════════════ */
+.booking-hero-band {
+  background-color: #3D1219 !important;
+  margin: 0 !important;
+  padding-top: 14px !important;   /* thin blush strip */
+  padding-bottom: 12px !important;
+  text-align: center;
+}
+
+/* Remove old spacing from eyebrow, h1, h3, p */
+.booking-hero-band .eyebrow,
+.booking-hero-band h1,
+.booking-hero-band h3,
+.booking-hero-band p {
+  margin: 0 !important;
+  padding: 4px 0 !important;
+  color: #FFFFFF !important; /* all hero text white */
+}
+
+/* Kill old pseudo-element that added extra space */
+.booking-hero-band::before {
+  content: none !important;
+}
+
+/* ════════════════════════════════════════════════
+   LAYOUT — reduce space above Container 1 by ~60%
+   ════════════════════════════════════════════════ */
+.booking-layout {
+  padding-top: 12px !important; /* reduced from ~40px */
+  margin-top: 0 !important;
+}
+
+/* ════════════════════════════════════════════════
+   STEP 1 CONTAINER — ensure no extra top margin
+   ════════════════════════════════════════════════ */
+#step1Container {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* ════════════════════════════════════════════════
+   1. HEADER — stable, no movement
+   ════════════════════════════════════════════════ */
+.ss-header {
+  padding: 14px 0 !important;
+  background-color: #3D1219 !important;
+  position: relative;
+  z-index: 999;
+}
+
+/* ════════════════════════════════════════════════
+   2. HERO BAND — tight under header
+   ════════════════════════════════════════════════ */
+.booking-hero-band {
+  background-color: #3D1219 !important;
+  margin: 0 !important;
+  padding-top: 14px !important;
+  padding-bottom: 12px !important;
+  text-align: center;
+}
+
+.booking-hero-band .eyebrow,
+.booking-hero-band h1,
+.booking-hero-band h3,
+.booking-hero-band p {
+  margin: 0 !important;
+  padding: 4px 0 !important;
+  color: #FFFFFF !important;
+}
+
+.booking-hero-band::before {
+  content: none !important;
+}
+
+/* ════════════════════════════════════════════════
+   3. REMOVE ALL TOP SPACING ABOVE CONTAINER 1
+   (this is what was blocking movement)
+   ════════════════════════════════════════════════ */
+.booking-layout,
+.booking-layout.container,
+main.booking-page,
+#main,
+.container {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* ════════════════════════════════════════════════
+   4. FORCE CONTAINER 1 TO RISE BY 60%
+   (viewport-based movement — guaranteed to work)
+   ════════════════════════════════════════════════ */
+#step1Container {
+  margin-top: -270px !important;  /* ← 60% of the original ~100px gap */
+}
+
+/* Lift text upward inside all Step 1 boxes */
+.box1 .box-content,
+.box2 .box-content,
+.box3 .box-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start !important; /* move text to the top */
+  padding-top: 12px !important;           /* adjust as needed */
+  padding-bottom: 8px !important;         /* reduce bottom padding */
+}
+
+
+/* FORCE BOX TEXT TO THE TOP */
+#box1, #box2, #box3 {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important; /* ← moves text UP */
+  align-items: flex-start !important;
+  padding-top: 14px !important;           /* adjust as needed */
+  padding-bottom: 6px !important;         /* reduces bottom weight */
+}
+
+/* FORCE TEXT TO TOP INSIDE BOXES */
+#box1 *:not(img),
+#box2 *:not(img),
+#box3 *:not(img) {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* TARGET THE REAL CONTENT WRAPPER */
+#box1 > div,
+#box2 > div,
+#box3 > div {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important; /* ← moves text UP */
+  align-items: flex-start !important;
+  padding-top: 12px !important;
+  padding-bottom: 6px !important;
+}
+
+.box {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  align-items: flex-start !important;
+}
+
+.box > div {
+  padding-top: 12px !important;
+  padding-bottom: 6px !important;
+}
+
+#box1 .box-content,
+#box2 .box-content,
+#box3 .box-content {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  align-items: flex-start !important;
+  padding-top: 12px !important;
+}
+
+
+/* Make the entire box stack content from the TOP */
+.experience-option {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important; /* ← THIS moves text UP */
+}
+
+/* Add clean spacing above the text */
+.experience-option-body {
+  padding-top: 4px !important;
+  padding-bottom: 8px !important;
+}
+
+.step-badge {
+  position: absolute;
+  top: 6px;
+  right: 5px;
+  background: #8B4A52;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  z-index: 20;
+}
+
+#step1Container,
+#step2Container,
+#step3Container {
+  position: relative;
+}
+
+/* FIX: restore clickability across the booking page */
+.steps-top-bar,
+.steps-wrapper {
+  pointer-events: none !important;
+}
+
+.steps-top-bar * ,
+.steps-wrapper * {
+  pointer-events: auto !important;
+}
+
+#bookingSummaryBox,
+#bookingSummaryBox * {
+  pointer-events: auto !important;
+}
+
+.steps-top-bar,
+.steps-top-bar * {
+  pointer-events: auto !important;
+}
+
+#travelTooltip {
+  pointer-events: auto !important;
+}
+
+body * {
+  pointer-events: auto !important;
+}
+
+.bk-pill.is-active,
+.bk-champ-pill.is-active,
+.bk-travel-pill.is-active {
+  background: #5C1228;   /* wine color */
+  color: #fff;
+  border-color: #5C1228;
+}
+
+/* Extra Hours Pills */
+.bk-pill.is-active {
+  background: var(--color-wine);
+  color: #fff !important;
+  border-color: var(--color-wine);
+}
+
+/* Champagne Pills */
+.bk-champ-pill.is-active {
+  background: var(--color-wine);
+  color: #fff !important;
+  border-color: var(--color-wine);
+}
+
+/* Travel Pills */
+.bk-travel-pill.is-active {
+  background: var(--color-wine);
+  color: #fff !important;
+  border-color: var(--color-wine);
+}
+
+/* Extra Hours Pills */
+.bk-pill.is-active {
+  background: var(--color-wine) !important;
+  color: #fff !important;
+  border-color: var(--color-wine) !important;
+}
+
+/* Champagne Pills */
+.bk-champ-pill.is-active {
+  background: var(--color-wine) !important;
+  color: #fff !important;
+  border-color: var(--color-wine) !important;
+}
+
+/* Travel Pills */
+.bk-travel-pill.is-active {
+  background: var(--color-wine) !important;
+  color: #fff !important;
+  border-color: var(--color-wine) !important;
+}
+
+.bk-champ-pill,
+.bk-extra-pill {
+  position: relative;
+  z-index: 5;
+}
+
+.addon-check-row,
+.bk-addon-row,
+.bk-addon-wrapper {
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.addon-check-row input,
+.addon-check-row label {
+  pointer-events: auto;
+}
+
+
+
+/* Remove click blocking from addon labels */
+.bk-addon-label,
+.bk-addon-label * {
+  pointer-events: none;
+}
+
+/* Allow checkbox itself to still work */
+.bk-addon-label input {
+  pointer-events: auto;
+}
+
+/* Ensure pills always receive clicks */
+.bk-champ-pill,
+.bk-extra-pill {
+  position: relative;
+  z-index: 5;
+}
+
+label[for="bk_champ"],
+label[for="bk_champ"] * {
+  pointer-events: none;
+}
+
+label[for="bk_extra"],
+label[for="bk_extra"] * {
+  pointer-events: none;
+}
+
+#bk_champ,
+#bk_extra {
+  pointer-events: auto;
+}
+
+.bk-champ-pill,
+.bk-extra-pill {
+  position: relative;
+  z-index: 9999 !important;
+}
+
+label[for="bk_champ"],
+label[for="bk_extra"] {
+  pointer-events: none !important;
+}
+
+#bk_champ,
+#bk_extra {
+  pointer-events: auto !important;
+}
+
+/* 1. Disable click blocking on the entire label row */
+.bk-addon-label {
+  pointer-events: none !important;
+}
+
+/* 2. Re-enable click on the checkbox ONLY */
+.bk-addon-label input {
+  pointer-events: auto !important;
+}
+
+/* 3. Pills must sit ABOVE everything else */
+.bk-champ-pill,
+.bk-extra-pill {
+  position: relative !important;
+  z-index: 9999 !important;
+  pointer-events: auto !important;
+}
+
+.bk-addon-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  cursor: default; /* NOT pointer */
+  pointer-events: none; /* THIS IS THE FIX */
+}
+
+.bk-addon-label input {
+  pointer-events: auto;
+}
+
+.bk-addon-label {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  pointer-events:none;
+}
+
+.bk-addon-label input {
+  pointer-events:auto;
+}
+
+.bk-addon-pills {
+  margin-top:6px;
+  padding-left:20px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+}
+
+.bk-extra-pill,
+.bk-champ-pill {
+  position:relative;
+  z-index:10;
+}
+
+.bk-addon-label {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:6px;
+}
+
+.bk-addon-pills {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.bk-extra-pill,
+.bk-champ-pill {
+  padding:8px 14px;
+  border-radius:6px;
+  background:#f3f3f3;
+  border:1px solid #ccc;
+  cursor:pointer;
+}
+
+.bk-extra-pill.is-active,
+.bk-champ-pill.is-active {
+  background:#5C1228;
+  color:white;
+  border-color:#5C1228;
+}
+
+/* Container 4 Section Titles */
+.c4-title {
+  font-size: 1.25rem;          /* bigger font */
+  font-weight: 700;            /* bold */
+  text-transform: uppercase;   /* ALL CAPS */
+  color: #4A0E1F;              /* deep wine color */
+  text-align: left;            /* left aligned */
+  margin: 20px 0 10px;         /* spacing above/below */
+  letter-spacing: 0.6px;       /* subtle spacing for uppercase */
+}
+
+/* Align values on the right side of each summary line */
+.c4-line {
+  display: flex;
+  justify-content: space-between;   /* label left, value right */
+  align-items: center;
+  width: 100%;
+}
+
+.c4-line span:last-child {
+  text-align: right;
+  min-width: 120px;                 /* keeps alignment consistent */
+  display: inline-block;
+}
+
+/* UNIVERSAL two‑column alignment for ALL rows in Box 5 */
+#box5Wrapper .c1-line,
+#box5Wrapper .summary-row,
+#box5Wrapper #travelFee,
+#box5Wrapper #travelFeeReason {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+/* Right-align the VALUE column */
+#box5Wrapper .c1-line span:last-child,
+#box5Wrapper .summary-row span:last-child,
+#box5Wrapper #travelFee span:last-child,
+#box5Wrapper #travelFeeReason span:last-child,
+#box5Wrapper [data-summary] {
+  text-align: right !important;
+  display: inline-block !important;
+  width: 100% !important;
+}
+
+/* UNIVERSAL Box 5 formatting */
+#box5Wrapper .c1-line,
+#box5Wrapper .summary-row,
+#box5Wrapper #travelFee,
+#box5Wrapper #travelFeeReason {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin: 2px 0 !important;          /* tighter spacing */
+  font-size: 0.75rem !important;     /* smaller font */
+  font-weight: 700 !important;       /* bolder font */
+  line-height: 1.1 !important;       /* tighter vertical rhythm */
+}
+
+/* Right-align all value columns */
+#box5Wrapper .c1-line span:last-child,
+#box5Wrapper .summary-row span:last-child,
+#box5Wrapper #travelFee span:last-child,
+#box5Wrapper #travelFeeReason span:last-child,
+#box5Wrapper [data-summary] {
+  text-align: right !important;
+  display: inline-block !important;
+  width: 100% !important;
+  font-size: 0.75rem !important;     /* match size */
+  font-weight: 700 !important;       /* match bold */
+}
+
+/* Force all labels in Box 5 to stay on one line */
+#box5Wrapper .c1-line span:first-child,
+#box5Wrapper .summary-row span:first-child,
+#box5Wrapper #travelFee span:first-child,
+#box5Wrapper #travelFeeReason span:first-child {
+  white-space: nowrap !important;     /* prevents wrapping */
+  flex: 0 0 auto !important;          /* prevents shrinking */
+  max-width: 45% !important;          /* keeps layout stable */
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+}
+
+/* Right-align all values */
+#box5Wrapper .c1-line span:last-child,
+#box5Wrapper .summary-row span:last-child,
+#box5Wrapper #travelFee span:last-child,
+#box5Wrapper #travelFeeReason span:last-child,
+#box5Wrapper [data-summary] {
+  text-align: right !important;
+  display: inline-block !important;
+  width: 100% !important;
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+}
+
+/* Ensure rows stay on one line */
+#box5Wrapper .c1-line,
+#box5Wrapper .summary-row,
+#box5Wrapper #travelFee,
+#box5Wrapper #travelFeeReason {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin: 2px 0 !important;
+  line-height: 1.1 !important;
+}
+

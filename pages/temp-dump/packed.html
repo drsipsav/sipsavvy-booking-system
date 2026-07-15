@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SipSavvy Packages</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../components/assets/css/reset.css">
+  <link rel="stylesheet" href="../components/assets/css/global.css">
+  <link rel="stylesheet" href="../components/assets/css/header.css">
+  <link rel="stylesheet" href="../components/assets/css/footer.css">
+  <link rel="stylesheet" href="../components/assets/css/packages.css">
+</head>
+
+<body>
+
+  <!-- DEBUG MARKERS (commented out per user request) -->
+  <!-- <div id="debug-marker" style="font-size:40px; color:yellow;">THIS IS THE EDITED PACKAGES.HTML</div> -->
+  <!-- <div id="debug-marker">PACKAGES PAGE LIVE</div> -->
+
+  <!-- ══ HEADER ═══════════════════════════════════════════════════ -->
+  <header class="site-header" id="top">
+    <div class="header-inner">
+
+      <div class="header-logo" role="img">
+        <div class="header-logo-mark">
+          <img src="../components/assets/images/logo.png" alt="SipSavvy Mobile Bartending">
+        </div>
+        <div>
+          <span class="header-logo-wordmark">SipSavvy</span>
+          <span class="header-logo-tagline">Mobile Bartending</span>
+        </div>
+      </div>
+
+      <nav aria-label="Primary">
+        <ul class="header-nav">
+          <li class="header-nav-item"><a href="index.html" class="header-nav-link">Home</a></li>
+          <li class="header-nav-item"><a href="services.html" class="header-nav-link">Services</a></li>
+          <li class="header-nav-item"><a href="packages.html" class="header-nav-link is-current">Packages</a></li>
+          <li class="header-nav-item"><a href="gallery.html" class="header-nav-link">Gallery</a></li>
+          <li class="header-nav-item"><a href="experiences.html" class="header-nav-link">Experiences</a></li>
+        </ul>
+      </nav>
+
+      <div style="display:flex;align-items:center;gap:var(--space-3);">
+        <a href="booking.html" class="btn-gold">Book Now</a>
+        <button class="header-menu-toggle" id="menuToggle"
+                aria-label="Open menu" aria-expanded="false">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Mobile drawer -->
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
+    <ul class="mobile-nav-list">
+      <li><a href="index.html" class="mobile-nav-link">Home</a></li>
+      <li><a href="services.html" class="mobile-nav-link">Services</a></li>
+      <li><a href="packages.html" class="mobile-nav-link mobile-nav-current">Packages</a></li>
+      <li><a href="gallery.html" class="mobile-nav-link">Gallery</a></li>
+      <li><a href="experiences.html" class="mobile-nav-link">Experiences</a></li>
+    </ul>
+    <a href="booking.html" class="btn-gold" style="align-self:flex-start;margin-top:var(--space-6);">Book Now</a>
+  </nav>
+
+  <!-- ══ HERO ═══════════════════════════════════════════════════ -->
+  <section class="packages-hero">
+    <span class="packages-hero-eyebrow">Tailored for Every Occasion</span>
+    <h1 class="packages-hero-heading">Service Packages</h1>
+    <p class="packages-hero-sub">Choose the experience that fits your event — from intimate gatherings to large-scale celebrations.</p>
+  </section>
+<!-- ══ PACKAGES SECTION ═════════════════════════════════════════ -->
+<section class="packages-section">
+
+  <div class="packages-grid">
+
+    <!-- Essential Package -->
+    <div class="pricing-card package-card"
+         data-package-name="Essential Package"
+         data-package-price="600">
+
+      <h3 class="pricing-card-title">The Essential Package</h3>
+      <p class="pricing-card-guests">Up to 40 Guests</p>
+      <hr class="pricing-card-divider">
+
+      <ul class="pricing-features">
+        <li>Professional Bartender</li>
+        <li>Custom Cocktail Menu</li>
+        <li>Mixers &amp; Garnishes</li>
+        <li>Luxury Bar Tools</li>
+      </ul>
+
+      <div class="pricing-price">$600</div>
+      <span class="selected-badge">Selected</span>
+    </div>
+
+    <!-- Luxe Experience -->
+    <div class="pricing-card package-card"
+         data-package-name="Luxe Experience"
+         data-package-price="900">
+
+      <h3 class="pricing-card-title">The Luxe Experience</h3>
+      <p class="pricing-card-guests">Up to 75 Guests</p>
+      <hr class="pricing-card-divider">
+
+      <ul class="pricing-features">
+        <li>Professional Bartender</li>
+        <li>Signature Cocktail Design</li>
+        <li>Premium Mixers &amp; Garnishes</li>
+        <li>Mobile Bar Setup</li>
+      </ul>
+
+      <div class="pricing-price">$900</div>
+      <span class="selected-badge">Selected</span>
+    </div>
+
+    <!-- Signature SipSavvy Experience -->
+    <div class="pricing-card package-card"
+         data-package-name="Signature SipSavvy Experience"
+         data-package-price="1200">
+
+      <h3 class="pricing-card-title">The Signature SipSavvy Experience</h3>
+      <p class="pricing-card-guests">Up to 100 Guests</p>
+      <hr class="pricing-card-divider">
+
+      <ul class="pricing-features">
+        <li>Professional Bartender</li>
+        <li>Full Signature Cocktail Program</li>
+        <li>Premium Mixers, Garnishes &amp; Decor</li>
+        <li>Luxury Mobile Bar Setup</li>
+      </ul>
+
+      <div class="pricing-price">$1200</div>
+      <span class="selected-badge">Selected</span>
+    </div>
+
+  </div>
+
+  <!-- Continue Button (no inline JS) -->
+  <div class="packages-next-wrap">
+    <a href="#add-ons" class="btn-primary packages-next-btn">
+      Next →
+    </a>
+  </div>
+
+</section>
+<!-- ══ ADD‑ONS SECTION ══════════════════════════════════════════ -->
+<section id="add-ons"></section>
+
+<div class="addons-section-wrap">
+  <div class="packages-addons">
+
+    <p class="addons-heading">✦ &nbsp;Add-Ons</p>
+    <p class="addons-subhead">
+      Select any extras to include with your booking — your choices carry over automatically.
+    </p>
+
+    <!-- Extra Hour -->
+    <div class="addon-check-row" id="row-hour" data-addon="hour">
+      <div class="addon-check-top">
+        <div class="addon-check-left">
+          <div class="addon-check-box" id="box-hour"></div>
+          <div>
+            <div class="addon-check-label">Extra Hour</div>
+            <div class="addon-check-desc">
+              Extend your service — select how many extra hours extension
+            </div>
+          </div>
+        </div>
+        <div class="addon-check-price" id="price-hour">+$0</div>
+      </div>
+
+      <!-- Sub-options -->
+      <div id="sub-hour" class="addon-sub">
+        <button class="addon-sub-btn" data-hour="1">1 Hour</button>
+        <button class="addon-sub-btn" data-hour="2">2 Hours</button>
+        <button class="addon-sub-btn" data-hour="3">3 Hours</button>
+        <button class="addon-sub-btn" data-hour="4">4 Hours</button>
+
+        <!-- None -->
+        <button class="addon-sub-btn addon-none-btn" data-hour="0">None</button>
+      </div>
+    </div>
+
+    <!-- Travel Fee -->
+    <div class="addon-check-row" id="row-travel" data-addon="travel">
+      <div class="addon-check-left">
+        <div class="addon-check-box" id="box-travel"></div>
+        <div>
+          <div class="addon-check-label">Travel Fee</div>
+          <div class="addon-check-desc">
+            Covers travel outside the standard service area
+          </div>
+        </div>
+      </div>
+      <div class="addon-check-price">+$75</div>
+    </div>
+
+    <!-- Champagne Toast -->
+    <div class="addon-check-row" id="row-champ" data-addon="champagne">
+      <div class="addon-check-top">
+        <div class="addon-check-left">
+          <div class="addon-check-box" id="box-champ"></div>
+          <div>
+            <div class="addon-check-label">Champagne Toast Setup</div>
+            <div class="addon-check-desc">Choose your champagne tier</div>
+          </div>
+        </div>
+
+        <div class="addon-check-price" id="price-champ">$0</div>
+      </div>
+
+      <!-- Sub-options -->
+      <div id="sub-champ" class="addon-sub">
+        <button class="addon-sub-btn" data-champ="1">Standard ($40)</button>
+        <button class="addon-sub-btn" data-champ="2">Premium ($80)</button>
+        <button class="addon-sub-btn" data-champ="3">Luxury ($120)</button>
+
+        <!-- None -->
+        <button class="addon-sub-btn addon-none-btn" data-champ="0">None</button>
+      </div>
+    </div>
+
+    <!-- Add‑Ons Total Bar -->
+    <div class="addons-total-bar is-empty" id="addonsTotalBar">
+      <span class="addons-total-label">Add-Ons Total</span>
+      <span class="addons-total-amount" id="addonsTotalAmt">$0</span>
+    </div>
+
+    <!-- Current Selection Box -->
+    <div id="current-selection-box" class="selection-box" style="margin-top:24px; display:none;">
+      <h3>Your Current Selection</h3>
+      <p id="sel-package">Package: None selected</p>
+      <p id="sel-addons">Add‑Ons: None selected</p>
+    </div>
+
+    <!-- Continue to Add‑Ons Page -->
+    <a href="add-ons.html" class="btn-addon-book" id="addonBookBtn">
+      Continue to Add-Ons
+      <span class="addon-book-items" id="addonBookItems"></span>
+      →
+    </a>
+
+  </div>
+</div>
+<!-- ══ ADD‑ONS SUMMARY (Single Clean Version) ═══════════════════ -->
+<!-- (All duplicates removed, debug markers commented out) -->
+
+<!-- <div id="addons-summary" style="display:none;">DUPLICATE REMOVED</div> -->
+
+<div id="addons-summary"
+     style="
+       display:none;
+       margin-top:30px;
+       padding:22px;
+       background:#ffffff;
+       border-radius:14px;
+       box-shadow:0 6px 18px rgba(0,0,0,0.12);
+       border:1px solid #eee;
+     ">
+
+  <h3 style="
+        margin:0 0 12px 0;
+        font-size:1.4rem;
+        font-weight:700;
+        color:#541E25;
+      ">
+    Your Selected Add‑Ons
+  </h3>
+
+  <div id="addons-list"
+       style="
+         margin-bottom:18px;
+         font-size:1rem;
+         line-height:1.5;
+         color:#333;
+       ">
+  </div>
+
+  <div style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        padding-top:12px;
+        border-top:1px solid #ddd;
+      ">
+    <span style="font-size:1.2rem; font-weight:600; color:#444;">
+      Add‑On Total
+    </span>
+    <span id="addons-total"
+          style="
+            font-size:1.6rem;
+            font-weight:700;
+            color:#541E25;
+          ">
+      $0
+    </span>
+  </div>
+
+</div>
+
+<!-- ══ FOOTER ═════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="header-logo-wordmark">SipSavvy</span>
+      <p>Premium mobile bartending for every occasion — crafted cocktails, luxury setup, unforgettable moments.</p>
+      <div class="footer-socials">
+        <a href="#" class="footer-social-link" aria-label="Instagram">📸</a>
+        <a href="#" class="footer-social-link" aria-label="Facebook">👍</a>
+        <a href="#" class="footer-social-link" aria-label="TikTok">🎵</a>
+        <a href="#" class="footer-social-link" aria-label="YouTube">▶️</a>
+      </div>
+    </div>
+
+    <div>
+      <p class="footer-col-title">Experiences</p>
+      <ul class="footer-links">
+        <li><a href="booking.html?exp=sunset">Vineyard Sunset Tasting</a></li>
+        <li><a href="booking.html?exp=cellar">Cellar Reserve</a></li>
+        <li><a href="booking.html?exp=table">Winemaker's Table</a></li>
+        <li><a href="booking.html?exp=harvest">Harvest Blending</a></li>
+        <li><a href="booking.html">Private Events</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-links">
+        <li><a href="#about">Our Story</a></li>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#awards">Press &amp; Awards</a></li>
+        <li><a href="#">Gift Cards</a></li>
+        <li><a href="#">Partner Vineyards</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="footer-col-title">Support</p>
+      <ul class="footer-links">
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Cancellation Policy</a></li>
+        <li><a href="#">Accessibility</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="admin.html">Admin →</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2026 SipSavvy Experiences, LLC. All rights reserved.</p>
+    <div style="display:flex;gap:1.5rem;">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Cookie Settings</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ SCRIPTS (Correct Final Versions) ═══════════════════════ -->
+<script src="shared-booking.js"></script>
+<script src="packages.js"></script>
+
+</body>
+</html>

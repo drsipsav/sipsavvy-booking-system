@@ -1,0 +1,264 @@
+/* ============================================================
+   SipSavvy Design System — buttons.css
+   All button variants, sizes, states, and icon utilities.
+   Requires variables.css.
+   ============================================================ */
+
+/* ── Base Reset ───────────────────────────────────────────── */
+.btn {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  gap:             var(--space-2);
+
+  font-family:     var(--font-sans);
+  font-size:       var(--text-sm);
+  font-weight:     var(--weight-semibold);
+  letter-spacing:  var(--tracking-wide);
+  text-transform:  uppercase;
+  white-space:     nowrap;
+  text-decoration: none;
+  line-height:     1;
+
+  padding:         var(--space-3) var(--space-6);
+  border:          2px solid transparent;
+  border-radius:   var(--radius-full);
+  cursor:          pointer;
+  position:        relative;
+  overflow:        hidden;
+  user-select:     none;
+  -webkit-tap-highlight-color: transparent;
+
+  transition: var(--transition-color),
+              var(--transition-shadow),
+              transform var(--duration-fast) var(--ease-out);
+}
+
+.btn:focus-visible {
+  outline:        2px solid var(--color-wine-light);
+  outline-offset: 3px;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity:        0.45;
+  pointer-events: none;
+  cursor:         not-allowed;
+}
+
+/* ── Variant: Primary (Wine filled) ──────────────────────── */
+.btn-primary {
+  background-color: var(--color-wine);
+  border-color:     var(--color-wine);
+  color:            var(--color-white);
+  box-shadow:       var(--shadow-wine);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-wine-dark);
+  border-color:     var(--color-wine-dark);
+  box-shadow:       var(--shadow-lg);
+  transform:        translateY(-1px);
+}
+
+.btn-primary:active {
+  background-color: var(--color-wine-deeper);
+  border-color:     var(--color-wine-deeper);
+  box-shadow:       var(--shadow-sm);
+  transform:        translateY(0) scale(0.97);
+}
+
+/* ── Variant: Secondary (Outlined wine) ──────────────────── */
+.btn-secondary {
+  background-color: transparent;
+  border-color:     var(--color-wine);
+  color:            var(--color-wine);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-wine-tint);
+  border-color:     var(--color-wine-dark);
+  color:            var(--color-wine-dark);
+  transform:        translateY(-1px);
+}
+
+.btn-secondary:active {
+  background-color: var(--color-wine-muted);
+  transform:        translateY(0) scale(0.97);
+}
+
+/* ── Variant: Ghost (no background or border) ────────────── */
+.btn-ghost {
+  background-color: transparent;
+  border-color:     transparent;
+  color:            var(--color-wine);
+  box-shadow:       none;
+  padding-left:     var(--space-3);
+  padding-right:    var(--space-3);
+}
+
+.btn-ghost:hover {
+  background-color: var(--color-wine-tint);
+  color:            var(--color-wine-dark);
+}
+
+/* ── Variant: Gold accent ────────────────────────────────── */
+.btn-gold {
+  background-color: var(--color-gold);
+  border-color:     var(--color-gold);
+  color:            var(--color-charcoal);
+  box-shadow:       var(--shadow-gold);
+}
+
+.btn-gold:hover {
+  background-color: var(--color-gold-light);
+  border-color:     var(--color-gold-light);
+  transform:        translateY(-1px);
+  box-shadow:       var(--shadow-lg);
+}
+
+.btn-gold:active {
+  background-color: var(--color-gold-dark);
+  border-color:     var(--color-gold-dark);
+  transform:        translateY(0) scale(0.97);
+}
+
+/* ── Variant: White (for use on dark / wine backgrounds) ─── */
+.btn-white {
+  background-color: var(--color-white);
+  border-color:     var(--color-white);
+  color:            var(--color-wine);
+  box-shadow:       var(--shadow-md);
+}
+
+.btn-white:hover {
+  background-color: var(--color-cream);
+  border-color:     var(--color-cream);
+  transform:        translateY(-1px);
+  box-shadow:       var(--shadow-lg);
+}
+
+/* ── Variant: Danger ─────────────────────────────────────── */
+.btn-danger {
+  background-color: var(--color-error);
+  border-color:     var(--color-error);
+  color:            var(--color-white);
+}
+
+.btn-danger:hover {
+  filter:    brightness(1.1);
+  transform: translateY(-1px);
+}
+
+/* ── Sizes ───────────────────────────────────────────────── */
+.btn-xs {
+  font-size:    var(--text-xs);
+  padding:      var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+}
+
+.btn-sm {
+  font-size:    var(--text-xs);
+  padding:      var(--space-2) var(--space-5);
+}
+
+/* .btn = default (md) */
+
+.btn-lg {
+  font-size:    var(--text-base);
+  padding:      var(--space-4) var(--space-8);
+}
+
+.btn-xl {
+  font-size:    var(--text-md);
+  padding:      var(--space-5) var(--space-10);
+  letter-spacing: var(--tracking-wider);
+}
+
+/* ── Layout Modifiers ────────────────────────────────────── */
+.btn-full  { width: 100%; }
+.btn-icon  { padding: var(--space-3); aspect-ratio: 1; }
+.btn-round { border-radius: var(--radius-full); }
+
+/* ── Loading Spinner State ───────────────────────────────── */
+.btn.is-loading {
+  pointer-events: none;
+  color:          transparent !important;
+}
+
+.btn.is-loading::after {
+  content:      '';
+  position:     absolute;
+  inset:        0;
+  margin:       auto;
+  width:        1em;
+  height:       1em;
+  border:       2px solid currentColor;
+  border-color: rgba(255,255,255,0.4) rgba(255,255,255,0.4)
+                rgba(255,255,255,0.4) rgba(255,255,255,1);
+  border-radius:var(--radius-full);
+  animation:    ss-spin 700ms linear infinite;
+  color:        var(--color-white);
+}
+
+/* secondary/ghost spinner uses wine tint */
+.btn-secondary.is-loading::after,
+.btn-ghost.is-loading::after {
+  border-color: var(--color-wine-muted) var(--color-wine-muted)
+                var(--color-wine-muted) var(--color-wine);
+}
+
+/* ── Ripple Effect (JS adds .ripple span) ────────────────── */
+.btn .ripple {
+  position:      absolute;
+  border-radius: var(--radius-full);
+  background:    rgba(255, 255, 255, 0.25);
+  transform:     scale(0);
+  animation:     ripple-expand 500ms linear;
+  pointer-events: none;
+}
+
+@keyframes ripple-expand {
+  to { transform: scale(4); opacity: 0; }
+}
+
+/* ── Button Group ────────────────────────────────────────── */
+.btn-group {
+  display:   inline-flex;
+  flex-wrap: wrap;
+  gap:       var(--space-3);
+}
+
+.btn-group-attached {
+  display: inline-flex;
+}
+
+.btn-group-attached .btn {
+  border-radius: 0;
+}
+
+.btn-group-attached .btn:first-child {
+  border-radius: var(--radius-full) 0 0 var(--radius-full);
+}
+
+.btn-group-attached .btn:last-child {
+  border-radius: 0 var(--radius-full) var(--radius-full) 0;
+  border-left-width: 1px;
+}
+
+/* ── CTA Strip (hero / booking confirm buttons) ──────────── */
+.cta-strip {
+  display:     flex;
+  flex-wrap:   wrap;
+  gap:         var(--space-4);
+  align-items: center;
+}
+
+@media (max-width: 480px) {
+  .cta-strip { flex-direction: column; }
+  .cta-strip .btn { width: 100%; }
+}

@@ -1,0 +1,162 @@
+/* ============================================================
+   SipSavvy — header.css (Corrected)
+============================================================ */
+
+.site-header {
+  background: var(--color-wine-deeper);
+  color: var(--color-cream);
+  padding: 16px 0;
+  position: 
+  top: 0;
+  z-index: 1000;
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-logo img {
+  height: 48px;
+}
+
+.header-logo-wordmark,
+.header-logo-tagline {
+  color: var(--color-cream);
+}
+
+.header-logo-wordmark {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.header-logo-tagline {
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+.header-nav {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+}
+
+.header-nav a {
+  color: var(--color-cream);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.header-nav a:hover {
+  opacity: 0.75;
+}
+
+.btn-gold {
+  background: var(--color-gold);
+  color: var(--color-charcoal);
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: 0.25s ease;
+}
+
+.btn-gold:hover {
+  background: var(--color-gold-light);
+  transform: translateY(-2px);
+}
+
+/* MOBILE NAV — make it scroll away */
+.mobile-nav,
+.mobile-links,
+.mobile-menu,
+#mobileNav,
+#mobileMenu {
+  position: static !important;   /* removes fixed/sticky behavior */
+  top: auto !important;
+  bottom: auto !important;
+}
+
+.mobile-nav-overlay {
+  position: absolute !important;
+}
+
+/* UNSTICK EVERYTHING IN THE HEADER */
+header,
+.header,
+#header,
+.navbar,
+.mobile-nav,
+.mobile-menu,
+.mobile-links,
+#mobileNav,
+#mobileMenu,
+.header-logo,
+.header-logo-container {
+  position: relative !important;   /* removes fixed/sticky behavior */
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  z-index: 10 !important;          /* keeps it above content but not fixed */
+}
+
+/* Make sure the header scrolls away normally */
+header {
+  background-color: #5C1228 !important;  /* your wine tint */
+  padding: 20px 0;
+}
+
+header nav ul {
+  display: flex;
+  justify-content: space-between; /* spreads links */
+  gap: 32px; /* adds spacing between each link */
+  width: 100%;
+}
+
+.ss-header nav ul {
+  display: flex;
+  justify-content: space-between;
+  gap: 32px;
+  width: 100%;
+}
+
+.header-links {
+  display: flex;
+  justify-content: space-between;
+  gap: 32px;
+  width: 100%;
+}
+
+
+.ss-header {
+  background-color: #3D1219 !important; /* deep wine */
+  padding: 18px 0;
+}
+
+.ss-header nav ul {
+  display: flex;
+  justify-content: center;
+  gap: 36px; /* spacing between nav links */
+}
+
+.ss-header nav ul li a {
+  color: #FFFFFF !important; /* white nav links */
+}
+
+.site-header,
+.header,
+.header-wrapper {
+  background-color: #3D1219 !important;
+}
+

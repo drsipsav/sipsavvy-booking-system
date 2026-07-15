@@ -1,0 +1,35 @@
+.container-sm  { max-width: var(--max-width-sm); }
+.container-md  { max-width: var(--max-width-md); }
+.container-lg  { max-width: var(--max-width-lg); }
+.container-2xl { max-width: var(--max-width-2xl); }
+
+@media (max-width: 768px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+}
+
+.mt-2 { ... }
+.mt-4 { ... }
+.mt-6 { ... }
+.mt-8 { ... }
+.mb-2 { ... }
+.mb-4 { ... }
+.mb-6 { ... }
+.mb-8 { ... }
+
+.bg-wine { ... }
+.bg-wine-deep { ... }
+.bg-cream { ... }
+.bg-cream-dark { ... }
+.bg-white { ... }
+.bg-gold { ... }
+
+.text-wine { ... }
+.text-gold { ... }
+.text-muted { ... }
+.text-charcoal { ... }
+.text-white { ... }
+
+.text-center { ... }
+.text-left { ... }
+.text-right { ... }
+

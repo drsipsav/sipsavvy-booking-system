@@ -1,0 +1,628 @@
+/**
+ * SipSavvy — booking.js
+ * Booking flow state machine, calendar, timeslots, guest counter,
+ * experience selector, add-ons, order summary, step navigation,
+ * lifecycle phase transitions, and card formatting helpers.
+ *
+ * Dependencies: site.js (must load first — provides window.SS)
+ * Load order in booking.html:
+ *   <script src="js/site.js" defer></script>
+ *   <script src="js/booking.js" defer></script>
+ */
+
+'use strict';
+
+/* ============================================================
+   EXPERIENCE DATA
+   ============================================================ */
+var EXPS = {
+  sunset: {
+    name:  'Vineyard Sunset Tasting',
+    price: 85,
+    icon:  '🍷',
+    meta:  '90 min · Up to 12 guests',
+    grad:  'linear-gradient(135deg,#722F37,#9B4451)',
+  },
+  cellar: {
+    name:  'Cellar Reserve Experience',
+    price: 145,
+    icon:  '🏛️',
+    meta:  '2 hours · Up to 8 guests',
+    grad:  'linear-gradient(135deg,#3D1219,#722F37)',
+  },
+  table: {
+    name:  "Winemaker's Table",
+    price: 195,
+    icon:  '🕯️',
+    meta:  '3.5 hours · Up to 6 guests',
+    grad:  'linear-gradient(135deg,#A07C2E,#C9A84C)',
+  },
+  harvest: {
+    name:  'Harvest Blending Session',
+    price: 225,
+    icon:  '🍇',
+    meta:  'Half day · Up to 10 guests',
+    grad:  'linear-gradient(135deg,#2C2020,#4A3A3A)',
+  },
+};
+
+/* ── Available time slots ──────────────────────────────────── */
+var TIMES     = ['10:00 AM', '11:30 AM', '1:00 PM', '2:30 PM', '4:00 PM', '5:30 PM'];
+var UNAVAIL_T = ['11:30 AM', '1:00 PM'];
+
+/* ── Progress percentages per step ───────────────────────── */
+var PROGRESS = ['33%', '66%', '100%'];
+
+/* ── Month names ─────────────────────────────────────────── */
+var MONTH_NAMES = [
+  'January','February','March','April','May','June',
+  'July','August','September','October','November','December',
+];
+
+/* ============================================================
+   BOOKING STATE
+   Central state object — all mutations go through helpers.
+   ============================================================ */
+var STATE = {
+  step:       0,
+  exp:        Object.assign({ key: 'sunset' }, EXPS.sunset),
+  guests:     2,
+  date:       null,
+  dateStr:    null,
+  time:       null,
+  addons:     {},
+  addonTotal: 0,
+};
+
+/* ============================================================
+   CALENDAR
+   ============================================================ */
+var calDate = new Date(2026, 4, 1); // May 2026
+// "today" is fixed to May 7 2026 for demo purposes
+var CAL_TODAY = new Date(2026, 4, 7);
+
+/**
+ * changeMonth — advance (+1) or retreat (–1) the calendar month.
+ * Exposed globally so onclick="changeMonth(1)" still works.
+ */
+function changeMonth(delta) {
+  calDate = new Date(calDate.getFullYear(), calDate.getMonth() + delta, 1);
+  renderCal();
+}
+
+/** Render the calendar grid into #calGrid */
+function renderCal() {
+  var monthLabel = document.getElementById('calMonth');
+  if (monthLabel) {
+    monthLabel.textContent = MONTH_NAMES[calDate.getMonth()] + ' ' + calDate.getFullYear();
+  }
+
+  var grid = document.getElementById('calGrid');
+  if (!grid) return;
+
+  var days  = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+  var html  = days.map(function (d) {
+    return '<div class="booking-calendar-day-label">' + d + '</div>';
+  }).join('');
+
+  var firstDow = new Date(calDate.getFullYear(), calDate.getMonth(), 1).getDay();
+  var daysInMonth = new Date(calDate.getFullYear(), calDate.getMonth() + 1, 0).getDate();
+
+  // Empty leading cells
+  for (var e = 0; e < firstDow; e++) {
+    html += '<div class="booking-calendar-cell is-empty"></div>';
+  }
+
+  // Day cells
+  for (var d = 1; d <= daysInMonth; d++) {
+    var thisDate  = new Date(calDate.getFullYear(), calDate.getMonth(), d);
+    var isToday   = thisDate.toDateString() === CAL_TODAY.toDateString();
+    var isPast    = thisDate < CAL_TODAY && !isToday;
+    var isWeekend = thisDate.getDay() === 0 || thisDate.getDay() === 6;
+    // Selectable = weekend OR today (not past)
+    var isSelectable = !isPast && (isWeekend || isToday);
+    var isSel     = STATE.date && thisDate.toDateString() === STATE.date.toDateString();
+
+    var cls = 'booking-calendar-cell';
+    if (isToday)              cls += ' is-today';
+    if (isPast)               cls += ' is-past';
+    else if (!isSelectable)   cls += ' is-unavailable';
+    if (isSel)                cls += ' is-selected';
+
+    var clickAttr = isSelectable
+      ? 'onclick="selectDate(new Date(' +
+          thisDate.getFullYear() + ',' +
+          thisDate.getMonth()   + ',' +
+          thisDate.getDate()    + '))"'
+      : '';
+
+    html += '<div class="' + cls + '" ' + clickAttr + '>' + d + '</div>';
+  }
+
+  grid.innerHTML = html;
+}
+
+/**
+ * selectDate — called when user clicks a calendar cell.
+ * Exposed globally for onclick attributes.
+ */
+function selectDate(d) {
+  STATE.date    = d;
+  STATE.dateStr = d.toLocaleDateString('en-US', {
+    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+  });
+  updateSummary();
+  renderCal();
+  renderTimeslots();
+}
+
+/* ============================================================
+   TIME SLOTS
+   ============================================================ */
+
+/** Render all timeslot buttons into #timeslotGrid */
+function renderTimeslots() {
+  var grid = document.getElementById('timeslotGrid');
+  if (!grid) return;
+
+  grid.innerHTML = TIMES.map(function (t) {
+    var isUnavail = UNAVAIL_T.indexOf(t) !== -1;
+    var isSel     = STATE.time === t;
+    var cls       = 'timeslot-btn' +
+      (isUnavail ? ' is-unavailable' : '') +
+      (isSel     ? ' is-selected'    : '');
+    var disabledAttr = isUnavail ? 'disabled' : '';
+    return '<button class="' + cls + '" ' + disabledAttr + ' onclick="selectTime(\'' + t + '\')">' + t + '</button>';
+  }).join('');
+}
+
+/**
+ * selectTime — called when user clicks a timeslot.
+ * Exposed globally for onclick attributes.
+ */
+function selectTime(t) {
+  if (UNAVAIL_T.indexOf(t) !== -1) return; // guard against disabled slots
+  STATE.time = t;
+  updateSummary();
+  renderTimeslots();
+}
+
+/* ============================================================
+   GUEST COUNTER
+   ============================================================ */
+
+/**
+ * changeGuests — increment or decrement guest count.
+ * Exposed globally for onclick="changeGuests(1)" / changeGuests(-1).
+ */
+function changeGuests(delta) {
+  STATE.guests = (window.SS && SS.clamp)
+    ? SS.clamp(STATE.guests + delta, 1, 12)
+    : Math.min(Math.max(STATE.guests + delta, 1), 12);
+
+  var countEl = document.getElementById('guestCount');
+  if (countEl) countEl.textContent = STATE.guests;
+
+  var minusBtn = document.getElementById('guestMinus');
+  var plusBtn  = document.getElementById('guestPlus');
+  if (minusBtn) minusBtn.disabled = STATE.guests <= 1;
+  if (plusBtn)  plusBtn.disabled  = STATE.guests >= 12;
+
+  updateSummary();
+}
+
+/* ============================================================
+   EXPERIENCE SELECTOR
+   ============================================================ */
+
+/**
+ * selectExp — called when user clicks an experience card.
+ * Exposed globally for onclick="selectExp(this)".
+ */
+function selectExp(el) {
+  document.querySelectorAll('.experience-option').forEach(function (e) {
+    e.classList.remove('is-selected');
+  });
+  el.classList.add('is-selected');
+
+  var key    = el.dataset.exp;
+  STATE.exp  = Object.assign({ key: key }, EXPS[key]);
+
+  var summThumb = document.getElementById('summThumb');
+  if (summThumb) {
+    summThumb.innerHTML =
+      '<div style="width:100%;height:100%;background:' + STATE.exp.grad +
+      ';display:flex;align-items:center;justify-content:center;font-size:1.5rem;">' +
+      STATE.exp.icon + '</div>';
+  }
+
+  var summName = document.getElementById('summName');
+  var summMeta = document.getElementById('summMeta');
+  if (summName) summName.textContent = STATE.exp.name;
+  if (summMeta) summMeta.textContent = STATE.exp.meta;
+
+  updateSummary();
+}
+
+/* ============================================================
+   ADD-ONS
+   ============================================================ */
+
+/**
+ * toggleAddon — called when user clicks an add-on card.
+ * Exposed globally for onclick="toggleAddon(this)".
+ */
+function toggleAddon(el) {
+  var key   = el.dataset.addon;
+  var price = parseInt(el.dataset.price, 10);
+
+  if (STATE.addons[key] !== undefined) {
+    delete STATE.addons[key];
+    el.classList.remove('is-selected');
+  } else {
+    STATE.addons[key] = price;
+    el.classList.add('is-selected');
+  }
+
+  STATE.addonTotal = Object.values(STATE.addons).reduce(function (a, b) {
+    return a + b;
+  }, 0);
+
+  updateSummary();
+}
+
+/* ============================================================
+   ORDER SUMMARY — live refresh
+   ============================================================ */
+
+/** updateSummary — recalculate and repaint the sticky sidebar. */
+function updateSummary() {
+  var base      = STATE.exp.price * STATE.guests;
+  var addonsAmt = STATE.addonTotal * STATE.guests;
+  var total     = base + addonsAmt;
+
+  function setText(id, val) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = val;
+  }
+
+  setText('summDate',   STATE.dateStr || '—');
+  setText('summTime',   STATE.time    || '—');
+  setText('summGuests', STATE.guests + ' guest' + (STATE.guests !== 1 ? 's' : ''));
+  setText('summBase',   '$' + base.toFixed(2));
+  setText('summTotal',  '$' + total.toFixed(2));
+  setText('footerSummary0',
+    STATE.exp.name + ' · ' + STATE.guests + ' guest' + (STATE.guests !== 1 ? 's' : ''));
+
+  var addonLine = document.getElementById('addonLine');
+  var summAddons = document.getElementById('summAddons');
+  if (addonLine && summAddons) {
+    if (addonsAmt > 0) {
+      addonLine.style.display = '';
+      summAddons.textContent  = '+$' + addonsAmt.toFixed(2);
+    } else {
+      addonLine.style.display = 'none';
+    }
+  }
+}
+
+/* ============================================================
+   STEP NAVIGATION + LIFECYCLE PHASE TRANSITIONS
+   ============================================================ */
+
+/**
+ * goToStep — advance or retreat to a booking step.
+ * step 0 = Choose (WINE phase)
+ * step 1 = Details + Payment (WHITE phase)
+ * step 2 = Confirmation (WINE / celebration phase)
+ * Exposed globally for onclick="goToStep(1)".
+ */
+function goToStep(next) {
+  var wrapper = document.getElementById('bookingWrapper');
+  var steps   = document.querySelectorAll('.booking-step-panel');
+
+  /* ── Progress bar ──────────────────────────────────────── */
+  var progFill = document.getElementById('progressFill');
+  if (progFill) progFill.style.setProperty('--progress-value', PROGRESS[next]);
+
+  /* ── Step dots ─────────────────────────────────────────── */
+  ['dot0', 'dot1', 'dot2'].forEach(function (id, i) {
+    var dotWrap = document.getElementById(id);
+    if (!dotWrap) return;
+    dotWrap.classList.toggle('is-active',   i === next);
+    dotWrap.classList.toggle('is-complete', i < next);
+    var dotInner = dotWrap.querySelector('.form-step-dot');
+    if (dotInner) dotInner.textContent = i < next ? '✓' : String(i + 1);
+  });
+
+  /* ── Lifecycle phase transition ────────────────────────── */
+  if (wrapper) {
+    wrapper.classList.remove(
+      'booking-phase-wine', 'booking-phase-white', 'booking-phase-confirmation',
+      'booking-enter-white', 'booking-enter-wine'
+    );
+
+    if (next === 1) {
+      // Wine → White
+      wrapper.classList.add('booking-enter-white');
+      setTimeout(function () {
+        wrapper.classList.remove('booking-enter-white');
+        wrapper.classList.add('booking-phase-white');
+      }, 600);
+
+    } else if (next === 2) {
+      // White → Wine (confirmation)
+      wrapper.classList.add('booking-enter-wine');
+      setTimeout(function () {
+        wrapper.classList.remove('booking-enter-wine');
+        wrapper.classList.add('booking-phase-confirmation');
+        fireConfirmation();
+      }, 600);
+
+    } else {
+      // Back to Wine (step 0)
+      wrapper.classList.add('booking-enter-wine');
+      setTimeout(function () {
+        wrapper.classList.remove('booking-enter-wine');
+        wrapper.classList.add('booking-phase-wine');
+      }, 600);
+    }
+  }
+
+  /* ── Show the correct panel ────────────────────────────── */
+  steps.forEach(function (panel, i) {
+    var active = i === next;
+    panel.classList.toggle('is-active', active);
+    if (active) panel.classList.add('step-anim');
+  });
+
+  STATE.step = next;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ============================================================
+   CONFIRMATION SCREEN
+   ============================================================ */
+
+/** fireConfirmation — populate and animate the confirmation view. */
+function fireConfirmation() {
+  var base  = STATE.exp.price * STATE.guests;
+  var total = base + STATE.addonTotal * STATE.guests;
+
+  var emailInput = document.getElementById('email');
+  var email      = (emailInput && emailInput.value) ? emailInput.value : 'your inbox';
+  var ref        = (window.SS && SS.generateRef) ? SS.generateRef() :
+    'SS-2026-' + String(Math.floor(10000 + Math.random() * 90000)).padStart(5, '0');
+
+  function setText(id, val) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = val;
+  }
+
+  setText('confEmail',  email);
+  setText('confRef',    ref);
+  setText('confExp',    STATE.exp.name);
+  setText('confDate',   STATE.dateStr || 'Saturday, 16 May 2026');
+  setText('confTime',   STATE.time    || '5:30 PM');
+  setText('confGuests', STATE.guests + ' guest' + (STATE.guests !== 1 ? 's' : ''));
+  setText('confTotal',  '$' + total.toFixed(2));
+
+  // Animate confirmation badge
+  var badge = document.getElementById('confBadge');
+  if (badge) badge.classList.add('is-animate');
+}
+
+/* ============================================================
+   CARD FORMATTING HELPERS
+   ============================================================ */
+
+/**
+ * formatCard — auto-inserts double-space separators after every 4 digits.
+ * Exposed globally for oninput="formatCard(this)".
+ */
+function formatCard(el) {
+  var v  = el.value.replace(/\D/g, '').slice(0, 16);
+  el.value = v.replace(/(\d{4})(?=\d)/g, '$1  ');
+}
+
+/**
+ * formatExpiry — formats MM / YY as the user types.
+ * Exposed globally for oninput="formatExpiry(this)".
+ */
+function formatExpiry(el) {
+  var v = el.value.replace(/\D/g, '').slice(0, 4);
+  if (v.length > 2) v = v.slice(0, 2) + ' / ' + v.slice(2);
+  el.value = v;
+}
+
+/* ============================================================
+   INITIALISATION — runs on DOMContentLoaded
+   ============================================================ */
+function bookingInit() {
+  renderCal();
+  renderTimeslots();
+  updateSummary();
+
+  // Wire guest counter buttons defensively (in addition to inline onclick)
+  var minusBtn = document.getElementById('guestMinus');
+  var plusBtn  = document.getElementById('guestPlus');
+  if (minusBtn && !minusBtn.dataset.wired) {
+    minusBtn.addEventListener('click', function () { changeGuests(-1); });
+    minusBtn.dataset.wired = '1';
+  }
+  if (plusBtn && !plusBtn.dataset.wired) {
+    plusBtn.addEventListener('click', function () { changeGuests(1); });
+    plusBtn.dataset.wired = '1';
+  }
+
+  // Wire experience options via delegation (complement onclick attrs)
+  var expContainer = document.querySelector('.booking-experience-grid, .experience-picker');
+  if (expContainer && !expContainer.dataset.wired) {
+    expContainer.addEventListener('click', function (e) {
+      var opt = e.target.closest('.experience-option');
+      if (opt) selectExp(opt);
+    });
+    expContainer.dataset.wired = '1';
+  }
+
+  // Wire add-on cards via delegation
+  var addonContainer = document.querySelector('.booking-addons, .addon-grid');
+  if (addonContainer && !addonContainer.dataset.wired) {
+    addonContainer.addEventListener('click', function (e) {
+      var card = e.target.closest('[data-addon]');
+      if (card) toggleAddon(card);
+    });
+    addonContainer.dataset.wired = '1';
+  }
+
+  // Calendar nav buttons
+  var prevBtn = document.getElementById('calPrev');
+  var nextBtn = document.getElementById('calNext');
+  if (prevBtn && !prevBtn.dataset.wired) {
+    prevBtn.addEventListener('click', function () { changeMonth(-1); });
+    prevBtn.dataset.wired = '1';
+  }
+  if (nextBtn && !nextBtn.dataset.wired) {
+    nextBtn.addEventListener('click', function () { changeMonth(1); });
+    nextBtn.dataset.wired = '1';
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', bookingInit);
+} else {
+  bookingInit();
+}
+
+/* ── Expose public API ─────────────────────────────────────── */
+// These must be on window so onclick="" attributes can call them.
+window.changeMonth    = changeMonth;
+window.selectDate     = selectDate;
+window.renderCal      = renderCal;
+window.renderTimeslots = renderTimeslots;
+window.selectTime     = selectTime;
+window.changeGuests   = changeGuests;
+window.selectExp      = selectExp;
+window.toggleAddon    = toggleAddon;
+window.updateSummary  = updateSummary;
+window.goToStep       = goToStep;
+window.fireConfirmation = fireConfirmation;
+window.formatCard     = formatCard;
+window.formatExpiry   = formatExpiry;
+
+// ===============================
+// SIP SAVVY — BOOKING PAGE LOADER
+// ===============================
+
+// Load saved selection from localStorage
+function loadSelection() {
+    const data = localStorage.getItem("sipsavvySelection");
+    if (!data) return null;
+
+    try {
+        return JSON.parse(data);
+    } catch (e) {
+        console.error("Invalid booking data:", e);
+        return null;
+    }
+}
+
+// Render package + add-ons into the booking page
+function renderBookingDetails(selection) {
+    if (!selection || !selection.package) {
+        document.querySelector('#bookingSummary').innerHTML = `
+            <p>No package selected. Please return to the Packages page.</p>
+        `;
+        return;
+    }
+
+    const { package: pkg, addons } = selection;
+
+    // Base package name formatting
+    const packageNames = {
+        essential: "Essential Package",
+        luxe: "Luxe Package",
+        signature: "Signature Package"
+    };
+
+    // Build add-on summary
+    let addonList = [];
+
+    if (addons.extraHours > 0) {
+        addonList.push(`${addons.extraHours} Extra Hours`);
+    }
+
+    if (addons.travelFee) {
+        addonList.push(`Travel Fee`);
+    }
+
+    if (addons.champagne) {
+        addonList.push(`Champagne Toast (${addons.champagne} Guests)`);
+    }
+document.getElementById("summaryEventLocation").textContent =
+    document.getElementById("eventLocation").value || "—";
+
+document.getElementById("summaryEventZip").textContent =
+    document.getElementById("eventZip").value || "—";
+document.getElementById("summaryEventZip").textContent =
+    document.getElementById("eventZip").value || "—";
+
+    const addonHTML = addonList.length
+        ? addonList.map(a => `<li>${a}</li>`).join("")
+        : `<li>No Add‑Ons Selected</li>`;
+
+    // Calculate total (same logic as packages page)
+    const total = calculateBookingTotal(selection);
+
+    // Inject into booking page
+    document.querySelector('#bookingSummary').innerHTML = `
+        <h3>${packageNames[pkg]}</h3>
+        <ul class="addon-list">${addonHTML}</ul>
+        <div class="total-line">Total: <strong>$${total}</strong></div>
+    `;
+}
+
+// Recalculate total on booking page
+function calculateBookingTotal(selection) {
+    const prices = {
+        base: {
+            essential: 350,
+            luxe: 550,
+            signature: 850
+        },
+        extraHour: 75,
+        travelFee: 50,
+        champagne: {
+            40: 60,
+            80: 120,
+            100: 150
+        }
+    };
+
+    let total = prices.base[selection.package];
+
+    total += selection.addons.extraHours * prices.extraHour;
+
+    if (selection.addons.travelFee) {
+        total += prices.travelFee;
+    }
+
+    if (selection.addons.champagne) {
+        total += prices.champagne[selection.addons.champagne];
+    }
+
+    return total;
+}
+
+// Initialize booking page
+document.addEventListener("DOMContentLoaded", () => {
+    const selection = loadSelection();
+    renderBookingDetails(selection);
+});
+
+// LIVE UPDATE: ZIP CODE
+document.getElementById("eventZip").addEventListener("input", function () {
+    document.getElementById("summaryEventZip").textContent =
+        this.value.trim() !== "" ? this.value : "—";
+});
+

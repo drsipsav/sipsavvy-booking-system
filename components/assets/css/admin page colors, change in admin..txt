@@ -1,0 +1,100 @@
+admin page colors, change in admin.css
+ 7. Pagination Buttons Should Match the Theme
+They should feel like part of the brand system.
+
+.pagination-controls button {
+  background: #5C1228;
+  color: white;
+  border-radius: 6px;
+  padding: 6px 12px;
+}
+
+.pagination-controls button:hover {
+  background: #7a1a36;
+}
+_____________________________________ 
+
+6. Add a Soft Rose‑Gold Glow to Section Headers
+This gives your admin dashboard a premium, cinematic feel.
+
+.modal-section h4,
+.admin-content-header h2 {
+  color: #5C1228;
+  text-shadow: 0 1px 2px rgba(92, 18, 40, 0.15);
+}
+_____________________________________ 
+
+5. Modal Should Match the New Aesthetic
+Your bottom sheet modal should feel like a rose‑gold glass panel.
+
+.modal-sheet {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(10px);
+  border-radius: 18px 18px 0 0;
+  border-top: 1px solid rgba(92, 18, 40, 0.15);
+  box-shadow: 0 -4px 20px rgba(92, 18, 40, 0.12);
+}
+_________________________________________________
+
+4. Buttons Should Get a Rose‑Gold Accent
+SipSavvy’s brand is luxury — your buttons should reflect that.
+
+button {
+  background: #5C1228;
+  color: white;
+  border-radius: 8px;
+  padding: 8px 14px;
+  border: none;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+button:hover {
+  background: #7a1a36;
+  transform: translateY(-1px);
+}
+
+______________________________________________ 
+
+3. Header Should Match the Rose‑Gold Theme
+Your header can get a subtle rose‑gold wash without overpowering the UI.
+This ties the header into the new background seamlessly. 
+
+.admin-header {
+  background: linear-gradient(
+    90deg,
+    rgba(244, 231, 226, 0.7),
+    rgba(238, 217, 210, 0.9)
+  );
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(92, 18, 40, 0.15);
+}
+__________________________________________________  
+
+2. Table Rows Should Float Slightly
+This makes the table feel modern and interactive. 
+
+.admin-table tr {
+  background: rgba(255, 255, 255, 0.75);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.admin-table tr:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.9);
+}
+_______________________________________________   
+
+1. a rose‑gold tint, to feel elevated, not stark that gives you:
+A soft glassy panel
+Light blur
+Subtle shadow
+Luxury feel 
+
+.admin-content {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(6px);
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 4px 14px rgba(92, 18, 40, 0.08);
+}
+

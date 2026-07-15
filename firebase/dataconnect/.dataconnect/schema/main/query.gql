@@ -1,0 +1,320 @@
+extend type Query {
+  """
+  ✨ Look up a single `BookingRequest` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  bookingRequest(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: BookingRequest_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: BookingRequest_FirstRow
+  ): BookingRequest @fdc_generated(from: "BookingRequest", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `Client` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  client(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Client_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Client_FirstRow
+  ): Client @fdc_generated(from: "Client", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `Event` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  event(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Event_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Event_FirstRow
+  ): Event @fdc_generated(from: "Event", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `Mixologist` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  mixologist(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Mixologist_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Mixologist_FirstRow
+  ): Mixologist @fdc_generated(from: "Mixologist", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `Review` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  review(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Review_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Review_FirstRow
+  ): Review @fdc_generated(from: "Review", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `ServicePackage` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  servicePackage(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: ServicePackage_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: ServicePackage_FirstRow
+  ): ServicePackage @fdc_generated(from: "ServicePackage", purpose: QUERY_SINGLE)
+  """
+  ✨ List `BookingRequest` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  bookingRequests(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: BookingRequest_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [BookingRequest_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: BookingRequest_Having
+  ): [BookingRequest!]! @fdc_generated(from: "BookingRequest", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `Client` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  clients(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Client_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Client_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Client_Having
+  ): [Client!]! @fdc_generated(from: "Client", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `Event` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  events(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Event_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Event_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Event_Having
+  ): [Event!]! @fdc_generated(from: "Event", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `Mixologist` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  mixologists(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Mixologist_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Mixologist_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Mixologist_Having
+  ): [Mixologist!]! @fdc_generated(from: "Mixologist", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `Review` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  reviews(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Review_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Review_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Review_Having
+  ): [Review!]! @fdc_generated(from: "Review", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `ServicePackage` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  servicePackages(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: ServicePackage_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [ServicePackage_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: ServicePackage_Having
+  ): [ServicePackage!]! @fdc_generated(from: "ServicePackage", purpose: QUERY_MULTIPLE)
+}

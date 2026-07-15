@@ -1,0 +1,56 @@
+extend type BookingRequest {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "BookingRequest", purpose: IMPLICIT_KEY_FIELD)
+  """
+  ✨ Implicit foreign key field based on `BookingRequest`.`event`. It must match the value of `Event`.`id`. See `@ref` for how to customize it.
+  """
+  eventId: UUID @fdc_generated(from: "BookingRequest.event", purpose: IMPLICIT_REF_FIELD)
+}
+extend type Client {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "Client", purpose: IMPLICIT_KEY_FIELD)
+}
+extend type Event {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "Event", purpose: IMPLICIT_KEY_FIELD)
+  """
+  ✨ Implicit foreign key field based on `Event`.`client`. It must match the value of `Client`.`id`. See `@ref` for how to customize it.
+  """
+  clientId: UUID @fdc_generated(from: "Event.client", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `Event`.`servicePackage`. It must match the value of `ServicePackage`.`id`. See `@ref` for how to customize it.
+  """
+  servicePackageId: UUID @fdc_generated(from: "Event.servicePackage", purpose: IMPLICIT_REF_FIELD)
+}
+extend type Mixologist {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "Mixologist", purpose: IMPLICIT_KEY_FIELD)
+}
+extend type Review {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "Review", purpose: IMPLICIT_KEY_FIELD)
+  """
+  ✨ Implicit foreign key field based on `Review`.`client`. It must match the value of `Client`.`id`. See `@ref` for how to customize it.
+  """
+  clientId: UUID @fdc_generated(from: "Review.client", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `Review`.`event`. It must match the value of `Event`.`id`. See `@ref` for how to customize it.
+  """
+  eventId: UUID @fdc_generated(from: "Review.event", purpose: IMPLICIT_REF_FIELD)
+}
+extend type ServicePackage {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "ServicePackage", purpose: IMPLICIT_KEY_FIELD)
+}

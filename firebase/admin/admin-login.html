@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SipSavvy Admin Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Admin Login Styles -->
+  <link rel="stylesheet" href="../styles/admin-login.css">
+</head>
+
+<body>
+
+  <div class="login-wrapper">
+    <h1>SipSavvy Admin</h1>
+
+    <input type="email" id="email" placeholder="Admin Email">
+    <input type="password" id="password" placeholder="Password">
+
+    <button id="loginBtn">Login</button>
+
+    <p class="error-message" id="errorMessage"></p>
+
+    <div class="login-footer">
+      © SipSavvy Booking System
+    </div>
+  </div>
+
+  <!-- Firebase Auth Logic -->
+  <script type="module">
+    import { adminLogin } from "../scripts/auth.js";
+
+    const loginBtn = document.getElementById("loginBtn");
+    const errorMessage = document.getElementById("errorMessage");
+
+    loginBtn.addEventListener("click", async () => {
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      try {
+        await adminLogin(email, password);
+      } catch (err) {
+        errorMessage.textContent = "Invalid email or password";
+      }
+    });
+  </script>
+
+</body>
+</html>

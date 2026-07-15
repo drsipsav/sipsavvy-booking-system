@@ -1,0 +1,9 @@
+﻿Schema,Key Fields
+Experience,"id (enum: sunset/cellar/table/harvest), price, duration, maxGuests, status (active/seasonal/inactive), rating, seasonStart/End"
+AddOn,"id (enum: charcuterie/souvenir/photography), price, priceUnit (per_person/per_session)"
+TimeSlot,"time (12-hr display), time24 (ISO), available, spotsRemaining"
+Availability,"experienceId, date, operatingDay (Thu–Sun guard), slots[]"
+Guest,"id (uuid), email (unique), dietaryRestrictions, totalVisits, bookingHistory[]"
+Booking,"ref (SS-YYYY-NNNNN), status (pending/confirmed/completed/cancelled), baseTotal, addonTotal, grandTotal"
+Payment,"id (gateway ID), status (pending/succeeded/refunded/partially_refunded/failed), last4, refundAmount"
+Review,"rating (1–5), isVerified, isPublic, adminResponse"

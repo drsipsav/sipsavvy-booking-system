@@ -1,0 +1,61 @@
+/* ============================================================
+   SipSavvy — buttons.css (Corrected)
+============================================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-full);
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: 0.25s ease;
+}
+
+/* Primary (Wine) */
+.btn-primary {
+  background: var(--color-wine);
+  border-color: var(--color-wine);
+  color: var(--color-cream);
+}
+
+.btn-primary:hover {
+  background: var(--color-wine-dark);
+}
+
+/* Gold */
+.btn-gold {
+  background: var(--color-gold);
+  border-color: var(--color-gold);
+  color: var(--color-charcoal);
+}
+
+.btn-gold:hover {
+  background: var(--color-gold-light);
+}
+
+/* Ghost */
+.btn-ghost {
+  background: transparent;
+  color: var(--color-wine);
+}
+
+.btn-ghost:hover {
+  background: var(--color-wine-tint);
+}
+
+/* White */
+.btn-white {
+  background: var(--color-white);
+  color: var(--color-wine);
+}
+
+.btn-white:hover {
+  background: var(--color-cream);
+}

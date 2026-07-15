@@ -1,0 +1,45 @@
+type Client @table {
+  name: String!
+  email: String!
+  phone: String!
+  companyName: String
+}
+
+type ServicePackage @table {
+  title: String!
+  description: String!
+  basePrice: Float!
+  includesStaff: Boolean
+  includesGlassware: Boolean
+}
+
+type Event @table {
+  date: Date!
+  location: String!
+  guestCount: Int!
+  status: String!
+  specialRequirements: String
+  corporateTaxId: String
+  client: Client
+  servicePackage: ServicePackage
+}
+
+type BookingRequest @table {
+  requestDate: Timestamp!
+  totalQuote: Float!
+  paymentStatus: String!
+  event: Event
+}
+
+type Review @table {
+  rating: Int!
+  comment: String!
+  event: Event
+  client: Client
+}
+
+type Mixologist @table {
+  name: String!
+  certificationLevel: String!
+  specialty: String
+}

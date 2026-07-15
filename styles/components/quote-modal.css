@@ -1,0 +1,227 @@
+/* ============================================================
+   quote-modal.css — SipSavvy Corporate Bar Quote Modal
+   Add to: ../styles/components/quote-modal.css
+   Link:   <link rel="stylesheet" href="../styles/components/quote-modal.css">
+   ============================================================ */
+
+/* ── Overlay ── */
+.qm-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+/* ── Card ── */
+.qm-card {
+  position: relative;
+  background: var(--color-bg, #fff9f5);
+  border: 1px solid rgba(114, 47, 55, 0.25);
+  border-radius: 14px;
+  width: 100%;
+  max-width: 860px;
+  max-height: 95vh;
+  overflow-y: auto;
+  padding: 52px 48px 44px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+}
+
+/* ── Header ── */
+.qm-header {
+  margin-bottom: 24px;
+  padding-right: 32px;
+}
+
+.qm-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2C2020;
+  margin-bottom: 6px;
+}
+
+.qm-sub {
+  font-size: 0.875rem;
+  color: #6A5F5F;
+  line-height: 1.5;
+}
+
+/* ── Close button ── */
+.qm-close {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: #6A5F5F;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
+}
+.qm-close:hover {
+  background: rgba(114, 47, 55, 0.1);
+  color: #722F37;
+}
+
+/* ── Form layout ── */
+.qm-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.qm-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 520px) {
+  .qm-row {
+    grid-template-columns: 1fr;
+  }
+  .qm-card {
+    padding: 36px 24px 28px;
+  }
+}
+
+/* ── Fields ── */
+.qm-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.qm-field-full {
+  grid-column: 1 / -1;
+}
+
+.qm-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #4A3535;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.qm-req {
+  color: #722F37;
+}
+
+.qm-input {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 1rem;
+  font-family: inherit;
+  color: #2C2020;
+  background: #ffffff;
+  border: 1.5px solid #D4B8B8;
+  border-radius: 8px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+.qm-input:focus {
+  border-color: #722F37;
+  box-shadow: 0 0 0 3px rgba(114, 47, 55, 0.12);
+}
+
+.qm-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23722F37' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 13px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+
+.qm-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* ── Action buttons ── */
+.qm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.qm-btn-cancel {
+  padding: 13px 28px;
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: inherit;
+  color: #6A5F5F;
+  background: transparent;
+  border: 1.5px solid #D4B8B8;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+.qm-btn-cancel:hover {
+  background: rgba(114, 47, 55, 0.06);
+  border-color: #722F37;
+  color: #722F37;
+}
+
+.qm-btn-submit {
+  padding: 13px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: #fff;
+  background: #722F37;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+.qm-btn-submit:hover {
+  background: #5c2530;
+}
+.qm-btn-submit:active {
+  transform: scale(0.98);
+}
+
+/* ── Success state ── */
+.qm-success {
+  text-align: center;
+  padding: 24px 0 8px;
+}
+
+.qm-success-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  background: rgba(114, 47, 55, 0.1);
+  color: #722F37;
+  border-radius: 50%;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.qm-success-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.3rem;
+  color: #2C2020;
+  margin-bottom: 10px;
+}
+
+.qm-success-msg {
+  font-size: 0.9rem;
+  color: #6A5F5F;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}

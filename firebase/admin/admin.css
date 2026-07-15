@@ -1,0 +1,148 @@
+/* -----------------------------------------
+   SipSavvy Admin Dashboard Styles
+   ----------------------------------------- */
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Roboto, sans-serif;
+  background: #f8f6f3;
+  color: #333;
+}
+
+/* Header */
+.admin-header {
+  background: #4a0e2e;
+  color: #fff;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-header h1 {
+  margin: 0;
+  font-size: 24px;
+  letter-spacing: 1px;
+}
+
+.logout-btn {
+  background: #c59d5f;
+  border: none;
+  padding: 10px 18px;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.logout-btn:hover {
+  background: #a67f45;
+}
+
+/* Filters */
+.filters {
+  display: flex;
+  gap: 10px;
+  padding: 15px;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+.filter-btn {
+  background: #4a0e2e;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.filter-btn:hover {
+  background: #350a21;
+}
+
+/* Booking Container */
+.booking-container {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 20px;
+}
+
+/* Booking Card */
+.booking-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  border: 1px solid #e2dcd5;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  transition: 0.2s;
+}
+
+.booking-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+}
+
+.booking-card h3 {
+  margin-top: 0;
+  color: #4a0e2e;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.booking-card p {
+  margin: 6px 0;
+  font-size: 14px;
+}
+
+/* Action Buttons */
+.admin-actions {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.admin-actions button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+/* Approve */
+.approve-btn {
+  background: #4caf50;
+  color: #fff;
+}
+
+.approve-btn:hover {
+  background: #3e8e41;
+}
+
+/* Complete */
+.complete-btn {
+  background: #2196f3;
+  color: #fff;
+}
+
+.complete-btn:hover {
+  background: #0b7dda;
+}
+
+/* Cancel */
+.cancel-btn {
+  background: #f44336;
+  color: #fff;
+}
+
+.cancel-btn:hover {
+  background: #d32f2f;
+}
+

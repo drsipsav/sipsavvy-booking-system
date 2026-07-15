@@ -1,0 +1,318 @@
+/* ============================================================
+   SipSavvy Design System — cards.css
+   Card component system: base, variants, sizes, interactive.
+   Requires variables.css, animations.css.
+   ============================================================ */
+
+/* ── Base Card ────────────────────────────────────────────── */
+.card {
+  background-color: var(--color-white);
+  border:           1px solid var(--color-border-light);
+  border-radius:    var(--radius-xl);
+  box-shadow:       var(--shadow-sm);
+  overflow:         hidden;
+  position:         relative;
+  transition:       box-shadow  var(--duration-base) var(--ease-out),
+                    transform   var(--duration-base) var(--ease-out),
+                    border-color var(--duration-base) var(--ease-out);
+}
+
+/* ── Card Inner Regions ──────────────────────────────────── */
+.card-media {
+  position:   relative;
+  overflow:   hidden;
+  aspect-ratio: 16 / 9;
+}
+
+.card-media img {
+  width:      100%;
+  height:     100%;
+  object-fit: cover;
+  display:    block;
+  transition: transform var(--duration-slower) var(--ease-out);
+}
+
+.card-body {
+  padding: var(--space-6);
+}
+
+.card-body-sm {
+  padding: var(--space-4);
+}
+
+.card-footer {
+  padding:      var(--space-4) var(--space-6);
+  border-top:   1px solid var(--color-border-light);
+  display:      flex;
+  align-items:  center;
+  gap:          var(--space-3);
+  flex-wrap:    wrap;
+  background-color: var(--color-cream);
+}
+
+.card-header {
+  padding:       var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--color-border-light);
+  background-color: var(--color-cream);
+}
+
+/* ── Card Typography Helpers ─────────────────────────────── */
+.card-label {
+  font-family:    var(--font-sans);
+  font-size:      var(--text-xs);
+  font-weight:    var(--weight-semibold);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color:          var(--color-wine);
+  margin-bottom:  var(--space-2);
+}
+
+.card-title {
+  font-family:  var(--font-serif);
+  font-size:    var(--text-xl);
+  font-weight:  var(--weight-bold);
+  color:        var(--color-charcoal);
+  line-height:  var(--leading-snug);
+  margin-bottom: var(--space-2);
+}
+
+.card-subtitle {
+  font-size:  var(--text-sm);
+  color:      var(--color-muted);
+  margin-bottom: var(--space-4);
+}
+
+.card-text {
+  font-size:   var(--text-base);
+  color:       var(--color-ink);
+  line-height: var(--leading-relaxed);
+}
+
+/* ── Variant: Interactive / Clickable ────────────────────── */
+.card-interactive {
+  cursor: pointer;
+  text-decoration: none;
+  color:  inherit;
+  display: block;
+}
+
+.card-interactive:hover {
+  box-shadow:   var(--shadow-lg);
+  transform:    translateY(-4px);
+  border-color: var(--color-border);
+}
+
+.card-interactive:hover .card-media img {
+  transform: scale(1.04);
+}
+
+.card-interactive:focus-visible {
+  outline:        2px solid var(--color-wine);
+  outline-offset: 3px;
+}
+
+/* ── Variant: Wine (brand-coloured) ──────────────────────── */
+.card-wine {
+  background-color: var(--color-wine);
+  border-color:     var(--color-wine-dark);
+  color:            var(--color-white);
+}
+
+.card-wine .card-label {
+  color: var(--color-gold-light);
+}
+
+.card-wine .card-title {
+  color: var(--color-white);
+}
+
+.card-wine .card-subtitle,
+.card-wine .card-text {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.card-wine .card-footer {
+  background-color: var(--color-wine-dark);
+  border-color:     rgba(255,255,255,0.15);
+}
+
+/* ── Variant: Cream / Tinted ─────────────────────────────── */
+.card-cream {
+  background-color: var(--color-cream);
+  border-color:     var(--color-border);
+}
+
+.card-cream .card-footer {
+  background-color: var(--color-cream-dark);
+}
+
+/* ── Variant: Glass (hero overlay cards) ─────────────────── */
+.card-glass {
+  background:    rgba(255, 255, 255, 0.12);
+  border-color:  rgba(255, 255, 255, 0.20);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  color:         var(--color-white);
+}
+
+.card-glass .card-title { color: var(--color-white); }
+.card-glass .card-text  { color: rgba(255,255,255,0.82); }
+
+/* ── Variant: Outlined (no fill) ─────────────────────────── */
+.card-outlined {
+  background-color: transparent;
+  border:           2px solid var(--color-border);
+  box-shadow:       none;
+}
+
+.card-outlined:hover {
+  border-color: var(--color-wine-light);
+}
+
+/* ── Variant: Flat (no shadow/border) ────────────────────── */
+.card-flat {
+  box-shadow: none;
+  border:     none;
+}
+
+/* ── Experience / Package Cards (vertical portrait) ──────── */
+.card-experience {
+  display:        flex;
+  flex-direction: column;
+  height:         100%;
+}
+
+.card-experience .card-media {
+  aspect-ratio: 3 / 2;
+}
+
+.card-experience .card-body {
+  flex: 1;
+}
+
+.card-experience .card-footer {
+  justify-content: space-between;
+}
+
+/* ── Price Badge inside card ─────────────────────────────── */
+.card-price {
+  font-family:  var(--font-serif);
+  font-size:    var(--text-xl);
+  font-weight:  var(--weight-bold);
+  color:        var(--color-wine);
+  display:      flex;
+  align-items:  baseline;
+  gap:          var(--space-1);
+}
+
+.card-price-unit {
+  font-family:  var(--font-sans);
+  font-size:    var(--text-sm);
+  font-weight:  var(--weight-regular);
+  color:        var(--color-muted);
+}
+
+/* ── Badge / Tag overlays on card-media ──────────────────── */
+.card-badge {
+  position:         absolute;
+  top:              var(--space-3);
+  left:             var(--space-3);
+  background-color: var(--color-wine);
+  color:            var(--color-white);
+  font-family:      var(--font-sans);
+  font-size:        var(--text-xs);
+  font-weight:      var(--weight-semibold);
+  letter-spacing:   var(--tracking-wide);
+  text-transform:   uppercase;
+  padding:          var(--space-1) var(--space-3);
+  border-radius:    var(--radius-full);
+}
+
+.card-badge-gold {
+  background-color: var(--color-gold);
+  color:            var(--color-charcoal);
+}
+
+/* ── Rating Row ──────────────────────────────────────────── */
+.card-rating {
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-1);
+  font-size:   var(--text-sm);
+  color:       var(--color-muted);
+}
+
+.card-rating-star {
+  color: var(--color-gold);
+  font-size: var(--text-base);
+}
+
+/* ── Card Grid Layouts ───────────────────────────────────── */
+.card-grid {
+  display:               grid;
+  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+  gap:                   var(--space-8);
+}
+
+.card-grid-tight {
+  gap: var(--space-5);
+}
+
+.card-grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.card-grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 768px) {
+  .card-grid-2,
+  .card-grid-3 { grid-template-columns: 1fr; }
+  .card-grid   { grid-template-columns: 1fr; }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .card-grid   { grid-template-columns: repeat(2, 1fr); }
+  .card-grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ── Horizontal Card (list view) ─────────────────────────── */
+.card-horizontal {
+  display:   flex;
+  flex-direction: row;
+}
+
+.card-horizontal .card-media {
+  width:       10rem;
+  min-width:   10rem;
+  aspect-ratio: unset;
+  flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .card-horizontal           { flex-direction: column; }
+  .card-horizontal .card-media { width: 100%; }
+}
+
+/* ── Skeleton Loading Card ───────────────────────────────── */
+.card-skeleton .card-media,
+.card-skeleton .card-title,
+.card-skeleton .card-text,
+.card-skeleton .card-label {
+  background:    var(--color-cream-dark);
+  border-radius: var(--radius-sm);
+  color:         transparent;
+  user-select:   none;
+}
+
+.card-skeleton {
+  animation: ss-shimmer 1.6s linear infinite;
+  background: linear-gradient(
+    90deg,
+    var(--color-cream-dark) 25%,
+    var(--color-cream)      50%,
+    var(--color-cream-dark) 75%
+  );
+  background-size: 200% auto;
+}

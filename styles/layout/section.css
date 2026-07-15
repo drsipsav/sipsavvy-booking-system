@@ -1,0 +1,20 @@
+.section {
+  padding-top:    var(--section-pad-y);
+  padding-bottom: var(--section-pad-y);
+}
+
+.section-sm {
+  padding-top:    var(--space-12);
+  padding-bottom: var(--space-12);
+}
+
+.section-lg {
+  padding-top:    var(--space-32);
+  padding-bottom: var(--space-32);
+}
+
+.section-heading { ... }
+.section-heading .eyebrow { ... }
+.section-heading h2 { ... }
+.section-heading p { ... }
+

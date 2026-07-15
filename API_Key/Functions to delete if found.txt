@@ -1,0 +1,55 @@
+Functions to delete if found:
+calculateTravelFeeFromDistance()
+
+updateDistanceBadge()
+
+updateDistanceZone()
+
+updateTravelFeeBreakdown()
+
+updateRecommendedFee()
+
+applyTravelFee()
+
+showTravelFeeError()
+
+showDistanceLoading()
+
+hideDistanceLoading()
+
+haversineDistance()
+
+any old travel fee logic
+
+any old distance badge logic
+
+any old zone logic
+
+any old breakdown logic 
+
+
+
+Inside your first <script> block, somewhere ABOVE this line: 
+/* ── Self-disabling same-page links ─────────────────────────────── */
+you will find older versions of:
+
+❌ DELETE THESE OLD FUNCTIONS IF YOU SEE THEM:
+calculateTravelFeeFromDistance()
+
+updateDistanceBadge()
+
+updateDistanceZone()
+
+updateTravelFeeBreakdown()
+
+updateRecommendedFee()
+
+applyTravelFee()
+
+showTravelFeeError()
+
+showDistanceLoading()
+
+hideDistanceLoading()
+
+haversineDistance()

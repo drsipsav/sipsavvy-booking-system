@@ -1,0 +1,18 @@
+html { ... }
+body { ... }
+a { ... }
+a:hover { ... }
+a:focus-visible { ... }
+
+hr { ... }
+
+ul, ol { ... }
+li + li { ... }
+
+strong, b { ... }
+em, i { ... }
+mark { ... }
+code { ... }
+
+img, video, svg { ... }
+img { height: auto; }

@@ -1,0 +1,57 @@
+booking.css-box5
+
+/* ⭐ Reduce Box 5 font sizes */
+.summary-box h3 {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+.summary-box h4 {
+  font-size: 0.95rem;
+  margin-top: 14px;
+  margin-bottom: 6px;
+}
+
+.summary-row span {
+  font-size: 0.85rem;
+}
+
+.summary-row.total span {
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+/* ⭐ Compact Box 5 */
+.summary-box {
+  padding: 14px !important;        /* reduce padding */
+  border-radius: 10px !important;
+}
+
+.summary-box h3 {
+  font-size: 1rem !important;      /* smaller title */
+  margin-bottom: 6px !important;
+}
+
+.summary-box h4 {
+  font-size: 0.85rem !important;   /* smaller section headers */
+  margin-top: 10px !important;
+  margin-bottom: 4px !important;
+}
+
+.summary-row span {
+  font-size: 0.78rem !important;   /* smaller row text */
+}
+
+.summary-row.total span {
+  font-size: 0.95rem !important;   /* smaller total */
+  font-weight: 800 !important;
+}
+
+.summary-row {
+  margin: 2px 0 !important;        /* reduce vertical spacing */
+}
+
+.summary-box hr {
+  margin: 8px 0 !important;        /* tighter dividers */
+}
+

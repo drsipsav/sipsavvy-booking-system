@@ -1,0 +1,10 @@
+npm install - powershell
+
+npm install -g firebase-tools
+firebase login
+
+firebase login - skbabs@gmail.com 
+
+cd c:/users/lara/sipsavvy-LIVE/firebase
+
+

@@ -1,0 +1,116 @@
+/* Luxury Admin Login — SipSavvy Brand System */
+
+:root {
+  --wine: #5C1228;
+  --gold: #FFD700;
+  --rose: #E8C4B8;
+  --bg-light: #F8F3F2;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-light);
+  font-family: "Inter", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* WRAPPER */
+.login-wrapper {
+  width: 100%;
+  max-width: 420px;
+  padding: 20px;
+}
+
+/* CARD */
+.login-card {
+  background: #fff;
+  padding: 40px 32px;
+  border-radius: 14px;
+  box-shadow: 0 8px 30px rgba(92, 18, 40, 0.15);
+  border: 1px solid rgba(92, 18, 40, 0.08);
+  animation: fadeIn 0.6s ease;
+}
+
+/* BRANDING */
+.brand-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--wine);
+  margin-bottom: 4px;
+}
+
+.brand-sub {
+  text-align: center;
+  font-size: 14px;
+  color: #7a5a66;
+  margin-bottom: 28px;
+}
+
+/* INPUT GROUP */
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 14px;
+  color: var(--wine);
+  margin-bottom: 6px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(92, 18, 40, 0.25);
+  font-size: 15px;
+  outline: none;
+  transition: 0.25s ease;
+}
+
+.input-group input:focus {
+  border-color: var(--wine);
+  box-shadow: 0 0 0 3px rgba(92, 18, 40, 0.15);
+}
+
+/* LOGIN BUTTON */
+.login-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--wine);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.login-btn:hover {
+  background: #4a0e21;
+  box-shadow: 0 4px 14px rgba(92, 18, 40, 0.25);
+}
+
+/* ERROR BOX */
+.error-box {
+  display: none;
+  background: rgba(255, 0, 0, 0.08);
+  border-left: 4px solid #d10000;
+  padding: 10px 12px;
+  border-radius: 6px;
+  color: #a30000;
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+/* ANIMATION */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

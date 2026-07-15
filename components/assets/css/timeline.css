@@ -1,0 +1,39 @@
+/* ============================================
+   TIMELINE DATE HEADERS
+   ============================================ */
+.timeline-date-header {
+  margin: 20px 0 10px;
+  font-weight: 700;
+  color: var(--gold);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ============================================
+   TIMELINE ICONS + CONTENT
+   ============================================ */
+.timeline-icon {
+  font-size: 18px;
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.timeline-content {
+  display: inline-block;
+  vertical-align: top;
+}
+
+/* ============================================
+   REFUND SHIMMER ANIMATION
+   ============================================ */
+@keyframes goldShimmer {
+  0% { box-shadow: 0 0 0px rgba(255,215,0,0.0); }
+  50% { box-shadow: 0 0 12px rgba(255,215,0,0.8); }
+  100% { box-shadow: 0 0 0px rgba(255,215,0,0.0); }
+}
+
+.timeline-dot-refund {
+  border-left: 4px solid #FFD700 !important;
+  animation: goldShimmer 2.5s infinite ease-in-out;
+}

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Experiences — SipSavvy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+   
+  <link rel="stylesheet" href="styles/experiences.css">
+    <link rel="stylesheet" href="styles/global.css">
+  <link rel="stylesheet" href="..styles/header.css">
+    <link rel="stylesheet" href="..styles/index.css">
+      <link rel="stylesheet" href="..styles/booking.css"> 
+-->
+</head>
+
+<body>
+
+<!-- ══ HEADER ════════════════════════════════════════════════ -->
+<header class="site-header" id="top">
+  <div class="header-inner">
+    <div class="header-logo" role="img">
+      <div class="header-logo-mark">
+        <img src="../components/assets/images/logo.png" alt="SipSavvy Mobile Bartending">
+      </div>
+      <div>
+        <span class="header-logo-wordmark">SipSavvy</span>
+        <span class="header-logo-tagline">Mobile Bartending</span>
+      </div>
+    </div>
+
+    <nav aria-label="Primary">
+      <ul class="header-nav">
+        <li class="header-nav-item"><a href="index.html" class="header-nav-link">Home</a></li>
+        <li class="header-nav-item"><a href="services.html" class="header-nav-link">Services</a></li>
+        <li class="header-nav-item"><a href="packages.html" class="header-nav-link">Packages</a></li>
+        <li class="header-nav-item"><a href="gallery.html" class="header-nav-link">Cocktail Gallery</a></li>
+      <!--  <li class="header-nav-item"><a href="experiences.html" class="header-nav-link" onclick="return false;">Experiences</a></li> -->
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+    <!--   <a href="booking.html" class="btn btn-gold btn-sm">Book Now</a> -->
+      <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+        <span class="mobile-menu-icon"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile nav -->
+  <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+    <ul class="mobile-nav-list">
+      <li><a href="index.html" class="mobile-nav-link">Home</a></li>
+      <li><a href="services.html" class="mobile-nav-link">Services</a></li>
+      <li><a href="packages.html" class="mobile-nav-link">Packages</a></li>
+      <li><a href="gallery.html" class="mobile-nav-link">Cocktail Gallery</a></li>
+    <!--  <li><a href="experiences.html" class="mobile-nav-link" onclick="return false;">Experiences</a></li> -->
+    <!--   <li><a href="booking.html" class="mobile-nav-link mobile-nav-cta">Book Now</a></li> -->
+    </ul>
+  </div>
+</header>
+
+<!-- ══ HERO PLACEHOLDER ═══════════════════════════════════════ -->
+<section class="experiences-hero">
+  <p class="experiences-eyebrow">SipSavvy</p>
+  <h1 class="experiences-heading">Wine Tasting Experiences</h1>
+  <p class="experiences-sub">Curated wine and cocktail experiences crafted for every occasion — from intimate gatherings to corporate events.</p>
+
+  <!-- ══ EXPERIENCE PRICING CARDS ════════════════════════════ -->
+  <div class="exp-packages">
+
+    <!-- Box 1: Signature Sip -->
+    <div class="exp-package-card">
+      <!-- Icon: Two stemmed wine glasses touching at the lips -->
+      <div class="exp-pkg-icon">
+        <svg width="58" height="44" viewBox="0 0 58 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Left glass -->
+          <path d="M2,4 L29,4 C27,15 19,21 15,25 L15,38 L10,38 L10,40 L20,40 L20,38 L15,38 L15,25 C11,21 3,15 2,4 Z" fill="#F5E9EA" stroke="#722F37" stroke-width="1.4" stroke-linejoin="round"/>
+          <!-- Right glass (mirror) -->
+          <path d="M56,4 L29,4 C31,15 39,21 43,25 L43,38 L38,38 L38,40 L48,40 L48,38 L43,38 L43,25 C47,21 55,15 56,4 Z" fill="#F5E9EA" stroke="#722F37" stroke-width="1.4" stroke-linejoin="round"/>
+          <!-- Gold sparkle at touch point -->
+          <circle cx="29" cy="4" r="2" fill="#C9A84C"/>
+          <line x1="29" y1="0" x2="29" y2="2" stroke="#C9A84C" stroke-width="1"/>
+          <line x1="25" y1="1" x2="26.5" y2="2.6" stroke="#C9A84C" stroke-width="1"/>
+          <line x1="33" y1="1" x2="31.5" y2="2.6" stroke="#C9A84C" stroke-width="1"/>
+        </svg>
+      </div>
+      <p class="exp-pkg-name">The Signature Sip Experience</p>
+      <p class="exp-pkg-price">Starting at $750</p>
+      <p class="exp-pkg-desc">Perfect for intimate gatherings and celebrations</p>
+      <p class="exp-pkg-includes-label">Included</p>
+      <ul class="exp-pkg-list">
+        <li>90-minute guided wine tasting</li>
+        <li>Tasting of 4 curated wines</li>
+        <li>Sommelier-led education &amp; discussion</li>
+        <li>Wine tasting guidance and notes</li>
+        <li>Setup &amp; breakdown</li>
+        <li>Up to 12 guests</li>
+      </ul>
+    </div>
+
+    <!-- Box 2: Luxe Wine Experience -->
+    <div class="exp-package-card is-featured">
+      <!-- Icon: Blue diamond balancing on its apex -->
+      <div class="exp-pkg-icon">
+        <svg width="42" height="46" viewBox="0 0 42 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Diamond shape balancing on bottom apex -->
+          <path d="M6,4 L36,4 L41,18 L21,44 L1,18 Z" fill="#1E6FCC" stroke="#1549A0" stroke-width="1.3" stroke-linejoin="round"/>
+          <!-- Inner facet top-left -->
+          <polygon points="6,4 21,18 21,4" fill="rgba(255,255,255,0.20)"/>
+          <!-- Inner highlight streak -->
+          <line x1="21" y1="4" x2="21" y2="44" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+          <!-- Upper facet divider -->
+          <line x1="1" y1="18" x2="41" y2="18" stroke="rgba(255,255,255,0.18)" stroke-width="0.8"/>
+          <!-- Top highlight -->
+          <polygon points="12,4 30,4 36,14 21,18 6,14" fill="rgba(255,255,255,0.14)"/>
+          <!-- Bright highlight top-right -->
+          <polygon points="26,4 36,4 36,12" fill="rgba(255,255,255,0.28)"/>
+        </svg>
+      </div>
+      <p class="exp-pkg-name">The Luxe Wine Experience</p>
+      <p class="exp-pkg-price">Starting at $1,250</p>
+      <p class="exp-pkg-desc">Designed for elevated private and social events</p>
+      <p class="exp-pkg-includes-label">Includes</p>
+      <ul class="exp-pkg-list">
+        <li>Everything in Signature</li>
+        <li>5 curated wines</li>
+        <li>Customized tasting theme</li>
+        <li>Printed tasting menus</li>
+        <li>Premium presentation setup</li>
+        <li>Up to 20 guests</li>
+      </ul>
+    </div>
+
+    <!-- Box 3: Corporate & Large Group -->
+    <div class="exp-package-card">
+      <!-- Icon: Gold crown with red gem -->
+      <div class="exp-pkg-icon">
+        <svg width="50" height="42" viewBox="0 0 50 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Crown body -->
+          <path d="M2,38 L2,22 L12,30 L25,6 L38,30 L48,22 L48,38 Z" fill="#C9A84C" stroke="#A07C2E" stroke-width="1.4" stroke-linejoin="round"/>
+          <!-- Crown base band -->
+          <rect x="2" y="33" width="46" height="5" rx="1" fill="#A07C2E" opacity="0.5"/>
+          <!-- Jewel dots on peaks -->
+          <circle cx="2" cy="22" r="2.5" fill="#E6CC80" stroke="#A07C2E" stroke-width="0.8"/>
+          <circle cx="48" cy="22" r="2.5" fill="#E6CC80" stroke="#A07C2E" stroke-width="0.8"/>
+          <circle cx="25" cy="6" r="2.5" fill="#E6CC80" stroke="#A07C2E" stroke-width="0.8"/>
+          <!-- Red center gem -->
+          <circle cx="25" cy="26" r="5.5" fill="#CC1C1C" stroke="#8B0000" stroke-width="1"/>
+          <!-- Gem highlight -->
+          <circle cx="23" cy="24" r="1.8" fill="rgba(255,255,255,0.35)"/>
+          <!-- Gem facet lines -->
+          <line x1="25" y1="20.5" x2="25" y2="31.5" stroke="rgba(255,255,255,0.20)" stroke-width="0.7"/>
+          <line x1="19.5" y1="26" x2="30.5" y2="26" stroke="rgba(255,255,255,0.20)" stroke-width="0.7"/>
+        </svg>
+      </div>
+      <p class="exp-pkg-name">Corporate &amp; Large Group Experiences</p>
+      <p class="exp-pkg-price is-custom">Custom Pricing</p>
+      <p class="exp-pkg-desc">For corporate functions, networking events, and larger gatherings</p>
+      <p class="exp-pkg-includes-label">Includes</p>
+      <ul class="exp-pkg-list">
+        <li>Guided tasting for 20+ guests</li>
+        <li>Customized wine themes</li>
+        <li>Interactive group engagement</li>
+        <li>Optional food pairings</li>
+        <li>Corporate branding available</li>
+      </ul>
+    </div>
+
+  </div>
+  <!-- ══ END EXPERIENCE PRICING CARDS ════════════════════════ -->
+
+<!--  <a href="booking.html" class="btn btn-gold">Book an Experience</a> -->
+</section>
+
+<!-- ══ FOOTER ════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="header-logo-wordmark">SipSavvy</span>
+      <p>Curated wine experiences led by certified sommeliers at independent family vineyards across the region.</p>
+      <div class="footer-socials">
+        <a href="#" class="footer-social-link" aria-label="Instagram">📸</a>
+        <a href="#" class="footer-social-link" aria-label="Facebook">👍</a>
+        <a href="#" class="footer-social-link" aria-label="TikTok">🎵</a>
+        <a href="#" class="footer-social-link" aria-label="YouTube">▶️</a>
+      </div>
+    </div>
+    <div>
+      <p class="footer-col-title">Experiences</p>
+      <ul class="footer-links">
+        <li><a href="booking.html?exp=sunset">Vineyard Sunset Tasting</a></li>
+        <li><a href="booking.html?exp=cellar">Cellar Reserve</a></li>
+        <li><a href="booking.html?exp=table">Winemaker's Table</a></li>
+        <li><a href="booking.html?exp=harvest">Harvest Blending</a></li>
+        <li><a href="booking.html">Private Events</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-links">
+        <li><a href="#about">Our Story</a></li>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#awards">Press &amp; Awards</a></li>
+        <li><a href="#">Gift Cards</a></li>
+        <li><a href="#">Partner Vineyards</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Support</p>
+      <ul class="footer-links">
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Cancellation Policy</a></li>
+        <li><a href="#">Accessibility</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="admin.html">Admin →</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 SipSavvy Experiences, LLC. All rights reserved.</p>
+    <div style="display:flex;gap:1.5rem;">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Cookie Settings</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* ── Header scroll behaviour ─────────────────────────────── */
+  (function () {
+    var hdr = document.querySelector('.site-header');
+    if (!hdr) return;
+    window.addEventListener('scroll', function () {
+      hdr.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    /* Mobile menu toggle */
+    var btn = hdr.querySelector('.mobile-menu-btn');
+    var nav = document.getElementById('mobile-nav');
+    if (btn && nav) {
+      btn.addEventListener('click', function () {
+        var open = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!open));
+        nav.setAttribute('aria-hidden', String(open));
+        nav.classList.toggle('is-open', !open);
+        document.body.classList.toggle('nav-open', !open);
+      });
+    }
+  })();
+</script>
+
+<script>
+  /* ── Self-disabling same-page links ─────────────────────────
+     Capture-phase — blocks Experiences link on this page.
+  ─────────────────────────────────────────────────────────────── */
+  (function () {
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest ? e.target.closest('a[href]') : null;
+      if (!a) {
+        var el = e.target;
+        while (el && el.tagName !== 'A') { el = el.parentElement; }
+        a = (el && el.getAttribute('href')) ? el : null;
+      }
+      if (!a) return;
+      var href = (a.getAttribute('href') || '').toLowerCase()
+        .split('?')[0].split('#')[0].replace(/^\.?\//, '');
+      if (href === 'experiences.html') {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+      }
+    }, true);
+  })();
+</script>
+
+<script src="../scripts/global-guard.js"></script>
+
+</body>
+</html>

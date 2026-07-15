@@ -1,0 +1,151 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SipSavvy — Booking</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../styles/global.css">
+  <link rel="stylesheet" href="../styles/header.css">
+  <link rel="stylesheet" href="../styles/booking.css">
+</head>
+<body>
+
+<header id="site-header"> 
+  <div class="progress-steps">
+  <div class="step completed">Packages</div>
+  <div class="step completed">Add‑Ons</div>
+  <div class="step current">Booking</div>
+</div>
+
+  <div class="logo">
+    <img src="../assets/images/logo.png" alt="SipSavvy Logo">
+  </div>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="packages.html">Packages</a></li>
+      <li><a href="gallery.html">Cocktail Gallery</a></li>
+      <li><a href="experiences.html">Experiences</a></li>
+      <li><a href="booking.html" class="btn-primary">Book Now</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="booking-layout">
+  <!-- Sticky summary sidebar -->
+  <aside class="booking-summary">
+    <h2>Your Selection</h2>
+
+    <h3>Package</h3>
+    <p id="selected-package">None selected</p>
+
+    <h3>Add‑Ons</h3>
+    <ul id="selected-addons"></ul>
+
+    <button id="clearBooking" class="btn-primary btn-secondary">
+      Clear & Re‑Select
+    </button>
+  </aside>
+
+  <!-- Booking form -->
+  <section class="booking-form">
+    <h1>Booking Details</h1>
+    <form>
+      <div class="form-row">
+        <label>Full Name</label>
+        <input type="text" required>
+      </div>
+
+      <div class="form-row">
+        <label>Email</label>
+        <input type="email" required>
+      </div>
+
+      <div class="form-row">
+        <label>Event Date</label>
+        <input type="date" required>
+      </div>
+
+      <div class="form-row">
+        <label>Guest Count</label>
+        <input type="number" min="1" required>
+      </div>
+
+      <div class="form-row">
+        <label>Notes / Special Requests</label>
+        <textarea rows="4"></textarea>
+      </div>
+      <button type="submit" class="btn-primary">Submit Booking Request</button>
+    </form>
+  </section>
+</main>
+
+<script>
+document.querySelector("form").addEventListener("submit", e => {
+  e.preventDefault();
+  window.location.href = "confirmation.html";
+});
+</script>
+
+<script>
+  // Load selected package
+  const pkg = localStorage.getItem('selectedPackage');
+  if (pkg) {
+    document.getElementById('selected-package').textContent = pkg;
+  }
+
+  // Load selected add-ons
+  const addons = JSON.parse(localStorage.getItem('selectedAddons') || "[]");
+  const addonsContainer = document.getElementById('selected-addons');
+
+  if (addons.length) {
+    addonsContainer.innerHTML = addons.map(a => `<li>${a}</li>`).join('');
+  } else {
+    addonsContainer.innerHTML = "<li>No add-ons selected</li>";
+  }
+
+  // Clear everything and return to packages
+  document.getElementById('clearBooking').addEventListener('click', () => {
+    localStorage.removeItem('selectedPackage');
+    localStorage.removeItem('selectedAddons');
+    window.location.href = "packages.html";
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+<script>
+  gsap.from(".booking-summary", {
+    x: -40,
+    opacity: 0,
+    duration: 0.8,
+    ease: "power3.out"
+  });
+
+  gsap.from(".booking-form", {
+    x: 40,
+    opacity: 0,
+    duration: 0.8,
+    delay: 0.1,
+    ease: "power3.out"
+  });
+
+  gsap.from(".form-floating", {
+    opacity: 0,
+    y: 20,
+    duration: 0.6,
+    stagger: 0.12,
+    delay: 0.2,
+    ease: "power2.out"
+  });
+</script>
+
+</body>
+</html>

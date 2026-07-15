@@ -1,0 +1,9 @@
+﻿Tag,Endpoints
+Auth,"POST /auth/login, /refresh, /logout"
+Experiences,"GET/POST /experiences, GET/PATCH/DELETE /experiences/{id}, GET /experiences/{id}/reviews"
+Availability,"GET /availability, GET /availability/{experienceId}/{date}"
+Bookings,"POST /bookings, GET /bookings, GET /bookings/{ref}, POST /bookings/{ref}/cancel"
+Guests,"GET /guests, GET/PATCH /guests/{id}, GET /guests/{id}/bookings"
+Payments,"GET /payments/{id}, GET /bookings/{ref}/payment, POST /payments/{id}/refund"
+Reviews,"POST /reviews, GET /reviews, PATCH/DELETE /reviews/{id}"
+Admin,"GET /admin/stats, /revenue, /calendar, /activity, PATCH /admin/availability"

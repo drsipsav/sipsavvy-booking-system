@@ -1,0 +1,10 @@
+.container {
+  width:     100%;
+  max-width: var(--max-width-xl);
+  margin:    0 auto;
+  padding:   0 var(--container-pad);
+}
+
+
+
+

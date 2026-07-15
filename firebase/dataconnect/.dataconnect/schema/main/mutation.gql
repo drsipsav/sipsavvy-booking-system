@@ -1,0 +1,674 @@
+extend type Mutation {
+  """
+  ✨ Insert a single `BookingRequest` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  bookingRequest_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: BookingRequest_Data!
+  ): BookingRequest_KeyOutput! @fdc_generated(from: "BookingRequest", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `Client` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  client_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Client_Data!
+  ): Client_KeyOutput! @fdc_generated(from: "Client", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `Event` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  event_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Event_Data!
+  ): Event_KeyOutput! @fdc_generated(from: "Event", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `Mixologist` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  mixologist_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Mixologist_Data!
+  ): Mixologist_KeyOutput! @fdc_generated(from: "Mixologist", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `Review` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  review_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Review_Data!
+  ): Review_KeyOutput! @fdc_generated(from: "Review", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `ServicePackage` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  servicePackage_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: ServicePackage_Data!
+  ): ServicePackage_KeyOutput! @fdc_generated(from: "ServicePackage", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert `BookingRequest` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  bookingRequest_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [BookingRequest_Data!]!
+  ): [BookingRequest_KeyOutput!]! @fdc_generated(from: "BookingRequest", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `Client` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  client_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Client_Data!]!
+  ): [Client_KeyOutput!]! @fdc_generated(from: "Client", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `Event` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  event_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Event_Data!]!
+  ): [Event_KeyOutput!]! @fdc_generated(from: "Event", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `Mixologist` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  mixologist_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Mixologist_Data!]!
+  ): [Mixologist_KeyOutput!]! @fdc_generated(from: "Mixologist", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `Review` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  review_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Review_Data!]!
+  ): [Review_KeyOutput!]! @fdc_generated(from: "Review", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `ServicePackage` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  servicePackage_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [ServicePackage_Data!]!
+  ): [ServicePackage_KeyOutput!]! @fdc_generated(from: "ServicePackage", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert or update a single `BookingRequest` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `BookingRequest`.
+  """
+  bookingRequest_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: BookingRequest_Data!
+  ): BookingRequest_KeyOutput! @fdc_generated(from: "BookingRequest", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `Client` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Client`.
+  """
+  client_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Client_Data!
+  ): Client_KeyOutput! @fdc_generated(from: "Client", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `Event` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Event`.
+  """
+  event_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Event_Data!
+  ): Event_KeyOutput! @fdc_generated(from: "Event", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `Mixologist` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Mixologist`.
+  """
+  mixologist_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Mixologist_Data!
+  ): Mixologist_KeyOutput! @fdc_generated(from: "Mixologist", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `Review` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Review`.
+  """
+  review_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Review_Data!
+  ): Review_KeyOutput! @fdc_generated(from: "Review", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `ServicePackage` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `ServicePackage`.
+  """
+  servicePackage_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: ServicePackage_Data!
+  ): ServicePackage_KeyOutput! @fdc_generated(from: "ServicePackage", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update `BookingRequest` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `BookingRequest`.
+  """
+  bookingRequest_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [BookingRequest_Data!]!
+  ): [BookingRequest_KeyOutput!]! @fdc_generated(from: "BookingRequest", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `Client` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Client`.
+  """
+  client_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Client_Data!]!
+  ): [Client_KeyOutput!]! @fdc_generated(from: "Client", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `Event` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Event`.
+  """
+  event_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Event_Data!]!
+  ): [Event_KeyOutput!]! @fdc_generated(from: "Event", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `Mixologist` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Mixologist`.
+  """
+  mixologist_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Mixologist_Data!]!
+  ): [Mixologist_KeyOutput!]! @fdc_generated(from: "Mixologist", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `Review` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Review`.
+  """
+  review_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Review_Data!]!
+  ): [Review_KeyOutput!]! @fdc_generated(from: "Review", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `ServicePackage` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `ServicePackage`.
+  """
+  servicePackage_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [ServicePackage_Data!]!
+  ): [ServicePackage_KeyOutput!]! @fdc_generated(from: "ServicePackage", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Update a single `BookingRequest` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `BookingRequest` or `null` if not found.
+  """
+  bookingRequest_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: BookingRequest_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: BookingRequest_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: BookingRequest_Data!
+  ): BookingRequest_KeyOutput @fdc_generated(from: "BookingRequest", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `Client` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Client` or `null` if not found.
+  """
+  client_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Client_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Client_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Client_Data!
+  ): Client_KeyOutput @fdc_generated(from: "Client", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `Event` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Event` or `null` if not found.
+  """
+  event_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Event_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Event_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Event_Data!
+  ): Event_KeyOutput @fdc_generated(from: "Event", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `Mixologist` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Mixologist` or `null` if not found.
+  """
+  mixologist_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Mixologist_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Mixologist_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Mixologist_Data!
+  ): Mixologist_KeyOutput @fdc_generated(from: "Mixologist", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `Review` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Review` or `null` if not found.
+  """
+  review_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Review_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Review_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Review_Data!
+  ): Review_KeyOutput @fdc_generated(from: "Review", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `ServicePackage` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `ServicePackage` or `null` if not found.
+  """
+  servicePackage_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: ServicePackage_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: ServicePackage_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: ServicePackage_Data!
+  ): ServicePackage_KeyOutput @fdc_generated(from: "ServicePackage", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update `BookingRequest` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  bookingRequest_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: BookingRequest_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: BookingRequest_Data!
+  ): Int! @fdc_generated(from: "BookingRequest", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `Client` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  client_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Client_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Client_Data!
+  ): Int! @fdc_generated(from: "Client", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `Event` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  event_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Event_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Event_Data!
+  ): Int! @fdc_generated(from: "Event", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `Mixologist` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  mixologist_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Mixologist_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Mixologist_Data!
+  ): Int! @fdc_generated(from: "Mixologist", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `Review` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  review_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Review_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Review_Data!
+  ): Int! @fdc_generated(from: "Review", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `ServicePackage` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  servicePackage_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: ServicePackage_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: ServicePackage_Data!
+  ): Int! @fdc_generated(from: "ServicePackage", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Delete a single `BookingRequest` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  bookingRequest_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: BookingRequest_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: BookingRequest_FirstRow
+  ): BookingRequest_KeyOutput @fdc_generated(from: "BookingRequest", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `Client` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  client_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Client_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Client_FirstRow
+  ): Client_KeyOutput @fdc_generated(from: "Client", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `Event` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  event_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Event_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Event_FirstRow
+  ): Event_KeyOutput @fdc_generated(from: "Event", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `Mixologist` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  mixologist_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Mixologist_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Mixologist_FirstRow
+  ): Mixologist_KeyOutput @fdc_generated(from: "Mixologist", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `Review` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  review_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Review_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Review_FirstRow
+  ): Review_KeyOutput @fdc_generated(from: "Review", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `ServicePackage` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  servicePackage_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: ServicePackage_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: ServicePackage_FirstRow
+  ): ServicePackage_KeyOutput @fdc_generated(from: "ServicePackage", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete `BookingRequest` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  bookingRequest_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: BookingRequest_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "BookingRequest", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `Client` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  client_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Client_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Client", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `Event` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  event_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Event_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Event", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `Mixologist` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  mixologist_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Mixologist_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Mixologist", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `Review` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  review_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Review_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Review", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `ServicePackage` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  servicePackage_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: ServicePackage_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "ServicePackage", purpose: DELETE_MULTIPLE)
+}

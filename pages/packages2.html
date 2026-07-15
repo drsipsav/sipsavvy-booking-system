@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Packages | SipSavvy Services</title>
+
+  <!-- ── Fonts ── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* ═══════════════════════════════════════════
+       0 · RESET & CUSTOM PROPERTIES
+    ═══════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold:        #C9A84C;
+      --gold-light:  #E5C87E;
+      --gold-dark:   #9B7A28;
+      --bg:          #0D0D0D;
+      --bg-card:     #161616;
+      --bg-section:  #111111;
+      --text:        #F2F2F2;
+      --text-muted:  #888888;
+      --border:      rgba(201,168,76,.22);
+      --radius:      12px;
+      --transition:  .25s ease;
+      --shadow:      0 4px 32px rgba(0,0,0,.55);
+      --bar-h:       72px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding-bottom: calc(var(--bar-h) + 24px);
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    button { cursor: pointer; font-family: inherit; border: none; outline: none; }
+
+    /* ═══════════════════════════════════════════
+       1 · HEADER / NAV
+    ═══════════════════════════════════════════ */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: rgba(13,13,13,.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: .03em;
+      white-space: nowrap;
+    }
+    .nav-logo span { color: var(--text); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: .875rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: color var(--transition);
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--gold); }
+    .nav-cta {
+      padding: 8px 20px;
+      border-radius: 50px;
+      background: var(--gold);
+      color: #000;
+      font-size: .85rem;
+      font-weight: 600;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+    /* ═══════════════════════════════════════════
+       2 · HERO
+    ═══════════════════════════════════════════ */
+    .hero {
+      position: relative;
+      min-height: 420px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(160deg, rgba(201,168,76,.12) 0%, transparent 55%),
+        radial-gradient(ellipse at 70% 40%, rgba(201,168,76,.08) 0%, transparent 60%),
+        var(--bg);
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C9A84C' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-content { position: relative; max-width: 680px; }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      padding: 5px 14px;
+      border: 1px solid var(--border);
+      border-radius: 50px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.18;
+      margin-bottom: 18px;
+    }
+    .hero h1 em { font-style: normal; color: var(--gold); }
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin: 0 auto 28px;
+    }
+    .hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      padding: 13px 28px;
+      border-radius: 50px;
+      background: var(--gold);
+      color: #000;
+      font-size: .9rem;
+      font-weight: 600;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .btn-outline {
+      padding: 13px 28px;
+      border-radius: 50px;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: .9rem;
+      font-weight: 500;
+      transition: border-color var(--transition), color var(--transition), transform var(--transition);
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+    /* ═══════════════════════════════════════════
+       3 · SECTION WRAPPER
+    ═══════════════════════════════════════════ */
+    .section {
+      padding: 80px 24px;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 52px;
+    }
+    .section-eyebrow {
+      display: inline-block;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .section-header p {
+      color: var(--text-muted);
+      font-size: .97rem;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+    .section-divider {
+      width: 52px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      border-radius: 2px;
+      margin: 16px auto 0;
+    }
+
+    /* ═══════════════════════════════════════════
+       4 · PACKAGE CARDS
+    ═══════════════════════════════════════════ */
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .pkg-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 28px 28px;
+      display: flex;
+      flex-direction: column;
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .pkg-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--border);
+      transition: background var(--transition);
+    }
+    .pkg-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .pkg-card:hover::before { background: var(--gold); }
+    .pkg-card.featured {
+      border-color: rgba(201,168,76,.5);
+      box-shadow: 0 0 0 1px rgba(201,168,76,.18), var(--shadow);
+    }
+    .pkg-card.featured::before { background: var(--gold); }
+
+    .pkg-badge {
+      position: absolute;
+      top: 18px; right: 18px;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #000;
+      background: var(--gold);
+      padding: 4px 10px;
+      border-radius: 50px;
+    }
+    .pkg-icon {
+      font-size: 2rem;
+      margin-bottom: 16px;
+    }
+    .pkg-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .pkg-tagline {
+      font-size: .83rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+    .pkg-price {
+      margin-bottom: 22px;
+    }
+    .pkg-price .amount {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    .pkg-price .suffix {
+      font-size: .82rem;
+      color: var(--text-muted);
+      margin-left: 4px;
+    }
+    .pkg-features {
+      list-style: none;
+      flex: 1;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .pkg-features li {
+      font-size: .875rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .pkg-features li::before {
+      content: '✦';
+      color: var(--gold);
+      font-size: .65rem;
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+    .pkg-select-btn {
+      display: block;
+      width: 100%;
+      padding: 13px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: .88rem;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: transparent;
+      transition: background var(--transition), border-color var(--transition),
+                  color var(--transition), transform var(--transition);
+    }
+    .pkg-select-btn:hover,
+    .pkg-select-btn.selected {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #000;
+      transform: translateY(-1px);
+    }
+    .pkg-card.featured .pkg-select-btn {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #000;
+    }
+    .pkg-card.featured .pkg-select-btn:hover { background: var(--gold-light); }
+
+    /* ═══════════════════════════════════════════
+       5 · ADD-ONS
+    ═══════════════════════════════════════════ */
+    .addons-section { background: var(--bg-section); }
+    .addons-section .section { padding-top: 72px; padding-bottom: 72px; }
+
+    .addons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 18px;
+    }
+    .addon-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      cursor: pointer;
+      transition: border-color var(--transition), transform var(--transition);
+      position: relative;
+    }
+    .addon-card:hover { border-color: rgba(201,168,76,.5); transform: translateY(-2px); }
+    .addon-card.selected {
+      border-color: var(--gold);
+      background: rgba(201,168,76,.06);
+    }
+    .addon-checkbox {
+      width: 20px;
+      height: 20px;
+      border: 1.5px solid var(--border);
+      border-radius: 5px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color var(--transition), background var(--transition);
+    }
+    .addon-card.selected .addon-checkbox {
+      border-color: var(--gold);
+      background: var(--gold);
+    }
+    .addon-card.selected .addon-checkbox::after {
+      content: '✓';
+      color: #000;
+      font-size: .7rem;
+      font-weight: 700;
+    }
+    .addon-info { flex: 1; }
+    .addon-name {
+      font-size: .92rem;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+    .addon-desc {
+      font-size: .78rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .addon-price {
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    /* ═══════════════════════════════════════════
+       6 · TRAVEL SECTION  (clean — no legacy)
+    ═══════════════════════════════════════════ */
+    .travel-section { background: var(--bg); }
+    .travel-section .section { padding-top: 72px; padding-bottom: 72px; }
+
+    .travel-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px 36px;
+      max-width: 740px;
+      margin: 0 auto;
+    }
+    .travel-intro {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 32px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+    .travel-intro-icon {
+      font-size: 2.2rem;
+      line-height: 1;
+    }
+    .travel-intro h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .travel-intro p {
+      font-size: .88rem;
+      color: var(--text-muted);
+    }
+
+    .travel-selectors {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    @media (max-width: 640px) { .travel-selectors { grid-template-columns: 1fr; } }
+
+    .travel-field label {
+      display: block;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .travel-field select {
+      width: 100%;
+      padding: 11px 14px;
+      background: #0D0D0D;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: .875rem;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      cursor: pointer;
+      transition: border-color var(--transition);
+    }
+    .travel-field select:focus { outline: none; border-color: var(--gold); }
+    .travel-field select:disabled { opacity: .45; cursor: not-allowed; }
+
+    .travel-result {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(201,168,76,.08);
+      border: 1px solid rgba(201,168,76,.35);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-top: 4px;
+    }
+    .travel-result.visible { display: flex; }
+    .travel-result-label {
+      font-size: .83rem;
+      color: var(--text-muted);
+    }
+    .travel-result-label strong {
+      display: block;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 2px;
+    }
+    .travel-result-fee {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    .travel-note {
+      margin-top: 14px;
+      font-size: .78rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    /* ═══════════════════════════════════════════
+       7 · CHECKOUT BAR
+    ═══════════════════════════════════════════ */
+    .checkout-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 300;
+      background: rgba(17,17,17,.97);
+      backdrop-filter: blur(18px);
+      border-top: 1px solid var(--border);
+      height: var(--bar-h);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .checkout-bar-inner {
+      width: 100%;
+      max-width: 1180px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .checkout-summary {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .checkout-item {
+      display: flex;
+      flex-direction: column;
+    }
+    .checkout-item-label {
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .checkout-item-value {
+      font-size: .88rem;
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+    }
+    .checkout-item-value.empty { color: var(--text-muted); font-weight: 400; font-style: italic; }
+    .checkout-separator {
+      width: 1px;
+      height: 28px;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+    .checkout-total-wrap {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .checkout-total-label { font-size: .78rem; color: var(--text-muted); }
+    .checkout-total-amount {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--gold);
+      white-space: nowrap;
+    }
+    .checkout-btn {
+      padding: 12px 28px;
+      border-radius: 8px;
+      background: var(--gold);
+      color: #000;
+      font-size: .9rem;
+      font-weight: 700;
+      white-space: nowrap;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .checkout-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
+    .checkout-btn:disabled {
+      background: #333;
+      color: var(--text-muted);
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* ═══════════════════════════════════════════
+       8 · FOOTER STRIP
+    ═══════════════════════════════════════════ */
+    .site-footer {
+      background: var(--bg-section);
+      border-top: 1px solid var(--border);
+      padding: 40px 24px;
+      text-align: center;
+    }
+    .site-footer .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .site-footer p {
+      font-size: .82rem;
+      color: var(--text-muted);
+    }
+
+    /* ═══════════════════════════════════════════
+       9 · UTILITIES
+    ═══════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .checkout-summary { gap: 12px; }
+      .checkout-separator { display: none; }
+      .travel-card { padding: 28px 20px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ══════════════════════════════
+       HEADER / NAV
+  ══════════════════════════════ -->
+  <header class="site-header" role="banner">
+    <nav class="nav-inner" aria-label="Primary navigation">
+      <a href="index.html" class="nav-logo">Sip<span>Savvy</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="packages.html" class="active">Packages</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <a href="contact.html" class="nav-cta">Get a Quote</a>
+    </nav>
+  </header>
+
+  <!-- ══════════════════════════════
+       HERO
+  ══════════════════════════════ -->
+  <section class="hero" aria-labelledby="hero-heading">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-content">
+      <span class="hero-eyebrow">Curated Experiences</span>
+      <h1 id="hero-heading">Choose Your <em>Perfect</em> Package</h1>
+      <p>
+        From intimate gatherings to grand celebrations, every SipSavvy package is crafted
+        to deliver premium mobile bar experiences tailored to your event.
+      </p>
+      <div class="hero-actions">
+        <a href="#packages" class="btn-primary">View Packages</a>
+        <a href="contact.html" class="btn-outline">Talk to Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════
+       PACKAGES
+  ══════════════════════════════ -->
+  <main id="main-content">
+    <section id="packages" aria-labelledby="packages-heading">
+      <div class="section">
+        <div class="section-header">
+          <span class="section-eyebrow">Our Packages</span>
+          <h2 id="packages-heading">Bar Packages</h2>
+          <p>Select the package that fits your event. All packages include a licensed, professional bartender.</p>
+          <div class="section-divider" aria-hidden="true"></div>
+        </div>
+
+        <div class="packages-grid" role="list">
+
+          <!-- ESSENTIAL -->
+          <article class="pkg-card" role="listitem" id="pkg-essential">
+            <div class="pkg-icon" aria-hidden="true">🥂</div>
+            <h3 class="pkg-name">Essential Bar</h3>
+            <p class="pkg-tagline">Perfect for intimate events & small gatherings</p>
+            <div class="pkg-price" aria-label="Starting at $350">
+              <span class="amount">$350</span>
+              <span class="suffix">/ event</span>
+            </div>
+            <ul class="pkg-features" aria-label="Package features">
+              <li>Up to 25 guests</li>
+              <li>2-hour service window</li>
+              <li>Standard bar setup & breakdown</li>
+              <li>Beer, wine &amp; seltzers</li>
+              <li>Basic garnish &amp; glassware</li>
+              <li>1 signature welcome drink</li>
+            </ul>
+            <button
+              class="pkg-select-btn"
+              data-package="Essential Bar"
+              data-price="350"
+              aria-pressed="false"
+            >Select Package</button>
+          </article>
+
+          <!-- PREMIUM (featured) -->
+          <article class="pkg-card featured" role="listitem" id="pkg-premium">
+            <span class="pkg-badge">Most Popular</span>
+            <div class="pkg-icon" aria-hidden="true">🍸</div>
+            <h3 class="pkg-name">Premium Bar</h3>
+            <p class="pkg-tagline">Our most loved package for weddings &amp; parties</p>
+            <div class="pkg-price" aria-label="Starting at $650">
+              <span class="amount">$650</span>
+              <span class="suffix">/ event</span>
+            </div>
+            <ul class="pkg-features" aria-label="Package features">
+              <li>Up to 75 guests</li>
+              <li>4-hour service window</li>
+              <li>Full bar setup, service &amp; breakdown</li>
+              <li>Beer, wine, spirits &amp; mixers</li>
+              <li>Premium garnish station &amp; glassware</li>
+              <li>3 custom signature cocktails</li>
+              <li>Personalized drink menu card</li>
+              <li>Non-alcoholic mocktail options</li>
+            </ul>
+            <button
+              class="pkg-select-btn"
+              data-package="Premium Bar"
+              data-price="650"
+              aria-pressed="false"
+            >Select Package</button>
+          </article>
+
+          <!-- ELITE -->
+          <article class="pkg-card" role="listitem" id="pkg-elite">
+            <div class="pkg-icon" aria-hidden="true">👑</div>
+            <h3 class="pkg-name">Elite Bar</h3>
+            <p class="pkg-tagline">The full SipSavvy experience — no compromises</p>
+            <div class="pkg-price" aria-label="Starting at $1,100">
+              <span class="amount">$1,100</span>
+              <span class="suffix">/ event</span>
+            </div>
+            <ul class="pkg-features" aria-label="Package features">
+              <li>Up to 150 guests</li>
+              <li>6-hour service window</li>
+              <li>Luxury full-bar setup, service &amp; breakdown</li>
+              <li>Premium spirits, wines &amp; craft beers</li>
+              <li>Artisanal garnish station &amp; crystal glassware</li>
+              <li>5 custom signature cocktails</li>
+              <li>Branded drink menu &amp; cocktail cards</li>
+              <li>Mocktail &amp; soft drink station</li>
+              <li>Dedicated event coordinator</li>
+              <li>Photo-ready bar décor</li>
+            </ul>
+            <button
+              class="pkg-select-btn"
+              data-package="Elite Bar"
+              data-price="1100"
+              aria-pressed="false"
+            >Select Package</button>
+          </article>
+
+          <!-- CORPORATE -->
+          <article class="pkg-card" role="listitem" id="pkg-corporate">
+            <div class="pkg-icon" aria-hidden="true">🏢</div>
+            <h3 class="pkg-name">Corporate Bar</h3>
+            <p class="pkg-tagline">Professional service for corporate events &amp; galas</p>
+            <div class="pkg-price" aria-label="Custom pricing">
+              <span class="amount">Custom</span>
+              <span class="suffix">quote</span>
+            </div>
+            <ul class="pkg-features" aria-label="Package features">
+              <li>Flexible guest count</li>
+              <li>Custom service hours</li>
+              <li>Branded bar setup with your logo</li>
+              <li>Curated beverage selection</li>
+              <li>Non-alcoholic focus options available</li>
+              <li>Dedicated account manager</li>
+              <li>Invoice &amp; vendor agreements</li>
+              <li>Multi-event discounts available</li>
+            </ul>
+            <button
+              class="pkg-select-btn"
+              data-package="Corporate Bar"
+              data-price="0"
+              aria-pressed="false"
+            >Request a Quote</button>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════
+         ADD-ONS
+    ══════════════════════════════ -->
+    <div class="addons-section">
+      <section id="addons" aria-labelledby="addons-heading">
+        <div class="section">
+          <div class="section-header">
+            <span class="section-eyebrow">Customize</span>
+            <h2 id="addons-heading">Enhance Your Experience</h2>
+            <p>Elevate any package with our curated add-ons. Mix and match to create your perfect event.</p>
+            <div class="section-divider" aria-hidden="true"></div>
+          </div>
+
+          <div class="addons-grid" id="addons-grid" role="list">
+
+            <div class="addon-card" role="listitem" data-addon="Extra Bartender" data-price="175" tabindex="0" aria-pressed="false">
+              <div class="addon-checkbox" aria-hidden="true"></div>
+              <div class="addon-info">
+                <p class="addon-name">Extra Bartender</p>
+                <p class="addon-desc">Add a second licensed bartender for faster service at larger events</p>
+                <p class="addon-price">+ $175</p>
+              </div>
+            </div>
+
+            <div class="addon-card" role="listitem" data-addon="Signature Cocktail Creation" data-price="85" tabindex="0" aria-pressed="false">
+              <div class="addon-checkbox" aria-hidden="true"></div>
+              <div class="addon-info">
+                <p class="addon-name">Signature Cocktail Creation</p>
+                <p class="addon-desc">We craft a bespoke cocktail named after your event or couple</p>
+                <p class="addon-price">+ $85</p>
+              </div>
+            </div>
+
+            <div class="addon-card" role="listitem" data-addon="Champagne Toast" data-price="95" tabindex="0" aria-pressed="false">
+              <div class="addon-checkbox" aria-hidden="true"></div>
+              <div class="addon-info">
+                <p class="addon-name">Champagne Toast Service</p>
+                <p class="addon-desc">Coordinated champagne pour for toasts — up to 75 guests</p>
+                <p class="addon-price">+ $95</p>
+              </div>
+            </div>
+
+            <div class="addon-card" role="listitem" data-addon="Specialty Garnish Station" data-price="65" tabindex="0" aria-pressed="false">
+              <div class="addon-checkbox" aria-hidden="true"></div>
+              <div class="addon-info">
+                <p class="addon-name">Specialty Garnish Station</p>
+                <p class="addon-desc">Artisan fruit, herbs, smoked salts, edible flowers &amp; more</p>
+                <p class="addon-price">+ $65</p>
+              </div>
+            </div>
+
+            <div class="addon-card" role="listitem" data-addon="Mocktail Bar" data-price="75" tabindex="0" aria-pressed="false">
+              <div class="addon-checkbox" aria-hidden="true"></div>
+              <div class="addon-info">
+                <p class="addon-name">Mocktail Bar</p>
+                <p class="addon-desc">Dedicated zero-proof station with crafted non-alcoholic cocktails</p>
+                <p class="addon-price">+ $75</p>
+              </div>
+            </div>
+
+            <div class="addon-card" role="listitem" data-addon="Extended Service Hour" data-price="125" tabindex="0" aria-pressed="false">
+              <div class="addon-checkbox" aria-hidden="true"></div>
+              <div class="addon-info">
+                <p class="addon-name">Extended Service Hour</p>
+                <p class="addon-desc">Add one additional hour of bartending service to your package</p>
+                <p class="addon-price">+ $125 / hr</p>
+              </div>
+            </div>
+
+            <div class="addon-card" role="listitem" data-addon="Custom Drink Menu Design" data-price="45" tabindex="0" aria-pressed="false">
+              <div class="addon-checkbox" aria-hidden="true"></div>
+              <div class="addon-info">
+                <p class="addon-name">Custom Drink Menu Design</p>
+                <p class="addon-desc">Professionally designed &amp; printed menu cards for each table</p>
+                <p class="addon-price">+ $45</p>
+              </div>
+            </div>
+
+            <div class="addon-card" role="listitem" data-addon="Ice Sculpture / Luge" data-price="250" tabindex="0" aria-pressed="false">
+              <div class="addon-checkbox" aria-hidden="true"></div>
+              <div class="addon-info">
+                <p class="addon-name">Ice Sculpture / Luge</p>
+                <p class="addon-desc">A stunning custom ice luge as a centrepiece for your bar</p>
+                <p class="addon-price">+ $250</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ══════════════════════════════
+         TRAVEL SECTION  (clean)
+    ══════════════════════════════ -->
+    <div class="travel-section">
+      <section id="travel" aria-labelledby="travel-heading">
+        <div class="section">
+          <div class="section-header">
+            <span class="section-eyebrow">Event Location</span>
+            <h2 id="travel-heading">Travel &amp; Location Fee</h2>
+            <p>We serve the greater DC, Maryland &amp; Virginia region. Select your event location to see any applicable travel fee.</p>
+            <div class="section-divider" aria-hidden="true"></div>
+          </div>
+
+          <div class="travel-card" role="form" aria-label="Travel location selector">
+            <div class="travel-intro">
+              <span class="travel-intro-icon" aria-hidden="true">📍</span>
+              <div>
+                <h3>Where is your event?</h3>
+                <p>Select your region, county, and city below. Your travel fee will update automatically.</p>
+              </div>
+            </div>
+
+            <div class="travel-selectors">
+              <!-- Region -->
+              <div class="travel-field">
+                <label for="sel-region">Region</label>
+                <select id="sel-region" aria-label="Select a region">
+                  <option value="">— Select Region —</option>
+                  <option value="MD">Maryland</option>
+                  <option value="DC">Washington, D.C.</option>
+                  <option value="VA">Virginia</option>
+                  <option value="DE">Delaware</option>
+                </select>
+              </div>
+
+              <!-- County -->
+              <div class="travel-field">
+                <label for="sel-county">County / Area</label>
+                <select id="sel-county" disabled aria-label="Select a county">
+                  <option value="">— Select County —</option>
+                </select>
+              </div>
+
+              <!-- City -->
+              <div class="travel-field">
+                <label for="sel-city">City / Town</label>
+                <select id="sel-city" disabled aria-label="Select a city">
+                  <option value="">— Select City —</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Result -->
+            <div class="travel-result" id="travel-result" aria-live="polite" aria-atomic="true">
+              <div class="travel-result-label">
+                Selected Location
+                <strong id="travel-location-name">—</strong>
+              </div>
+              <div class="travel-result-fee" id="travel-fee-display">$0</div>
+            </div>
+            <p class="travel-note" id="travel-note" aria-live="polite"></p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- ══════════════════════════════
+       CHECKOUT BAR
+  ══════════════════════════════ -->
+  <aside class="checkout-bar" role="complementary" aria-label="Order summary">
+    <div class="checkout-bar-inner">
+      <div class="checkout-summary">
+        <div class="checkout-item">
+          <span class="checkout-item-label">Package</span>
+          <span class="checkout-item-value empty" id="bar-package">None selected</span>
+        </div>
+        <div class="checkout-separator" aria-hidden="true"></div>
+        <div class="checkout-item">
+          <span class="checkout-item-label">Add-Ons</span>
+          <span class="checkout-item-value empty" id="bar-addons">None</span>
+        </div>
+        <div class="checkout-separator" aria-hidden="true"></div>
+        <div class="checkout-item">
+          <span class="checkout-item-label">Travel</span>
+          <span class="checkout-item-value empty" id="bar-travel">—</span>
+        </div>
+      </div>
+
+      <div class="checkout-total-wrap">
+        <div>
+          <p class="checkout-total-label">Estimated Total</p>
+          <p class="checkout-total-amount" id="bar-total" aria-live="polite">$0</p>
+        </div>
+        <button class="checkout-btn" id="checkout-btn" disabled>
+          Book Now
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ══════════════════════════════
+       FOOTER
+  ══════════════════════════════ -->
+  <footer class="site-footer" role="contentinfo">
+    <p class="logo">SipSavvy Services</p>
+    <p>&copy; 2025 SipSavvy Services. Serving MD · DC · VA. All rights reserved.</p>
+  </footer>
+
+  <!-- ══════════════════════════════
+       SCRIPTS  (correct order)
+  ══════════════════════════════ -->
+
+  <!-- 1 · Travel data -->
+  <script id="ss-travel-data">
+    const SS_TRAVEL = {
+      MD: {
+        label: "Maryland",
+        counties: {
+          "charles": {
+            label: "Charles County",
+            baseFee: 0,
+            cities: {
+              "waldorf":       { label: "Waldorf",       fee: 0   },
+              "la-plata":      { label: "La Plata",      fee: 0   },
+              "white-plains":  { label: "White Plains",  fee: 0   },
+              "indian-head":   { label: "Indian Head",   fee: 15  },
+              "bryans-road":   { label: "Bryans Road",   fee: 10  },
+              "st-charles":    { label: "St. Charles",   fee: 0   }
+            }
+          },
+          "prince-georges": {
+            label: "Prince George's County",
+            baseFee: 0,
+            cities: {
+              "upper-marlboro": { label: "Upper Marlboro", fee: 15  },
+              "bowie":          { label: "Bowie",           fee: 20  },
+              "oxon-hill":      { label: "Oxon Hill",       fee: 10  },
+              "fort-washington":{ label: "Fort Washington", fee: 10  },
+              "college-park":   { label: "College Park",    fee: 25  },
+              "hyattsville":    { label: "Hyattsville",     fee: 30  },
+              "greenbelt":      { label: "Greenbelt",       fee: 30  }
+            }
+          },
+          "calvert": {
+            label: "Calvert County",
+            baseFee: 20,
+            cities: {
+              "prince-frederick": { label: "Prince Frederick", fee: 35 },
+              "chesapeake-beach": { label: "Chesapeake Beach",  fee: 30 },
+              "north-beach":      { label: "North Beach",        fee: 30 },
+              "dunkirk":          { label: "Dunkirk",            fee: 25 },
+              "lusby":            { label: "Lusby",              fee: 45 }
+            }
+          },
+          "montgomery": {
+            label: "Montgomery County",
+            baseFee: 25,
+            cities: {
+              "rockville":    { label: "Rockville",    fee: 40 },
+              "bethesda":     { label: "Bethesda",     fee: 40 },
+              "silver-spring":{ label: "Silver Spring",fee: 35 },
+              "gaithersburg": { label: "Gaithersburg", fee: 45 },
+              "germantown":   { label: "Germantown",   fee: 50 }
+            }
+          },
+          "anne-arundel": {
+            label: "Anne Arundel County",
+            baseFee: 25,
+            cities: {
+              "annapolis":        { label: "Annapolis",          fee: 45 },
+              "glen-burnie":      { label: "Glen Burnie",        fee: 40 },
+              "laurel":           { label: "Laurel",             fee: 35 },
+              "severn":           { label: "Severn",             fee: 40 },
+              "pasadena":         { label: "Pasadena",           fee: 45 }
+            }
+          },
+          "st-marys": {
+            label: "St. Mary's County",
+            baseFee: 30,
+            cities: {
+              "leonardtown":    { label: "Leonardtown",    fee: 45 },
+              "lexington-park": { label: "Lexington Park", fee: 50 },
+              "california":     { label: "California",     fee: 45 },
+              "great-mills":    { label: "Great Mills",    fee: 55 }
+            }
+          }
+        }
+      },
+      DC: {
+        label: "Washington, D.C.",
+        counties: {
+          "dc": {
+            label: "Washington, D.C.",
+            baseFee: 25,
+            cities: {
+              "northwest": { label: "Northwest DC",  fee: 30 },
+              "northeast": { label: "Northeast DC",  fee: 30 },
+              "southwest": { label: "Southwest DC",  fee: 30 },
+              "southeast": { label: "Southeast DC",  fee: 30 },
+              "capitol-hill": { label: "Capitol Hill", fee: 35 },
+              "dupont":    { label: "Dupont Circle", fee: 35 }
+            }
+          }
+        }
+      },
+      VA: {
+        label: "Virginia",
+        counties: {
+          "fairfax": {
+            label: "Fairfax County",
+            baseFee: 30,
+            cities: {
+              "fairfax":          { label: "Fairfax",           fee: 40 },
+              "reston":           { label: "Reston",            fee: 45 },
+              "herndon":          { label: "Herndon",           fee: 45 },
+              "springfield":      { label: "Springfield",       fee: 35 },
+              "mclean":           { label: "McLean",            fee: 50 },
+              "tysons":           { label: "Tysons",            fee: 50 },
+              "annandale":        { label: "Annandale",         fee: 40 }
+            }
+          },
+          "arlington": {
+            label: "Arlington County",
+            baseFee: 30,
+            cities: {
+              "arlington":        { label: "Arlington",         fee: 40 },
+              "ballston":         { label: "Ballston",          fee: 40 },
+              "rosslyn":          { label: "Rosslyn",           fee: 40 },
+              "pentagon-city":    { label: "Pentagon City",     fee: 40 }
+            }
+          },
+          "alexandria": {
+            label: "Alexandria (City)",
+            baseFee: 30,
+            cities: {
+              "old-town":     { label: "Old Town",     fee: 40 },
+              "del-ray":      { label: "Del Ray",      fee: 40 },
+              "west-end":     { label: "West End",     fee: 40 }
+            }
+          },
+          "prince-william": {
+            label: "Prince William County",
+            baseFee: 35,
+            cities: {
+              "manassas":     { label: "Manassas",     fee: 50 },
+              "woodbridge":   { label: "Woodbridge",   fee: 45 },
+              "dale-city":    { label: "Dale City",    fee: 45 },
+              "dumfries":     { label: "Dumfries",     fee: 45 },
+              "gainesville":  { label: "Gainesville",  fee: 55 }
+            }
+          },
+          "stafford": {
+            label: "Stafford County",
+            baseFee: 40,
+            cities: {
+              "stafford":       { label: "Stafford",         fee: 55 },
+              "aquia-harbour":  { label: "Aquia Harbour",    fee: 60 },
+              "garrisonville":  { label: "Garrisonville",    fee: 60 }
+            }
+          },
+          "loudoun": {
+            label: "Loudoun County",
+            baseFee: 45,
+            cities: {
+              "leesburg":     { label: "Leesburg",    fee: 65 },
+              "ashburn":      { label: "Ashburn",     fee: 60 },
+              "sterling":     { label: "Sterling",    fee: 60 },
+              "purcellville": { label: "Purcellville",fee: 70 }
+            }
+          }
+        }
+      },
+      DE: {
+        label: "Delaware",
+        counties: {
+          "new-castle": {
+            label: "New Castle County",
+            baseFee: 60,
+            cities: {
+              "wilmington": { label: "Wilmington",   fee: 75 },
+              "newark-de":  { label: "Newark",        fee: 80 },
+              "middletown": { label: "Middletown",    fee: 85 }
+            }
+          },
+          "kent-de": {
+            label: "Kent County",
+            baseFee: 75,
+            cities: {
+              "dover":       { label: "Dover",        fee: 90 },
+              "smyrna":      { label: "Smyrna",       fee: 85 }
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- 2 · App state -->
+  <script id="ss-state">
+    const State = {
+      packageName:  '',
+      packagePrice: 0,
+      addons:       {},   // { name: price }
+      travelFee:    0,
+      travelLabel:  '',
+
+      get addonTotal() {
+        return Object.values(this.addons).reduce((s, p) => s + p, 0);
+      },
+      get total() {
+        return this.packagePrice + this.addonTotal + this.travelFee;
+      }
+    };
+  </script>
+
+  <!-- 3 · Checkout bar renderer -->
+  <script id="ss-checkout">
+    const elBarPackage = document.getElementById('bar-package');
+    const elBarAddons  = document.getElementById('bar-addons');
+    const elBarTravel  = document.getElementById('bar-travel');
+    const elBarTotal   = document.getElementById('bar-total');
+    const elCheckoutBtn = document.getElementById('checkout-btn');
+
+    function fmt(n) {
+      return n === 0 ? '$0' : '$' + n.toLocaleString();
+    }
+
+    function renderBar() {
+      // Package
+      if (State.packageName) {
+        elBarPackage.textContent = State.packageName;
+        elBarPackage.classList.remove('empty');
+      } else {
+        elBarPackage.textContent = 'None selected';
+        elBarPackage.classList.add('empty');
+      }
+
+      // Add-ons
+      const addonNames = Object.keys(State.addons);
+      if (addonNames.length) {
+        elBarAddons.textContent = addonNames.length === 1
+          ? addonNames[0]
+          : addonNames.length + ' selected';
+        elBarAddons.classList.remove('empty');
+      } else {
+        elBarAddons.textContent = 'None';
+        elBarAddons.classList.add('empty');
+      }
+
+      // Travel
+      if (State.travelLabel) {
+        elBarTravel.textContent = fmt(State.travelFee) + (State.travelFee === 0 ? ' (included)' : '');
+        elBarTravel.classList.remove('empty');
+      } else {
+        elBarTravel.textContent = '—';
+        elBarTravel.classList.add('empty');
+      }
+
+      // Total
+      elBarTotal.textContent = fmt(State.total);
+
+      // CTA
+      elCheckoutBtn.disabled = !State.packageName;
+    }
+
+    elCheckoutBtn.addEventListener('click', function () {
+      if (!State.packageName) return;
+      const params = new URLSearchParams({
+        package: State.packageName,
+        addons:  Object.keys(State.addons).join(','),
+        travel:  State.travelFee,
+        total:   State.total
+      });
+      window.location.href = 'contact.html?' + params.toString();
+    });
+  </script>
+
+  <!-- 4 · Package selector -->
+  <script id="ss-packages">
+    document.querySelectorAll('.pkg-select-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const name  = btn.dataset.package;
+        const price = parseInt(btn.dataset.price, 10);
+        const isSame = State.packageName === name;
+
+        // Deselect all buttons
+        document.querySelectorAll('.pkg-select-btn').forEach(function (b) {
+          b.classList.remove('selected');
+          b.setAttribute('aria-pressed', 'false');
+          b.textContent = b.closest('.pkg-card').id === 'pkg-corporate'
+            ? 'Request a Quote'
+            : 'Select Package';
+        });
+
+        if (!isSame) {
+          State.packageName  = name;
+          State.packagePrice = price;
+          btn.classList.add('selected');
+          btn.setAttribute('aria-pressed', 'true');
+          btn.textContent = 'Selected ✓';
+        } else {
+          State.packageName  = '';
+          State.packagePrice = 0;
+        }
+
+        renderBar();
+      });
+    });
+  </script>
+
+  <!-- 5 · Add-on selector -->
+  <script id="ss-addons">
+    document.querySelectorAll('.addon-card').forEach(function (card) {
+      function toggle() {
+        const name  = card.dataset.addon;
+        const price = parseInt(card.dataset.price, 10);
+
+        if (card.classList.contains('selected')) {
+          card.classList.remove('selected');
+          card.setAttribute('aria-pressed', 'false');
+          delete State.addons[name];
+        } else {
+          card.classList.add('selected');
+          card.setAttribute('aria-pressed', 'true');
+          State.addons[name] = price;
+        }
+        renderBar();
+      }
+
+      card.addEventListener('click', toggle);
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+      });
+    });
+  </script>
+
+  <!-- 6 · Travel selector -->
+  <script id="ss-travel">
+    const selRegion = document.getElementById('sel-region');
+    const selCounty = document.getElementById('sel-county');
+    const selCity   = document.getElementById('sel-city');
+    const travelResult    = document.getElementById('travel-result');
+    const travelLocName   = document.getElementById('travel-location-name');
+    const travelFeeDisplay= document.getElementById('travel-fee-display');
+    const travelNote      = document.getElementById('travel-note');
+
+    function resetSelect(el, placeholder) {
+      el.innerHTML = '<option value="">' + placeholder + '</option>';
+      el.disabled = true;
+    }
+
+    function populateCounty(regionKey) {
+      resetSelect(selCounty, '— Select County —');
+      resetSelect(selCity,   '— Select City —');
+      travelResult.classList.remove('visible');
+      travelNote.textContent = '';
+      if (!regionKey) return;
+
+      const region = SS_TRAVEL[regionKey];
+      if (!region) return;
+      Object.entries(region.counties).forEach(function ([key, val]) {
+        const opt = document.createElement('option');
+        opt.value = key;
+        opt.textContent = val.label;
+        selCounty.appendChild(opt);
+      });
+      selCounty.disabled = false;
+    }
+
+    function populateCity(regionKey, countyKey) {
+      resetSelect(selCity, '— Select City —');
+      travelResult.classList.remove('visible');
+      travelNote.textContent = '';
+      if (!regionKey || !countyKey) return;
+
+      const county = SS_TRAVEL[regionKey].counties[countyKey];
+      if (!county) return;
+      Object.entries(county.cities).forEach(function ([key, val]) {
+        const opt = document.createElement('option');
+        opt.value = key;
+        opt.textContent = val.label;
+        selCity.appendChild(opt);
+      });
+      selCity.disabled = false;
+    }
+
+    function applyTravel(regionKey, countyKey, cityKey) {
+      if (!regionKey || !countyKey || !cityKey) return;
+      const city = SS_TRAVEL[regionKey].counties[countyKey].cities[cityKey];
+      if (!city) return;
+
+      const county = SS_TRAVEL[regionKey].counties[countyKey];
+      const fee    = city.fee;
+      const label  = city.label + ', ' + county.label;
+
+      State.travelFee   = fee;
+      State.travelLabel = label;
+
+      travelLocName.textContent   = label;
+      travelFeeDisplay.textContent = fee === 0 ? '$0 — Free' : '$' + fee;
+
+      if (fee === 0) {
+        travelNote.textContent = '🎉 Great news — no travel fee for your area!';
+      } else {
+        travelNote.textContent = 'Travel fee is a one-time flat charge added to your booking.';
+      }
+      travelResult.classList.add('visible');
+      renderBar();
+    }
+
+    selRegion.addEventListener('change', function () {
+      populateCounty(selRegion.value);
+      State.travelFee   = 0;
+      State.travelLabel = '';
+      renderBar();
+    });
+
+    selCounty.addEventListener('change', function () {
+      populateCity(selRegion.value, selCounty.value);
+      State.travelFee   = 0;
+      State.travelLabel = '';
+      renderBar();
+    });
+
+    selCity.addEventListener('change', function () {
+      applyTravel(selRegion.value, selCounty.value, selCity.value);
+    });
+  </script>
+
+  <!-- 7 · Init -->
+  <script id="ss-init">
+    renderBar();
+  </script>
+
+</body>
+</html>

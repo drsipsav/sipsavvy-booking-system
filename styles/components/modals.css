@@ -1,0 +1,136 @@
+/* ============================================================
+   GLOBAL MODAL OVERLAY
+============================================================ */
+.overlay-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.overlay-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ============================================================
+   MODAL CONTAINER
+============================================================ */
+.modal {
+  background: #ffffff;
+  width: 340px;
+  max-width: 90%;
+  border-radius: 12px;
+  padding: 0;
+  box-shadow: 0 4px 22px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  transform: translateY(-20px);
+  transition: transform 0.25s ease;
+}
+
+.overlay-backdrop.active .modal {
+  transform: translateY(0);
+}
+
+/* ============================================================
+   MODAL HEADER
+============================================================ */
+.modal-header {
+  background: var(--color-wine);
+  color: #fff;
+  padding: 14px 18px;
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.modal-header .close-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/* ============================================================
+   MODAL BODY
+============================================================ */
+.modal-body {
+  padding: 18px;
+  font-size: 0.9rem;
+  color: #333;
+  line-height: 1.45;
+}
+
+/* ============================================================
+   MODAL FOOTER
+============================================================ */
+.modal-footer {
+  padding: 14px 18px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  background: #f7f7f7;
+  border-top: 1px solid #e5e5e5;
+}
+
+.modal-footer .btn {
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+.modal-footer .btn-danger {
+  background: #c0392b;
+  color: #fff;
+}
+
+.modal-footer .btn-secondary {
+  background: #e0e0e0;
+  color: #333;
+}
+
+
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+.modal-box {
+  background: #fff;
+  padding: 22px;
+  border-radius: 10px;
+  width: 320px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+}
+
+.modal-actions {
+  margin-top: 18px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+

@@ -1,0 +1,11 @@
+﻿Variable,Used In
+{{BOOKING_REF}},All three
+"{{EXPERIENCE_NAME}}, {{DATE}}, {{TIME}}, {{GUEST_COUNT}}",All three
+{{FIRST_NAME}},Cancellation
+"{{REFUND_AMOUNT}}, {{ORIGINAL_TOTAL}}",Cancellation
+"{{VENUE_NAME}}, {{VENUE_ADDRESS}}, {{MAPS_URL}}",Confirmation + Reminder
+"{{DRIVING_DIRECTIONS}}, {{PARKING_INFO}}, {{TRANSIT_INFO}}",Reminder
+"{{PHONE}}, {{BOOKING_URL}}, {{EXPERIENCES_URL}}",Reminder + Cancellation
+"{{GOOGLE_CAL_URL}}, {{APPLE_CAL_URL}}, {{OUTLOOK_CAL_URL}}",Confirmation
+"{{INSTAGRAM_URL}}, {{FACEBOOK_URL}}, {{WEBSITE_URL}}",All three
+"{{UNSUBSCRIBE_URL}}, {{PRIVACY_URL}}, {{CANCEL_URL}}",All three

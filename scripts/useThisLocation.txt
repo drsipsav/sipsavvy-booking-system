@@ -1,0 +1,10 @@
+const loc = document.getElementById("eventLocation").value || "";
+localStorage.setItem("ss_travel_summary", loc);
+
+
+const loc = document.getElementById("eventLocation").value || "";
+localStorage.setItem("ss_travel_summary", loc);
+
+document.querySelectorAll('[data-ss-travel="summary"]').forEach(el => {
+  el.textContent = loc;
+});

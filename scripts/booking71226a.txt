@@ -1,0 +1,459 @@
+// SS_KEYS guard — safe even if ssKeys.js is also loaded on this page
+if (typeof window.SS_KEYS === "undefined") {
+  window.SS_KEYS = {
+    pkgName:         "ss_pkgName",
+    pkgPrice:        "ss_pkgPrice",
+    pkgDesc:         "ss_pkgDesc",
+    pkgMaxGuests:    "ss_pkgMaxGuests",
+    pkgEvent:        "ss_pkgEvent",
+    addons:          "ss_addons",
+    addonsTotal:     "ss_addonsTotal",
+    extraHours:      "ss_extraHours",
+    extraHoursPrice: "ss_extraHoursPrice",
+    travelFee:       "ss_travel_fee",
+    travelMiles:     "ss_travel_miles",
+    travelReason:    "ss_travel_reason",
+    travelSummary:   "ss_travel_summary",
+    travelZone:      "ss_travel_zone",
+    eventDate:       "ss_eventDate",
+    eventTime:       "ss_eventTime",
+    eventDuration:   "ss_eventDuration",
+    eventEndTime:    "ss_eventEndTime",
+    eventAddress:    "ss_eventAddress",
+    eventZip:        "ss_eventZip",
+    contactName:     "ss_contactName",
+    contactEmail:    "ss_contactEmail",
+    contactPhone:    "ss_contactPhone",
+    contactNotes:    "ss_contactNotes",
+    grandTotal:      "ss_grandTotal"
+  };
+}
+var SS_KEYS = window.SS_KEYS;
+
+// Helper: write to EVERY element matching selector (not just the first)
+function setAll(selector, value) {
+  document.querySelectorAll(selector).forEach(el => el.textContent = value);
+}
+
+function safeQuery(selector) {
+  return document.querySelector(selector) || { textContent: "" };
+}
+
+/* ============================================================
+   UNIFIED INITIALIZER — RUNS ONCE
+============================================================ */
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("✔ Booking page ready — unified initializer running");
+
+  // Purge legacy camelCase keys that travelFee.js no longer writes
+  ["ss_travelFee","ss_travelMiles","ss_travelReason","ss_travelSummary","ss_travelZone"]
+    .forEach(k => localStorage.removeItem(k));
+
+  // Recalculate addonsTotal from array (excluding any old Travel Fee injection)
+  const _addons = JSON.parse(localStorage.getItem(SS_KEYS.addons) || "[]");
+  const _cleanAddons = _addons.filter(a => a.name !== "Travel Fee");
+  if (_cleanAddons.length !== _addons.length) {
+    localStorage.setItem(SS_KEYS.addons, JSON.stringify(_cleanAddons));
+  }
+  localStorage.setItem(SS_KEYS.addonsTotal,
+    _cleanAddons.reduce((s, a) => s + Number(a.price || 0), 0));
+
+  // saveGrandTotal FIRST — so loadGrandTotalIntoBox5 reads the fresh value
+  saveGrandTotal();
+
+  loadBookingPackage();
+  loadBookingAddons();
+  loadGrandTotalIntoBox5();
+
+  // Populate all travel fields across all containers
+  const fee     = localStorage.getItem(SS_KEYS.travelFee)     || "0";
+  const miles   = localStorage.getItem(SS_KEYS.travelMiles)   || "0";
+  const reason  = localStorage.getItem(SS_KEYS.travelReason)  || "";
+  const summary = localStorage.getItem(SS_KEYS.travelSummary)
+               || localStorage.getItem("ss_travel_city") || "";
+
+  setAll('[data-ss-travel="fee"]',    `$${Number(fee).toFixed(2)}`);
+  setAll('[data-ss-travel="miles"]',  miles);
+  setAll('[data-ss-travel="reason"]', reason);
+  setAll('[data-ss-travel="summary"]',summary);
+  setAll('[data-summary="travel-miles"]', miles);
+  setAll('[data-summary="travel-zone"]',  summary);
+
+  updateStep3Summary();
+  updateContainer4Summary();
+
+  document.getElementById("bkStep1Next")?.addEventListener("click", bkGoToStep2);
+  document.getElementById("bkStep2Next")?.addEventListener("click", bkGoToStep3);
+  document.getElementById("bkStep3Next")?.addEventListener("click", bkGoToStep4);
+
+  document.getElementById("resetBox5Btn")?.addEventListener("click", resetBox5);
+  document.getElementById("resetBookingPageBtn")?.addEventListener("click", resetBookingPage);
+
+  document.getElementById("useLocationBtn")?.addEventListener("click", useThisLocation);
+
+  document.getElementById("timePicker")
+    ?.addEventListener("change", (e) => {
+      const selectedTime = e.target.value;
+      onEventTimeSelected(selectedTime);
+    });
+
+  // Save address whenever user types — mirrors the oninput on eventZip
+  document.getElementById("eventLocation")
+    ?.addEventListener("input", () => syncEventDetails());
+});
+
+/* ============================================================
+   STEP NAVIGATION
+============================================================ */
+function bkGoToStep2() {
+  document.getElementById("booking-step-2")
+    ?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+function bkGoToStep3() {
+  document.getElementById("booking-step-3")
+    ?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+function bkGoToStep4() {
+  document.getElementById("booking-step-4")
+    ?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+function bkActivateStep2() { bkGoToStep2(); }
+function bkActivateStep3() { bkGoToStep3(); }
+function bkActivateStep4() { bkGoToStep4(); }
+
+/* ============================================================
+   CONTAINER1 — BOX 5 — PACKAGE + ADD-ONS SUMMARY
+============================================================ */
+function loadBookingPackage() {
+  const name   = localStorage.getItem(SS_KEYS.pkgName) || "—";
+  const price  = Number(localStorage.getItem(SS_KEYS.pkgPrice) || 0);
+  const desc   = localStorage.getItem(SS_KEYS.pkgDesc) || "—";
+  const guests = localStorage.getItem(SS_KEYS.pkgMaxGuests) || "—";
+  const event  = localStorage.getItem(SS_KEYS.pkgEvent) || "—";
+
+  // Use querySelectorAll so every matching element on page is updated
+  setAll('[data-summary="packageName"]',   name);
+  setAll('[data-summary="packagePrice"]',  `$${price.toFixed(2)}`);
+  setAll('[data-summary="packageDesc"]',   desc);
+  setAll('[data-summary="packageGuests"]', guests);
+  setAll('[data-summary="packageEvent"]',  event);
+  setAll('[data-summary="package-total"]', `$${price.toFixed(2)}`);
+}
+
+function loadBookingAddons() {
+  const addons = JSON.parse(localStorage.getItem(SS_KEYS.addons) || "[]")
+    .filter(a => a.name !== "Travel Fee"); // safety: exclude any stale Travel Fee entry
+
+  const findPrice = (matchFn) => {
+    const item = addons.find(matchFn);
+    return item ? Number(item.price || 0) : 0;
+  };
+
+  const extraHours = findPrice(a => a.name === "Extra Hours");
+  const champagne  = findPrice(a => a.name.startsWith("Champagne Toast"));
+  const cocktail   = findPrice(a => a.name === "Signature Cocktail Creation");
+  const mocktail   = findPrice(a => a.name === "Mocktail Bar");
+  const garnish    = findPrice(a => a.name === "Specialty Garnish Station");
+  const customMenu = findPrice(a => a.name === "Custom Drink Menu Design");
+
+  const addonsTotal = addons.reduce((sum, a) => sum + Number(a.price || 0), 0);
+  const travelFee   = Number(localStorage.getItem(SS_KEYS.travelFee) || 0);
+
+  // Write to ALL matching elements across containers
+  setAll('[data-summary="extra-hours"]',              `$${extraHours.toFixed(2)}`);
+  setAll('[data-summary="champagne-toast-price"]',    `$${champagne.toFixed(2)}`);
+  setAll('[data-summary="cocktail-creation-price"]',  `$${cocktail.toFixed(2)}`);
+  setAll('[data-summary="mocktail-bar-price"]',       `$${mocktail.toFixed(2)}`);
+  setAll('[data-summary="garnish-station-price"]',    `$${garnish.toFixed(2)}`);
+  setAll('[data-summary="custom-menu-design-price"]', `$${customMenu.toFixed(2)}`);
+  setAll('[data-summary="addons-total"]',             `$${addonsTotal.toFixed(2)}`);
+  setAll('[data-summary="travel-fee"]',               `$${travelFee.toFixed(2)}`);
+
+  // Also write to container4's camelCase selectors if they exist
+  setAll('[data-summary="addon-extraHours"]',         `$${extraHours.toFixed(2)}`);
+  setAll('[data-summary="addon-champagneToast"]',     `$${champagne.toFixed(2)}`);
+  setAll('[data-summary="addon-cocktailCreation"]',   `$${cocktail.toFixed(2)}`);
+  setAll('[data-summary="addon-mocktailBar"]',        `$${mocktail.toFixed(2)}`);
+  setAll('[data-summary="addon-garnishStation"]',     `$${garnish.toFixed(2)}`);
+  setAll('[data-summary="addon-customMenu"]',         `$${customMenu.toFixed(2)}`);
+}
+
+function loadGrandTotalIntoBox5() {
+  const grand = Number(localStorage.getItem(SS_KEYS.grandTotal) || 0);
+  setAll('[data-summary="grand-total"]', `$${grand.toFixed(2)}`);
+}
+
+/* ============================================================
+   CONTAINER2 — STEP 2 — YOUR DETAILS
+============================================================ */
+function updateStep2Summary() {
+  const name  = document.getElementById("userName")?.value  || "";
+  const email = document.getElementById("userEmail")?.value || "";
+  const phone = document.getElementById("userPhone")?.value || "";
+  const notes = document.getElementById("userNotes")?.value || "";
+
+  setAll('[data-summary="userName"]',  name);
+  setAll('[data-summary="userEmail"]', email);
+  setAll('[data-summary="userPhone"]', phone);
+  setAll('[data-summary="userNotes"]', notes);
+}
+
+/* ============================================================
+   CONTAINER3 — STEP 3 — BOOKING SUMMARY
+============================================================ */
+function updateStep3Summary() {
+  const pkgPrice    = Number(localStorage.getItem(SS_KEYS.pkgPrice)    || 0);
+  const addonsTotal = Number(localStorage.getItem(SS_KEYS.addonsTotal) || 0);
+  const travelFee   = Number(localStorage.getItem(SS_KEYS.travelFee)   || 0);
+  const grandTotal  = pkgPrice + addonsTotal + travelFee;
+
+  // Write to ALL matching elements (Box5, container3, container4)
+  setAll('[data-summary="packagePrice"]', `$${pkgPrice.toFixed(2)}`);
+  setAll('[data-summary="addons-total"]', `$${addonsTotal.toFixed(2)}`);
+  setAll('[data-summary="travel-fee"]',   `$${travelFee.toFixed(2)}`);
+  setAll('[data-summary="grand-total"]',  `$${grandTotal.toFixed(2)}`);
+
+  setAll('[data-ss-travel="summary"]',
+    localStorage.getItem(SS_KEYS.travelSummary) || "—");
+  setAll('[data-ss-travel="reason"]',
+    localStorage.getItem(SS_KEYS.travelReason) || "—");
+  setAll('[data-ss-travel="miles"]',
+    localStorage.getItem(SS_KEYS.travelMiles) || "—");
+  setAll('[data-ss-travel="fee"]',
+    `$${travelFee.toFixed(2)}`);
+
+  setAll('[data-summary="event-date"]',
+    localStorage.getItem(SS_KEYS.eventDate) || "—");
+  setAll('[data-summary="event-time"]',
+    localStorage.getItem(SS_KEYS.eventTime) || "—");
+  setAll('[data-summary="event-duration"]',
+    localStorage.getItem(SS_KEYS.eventDuration) || "3 hrs");
+  setAll('[data-summary="event-endTime"]',
+    localStorage.getItem(SS_KEYS.eventEndTime) || "—");
+}
+
+/* ============================================================
+   EVENT TIME
+============================================================ */
+function calculateEventEndTime() {
+  const startTime = localStorage.getItem(SS_KEYS.eventTime);
+  let extraHours  = Number(localStorage.getItem(SS_KEYS.extraHours) || 0);
+  if (extraHours > 4) extraHours = 4;
+
+  const baseHours  = 3;
+  const totalHours = baseHours + extraHours;
+
+  if (!startTime) return "—";
+
+  const [time, modifier] = startTime.split(" ");
+  let [hours, minutes]   = time.split(":").map(Number);
+
+  if (modifier === "PM" && hours !== 12) hours += 12;
+  if (modifier === "AM" && hours === 12) hours = 0;
+
+  const startDate = new Date();
+  startDate.setHours(hours);
+  startDate.setMinutes(minutes);
+  startDate.setHours(startDate.getHours() + totalHours);
+
+  let endHours     = startDate.getHours();
+  const endMinutes = startDate.getMinutes().toString().padStart(2, "0");
+  const endModifier = endHours >= 12 ? "PM" : "AM";
+  endHours = endHours % 12 || 12;
+
+  return `${endHours}:${endMinutes} ${endModifier}`;
+}
+
+/* ============================================================
+   EXTRA HOURS + EVENT TIME/DATE HANDLERS
+============================================================ */
+function onExtraHoursSelected(hours) {
+  if (hours > 4) hours = 4;
+  localStorage.setItem(SS_KEYS.extraHours, hours);
+  const endTime = calculateEventEndTime();
+  localStorage.setItem(SS_KEYS.eventEndTime, endTime);
+  const duration = 3 + hours;
+  localStorage.setItem(SS_KEYS.eventDuration, `${duration} hrs`);
+  updateStep3Summary();
+  updateContainer4Summary();
+}
+
+function onEventTimeSelected(time) {
+  localStorage.setItem(SS_KEYS.eventTime, time);
+  const endTime = calculateEventEndTime();
+  localStorage.setItem(SS_KEYS.eventEndTime, endTime);
+  updateStep3Summary();
+  updateContainer4Summary();
+}
+
+function ssOnTime(timeString) {
+  const ph = document.getElementById("bsFlTimePlaceholder");
+  if (ph) ph.textContent = timeString;
+  localStorage.setItem(SS_KEYS.eventTime, timeString);
+  const endTime = calculateEventEndTime();
+  localStorage.setItem(SS_KEYS.eventEndTime, endTime);
+  updateStep3Summary();
+  updateContainer4Summary();
+}
+
+function onEventDateSelected(date) {
+  localStorage.setItem(SS_KEYS.eventDate, date);
+  updateStep3Summary();
+  updateContainer4Summary();
+}
+
+function ssSelectDate(dateString) {
+  const ph = document.getElementById("bsFlDatePlaceholder");
+  if (ph) ph.textContent = dateString;
+  localStorage.setItem(SS_KEYS.eventDate, dateString);
+  updateStep3Summary();
+  updateContainer4Summary();
+}
+
+/* ============================================================
+   TRAVEL SUMMARY + GRAND TOTAL
+============================================================ */
+function saveGrandTotal() {
+  const pkgTotal    = Number(localStorage.getItem(SS_KEYS.pkgPrice)    || 0);
+  const addonsTotal = Number(localStorage.getItem(SS_KEYS.addonsTotal) || 0);
+  const travelFee   = Number(localStorage.getItem(SS_KEYS.travelFee)   || 0);
+  const grand = pkgTotal + addonsTotal + travelFee;
+  localStorage.setItem(SS_KEYS.grandTotal, grand);
+}
+
+/* ============================================================
+   CONTAINER4 — FULL ORDER SUMMARY
+============================================================ */
+function updateContainer4Summary() {
+  const pkgName   = localStorage.getItem(SS_KEYS.pkgName)      || "—";
+  const pkgDesc   = localStorage.getItem(SS_KEYS.pkgDesc)      || "—";
+  const pkgGuests = localStorage.getItem(SS_KEYS.pkgMaxGuests) || "—";
+  const pkgPrice  = Number(localStorage.getItem(SS_KEYS.pkgPrice) || 0);
+
+  setAll('[data-summary="packageName"]',   pkgName);
+  setAll('[data-summary="packageDesc"]',   pkgDesc);
+  setAll('[data-summary="packageGuests"]', pkgGuests);
+  setAll('[data-summary="packagePrice"]',  `$${pkgPrice.toFixed(2)}`);
+
+  const addons = JSON.parse(localStorage.getItem(SS_KEYS.addons) || "[]")
+    .filter(a => a.name !== "Travel Fee");
+
+  const findAddon = (matchFn) => {
+    const item = addons.find(matchFn);
+    return item ? Number(item.price || 0) : 0;
+  };
+
+  const extraHours = findAddon(a => a.name === "Extra Hours");
+  const champagne  = findAddon(a => a.name.startsWith("Champagne Toast"));
+  const cocktail   = findAddon(a => a.name === "Signature Cocktail Creation");
+  const mocktail   = findAddon(a => a.name === "Mocktail Bar");
+  const garnish    = findAddon(a => a.name === "Specialty Garnish Station");
+  const customMenu = findAddon(a => a.name === "Custom Drink Menu Design");
+
+  const addonsTotal = Number(localStorage.getItem(SS_KEYS.addonsTotal) || 0);
+
+  // Hyphen selectors (Box 5 / packages page style)
+  setAll('[data-summary="extra-hours"]',              `$${extraHours.toFixed(2)}`);
+  setAll('[data-summary="champagne-toast-price"]',    `$${champagne.toFixed(2)}`);
+  setAll('[data-summary="cocktail-creation-price"]',  `$${cocktail.toFixed(2)}`);
+  setAll('[data-summary="mocktail-bar-price"]',       `$${mocktail.toFixed(2)}`);
+  setAll('[data-summary="garnish-station-price"]',    `$${garnish.toFixed(2)}`);
+  setAll('[data-summary="custom-menu-design-price"]', `$${customMenu.toFixed(2)}`);
+
+  // camelCase selectors (container4 style, if used)
+  setAll('[data-summary="addon-extraHours"]',       `$${extraHours.toFixed(2)}`);
+  setAll('[data-summary="addon-champagneToast"]',   `$${champagne.toFixed(2)}`);
+  setAll('[data-summary="addon-cocktailCreation"]', `$${cocktail.toFixed(2)}`);
+  setAll('[data-summary="addon-mocktailBar"]',      `$${mocktail.toFixed(2)}`);
+  setAll('[data-summary="addon-garnishStation"]',   `$${garnish.toFixed(2)}`);
+  setAll('[data-summary="addon-customMenu"]',       `$${customMenu.toFixed(2)}`);
+
+  setAll('[data-summary="addons-total"]', `$${addonsTotal.toFixed(2)}`);
+
+  const travelMiles  = localStorage.getItem(SS_KEYS.travelMiles)  || "—";
+  const travelZone   = localStorage.getItem(SS_KEYS.travelZone)   || "—";
+  const travelReason = localStorage.getItem(SS_KEYS.travelReason) || "—";
+  const travelFee    = Number(localStorage.getItem(SS_KEYS.travelFee) || 0);
+
+  setAll('[data-summary="travel-miles"]',  travelMiles);
+  setAll('[data-summary="travel-zone"]',   travelZone);
+  setAll('[data-summary="travel-reason"]', travelReason);
+  setAll('[data-summary="travel-fee"]',    `$${travelFee.toFixed(2)}`);
+
+  const eventDate     = localStorage.getItem(SS_KEYS.eventDate)     || "—";
+  const eventTime     = localStorage.getItem(SS_KEYS.eventTime)     || "—";
+  const eventDuration = localStorage.getItem(SS_KEYS.eventDuration) || "—";
+  const eventEndTime  = localStorage.getItem(SS_KEYS.eventEndTime)  || "—";
+  const eventAddress  = localStorage.getItem(SS_KEYS.eventAddress)  || "—";
+  const eventZip      = localStorage.getItem(SS_KEYS.eventZip)      || "—";
+
+  setAll('[data-summary="event-date"]',     eventDate);
+  setAll('[data-summary="event-time"]',     eventTime);
+  setAll('[data-summary="event-duration"]', eventDuration);
+  setAll('[data-summary="event-endTime"]',  eventEndTime);
+  setAll('[data-summary="event-address"]',  eventAddress);
+  setAll('[data-summary="event-zip"]',      eventZip);
+
+  const contactName  = localStorage.getItem(SS_KEYS.contactName)  || "—";
+  const contactEmail = localStorage.getItem(SS_KEYS.contactEmail) || "—";
+  const contactPhone = localStorage.getItem(SS_KEYS.contactPhone) || "—";
+  const contactNotes = localStorage.getItem(SS_KEYS.contactNotes) || "—";
+
+  setAll('[data-summary="contact-name"]',  contactName);
+  setAll('[data-summary="contact-email"]', contactEmail);
+  setAll('[data-summary="contact-phone"]', contactPhone);
+  setAll('[data-summary="contact-notes"]', contactNotes);
+
+  const grandTotal = pkgPrice + addonsTotal + travelFee;
+  setAll('[data-summary="grand-total"]', `$${grandTotal.toFixed(2)}`);
+}
+
+/* ============================================================
+   RESET FUNCTIONS
+============================================================ */
+function resetBox5() {
+  Object.values(SS_KEYS).forEach(k => localStorage.removeItem(k));
+  // Also clear ss_travel_* keys
+  ["ss_travel_fee","ss_travel_miles","ss_travel_reason","ss_travel_region",
+   "ss_travel_county","ss_travel_city","ss_travel_summary","ss_travel_zone"]
+    .forEach(k => localStorage.removeItem(k));
+  location.reload();
+}
+
+function resetBookingPage() {
+  Object.values(SS_KEYS).forEach(k => localStorage.removeItem(k));
+  ["ss_travel_fee","ss_travel_miles","ss_travel_reason","ss_travel_region",
+   "ss_travel_county","ss_travel_city","ss_travel_summary","ss_travel_zone"]
+    .forEach(k => localStorage.removeItem(k));
+  location.reload();
+}
+
+/* ============================================================
+   USE LOCATION (travel summary override)
+============================================================ */
+function useThisLocation() {
+  const loc = document.getElementById("eventLocation")?.value || "";
+  localStorage.setItem(SS_KEYS.travelSummary, loc);
+  localStorage.setItem(SS_KEYS.eventAddress,  loc);   // also populate Event Address
+  setAll('[data-ss-travel="summary"]', loc);
+  updateStep3Summary();
+  updateContainer4Summary();
+}
+
+/* ============================================================
+   SYNC EVENT DETAILS (address + zip)
+   Called by:
+     - eventZip  oninput="formatZip(this); syncEventDetails()"
+     - eventLocation addEventListener("input") added above
+   Saves both fields to localStorage and refreshes all summaries.
+============================================================ */
+function syncEventDetails() {
+  const address = document.getElementById("eventLocation")?.value || "";
+  const zip     = document.getElementById("eventZip")?.value     || "";
+
+  localStorage.setItem(SS_KEYS.eventAddress, address);
+  localStorage.setItem(SS_KEYS.eventZip,     zip);
+
+  updateStep3Summary();
+  updateContainer4Summary();
+}

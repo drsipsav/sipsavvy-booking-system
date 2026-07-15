@@ -1,0 +1,49 @@
+/* ============================
+   SipSavvy Calendar — Cinematic Luxury
+   ============================ */
+
+#calendar {
+  padding: 32px;
+  animation: fadeIn 0.8s ease;
+}
+
+/* EVENT COLORS */
+.fc-event {
+  background: var(--wine) !important;
+  border: none !important;
+  color: white !important;
+  border-radius: 8px !important;
+  padding: 4px 6px !important;
+  transition: 0.3s ease;
+}
+
+.fc-event:hover {
+  background: var(--gold) !important;
+  color: var(--wine) !important;
+  transform: scale(1.03);
+}
+
+/* DARK MODE */
+body.dark .fc {
+  background: var(--dark-bg);
+  color: white;
+}
+
+body.dark .fc-event {
+  background: var(--gold) !important;
+  color: var(--dark-bg) !important;
+}
+
+body.dark .fc-toolbar-title {
+  color: var(--gold);
+}
+
+body.dark .fc-button {
+  background: var(--dark-bg-light) !important;
+  color: var(--gold) !important;
+  border: 1px solid var(--dark-border) !important;
+}
+
+body.dark .fc-button:hover {
+  background: var(--wine) !important;
+}

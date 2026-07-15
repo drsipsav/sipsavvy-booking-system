@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sipsavvy Services — Packages</title> 
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:,">  
+  <!-- CSS -->    
+   
+  <link rel="stylesheet" href="../styles/reset.css">
+  <link rel="stylesheet" href="../styles/variables.css">
+  <link rel="stylesheet" href="../styles/animations.css">
+  <link rel="stylesheet" href="../styles/buttons.css">
+  <link rel="stylesheet" href="../styles/cards.css">
+  <link rel="stylesheet" href="../styles/forms.css">
+  <link rel="stylesheet" href="../styles/global.css">
+  <link rel="stylesheet" href="../styles/header.css">
+  <link rel="stylesheet" href="../styles/packages.css">  
+  <link rel="stylesheet" href="../styles/components/addons.css">
+  <link rel="stylesheet" href="../styles/components/quote-modal.css">
+  <link rel="stylesheet" href="../styles/packages-overrides.css">
+</head>
+
+<body class="page-packages">
+
+<header class="site-header" id="top">
+  <div class="header-inner">
+    <div class="header-logo">
+      <img src="../components/assets/images/logo.png" alt="Sipsavvy Services">
+      <div>
+        <span class="header-logo-wordmark">SipSavvy</span>
+        <span class="header-logo-tagline">Mobile Bartending</span>
+      </div>
+    </div>
+    <nav>
+      <ul class="header-nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a class="is-current" style="pointer-events:none; opacity:0.6;">Packages</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="experiences.html">Experiences</a></li>
+      </ul>
+    </nav>
+
+      <!--   <a href="booking.html" class="btn-gold">Book Now</a> -->
+      <!--   <a id="headerBookNow" href="booking.html" class="book-now-btn btn-gold disabled">Book Now</a> -->
+
+        <div class="header-right">
+    <span class="header-total">Total: $0</span>
+    <span class="header-package-price">Total-h: $0</span>
+    <span id="headerTotal">+g$0.00</span>
+        </div> 
+  
+  </div>
+
+</header> 
+
+
+<span class="header-package-name"></span>
+<span class="bottom-package-name"></span>
+<span class="footer-package-name"></span>
+
+<section class="title-section wine-rose-bg" class="packages-hero">  
+        <div><span class="packages-hero-eyebrow">Curated Experiences</span></div>
+  <span class="packages-hero-eyebrow">Tailored for Every Occasion</span>
+  <h1 class="packages-hero-heading">Choose Your <em>Perfect</em> Service Packages</h1>
+  <p class="packages-hero-sub" style="color:#1A0505 !important;">
+    Choose the experience that fits your event — from intimate gatherings to large-scale celebrations, 
+    every SipSavvy package is crafted to deliver premium mobile bar experiences tailored to your event.
+  </p> 
+</section> 
+
+<section class="pricing-section">
+  <div class="pricing-grid">
+
+                          <!-- PACKAGE 1 -->
+    <div class="package-card" data-package-name="The Essential Package $600" data-package-price="600">
+
+      <h3 class="pricing-card-title">The Essential Package</h3>
+      <p class="pricing-card-guests">Up to 40 Guests</p>
+      <hr class="pricing-card-divider">
+
+          <ul class="pricing-features">
+            <li>Professional Bartender</li>
+            <li>Custom Cocktail Menu</li>
+            <li>Mixers & Garnishes</li>
+            <li>Luxury Bar Tools</li>
+          </ul>
+
+          <div class="pricing-price">$600</div>
+
+        <div class="package-actions">
+          <button class="package-select-btn">Select</button>
+          <button class="package-selected-btn" style="display:none;">Selected</button>
+          <button class="package-deselect-btn" style="display:none;">Deselect</button>
+        </div>
+    </div>
+    <hr class="pkg-wine-divider" aria-hidden="true">
+  
+    <!-- PACKAGE 2 -->
+        <div class="package-card"
+          data-package-name="Luxe Experience"
+          data-package-price="900">
+
+          <h3 class="pricing-card-title">The Luxe Experience</h3>
+          <p class="pricing-card-guests">Up to 75 Guests</p>
+          <hr class="pricing-card-divider">
+
+            <ul class="pricing-features">
+              <li>Professional Bartender</li>
+              <li>Signature Cocktail Design</li>
+              <li>Premium Mixers &amp; Garnishes</li>
+              <li>Mobile Bar Setup</li>
+            </ul>
+
+                <div class="pricing-price">$900</div>
+
+          <div class="package-actions">
+            <button class="package-select-btn">Select</button>
+            <button class="package-selected-btn" style="display:none;">Selected</button>
+            <button class="package-deselect-btn" style="display:none;">Deselect</button>
+          </div>
+        </div>
+        <hr class="pkg-wine-divider" aria-hidden="true">
+
+                      <!-- PACKAGE 3 -->
+        <div class="package-card" data-package-name="The Signature SipSavvy Experience" data-package-price="1200">
+          <h3 class="pricing-card-title">The Signature SipSavvy Experience</h3>
+              <p class="pricing-card-guests">Up to 100 Guests</p>
+              <hr class="pricing-card-divider">
+
+                <ul class="pricing-features">
+                  <li>Professional Bartender</li>
+                  <li>Full Signature Cocktail Program</li>
+                  <li>Premium Mixers, Garnishes & Decor</li>
+                  <li>Luxury Mobile Bar Setup</li>
+                </ul>
+
+                <div class="pricing-price">$1200</div>
+
+                  <div class="package-actions">
+                    <button class="package-select-btn">Select</button>
+                    <button class="package-selected-btn" style="display:none;">Selected</button>
+                    <button class="package-deselect-btn" style="display:none;">Deselect</button>
+                  </div>
+        </div>
+        <hr class="pkg-wine-divider" aria-hidden="true">
+
+      <!-- PACKAGE 4 -->
+        <div class="package-card" data-package-name="The Corporate Bar" data-package-price="0" data-package-type="quote">
+          <h1></h1>
+          <h3 class="pricing-card-title">The Corporate Bar</h3>
+              <h4><p class="pkg-tagline">Professional service for corporate events &amp; galas</p></h4>
+              <hr class="pricing-card-divider">
+            <ul class="pricing-features">
+              <li>Flexible guest count</li>
+              <li>Custom service hours</li>
+              <li>Branded bar setup with your logo</li>
+              <li>Curated beverage selection</li>
+              <li>Non-alcoholic focus options available</li>
+              <li>Dedicated account manager</li>
+              <li>Invoice &amp; vendor agreements</li>
+              <li>Multi-event discounts available</li>
+            </ul>
+
+                <div class="pricing-price">Custom pricing</div>
+
+                  <div class="package-actions">
+                    <button class="package-select-btn">Request a Quote</button>
+                    <button class="package-selected-btn" style="display:none;">Selected</button>
+                    <button class="package-deselect-btn" style="display:none;">Deselect</button>
+                  </div>
+        </div>
+        <hr class="pkg-wine-divider" aria-hidden="true">
+    </div>
+
+</section>
+<!-- ============================================================
+     ADD‑ONS
+     ============================================================ -->
+<section class="addons-section-wrap">
+  <div class="packages-addons">
+
+    <h2 class="addons-title">Add‑Ons</h2>
+    <p class="addons-sub">Select any extras to include with your booking</p>
+
+    <!-- ============================================================
+         EXTRA HOURS
+         ============================================================ -->
+    <div class="addon-check-row addon-extra-hour">
+      <div class="addon-check-top">
+        <div class="addon-check-left">
+          <div class="addon-icon">⏱️</div>
+          <div>
+            <div class="addon-check-label">Extra Hours</div>
+            <div class="addon-check-desc">$125 per hour — choose amount</div>
+          </div>
+        </div>
+        <div class="addon-check-price extra-hour-total" data-addon-key="extraHours">$0</div>
+      </div>
+
+      <div class="extra-hour-buttons">
+        <button class="hour-btn" data-hours="1">1 hr</button>
+        <button class="hour-btn" data-hours="2">2 hrs</button>
+        <button class="hour-btn" data-hours="3">3 hrs</button>
+        <button class="hour-btn" data-hours="4">4 hrs</button>
+        <button class="hour-btn none-btn" data-hours="0">De‑select</button>
+      </div>
+    </div>
+
+
+<!-- CHAMPAGNE TOAST -->
+<div class="addon-check-row addon-champagne">
+  <div class="addon-check-top">
+    <div class="addon-check-left">
+      <div class="addon-icon">🥂</div>
+      <div>
+        <div class="addon-check-label">Champagne Toast</div>
+        <div class="addon-check-desc">Select your toast option</div>
+      </div>
+    </div>
+    <div class="addon-check-price" data-addon="champagneToast">$0</div>
+  </div>
+
+  <div class="addon-buttons">
+    <button class="addon-btn" data-addon="champagneToast" data-price="65">Toast for 40 guests — essential</button>
+    <button class="addon-btn" data-addon="champagneToast" data-price="100">Toast for 41-75 guests — luxe</button>
+    <button class="addon-btn" data-addon="champagneToast" data-price="115">Toast for 76-100 guests — signature</button>
+    <button class="addon-btn none-btn" data-addon="champagneToast" data-price="0">De‑select</button>
+  </div>
+</div>
+
+<!-- EXTRA HOURS (single line display) -->
+<div class="addon-line">
+  <span>Extra Hours:</span>
+  <span class="addons-extra-hours" data-addon-key="extra-hours">$0</span>
+</div>
+
+<!-- CHAMPAGNE TOAST (single line display) -->
+<div class="addon-line">
+  <span>Champagne Toast:</span>
+  <span class="addons-champagne-toast">$0</span>
+</div>
+
+<!-- SIGNATURE COCKTAIL CREATION (single line display) -->
+<div class="addon-line">
+  <span>Sig Cocktail Create:</span>
+  <span class="addons-extra-hours" data-addon-key="extra-hours">$0</span>
+</div>
+
+<!-- ADD‑ONS TOTAL (combined) -->
+<div class="addon-line total">
+  <span>Add‑Ons Total:</span>
+  <span class="addons-total">$0</span>
+</div>
+
+<div class="totals-row grand">
+  <span>Total:</span>
+  <span class="grand-total">$0</span>
+</div>
+
+    <!-- SIGNATURE COCKTAIL CREATION -->
+    <div class="addon-check-row addon-extra-hour">
+      <div class="addon-check-top">
+        <div class="addon-check-left">
+          <div class="addon-icon">⏱️</div>
+          <div>
+            <div class="addon-check-label">Signature Cocktail Creation</div>
+            <div class="addon-check-desc">$90</div>
+          </div>
+        </div>
+        <div class="addon-check-price extra-hour-total" data-addon-key="cocktailCreations">$0</div>
+      </div>
+      <div class="extra-hour-buttons">
+        <button class="hour-btn" data-hours="1">signature cocktail creation</button>
+        <button class="hour-btn none-btn" data-hours="0">De&#8209;select</button>
+      </div>
+    </div>
+
+    <!-- MOCTAIL BAR -->
+    <div class="addon-check-row addon-champagne">
+      <div class="addon-check-top">
+        <div class="addon-check-left">
+          <div class="addon-icon">🥂</div>
+          <div>
+            <div class="addon-check-label">Moctail Bar</div>
+            <div class="addon-check-desc">Select option</div>
+          </div>
+        </div>
+        <div class="addon-check-price" data-addon="mocktailBar">$0</div>
+      </div>
+      <div class="extra-hour-buttons">
+        <button class="hour-btn" data-hours="1">Moctail Bar</button>
+        <button class="hour-btn none-btn" data-hours="0">De&#8209;select</button>
+      </div>
+    </div>
+
+    <!-- SPECIALTY GARNISH STATION -->
+    <div class="addon-check-row addon-extra-hour">
+      <div class="addon-check-top">
+        <div class="addon-check-left">
+          <div class="addon-icon">⏱️</div>
+          <div>
+            <div class="addon-check-label">Specialty Garnish Station</div>
+            <div class="addon-check-desc">$70 — choose</div>
+          </div>
+        </div>
+        <div class="addon-check-price garnish-station-total" data-addon-key="garnishStation">$0</div>
+      </div>
+      <div class="extra-hour-buttons">
+        <button class="hour-btn" data-hours="1">specialty garnish station</button>
+        <button class="hour-btn none-btn" data-hours="0">De&#8209;select</button>
+      </div>
+    </div>
+
+    <!-- CUSTOM DRINK MENU DESIGN -->
+    <div class="addon-check-row addon-champagne">
+      <div class="addon-check-top">
+        <div class="addon-check-left">
+          <div class="addon-icon">🥂</div>
+          <div>
+            <div class="addon-check-label">Custom Drink Menu Design</div>
+            <div class="addon-check-desc">Select option</div>
+          </div>
+        </div>
+        <div class="addon-check-price custom-drink-menu" data-addon-key="customMenuDesign">$0</div>
+      </div>
+      <div class="extra-hour-buttons">
+        <button class="hour-btn" data-hours="1">Custom Drink Menu Design</button>
+        <button class="hour-btn none-btn" data-hours="0">De&#8209;select</button>
+      </div>
+    </div>
+
+<!-- ============================================================
+     TRAVEL FEE (FINAL CLEAN VERSION)
+============================================================ -->
+
+<div class="addon-check-row addon-travel">
+
+  <!-- HEADER -->
+  <div class="addon-check-top">
+    <div class="addon-check-left">
+      <div class="addon-icon">🚗</div>
+      <div>
+        <div class="addon-check-label">Travel Fee</div>
+        <div class="addon-check-desc">Enter your location to calculate travel</div>
+      </div>
+    </div>
+
+    <!-- Travel Fee (updated by JS) -->
+    <div id="travelFeeHeader" class="addon-check-price">$0</div>
+  </div>
+
+  <!-- ============================
+       TRAVEL FEE SECTION (MINIMAL)
+  ============================= -->
+
+  <div class="travel-section">
+
+    <!-- REGION -->
+    <label for="regionSelect" class="travel-address-label">Select Region</label>
+    <select id="regionSelect" class="travel-address-input">
+      <option value="">— Select Region —</option>
+    </select>
+
+    <!-- COUNTY -->
+    <label for="countySelect" class="travel-address-label">Select County</label>
+    <select id="countySelect" class="travel-address-input">
+      <option value="">— Select County —</option>
+    </select>
+
+    <!-- CITY -->
+    <label for="citySelect" class="travel-address-label">Select City</label>
+    <select id="citySelect" class="travel-address-input">
+      <option value="">— Select City —</option>
+    </select>
+
+
+      <!-- CONFIRM BUTTON --><!-- TRAVEL CONFIRM BUTTON -->
+<button id="confirmLocationBtn"
+        class="travel-confirm-btn"
+        type="button"
+        onclick="useThisLocation()">
+  Use This Location
+</button>
+
+<!-- TRAVEL FEE OUTPUT -->
+<div class="travel-fee-summary" style="margin-top:20px;">
+  <div class="travel-fee-row">
+    <span class="travel-fee-label">Travel Fee:</span>
+      <span data-ss-travel="fee">$0.00</span>
+        <span>    </span>
+          <span class="travel-fee-label">Miles2go:</span>
+            <span data-ss-travel="reason"></span> 
+  </div>
+
+  <div class="travel-fee-reason" style="margin-top:6px; font-size:0.85rem; color:#6A5F5F;">
+    <span id="summaryTravelReason"></span>
+  </div>
+</div>
+
+<!-- RESET BUTTONS -->
+<div class="travel-buttons" style="margin-top:16px;">
+  <button id="clearTravelBtn" type="button" class="travel-btn travel-clear">Clear Travel</button>
+  <button id="clearAllBtn" type="button" class="travel-btn travel-reset">Clear All</button>
+  <button id="hardResetBtn" type="button" class="travel-btn travel-hard">Hard Reset</button>
+</div>
+
+<!-- ERROR + RETRY -->
+<div id="travelErrorBox" style="display:none; margin-top:8px;">
+  <div id="travelErrorMessage" class="travel-error"></div>
+  <button id="travelRetryBtn" class="travel-retry-btn">Retry</button>
+</div>
+
+<!-- LOADING SPINNER -->
+<div id="travelSpinner" class="travel-spinner" style="display:none;"></div>
+
+<!-- ENABLE CHECKBOX -->
+<label class="travel-checkbox-wrap">
+  <input type="checkbox" id="addonTravel" onchange="handleTravelToggle()">
+  <span class="travel-checkbox-label">Enable Travel Fee</span>
+</label>
+
+<!-- ACCORDION -->
+<div id="travelAccordion" class="travel-accordion"></div>
+
+<!-- CHECKOUT BAR -->
+<div class="checkout-wrapper"> 
+  <div id="checkoutBar" class="checkout-bar">
+    <div class="checkout-header">The Sipsavvy Experiences</div>
+    <div class="checkout-content">
+      <span class="footer-package-name"></span>
+      <span class="footer-package-price"></span>
+      <span id="checkoutAddons">Add‑Ons: $0</span>
+      <span id="checkoutTravelFee">travel fee: $0.00</span>
+      <span id="checkoutTotal">Totalfooter: $0</span>
+      <a href="booking.html" id="checkoutContinue" class="checkout-btn">+Continue →</a> 
+
+    </div>
+  </div>
+</div>
+
+<!-- GOOGLE MAPS -->
+<script async 
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBV0hILvm0HRmTLcb9W7eyXayNj54GSOu0&libraries=places">
+</script>
+
+<script>
+function bsFocusField(el) {
+  const wrap = el.parentElement;
+  wrap.style.background = "#FFFFFF";
+  wrap.style.borderColor = "#C9B8B8";
+  el.style.color = "#2C2020";
+}
+
+function bsBlurField(el) {
+  const wrap = el.parentElement;
+
+  if (el.value.trim() === "") {
+    wrap.style.background = "#FAFAFA";
+    wrap.style.borderColor = "#DDCCCC";
+    el.style.color = "#2C2020";
+  } else {
+    wrap.style.background = "#FFFFFF";
+    wrap.style.borderColor = "#DDCCCC";
+  }}
+  </script>
+
+<script>
+function formatZip(el) {
+  el.value = el.value.replace(/\D/g, "").slice(0, 5);
+}
+</script>
+
+<script src="../scripts/global-guard.js"></script>
+<!-- DATASET -->
+<!-- 1. Travel data (regions, counties, cities) -->
+<script src="../scripts/travelLocationsMiles.js?v=3"></script>
+
+<!-- 2. Travel engine (lookup, pricing, miles, setTravelState) -->
+<script src="../scripts/travelFee.js?v=2"></script> 
+
+ <script src="../scripts/travelLocations.js?v=2"></script>
+<script src="../scripts/location.js?v=2"></script>
+<script src="../scripts/bookingState.js?v=2"></script>
+
+<!-- 3. Shared booking state + helpers -->
+<script src="../scripts/shared-booking.js?v=2"></script>
+
+<!-- 4. Totals + summary logic -->
+<script src="../scripts/totals.js?v=2"></script>
+
+<!-- 5. Booking UI logic -->
+<script src="../scripts/booking.js?v=2"></script>
+
+<!-- 6. OPTIONAL: travelFeeEngine.js (public API only) -->
+<script src="../scripts/travelFeeEngine.js?v=2"></script>
+
+<!-- GLOBAL TOTALS ENGINE -->
+<script src="../scripts/updateTotals.js"></script>
+
+<!-- ADD-ONS ENGINE -->
+<script src="../scripts/addons.js"></script>
+
+<!-- PACKAGE SELECTION -->
+<script src="../scripts/packages.js"></script>
+
+<script> 
+function useThisLocation() {
+  const street = document.getElementById("eventStreet")?.value || "";
+  const city   = document.getElementById("eventCity")?.value || "";
+  const zip    = document.getElementById("eventZip")?.value || "";
+
+  const fullAddress = `${street}, ${city}, MD ${zip}`;
+
+  ss_requestDistance(fullAddress, function() {
+    updateTravelUI();
+  });
+}
+</script>
+
+<script>
+</script>
+
+</div>
+</div>
+</div>
+
+
+<!-- Corporate Bar — Quote Modal handler -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  var card        = document.querySelector('.package-card[data-package-type="quote"]');
+  var selectBtn   = card ? card.querySelector('.package-select-btn')   : null;
+  var selectedBtn = card ? card.querySelector('.package-selected-btn') : null;
+  var deselectBtn = card ? card.querySelector('.package-deselect-btn') : null;
+  var modal       = document.getElementById('quoteModal');
+  var closeBtn    = document.getElementById('qmCloseBtn');
+  var cancelBtn   = document.getElementById('qmCancelBtn');
+  var doneBtn     = document.getElementById('qmDoneBtn');
+  var form        = document.getElementById('quoteForm');
+  var successBox  = document.getElementById('qmSuccess');
+
+  if (!selectBtn || !modal) return;
+
+  /* ── Open modal ── */
+  selectBtn.addEventListener('click', function (e) {
+    e.stopImmediatePropagation();
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    document.getElementById('qmName').focus();
+  });
+
+  /* ── Close helpers ── */
+  function closeModal() {
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+  function resetModal() {
+    form.reset();
+    form.style.display       = '';
+    successBox.style.display = 'none';
+  }
+
+  closeBtn.addEventListener('click',  function () { closeModal(); resetModal(); });
+  cancelBtn.addEventListener('click', function () { closeModal(); resetModal(); });
+  doneBtn.addEventListener('click',   function () { closeModal(); resetModal(); });
+
+  modal.addEventListener('click', function (e) {
+    if (e.target === modal) { closeModal(); resetModal(); }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && modal.style.display === 'flex') {
+      closeModal(); resetModal();
+    }
+  });
+
+  /* ── Deselect ── */
+  deselectBtn.addEventListener('click', function (e) {
+    e.stopImmediatePropagation();
+    selectBtn.style.display   = '';
+    selectedBtn.style.display = 'none';
+    deselectBtn.style.display = 'none';
+  });
+
+  /* ── Submit ── */
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    var name   = document.getElementById('qmName').value.trim();
+    var email  = document.getElementById('qmEmail').value.trim();
+    var phone  = document.getElementById('qmPhone').value.trim() || 'Not provided';
+    var date   = document.getElementById('qmDate').value;
+    var guests = document.getElementById('qmGuests').value;
+    var type   = document.getElementById('qmType').value;
+    var notes  = document.getElementById('qmNotes').value.trim() || 'None';
+
+    if (!name || !email || !date || !guests || !type) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+
+    var subject = encodeURIComponent('Corporate Bar Quote Request — ' + name);
+    var body    = encodeURIComponent(
+      'CORPORATE BAR QUOTE REQUEST\n' +
+      '================================\n\n' +
+      'Name:         ' + name   + '\n' +
+      'Email:        ' + email  + '\n' +
+      'Phone:        ' + phone  + '\n' +
+      'Event Date:   ' + date   + '\n' +
+      'Guest Count:  ' + guests + '\n' +
+      'Event Type:   ' + type   + '\n\n' +
+      'Additional Details:\n' + notes + '\n\n' +
+      '================================\n' +
+      'Sent from SipSavvy Packages page'
+    );
+
+    window.location.href = 'mailto:hello@sipsavvyllc.com?subject=' + subject + '&body=' + body;
+
+    form.style.display       = 'none';
+    successBox.style.display = '';
+    selectBtn.style.display   = 'none';
+    selectedBtn.style.display = '';
+    deselectBtn.style.display = '';
+    selectedBtn.textContent   = 'Quote Requested ✓';
+  });
+
+});
+</script>
+
+<!-- ============================================================
+     CORPORATE BAR — QUOTE REQUEST MODAL
+     ============================================================ -->
+<div id="quoteModal" class="qm-overlay" aria-modal="true" role="dialog" aria-labelledby="qmTitle" style="display:none;">
+  <div class="qm-card">
+
+    <div class="qm-header">
+      <h2 class="qm-title" id="qmTitle">Request a Corporate Quote</h2>
+      <p class="qm-sub">Tell us about your event and we’ll get back to you within 24 hours.</p>
+      <button class="qm-close" id="qmCloseBtn" aria-label="Close">&times;</button>
+    </div>
+
+    <form id="quoteForm" class="qm-form" novalidate>
+
+      <div class="qm-row">
+        <div class="qm-field">
+          <label class="qm-label" for="qmName">Full Name <span class="qm-req">*</span></label>
+          <input class="qm-input" id="qmName" type="text" placeholder="Jane Smith" required>
+        </div>
+        <div class="qm-field">
+          <label class="qm-label" for="qmEmail">Email Address <span class="qm-req">*</span></label>
+          <input class="qm-input" id="qmEmail" type="email" placeholder="jane@company.com" required>
+        </div>
+      </div>
+
+      <div class="qm-row">
+        <div class="qm-field">
+          <label class="qm-label" for="qmPhone">Phone Number</label>
+          <input class="qm-input" id="qmPhone" type="tel" placeholder="(301) 555-0123">
+        </div>
+        <div class="qm-field">
+          <label class="qm-label" for="qmDate">Event Date <span class="qm-req">*</span></label>
+          <input class="qm-input" id="qmDate" type="date" required>
+        </div>
+      </div>
+
+      <div class="qm-row">
+        <div class="qm-field">
+          <label class="qm-label" for="qmGuests">Estimated Guest Count <span class="qm-req">*</span></label>
+          <input class="qm-input" id="qmGuests" type="number" placeholder="e.g. 150" min="1" required>
+        </div>
+        <div class="qm-field">
+          <label class="qm-label" for="qmType">Event Type <span class="qm-req">*</span></label>
+          <select class="qm-input qm-select" id="qmType" required>
+            <option value="">&mdash; Select &mdash;</option>
+            <option>Corporate Gala</option>
+            <option>Company Holiday Party</option>
+            <option>Product Launch</option>
+            <option>Networking Event</option>
+            <option>Awards Ceremony</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="qm-field qm-field-full">
+        <label class="qm-label" for="qmNotes">Additional Details</label>
+        <textarea class="qm-input qm-textarea" id="qmNotes" placeholder="Venue, special requests, branding needs…" rows="3"></textarea>
+      </div>
+
+      <div class="qm-actions">
+        <button type="button" class="qm-btn-cancel" id="qmCancelBtn">Cancel</button>
+        <button type="submit" class="qm-btn-submit">Send Quote Request</button>
+      </div>
+
+    </form>
+
+    <div id="qmSuccess" class="qm-success" style="display:none;">
+      <div class="qm-success-icon">&#10003;</div>
+      <h3 class="qm-success-title">Quote Request Sent!</h3>
+      <p class="qm-success-msg">Thank you! Your request has been sent to <strong>hello@sipsavvyllc.com</strong>.<br>We’ll be in touch within 24 hours.</p>
+      <button type="button" class="qm-btn-submit" id="qmDoneBtn">Close</button>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

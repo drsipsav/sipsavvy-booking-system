@@ -1,0 +1,407 @@
+// SS_KEYS guard — safe even if ssKeys.js is also loaded on this page
+if (typeof window.SS_KEYS === "undefined") {
+  window.SS_KEYS = {
+    pkgName:         "ss_pkgName",
+    pkgPrice:        "ss_pkgPrice",
+    pkgDesc:         "ss_pkgDesc",
+    pkgMaxGuests:    "ss_pkgMaxGuests",
+    pkgEvent:        "ss_pkgEvent",
+    addons:          "ss_addons",
+    addonsTotal:     "ss_addonsTotal",
+    extraHours:      "ss_extraHours",
+    extraHoursPrice: "ss_extraHoursPrice",
+    travelFee:       "ss_travelFee",
+    travelMiles:     "ss_travelMiles",
+    travelReason:    "ss_travelReason",
+    travelSummary:   "ss_travelSummary",
+    travelZone:      "ss_travelZone",
+    eventDate:       "ss_eventDate",
+    eventTime:       "ss_eventTime",
+    eventDuration:   "ss_eventDuration",
+    eventEndTime:    "ss_eventEndTime",
+    eventAddress:    "ss_eventAddress",
+    eventZip:        "ss_eventZip",
+    contactName:     "ss_contactName",
+    contactEmail:    "ss_contactEmail",
+    contactPhone:    "ss_contactPhone",
+    contactNotes:    "ss_contactNotes",
+    grandTotal:      "ss_grandTotal"
+  };
+}
+var SS_KEYS = window.SS_KEYS;
+
+
+function safeQuery(selector) {
+  return document.querySelector(selector) || { textContent: "" };
+}
+
+/* ============================================================
+   UNIFIED INITIALIZER — RUNS ONCE
+============================================================ */
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("✔ Booking page ready — unified initializer running");
+
+  // Recalculate addonsTotal from array before saveGrandTotal reads it
+  const _addons = JSON.parse(localStorage.getItem(SS_KEYS.addons) || "[]");
+  localStorage.setItem(SS_KEYS.addonsTotal, _addons.reduce((s, a) => s + Number(a.price || 0), 0));
+
+  // saveGrandTotal FIRST — so loadGrandTotalIntoBox5 reads the fresh value
+  saveGrandTotal();
+
+  loadBookingPackage();
+  loadBookingAddons();
+  loadGrandTotalIntoBox5();
+
+  // Travel summary
+  const fee     = localStorage.getItem(SS_KEYS.travelFee)     || "0";
+  const miles   = localStorage.getItem(SS_KEYS.travelMiles)   || "0";
+  const reason  = localStorage.getItem(SS_KEYS.travelReason)  || "";
+  const summary = localStorage.getItem(SS_KEYS.travelSummary)
+               || localStorage.getItem("ss_travel_city") || "";
+
+  document.querySelectorAll('[data-ss-travel="fee"]').forEach(el => el.textContent = `$${Number(fee).toFixed(2)}`);
+  document.querySelectorAll('[data-ss-travel="miles"]').forEach(el => el.textContent = miles);
+  document.querySelectorAll('[data-ss-travel="reason"]').forEach(el => el.textContent = reason);
+  document.querySelectorAll('[data-ss-travel="summary"]').forEach(el => el.textContent = summary);
+  updateStep3Summary();
+  updateContainer4Summary();
+
+  document.getElementById("bkStep1Next")?.addEventListener("click", bkGoToStep2);
+  document.getElementById("bkStep2Next")?.addEventListener("click", bkGoToStep3);
+  document.getElementById("bkStep3Next")?.addEventListener("click", bkGoToStep4);
+
+  document.getElementById("resetBox5Btn")?.addEventListener("click", resetBox5);
+  document.getElementById("resetBookingPageBtn")?.addEventListener("click", resetBookingPage);
+
+  document.getElementById("useLocationBtn")?.addEventListener("click", useThisLocation);
+
+  document.getElementById("timePicker")
+    ?.addEventListener("change", (e) => {
+      const selectedTime = e.target.value;
+      onEventTimeSelected(selectedTime);
+    });
+});
+
+/* ============================================================
+   STEP NAVIGATION
+============================================================ */
+function bkGoToStep2() {
+  document.getElementById("booking-step-2")
+    ?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function bkGoToStep3() {
+  document.getElementById("booking-step-3")
+    ?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function bkGoToStep4() {
+  document.getElementById("booking-step-4")
+    ?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+/* ============================================================
+   CONTAINER1 — BOX 5 — FIRST SUMMARY
+============================================================ */
+function loadBookingPackage() {
+  const name   = localStorage.getItem(SS_KEYS.pkgName) || "—";
+  const price  = Number(localStorage.getItem(SS_KEYS.pkgPrice) || 0);
+  const desc   = localStorage.getItem(SS_KEYS.pkgDesc) || "—";
+  const guests = localStorage.getItem(SS_KEYS.pkgMaxGuests) || "—";
+  const event  = localStorage.getItem(SS_KEYS.pkgEvent) || "—";
+
+  document.querySelectorAll('[data-summary="packageName"]').forEach(el => el.textContent = name);
+  document.querySelectorAll('[data-summary="packagePrice"]').forEach(el => el.textContent = `$${price.toFixed(2)}`);
+  document.querySelectorAll('[data-summary="packageDesc"]').forEach(el => el.textContent = desc);
+  document.querySelectorAll('[data-summary="packageGuests"]').forEach(el => el.textContent = guests);
+  document.querySelectorAll('[data-summary="packageEvent"]').forEach(el => el.textContent = event);
+  document.querySelectorAll('[data-summary="package-total"]').forEach(el => el.textContent = `$${price.toFixed(2)}`);
+}
+
+function loadBookingAddons() {
+  const addons = JSON.parse(localStorage.getItem(SS_KEYS.addons) || "[]");
+
+  let extraHours = 0;
+  let champagne  = 0;
+  let cocktail   = 0;
+  let mocktail   = 0;
+  let garnish    = 0;
+  let customMenu = 0;
+
+  addons.forEach(a => {
+    if (a.name === "Extra Hours") extraHours = a.price;
+    if (a.name.startsWith("Champagne Toast")) champagne = a.price;
+    if (a.name === "Signature Cocktail Creation") cocktail = a.price;
+    if (a.name === "Mocktail Bar") mocktail = a.price;
+    if (a.name === "Specialty Garnish Station") garnish = a.price;
+    if (a.name === "Custom Drink Menu Design") customMenu = a.price;
+  });
+
+  const addonsTotal = addons.reduce((sum, a) => sum + a.price, 0);
+  const travelFee   = Number(localStorage.getItem(SS_KEYS.travelFee) || 0);
+
+  document.querySelectorAll('[data-summary="extra-hours"]').forEach(el => el.textContent = `$${extraHours.toFixed(2)}`);
+  document.querySelectorAll('[data-summary="champagne-toast-price"]').forEach(el => el.textContent = `$${champagne.toFixed(2)}`);
+  document.querySelectorAll('[data-summary="cocktail-creation-price"]').forEach(el => el.textContent = `$${cocktail.toFixed(2)}`);
+  document.querySelectorAll('[data-summary="mocktail-bar-price"]').forEach(el => el.textContent = `$${mocktail.toFixed(2)}`);
+  document.querySelectorAll('[data-summary="garnish-station-price"]').forEach(el => el.textContent = `$${garnish.toFixed(2)}`);
+  document.querySelectorAll('[data-summary="custom-menu-design-price"]').forEach(el => el.textContent = `$${customMenu.toFixed(2)}`);
+
+  document.querySelectorAll('[data-summary="addons-total"]').forEach(el => el.textContent = `$${addonsTotal.toFixed(2)}`);
+  document.querySelectorAll('[data-summary="travel-fee"]').forEach(el => el.textContent = `$${travelFee.toFixed(2)}`);
+}
+
+function loadGrandTotalIntoBox5() {
+  const pkgPrice    = Number(localStorage.getItem(SS_KEYS.pkgPrice)    || 0);
+  const addonsTotal = Number(localStorage.getItem(SS_KEYS.addonsTotal) || 0);
+  const travelFee   = Number(localStorage.getItem(SS_KEYS.travelFee)   || 0);
+  const grand       = pkgPrice + addonsTotal + travelFee;
+  // querySelectorAll so Box 5 (second occurrence) also gets populated
+  document.querySelectorAll('[data-summary="grand-total"]').forEach(el => el.textContent = `$${grand.toFixed(2)}`);
+  document.querySelectorAll('[data-summary="travel-fee"]').forEach(el => el.textContent = `$${travelFee.toFixed(2)}`);
+  document.querySelectorAll('[data-summary="packagePrice"]').forEach(el => el.textContent = `$${pkgPrice.toFixed(2)}`);
+  document.querySelectorAll('[data-summary="addons-total"]').forEach(el => el.textContent = `$${addonsTotal.toFixed(2)}`);
+}
+
+/* ============================================================
+   CONTAINER2 — STEP 2 — YOUR DETAILS
+============================================================ */
+function updateStep2Summary() {
+  const name  = document.getElementById("userName")?.value  || "";
+  const email = document.getElementById("userEmail")?.value || "";
+  const phone = document.getElementById("userPhone")?.value || "";
+  const notes = document.getElementById("userNotes")?.value || "";
+
+  document.querySelectorAll('[data-summary="userName"]').forEach(el => el.textContent = name);
+  document.querySelectorAll('[data-summary="userEmail"]').forEach(el => el.textContent = email);
+  document.querySelectorAll('[data-summary="userPhone"]').forEach(el => el.textContent = phone);
+  document.querySelectorAll('[data-summary="userNotes"]').forEach(el => el.textContent = notes);
+}
+
+/* ============================================================
+   CONTAINER3 — STEP 3 — BOOKING SUMMARY
+============================================================ */
+function updateStep3Summary() {
+  const pkgPrice    = Number(localStorage.getItem(SS_KEYS.pkgPrice) || 0);
+  const addonsTotal = Number(localStorage.getItem(SS_KEYS.addonsTotal) || 0);
+  const travelFee   = Number(localStorage.getItem(SS_KEYS.travelFee) || 0);
+  const grandTotal  = pkgPrice + addonsTotal + travelFee;
+
+  // querySelectorAll hits ALL matching elements — including Box 5
+  document.querySelectorAll('[data-summary="packagePrice"]').forEach(el => el.textContent = `$${pkgPrice.toFixed(2)}`);
+  document.querySelectorAll('[data-summary="addons-total"]').forEach(el => el.textContent = `$${addonsTotal.toFixed(2)}`);
+  document.querySelectorAll('[data-summary="travel-fee"]').forEach(el => el.textContent = `$${travelFee.toFixed(2)}`);
+  document.querySelectorAll('[data-summary="grand-total"]').forEach(el => el.textContent = `$${grandTotal.toFixed(2)}`);
+
+  safeQuery('[data-ss-travel="summary"]').textContent =
+    localStorage.getItem(SS_KEYS.travelSummary) || "—";
+  safeQuery('[data-ss-travel="reason"]').textContent =
+    localStorage.getItem(SS_KEYS.travelReason) || "—";
+  safeQuery('[data-ss-travel="miles"]').textContent =
+    localStorage.getItem(SS_KEYS.travelMiles) || "—";
+  safeQuery('[data-ss-travel="fee"]').textContent =
+    `$${Number(localStorage.getItem(SS_KEYS.travelFee) || 0).toFixed(2)}`;
+
+  document.querySelectorAll('[data-summary="event-date"]').forEach(el => el.textContent = localStorage.getItem(SS_KEYS.eventDate) || "—");
+  document.querySelectorAll('[data-summary="event-time"]').forEach(el => el.textContent = localStorage.getItem(SS_KEYS.eventTime) || "—");
+
+  const duration = localStorage.getItem(SS_KEYS.eventDuration) || "3 hrs";
+  document.querySelectorAll('[data-summary="event-duration"]').forEach(el => el.textContent = duration);
+
+  document.querySelectorAll('[data-summary="event-endTime"]').forEach(el => el.textContent = localStorage.getItem(SS_KEYS.eventEndTime) || "—");
+}
+
+/* ============================================================
+   EVENT TIME
+============================================================ */
+function calculateEventEndTime() {
+  const startTime = localStorage.getItem(SS_KEYS.eventTime);
+  let extraHours  = Number(localStorage.getItem(SS_KEYS.extraHours) || 0);
+
+  if (extraHours > 4) extraHours = 4;
+
+  const baseHours  = 3;
+  const totalHours = baseHours + extraHours;
+
+  if (!startTime) return "—";
+
+  const [time, modifier] = startTime.split(" ");
+  let [hours, minutes]   = time.split(":").map(Number);
+
+  if (modifier === "PM" && hours !== 12) hours += 12;
+  if (modifier === "AM" && hours === 12) hours = 0;
+
+  const startDate = new Date();
+  startDate.setHours(hours);
+  startDate.setMinutes(minutes);
+  startDate.setHours(startDate.getHours() + totalHours);
+
+  let endHours     = startDate.getHours();
+  const endMinutes = startDate.getMinutes().toString().padStart(2, "0");
+  const endModifier = endHours >= 12 ? "PM" : "AM";
+  endHours = endHours % 12 || 12;
+
+  return `${endHours}:${endMinutes} ${endModifier}`;
+}
+
+/* ============================================================
+   EXTRA HOURS + EVENT TIME/DATE HANDLERS
+============================================================ */
+function onExtraHoursSelected(hours) {
+  if (hours > 4) hours = 4;
+
+  localStorage.setItem(SS_KEYS.extraHours, hours);
+
+  const endTime = calculateEventEndTime();
+  localStorage.setItem(SS_KEYS.eventEndTime, endTime);
+
+  const duration = 3 + hours;
+  localStorage.setItem(SS_KEYS.eventDuration, `${duration} hrs`);
+
+  updateStep3Summary();
+  updateContainer4Summary();
+}
+
+function onEventTimeSelected(time) {
+  localStorage.setItem(SS_KEYS.eventTime, time);
+
+  const endTime = calculateEventEndTime();
+  localStorage.setItem(SS_KEYS.eventEndTime, endTime);
+
+  updateStep3Summary();
+  updateContainer4Summary();
+}
+
+function ssOnTime(timeString) {
+  document.getElementById("bsFlTimePlaceholder").textContent = timeString;
+
+  localStorage.setItem(SS_KEYS.eventTime, timeString);
+
+  const endTime = calculateEventEndTime();
+  localStorage.setItem(SS_KEYS.eventEndTime, endTime);
+
+  updateStep3Summary();
+  updateContainer4Summary();
+}
+
+function onEventDateSelected(date) {
+  localStorage.setItem(SS_KEYS.eventDate, date);
+
+  updateStep3Summary();
+  updateContainer4Summary();
+}
+
+function ssSelectDate(dateString) {
+  document.getElementById("bsFlDatePlaceholder").textContent = dateString;
+
+  localStorage.setItem(SS_KEYS.eventDate, dateString);
+
+  updateStep3Summary();
+  updateContainer4Summary();
+}
+
+/* ============================================================
+   TRAVEL SUMMARY + GRAND TOTAL
+============================================================ */
+function saveGrandTotal() {
+  const pkgTotal    = Number(localStorage.getItem(SS_KEYS.pkgPrice) || 0);
+  const addonsTotal = Number(localStorage.getItem(SS_KEYS.addonsTotal) || 0);
+  const travelFee   = Number(localStorage.getItem(SS_KEYS.travelFee) || 0);
+
+  const grand = pkgTotal + addonsTotal + travelFee;
+  localStorage.setItem(SS_KEYS.grandTotal, grand);
+}
+
+function updateContainer4Summary() {
+  const pkgName   = localStorage.getItem(SS_KEYS.pkgName)   || "—";
+  const pkgDesc   = localStorage.getItem(SS_KEYS.pkgDesc)   || "—";
+  const pkgGuests = localStorage.getItem(SS_KEYS.pkgMaxGuests) || "—";
+  const pkgPrice  = Number(localStorage.getItem(SS_KEYS.pkgPrice) || 0);
+
+  document.querySelectorAll('[data-summary="packageName"]').forEach(el => el.textContent = pkgName);
+  document.querySelectorAll('[data-summary="packageDesc"]').forEach(el => el.textContent = pkgDesc);
+  document.querySelectorAll('[data-summary="packageGuests"]').forEach(el => el.textContent = pkgGuests);
+  document.querySelectorAll('[data-summary="packagePrice"]').forEach(el => el.textContent = `$${pkgPrice.toFixed(2)}`);
+
+  const addons = JSON.parse(localStorage.getItem(SS_KEYS.addons) || "[]");
+  const addonsTotal = Number(localStorage.getItem(SS_KEYS.addonsTotal) || 0);
+
+  const findAddon = (name) => {
+    const item = addons.find(a => a.name.includes(name));
+    return item ? item.price : 0;
+  };
+
+  document.querySelectorAll('[data-summary="addon-extraHours"]').forEach(el => el.textContent = `$${findAddon("Extra Hours").toFixed(2)}`);
+  document.querySelectorAll('[data-summary="addon-champagneToast"]').forEach(el => el.textContent = `$${findAddon("Champagne Toast").toFixed(2)}`);
+  document.querySelectorAll('[data-summary="addon-cocktailCreation"]').forEach(el => el.textContent = `$${findAddon("Signature Cocktail Creation").toFixed(2)}`);
+  document.querySelectorAll('[data-summary="addon-mocktailBar"]').forEach(el => el.textContent = `$${findAddon("Mocktail Bar").toFixed(2)}`);
+  document.querySelectorAll('[data-summary="addon-garnishStation"]').forEach(el => el.textContent = `$${findAddon("Specialty Garnish Station").toFixed(2)}`);
+  document.querySelectorAll('[data-summary="addon-customMenu"]').forEach(el => el.textContent = `$${findAddon("Custom Drink Menu Design").toFixed(2)}`);
+
+  document.querySelectorAll('[data-summary="addons-total"]').forEach(el => el.textContent = `$${addonsTotal.toFixed(2)}`);
+
+  const travelMiles  = localStorage.getItem(SS_KEYS.travelMiles)  || "—";
+  const travelZone   = localStorage.getItem(SS_KEYS.travelZone)   || "—";
+  const travelReason = localStorage.getItem(SS_KEYS.travelReason) || "—";
+  const travelFee    = Number(localStorage.getItem(SS_KEYS.travelFee) || 0);
+
+  document.querySelectorAll('[data-summary="travel-miles"]').forEach(el => el.textContent = travelMiles);
+  document.querySelectorAll('[data-summary="travel-zone"]').forEach(el => el.textContent = travelZone);
+  document.querySelectorAll('[data-summary="travel-reason"]').forEach(el => el.textContent = travelReason);
+  document.querySelectorAll('[data-summary="travel-fee"]').forEach(el => el.textContent = `$${travelFee.toFixed(2)}`);
+
+  const eventDate     = localStorage.getItem(SS_KEYS.eventDate)     || "—";
+  const eventTime     = localStorage.getItem(SS_KEYS.eventTime)     || "—";
+  const eventDuration = localStorage.getItem(SS_KEYS.eventDuration) || "—";
+  const eventEndTime  = localStorage.getItem(SS_KEYS.eventEndTime)  || "—";
+  const eventAddress  = localStorage.getItem(SS_KEYS.eventAddress)  || "—";
+  const eventZip      = localStorage.getItem(SS_KEYS.eventZip)      || "—";
+
+  document.querySelectorAll('[data-summary="event-date"]').forEach(el => el.textContent = eventDate);
+  document.querySelectorAll('[data-summary="event-time"]').forEach(el => el.textContent = eventTime);
+  document.querySelectorAll('[data-summary="event-duration"]').forEach(el => el.textContent = eventDuration);
+  document.querySelectorAll('[data-summary="event-endTime"]').forEach(el => el.textContent = eventEndTime);
+  document.querySelectorAll('[data-summary="event-address"]').forEach(el => el.textContent = eventAddress);
+  document.querySelectorAll('[data-summary="event-zip"]').forEach(el => el.textContent = eventZip);
+
+  const contactName  = localStorage.getItem(SS_KEYS.contactName)  || "—";
+  const contactEmail = localStorage.getItem(SS_KEYS.contactEmail) || "—";
+  const contactPhone = localStorage.getItem(SS_KEYS.contactPhone) || "—";
+  const contactNotes = localStorage.getItem(SS_KEYS.contactNotes) || "—";
+
+  document.querySelectorAll('[data-summary="contact-name"]').forEach(el => el.textContent = contactName);
+  document.querySelectorAll('[data-summary="contact-email"]').forEach(el => el.textContent = contactEmail);
+  document.querySelectorAll('[data-summary="contact-phone"]').forEach(el => el.textContent = contactPhone);
+  document.querySelectorAll('[data-summary="contact-notes"]').forEach(el => el.textContent = contactNotes);
+
+  const grandTotal = Number(localStorage.getItem(SS_KEYS.grandTotal) || 0);
+  document.querySelectorAll('[data-summary="grand-total"]').forEach(el => el.textContent = `$${grandTotal.toFixed(2)}`);
+}
+
+/* ============================================================
+   RESET FUNCTIONS
+============================================================ */
+function resetBox5() {
+  Object.values(SS_KEYS).forEach(k => localStorage.removeItem(k));
+  location.reload();
+}
+
+function resetBookingPage() {
+  Object.values(SS_KEYS).forEach(k => localStorage.removeItem(k));
+  location.reload();
+}
+
+/* ============================================================
+   USE LOCATION (travel summary override)
+============================================================ */
+function useThisLocation() {
+  const loc = document.getElementById("eventLocation").value || "";
+  localStorage.setItem(SS_KEYS.travelSummary, loc);
+
+  document.querySelectorAll('[data-ss-travel="summary"]').forEach(el => {
+    el.textContent = loc;
+  });
+
+  updateStep3Summary();
+  updateContainer4Summary();
+}

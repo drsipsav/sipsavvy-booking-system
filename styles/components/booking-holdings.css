@@ -1,0 +1,3352 @@
+
+:root {
+
+  /* ── Brand Palette ─────────────────────────────────────── */
+  --color-wine:          #722F37;   /* primary brand burgundy  */
+  --color-wine-dark:     #541E25;   /* hover / pressed state   */
+  --color-wine-deeper:   #3D1219;   /* darkest, used in hero   */
+  --color-wine-light:    #9B4451;   /* tints, borders          */
+  --color-wine-muted:    #C48C95;   /* disabled / ghost fill   */
+  --color-wine-tint:     #F5E9EA;   /* very light rose wash    */
+
+  --color-white:         #FFFFFF;
+  --color-cream:         #FBF7F4;   /* page background default */
+  --color-cream-dark:    #F0E8E1;   /* card / section alt bg   */
+
+  --color-gold:          #C9A84C;   /* accent — awards, stars  */
+  --color-gold-light:    #E6CC80;   /* hover gold              */
+  --color-gold-dark:     #A07C2E;   /* active gold             */
+  --color-gold-tint:     #FDF3DC;   /* very light gold wash    */
+
+  --color-charcoal:      #2C2020;   /* primary text            */
+  --color-ink:           #4A3A3A;   /* body text               */
+  --color-muted:         #7A6A6A;   /* secondary / caption     */
+  --color-border:        #DDCCCC;   /* default border          */
+  --color-border-light:  #EDE4E4;   /* subtle separator        */
+
+  --color-success:       #2E7D4F;
+  --color-success-bg:    #E8F5EE;
+  --color-error:         #B91C1C;
+  --color-error-bg:      #FEF2F2;
+  --color-warning:       #92400E;
+  --color-warning-bg:    #FFFBEB;
+  --color-info:          #1D4ED8;
+  --color-info-bg:       #EFF6FF;
+
+  /* ── Booking Form Lifecycle Surfaces ───────────────────── */
+  /* wine  → initial / confirmation wrapper tint             */
+  /* white → active input / step surface                     */
+  --booking-surface-wine:      var(--color-wine-tint);
+  --booking-surface-wine-border: var(--color-wine-light);
+  --booking-surface-white:     var(--color-white);
+  --booking-surface-white-border: var(--color-border);
+
+  /* ── Typography ────────────────────────────────────────── */
+  --font-serif:   'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-sans:    'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono:    'JetBrains Mono', 'Fira Code', Consolas, monospace;
+
+  --text-xs:   0.75rem;   /*  12px */
+  --text-sm:   0.875rem;  /*  14px */
+  --text-base: 1rem;      /*  16px */
+  --text-md:   1.125rem;  /*  18px */
+  --text-lg:   1.25rem;   /*  20px */
+  --text-xl:   1.5rem;    /*  24px */
+  --text-2xl:  1.875rem;  /*  30px */
+  --text-3xl:  2.25rem;   /*  36px */
+  --text-4xl:  3rem;      /*  48px */
+  --text-5xl:  3.75rem;   /*  60px */
+
+  --leading-tight:  1.25;
+  --leading-snug:   1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed:1.625;
+  --leading-loose:  2;
+
+  --tracking-tight:  -0.025em;
+  --tracking-normal:  0em;
+  --tracking-wide:    0.05em;
+  --tracking-wider:   0.1em;
+  --tracking-widest:  0.2em;
+
+  --weight-light:   300;
+  --weight-regular: 400;
+  --weight-medium:  500;
+  --weight-semibold:600;
+  --weight-bold:    700;
+  --weight-black:   900;
+
+  /* ── Spacing Scale ─────────────────────────────────────── */
+  --space-0:   0;
+  --space-1:   0.25rem;   /*  4px */
+  --space-2:   0.5rem;    /*  8px */
+  --space-3:   0.75rem;   /* 12px */
+  --space-4:   1rem;      /* 16px */
+  --space-5:   1.25rem;   /* 20px */
+  --space-6:   1.5rem;    /* 24px */
+  --space-8:   2rem;      /* 32px */
+  --space-10:  2.5rem;    /* 40px */
+  --space-12:  3rem;      /* 48px */
+  --space-16:  4rem;      /* 64px */
+  --space-20:  5rem;      /* 80px */
+  --space-24:  6rem;      /* 96px */
+  --space-32:  8rem;      /* 128px */
+
+  /* ── Layout ────────────────────────────────────────────── */
+  --max-width-xs:   20rem;    /* 320px  */
+  --max-width-sm:   36rem;    /* 576px  */
+  --max-width-md:   48rem;    /* 768px  */
+  --max-width-lg:   64rem;    /* 1024px */
+  --max-width-xl:   80rem;    /* 1280px */
+  --max-width-2xl:  90rem;    /* 1440px */
+
+  --header-height:     4.5rem;   /* 72px  */
+  --header-height-sm:  3.5rem;   /* 56px – compact on scroll */
+  --hero-min-height:   90vh;
+  --section-pad-y:     var(--space-20);
+  --section-pad-x:     var(--space-6);
+  --container-pad:     var(--space-6);
+
+  /* ── Border Radius ─────────────────────────────────────── */
+  --radius-none:  0;
+  --radius-sm:    0.25rem;
+  --radius-md:    0.5rem;
+  --radius-lg:    0.75rem;
+  --radius-xl:    1rem;
+  --radius-2xl:   1.5rem;
+  --radius-full:  9999px;
+
+  /* ── Shadows ────────────────────────────────────────────── */
+  --shadow-xs:  0 1px 2px rgba(44, 32, 32, 0.06);
+  --shadow-sm:  0 2px 6px rgba(44, 32, 32, 0.08);
+  --shadow-md:  0 4px 16px rgba(44, 32, 32, 0.12);
+  --shadow-lg:  0 8px 32px rgba(44, 32, 32, 0.16);
+  --shadow-xl:  0 16px 56px rgba(44, 32, 32, 0.20);
+  --shadow-wine:0 4px 24px rgba(114, 47, 55, 0.25);
+  --shadow-gold:0 4px 20px rgba(201, 168, 76, 0.30);
+  --shadow-inset: inset 0 2px 4px rgba(44, 32, 32, 0.10);
+
+  /* ── Z-Index Scale ──────────────────────────────────────── */
+  --z-base:     0;
+  --z-raised:   10;
+  --z-dropdown: 100;
+  --z-sticky:   200;
+  --z-overlay:  300;
+  --z-modal:    400;
+  --z-toast:    500;
+  --z-tooltip:  600;
+
+  /* ── Transitions ────────────────────────────────────────── */
+  --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in:     cubic-bezier(0.64, 0, 0.78, 0);
+  --ease-inout:  cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --duration-fast:   150ms;
+  --duration-base:   250ms;
+  --duration-slow:   400ms;
+  --duration-slower: 600ms;
+  --duration-lazy:   900ms;
+
+  --transition-base:     all var(--duration-base) var(--ease-out);
+  --transition-color:    color var(--duration-base) var(--ease-out),
+                         background-color var(--duration-base) var(--ease-out),
+                         border-color var(--duration-base) var(--ease-out);
+  --transition-transform:transform var(--duration-base) var(--ease-out);
+  --transition-shadow:   box-shadow var(--duration-base) var(--ease-out);
+  --transition-opacity:  opacity var(--duration-base) var(--ease-out);
+
+  /* ── Overlay / Backdrop ─────────────────────────────────── */
+  --overlay-wine:  rgba(61, 18, 25, 0.72);
+  --overlay-dark:  rgba(0, 0, 0, 0.55);
+  --overlay-light: rgba(255, 255, 255, 0.85);
+  --backdrop-blur: blur(12px);
+
+}
+
+/* ============================================================
+   SipSavvy Design System — styles/animations.css
+   Global keyframes + utility motion classes.
+   Respects prefers-reduced-motion throughout.
+   Import AFTER styles/variables.css.
+   ============================================================ */
+
+/* ── Keyframe Library ─────────────────────────────────────── */
+
+@keyframes ss-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes ss-fade-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+@keyframes ss-fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+@keyframes ss-fade-down {
+  from { opacity: 0; transform: translateY(-24px); }
+  to   { opacity: 1; transform: translateY(0);     }
+}
+
+@keyframes ss-fade-left {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0);    }
+}
+
+@keyframes ss-fade-right {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0);     }
+}
+
+@keyframes ss-scale-in {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1);    }
+}
+
+@keyframes ss-scale-out {
+  from { opacity: 1; transform: scale(1);    }
+  to   { opacity: 0; transform: scale(0.92); }
+}
+
+@keyframes ss-slide-up {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0);    }
+}
+
+@keyframes ss-slide-down {
+  from { transform: translateY(-100%); }
+  to   { transform: translateY(0);     }
+}
+
+/* Booking lifecycle: wine surface pulses on transition */
+@keyframes ss-surface-to-white {
+  0%   { background-color: var(--booking-surface-wine);
+         border-color:     var(--booking-surface-wine-border); }
+  100% { background-color: var(--booking-surface-white);
+         border-color:     var(--booking-surface-white-border); }
+}
+
+@keyframes ss-surface-to-wine {
+  0%   { background-color: var(--booking-surface-white);
+         border-color:     var(--booking-surface-white-border); }
+  100% { background-color: var(--booking-surface-wine);
+         border-color:     var(--booking-surface-wine-border); }
+}
+
+@keyframes ss-wine-pulse {
+  0%, 100% { box-shadow: 0 0 0 0   rgba(114, 47, 55, 0); }
+  50%       { box-shadow: 0 0 0 8px rgba(114, 47, 55, 0.18); }
+}
+
+@keyframes ss-shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+@keyframes ss-spin {
+  from { transform: rotate(0deg);   }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes ss-bounce {
+  0%, 100% { transform: translateY(0);    animation-timing-function: var(--ease-out); }
+  50%       { transform: translateY(-12px); animation-timing-function: var(--ease-in);  }
+}
+
+@keyframes ss-shake {
+  0%, 100% { transform: translateX(0);   }
+  20%       { transform: translateX(-6px); }
+  40%       { transform: translateX(6px);  }
+  60%       { transform: translateX(-4px); }
+  80%       { transform: translateX(4px);  }
+}
+
+@keyframes ss-hero-zoom {
+  from { transform: scale(1.06); }
+  to   { transform: scale(1);    }
+}
+
+@keyframes ss-underline-grow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@keyframes ss-progress-fill {
+  from { width: 0%; }
+  to   { width: var(--progress-value, 100%); }
+}
+
+/* ── Utility Animation Classes ────────────────────────────── */
+
+/* Entry animations — add class to trigger */
+.anim-fade-in       { animation: ss-fade-in  var(--duration-slow) var(--ease-out) both; }
+.anim-fade-up       { animation: ss-fade-up   var(--duration-slow) var(--ease-out) both; }
+.anim-fade-down     { animation: ss-fade-down var(--duration-slow) var(--ease-out) both; }
+.anim-fade-left     { animation: ss-fade-left var(--duration-slow) var(--ease-out) both; }
+.anim-fade-right    { animation: ss-fade-right var(--duration-slow) var(--ease-out) both; }
+.anim-scale-in      { animation: ss-scale-in var(--duration-slow) var(--ease-spring) both; }
+
+/* Continuous */
+.anim-spin          { animation: ss-spin   800ms linear infinite; }
+.anim-bounce        { animation: ss-bounce 1.2s var(--ease-inout) infinite; }
+.anim-pulse-wine    { animation: ss-wine-pulse 2s ease-in-out infinite; }
+.anim-shimmer       { animation: ss-shimmer 1.8s linear infinite;
+                      background: linear-gradient(
+                        90deg,
+                        var(--color-cream-dark) 25%,
+                        var(--color-cream) 50%,
+                        var(--color-cream-dark) 75%
+                      );
+                      background-size: 200% auto; }
+
+/* Attention / feedback */
+.anim-shake         { animation: ss-shake 400ms var(--ease-out); }
+
+/* Stagger delay helpers */
+.anim-delay-1 { animation-delay:  100ms; }
+.anim-delay-2 { animation-delay:  200ms; }
+.anim-delay-3 { animation-delay:  300ms; }
+.anim-delay-4 { animation-delay:  400ms; }
+.anim-delay-5 { animation-delay:  500ms; }
+.anim-delay-6 { animation-delay:  700ms; }
+
+/* Duration overrides */
+.anim-fast          { animation-duration: var(--duration-fast);   }
+.anim-slow          { animation-duration: var(--duration-slower); }
+
+/* ── Booking Lifecycle Motion Classes ─────────────────────── */
+/* Applied by JS on step change */
+
+/* Step panel entering the active (white) state */
+.booking-enter-white {
+  animation: ss-surface-to-white var(--duration-slower) var(--ease-out) forwards,
+             ss-fade-up           var(--duration-slow)   var(--ease-out) both;
+}
+
+/* Step panel returning to wine (confirmation / idle) */
+.booking-enter-wine {
+  animation: ss-surface-to-wine var(--duration-slower) var(--ease-out) forwards,
+             ss-scale-in         var(--duration-slow)   var(--ease-spring) both;
+}
+
+/* Booking step progress bar fill */
+.booking-progress-fill {
+  animation: ss-progress-fill var(--duration-lazy) var(--ease-out) forwards;
+}
+
+/* ── Scroll-triggered Reveal (JS adds .is-visible) ────────── */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--duration-slower) var(--ease-out),
+              transform var(--duration-slower) var(--ease-out);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity var(--duration-slower) var(--ease-out),
+              transform var(--duration-slower) var(--ease-out);
+}
+
+.reveal-left.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── Hero Pan ─────────────────────────────────────────────── */
+.hero-bg-zoom {
+  animation: ss-hero-zoom 1.4s var(--ease-out) both;
+}
+
+/* ── Hover Lift (non-button contexts) ─────────────────────── */
+.hover-lift {
+  transition: transform var(--duration-base) var(--ease-out),
+              box-shadow var(--duration-base) var(--ease-out);
+}
+.hover-lift:hover {
+  transform:  translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ── Reduced Motion Override ──────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration:       0.01ms !important;
+    animation-iteration-count: 1     !important;
+    transition-duration:      0.01ms !important;
+  }
+  .reveal,
+  .reveal-left {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ============================================================
+   SipSavvy Design System — styles/variables.css
+   All button variants, sizes, states, and icon utilities.
+   Requires styles/variables.css.
+   ============================================================ */
+
+/* ── Base Reset ───────────────────────────────────────────── */
+.btn {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  gap:             var(--space-2);
+
+  font-family:     var(--font-sans);
+  font-size:       var(--text-sm);
+  font-weight:     var(--weight-semibold);
+  letter-spacing:  var(--tracking-wide);
+  text-transform:  uppercase;
+  white-space:     nowrap;
+  text-decoration: none;
+  line-height:     1;
+
+  padding:         var(--space-3) var(--space-6);
+  border:          2px solid transparent;
+  border-radius:   var(--radius-full);
+  cursor:          pointer;
+  position:        relative;
+  overflow:        hidden;
+  user-select:     none;
+  -webkit-tap-highlight-color: transparent;
+
+  transition: var(--transition-color),
+              var(--transition-shadow),
+              transform var(--duration-fast) var(--ease-out);
+}
+
+.btn:focus-visible {
+  outline:        2px solid var(--color-wine-light);
+  outline-offset: 3px;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity:        0.45;
+  pointer-events: none;
+  cursor:         not-allowed;
+}
+
+/* ── Variant: Primary (Wine filled) ──────────────────────── */
+.btn-primary {
+  background-color: var(--color-wine);
+  border-color:     var(--color-wine);
+  color:            var(--color-white);
+  box-shadow:       var(--shadow-wine);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-wine-dark);
+  border-color:     var(--color-wine-dark);
+  box-shadow:       var(--shadow-lg);
+  transform:        translateY(-1px);
+}
+
+.btn-primary:active {
+  background-color: var(--color-wine-deeper);
+  border-color:     var(--color-wine-deeper);
+  box-shadow:       var(--shadow-sm);
+  transform:        translateY(0) scale(0.97);
+}
+
+/* ── Variant: Secondary (Outlined wine) ──────────────────── */
+.btn-secondary {
+  background-color: transparent;
+  border-color:     var(--color-wine);
+  color:            var(--color-wine);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-wine-tint);
+  border-color:     var(--color-wine-dark);
+  color:            var(--color-wine-dark);
+  transform:        translateY(-1px);
+}
+
+.btn-secondary:active {
+  background-color: var(--color-wine-muted);
+  transform:        translateY(0) scale(0.97);
+}
+
+/* ── Variant: Ghost (no background or border) ────────────── */
+.btn-ghost {
+  background-color: transparent;
+  border-color:     transparent;
+  color:            var(--color-wine);
+  box-shadow:       none;
+  padding-left:     var(--space-3);
+  padding-right:    var(--space-3);
+}
+
+.btn-ghost:hover {
+  background-color: var(--color-wine-tint);
+  color:            var(--color-wine-dark);
+}
+
+/* ── Variant: Gold accent ────────────────────────────────── */
+
+
+/* ── Variant: White (for use on dark / wine backgrounds) ─── */
+.btn-white {
+  background-color: var(--color-white);
+  border-color:     var(--color-white);
+  color:            var(--color-wine);
+  box-shadow:       var(--shadow-md);
+}
+
+.btn-white:hover {
+  background-color: var(--color-cream);
+  border-color:     var(--color-cream);
+  transform:        translateY(-1px);
+  box-shadow:       var(--shadow-lg);
+}
+
+/* ── Variant: Danger ─────────────────────────────────────── */
+.btn-danger {
+  background-color: var(--color-error);
+  border-color:     var(--color-error);
+  color:            var(--color-white);
+}
+
+.btn-danger:hover {
+  filter:    brightness(1.1);
+  transform: translateY(-1px);
+}
+
+/* ── Sizes ───────────────────────────────────────────────── */
+.btn-xs {
+  font-size:    var(--text-xs);
+  padding:      var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+}
+
+.btn-sm {
+  font-size:    var(--text-xs);
+  padding:      var(--space-2) var(--space-5);
+}
+
+/* .btn = default (md) */
+
+.btn-lg {
+  font-size:    var(--text-base);
+  padding:      var(--space-4) var(--space-8);
+}
+
+.btn-xl {
+  font-size:    var(--text-md);
+  padding:      var(--space-5) var(--space-10);
+  letter-spacing: var(--tracking-wider);
+}
+
+/* ── Layout Modifiers ────────────────────────────────────── */
+.btn-full  { width: 100%; }
+.btn-icon  { padding: var(--space-3); aspect-ratio: 1; }
+.btn-round { border-radius: var(--radius-full); }
+
+/* ── Loading Spinner State ───────────────────────────────── */
+.btn.is-loading {
+  pointer-events: none;
+  color:          transparent !important;
+}
+
+.btn.is-loading::after {
+  content:      '';
+  position:     absolute;
+  inset:        0;
+  margin:       auto;
+  width:        1em;
+  height:       1em;
+  border:       2px solid currentColor;
+  border-color: rgba(255,255,255,0.4) rgba(255,255,255,0.4)
+                rgba(255,255,255,0.4) rgba(255,255,255,1);
+  border-radius:var(--radius-full);
+  animation:    ss-spin 700ms linear infinite;
+  color:        var(--color-white);
+}
+
+/* secondary/ghost spinner uses wine tint */
+.btn-secondary.is-loading::after,
+.btn-ghost.is-loading::after {
+  border-color: var(--color-wine-muted) var(--color-wine-muted)
+                var(--color-wine-muted) var(--color-wine);
+}
+
+/* ── Ripple Effect (JS adds .ripple span) ────────────────── */
+.btn .ripple {
+  position:      absolute;
+  border-radius: var(--radius-full);
+  background:    rgba(255, 255, 255, 0.25);
+  transform:     scale(0);
+  animation:     ripple-expand 500ms linear;
+  pointer-events: none;
+}
+
+@keyframes ripple-expand {
+  to { transform: scale(4); opacity: 0; }
+}
+
+/* ── Button Group ────────────────────────────────────────── */
+.btn-group {
+  display:   inline-flex;
+  flex-wrap: wrap;
+  gap:       var(--space-3);
+}
+
+.btn-group-attached {
+  display: inline-flex;
+}
+
+.btn-group-attached .btn {
+  border-radius: 0;
+}
+
+.btn-group-attached .btn:first-child {
+  border-radius: var(--radius-full) 0 0 var(--radius-full);
+}
+
+.btn-group-attached .btn:last-child {
+  border-radius: 0 var(--radius-full) var(--radius-full) 0;
+  border-left-width: 1px;
+}
+
+/* ── CTA Strip (hero / booking confirm buttons) ──────────── */
+.cta-strip {
+  display:     flex;
+  flex-wrap:   wrap;
+  gap:         var(--space-4);
+  align-items: center;
+}
+
+@media (max-width: 480px) {
+  .cta-strip { flex-direction: column; }
+  .cta-strip .btn { width: 100%; }
+}
+
+/* ============================================================
+   SipSavvy Design System — styles/cards.css
+   Card component system: base, variants, sizes, interactive.
+   Requires styles/variables.css, styles/animations.css.
+   ============================================================ */
+
+/* ── Base Card ────────────────────────────────────────────── */
+.card {
+  background-color: var(--color-white);
+  border:           1px solid var(--color-border-light);
+  border-radius:    var(--radius-xl);
+  box-shadow:       var(--shadow-sm);
+  overflow:         hidden;
+  position:         relative;
+  transition:       box-shadow  var(--duration-base) var(--ease-out),
+                    transform   var(--duration-base) var(--ease-out),
+                    border-color var(--duration-base) var(--ease-out);
+}
+
+/* ── Card Inner Regions ──────────────────────────────────── */
+.card-media {
+  position:   relative;
+  overflow:   hidden;
+  aspect-ratio: 16 / 9;
+}
+
+.card-media img {
+  width:      100%;
+  height:     100%;
+  object-fit: cover;
+  display:    block;
+  transition: transform var(--duration-slower) var(--ease-out);
+}
+
+.card-body {
+  padding: var(--space-6);
+}
+
+.card-body-sm {
+  padding: var(--space-4);
+}
+
+.card-footer {
+  padding:      var(--space-4) var(--space-6);
+  border-top:   1px solid var(--color-border-light);
+  display:      flex;
+  align-items:  center;
+  gap:          var(--space-3);
+  flex-wrap:    wrap;
+  background-color: var(--color-cream);
+}
+
+.card-header {
+  padding:       var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--color-border-light);
+  background-color: var(--color-cream);
+}
+
+/* ── Card Typography Helpers ─────────────────────────────── */
+.card-label {
+  font-family:    var(--font-sans);
+  font-size:      var(--text-xs);
+  font-weight:    var(--weight-semibold);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color:          var(--color-wine);
+  margin-bottom:  var(--space-2);
+}
+
+.card-title {
+  font-family:  var(--font-serif);
+  font-size:    var(--text-xl);
+  font-weight:  var(--weight-bold);
+  color:        var(--color-charcoal);
+  line-height:  var(--leading-snug);
+  margin-bottom: var(--space-2);
+}
+
+.card-subtitle {
+  font-size:  var(--text-sm);
+  color:      var(--color-muted);
+  margin-bottom: var(--space-4);
+}
+
+.card-text {
+  font-size:   var(--text-base);
+  color:       var(--color-ink);
+  line-height: var(--leading-relaxed);
+}
+
+/* ── Variant: Interactive / Clickable ────────────────────── */
+.card-interactive {
+  cursor: pointer;
+  text-decoration: none;
+  color:  inherit;
+  display: block;
+}
+
+.card-interactive:hover {
+  box-shadow:   var(--shadow-lg);
+  transform:    translateY(-4px);
+  border-color: var(--color-border);
+}
+
+.card-interactive:hover .card-media img {
+  transform: scale(1.04);
+}
+
+.card-interactive:focus-visible {
+  outline:        2px solid var(--color-wine);
+  outline-offset: 3px;
+}
+
+/* ── Variant: Wine (brand-coloured) ──────────────────────── */
+.card-wine {
+  background-color: var(--color-wine);
+  border-color:     var(--color-wine-dark);
+  color:            var(--color-white);
+}
+
+.card-wine .card-label {
+  color: var(--color-gold-light);
+}
+
+.card-wine .card-title {
+  color: var(--color-white);
+}
+
+.card-wine .card-subtitle,
+.card-wine .card-text {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.card-wine .card-footer {
+  background-color: var(--color-wine-dark);
+  border-color:     rgba(255,255,255,0.15);
+}
+
+/* ── Variant: Cream / Tinted ─────────────────────────────── */
+.card-cream {
+  background-color: var(--color-cream);
+  border-color:     var(--color-border);
+}
+
+.card-cream .card-footer {
+  background-color: var(--color-cream-dark);
+}
+
+/* ── Variant: Glass (hero overlay cards) ─────────────────── */
+.card-glass {
+  background:    rgba(255, 255, 255, 0.12);
+  border-color:  rgba(255, 255, 255, 0.20);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  color:         var(--color-white);
+}
+
+.card-glass .card-title { color: var(--color-white); }
+.card-glass .card-text  { color: rgba(255,255,255,0.82); }
+
+/* ── Variant: Outlined (no fill) ─────────────────────────── */
+.card-outlined {
+  background-color: transparent;
+  border:           2px solid var(--color-border);
+  box-shadow:       none;
+}
+
+.card-outlined:hover {
+  border-color: var(--color-wine-light);
+}
+
+/* ── Variant: Flat (no shadow/border) ────────────────────── */
+.card-flat {
+  box-shadow: none;
+  border:     none;
+}
+
+/* ── Experience / Package Cards (vertical portrait) ──────── */
+.card-experience {
+  display:        flex;
+  flex-direction: column;
+  height:         100%;
+}
+
+.card-experience .card-media {
+  aspect-ratio: 3 / 2;
+}
+
+.card-experience .card-body {
+  flex: 1;
+}
+
+.card-experience .card-footer {
+  justify-content: space-between;
+}
+
+/* ── Price Badge inside card ─────────────────────────────── */
+.card-price {
+  font-family:  var(--font-serif);
+  font-size:    var(--text-xl);
+  font-weight:  var(--weight-bold);
+  color:        var(--color-wine);
+  display:      flex;
+  align-items:  baseline;
+  gap:          var(--space-1);
+}
+
+.card-price-unit {
+  font-family:  var(--font-sans);
+  font-size:    var(--text-sm);
+  font-weight:  var(--weight-regular);
+  color:        var(--color-muted);
+}
+
+/* ── Badge / Tag overlays on card-media ──────────────────── */
+.card-badge {
+  position:         absolute;
+  top:              var(--space-3);
+  left:             var(--space-3);
+  background-color: var(--color-wine);
+  color:            var(--color-white);
+  font-family:      var(--font-sans);
+  font-size:        var(--text-xs);
+  font-weight:      var(--weight-semibold);
+  letter-spacing:   var(--tracking-wide);
+  text-transform:   uppercase;
+  padding:          var(--space-1) var(--space-3);
+  border-radius:    var(--radius-full);
+}
+
+.card-badge-gold {
+  background-color: var(--color-gold);
+  color:            var(--color-charcoal);
+}
+
+/* ── Rating Row ──────────────────────────────────────────── */
+.card-rating {
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-1);
+  font-size:   var(--text-sm);
+  color:       var(--color-muted);
+}
+
+.card-rating-star {
+  color: var(--color-gold);
+  font-size: var(--text-base);
+}
+
+/* ── Card Grid Layouts ───────────────────────────────────── */
+.card-grid {
+  display:               grid;
+  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+  gap:                   var(--space-8);
+}
+
+.card-grid-tight {
+  gap: var(--space-5);
+}
+
+.card-grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.card-grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 768px) {
+  .card-grid-2,
+  .card-grid-3 { grid-template-columns: 1fr; }
+  .card-grid   { grid-template-columns: 1fr; }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .card-grid   { grid-template-columns: repeat(2, 1fr); }
+  .card-grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ── Horizontal Card (list view) ─────────────────────────── */
+.card-horizontal {
+  display:   flex;
+  flex-direction: row;
+}
+
+.card-horizontal .card-media {
+  width:       10rem;
+  min-width:   10rem;
+  aspect-ratio: unset;
+  flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .card-horizontal           { flex-direction: column; }
+  .card-horizontal .card-media { width: 100%; }
+}
+
+/* ── Skeleton Loading Card ───────────────────────────────── */
+.card-skeleton .card-media,
+.card-skeleton .card-title,
+.card-skeleton .card-text,
+.card-skeleton .card-label {
+  background:    var(--color-cream-dark);
+  border-radius: var(--radius-sm);
+  color:         transparent;
+  user-select:   none;
+}
+
+.card-skeleton {
+  animation: ss-shimmer 1.6s linear infinite;
+  background: linear-gradient(
+    90deg,
+    var(--color-cream-dark) 25%,
+    var(--color-cream)      50%,
+    var(--color-cream-dark) 75%
+  );
+  background-size: 200% auto;
+}
+
+/* ============================================================
+   SipSavvy Design System — styles/forms.css
+   Full form system: layout, fields, labels, validation,
+   checkboxes, radios, selects, file upload, date pickers.
+   Requires styles/variables.css.
+   ============================================================ */
+
+/* ── Form Container ──────────────────────────────────────── */
+.form {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--space-5);
+}
+
+.form-row {
+  display:   grid;
+  grid-template-columns: 1fr 1fr;
+  gap:       var(--space-4);
+}
+
+@media (max-width: 600px) {
+  .form-row { grid-template-columns: 1fr; }
+}
+
+.form-row-3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+@media (max-width: 768px) {
+  .form-row-3 { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 480px) {
+  .form-row-3 { grid-template-columns: 1fr; }
+}
+
+/* ── Field Group ─────────────────────────────────────────── */
+.form-field {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--space-2);
+  position:       relative;
+}
+
+/* ── Label ───────────────────────────────────────────────── */
+.form-label {
+  font-family:    var(--font-sans);
+  font-size:      var(--text-sm);
+  font-weight:    var(--weight-semibold);
+  color:          var(--color-charcoal);
+  display:        flex;
+  align-items:    center;
+  gap:            var(--space-1);
+}
+
+.form-label-required::after {
+  content:     ' *';
+  color:       var(--color-error);
+  font-weight: var(--weight-bold);
+}
+
+.form-label-hint {
+  font-weight: var(--weight-regular);
+  color:       var(--color-muted);
+  font-size:   var(--text-xs);
+  margin-left: var(--space-1);
+}
+
+/* ── Base Input Styles ───────────────────────────────────── */
+.form-input,
+.form-select,
+.form-textarea {
+  width:            100%;
+  font-family:      var(--font-sans);
+  font-size:        var(--text-base);
+  color:            var(--color-charcoal);
+  background-color: var(--color-white);
+  border:           1.5px solid var(--color-border);
+  border-radius:    var(--radius-lg);
+  padding:          var(--space-3) var(--space-4);
+  line-height:      var(--leading-normal);
+  appearance:       none;
+  -webkit-appearance: none;
+  outline:          none;
+  transition:       border-color var(--duration-fast) var(--ease-out),
+                    box-shadow   var(--duration-fast) var(--ease-out),
+                    background-color var(--duration-base) var(--ease-out);
+  box-sizing:       border-box;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--color-muted);
+}
+
+/* Focus */
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  border-color: var(--color-wine);
+  box-shadow:   0 0 0 3px var(--color-wine-tint);
+}
+
+/* Hover (unfocused) */
+.form-input:hover:not(:focus):not(:disabled),
+.form-select:hover:not(:focus):not(:disabled),
+.form-textarea:hover:not(:focus):not(:disabled) {
+  border-color: var(--color-wine-muted);
+}
+
+/* Disabled */
+.form-input:disabled,
+.form-select:disabled,
+.form-textarea:disabled {
+  background-color: var(--color-cream-dark);
+  color:            var(--color-muted);
+  cursor:           not-allowed;
+  border-color:     var(--color-border-light);
+}
+
+/* Read-only */
+.form-input:read-only:not(:disabled) {
+  background-color: var(--color-cream);
+  cursor:           default;
+}
+
+/* ── Validation States ───────────────────────────────────── */
+.form-field.is-valid .form-input,
+.form-field.is-valid .form-select,
+.form-field.is-valid .form-textarea {
+  border-color: var(--color-success);
+  box-shadow:   0 0 0 3px var(--color-success-bg);
+}
+
+.form-field.is-invalid .form-input,
+.form-field.is-invalid .form-select,
+.form-field.is-invalid .form-textarea {
+  border-color: var(--color-error);
+  box-shadow:   0 0 0 3px var(--color-error-bg);
+  animation:    ss-shake 400ms var(--ease-out);
+}
+
+.form-hint {
+  font-size:   var(--text-xs);
+  color:       var(--color-muted);
+  line-height: var(--leading-normal);
+}
+
+.form-hint-error {
+  color: var(--color-error);
+  font-weight: var(--weight-medium);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.form-hint-success {
+  color: var(--color-success);
+  font-weight: var(--weight-medium);
+}
+
+/* ── Textarea ────────────────────────────────────────────── */
+.form-textarea {
+  resize:     vertical;
+  min-height: 8rem;
+}
+
+/* ── Select ──────────────────────────────────────────────── */
+.form-select-wrap {
+  position: relative;
+}
+
+.form-select-wrap::after {
+  content:     '';
+  position:    absolute;
+  right:       var(--space-4);
+  top:         50%;
+  transform:   translateY(-50%);
+  width:       0;
+  height:      0;
+  border-left:  5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top:   6px solid var(--color-muted);
+  pointer-events: none;
+}
+
+.form-select {
+  padding-right: var(--space-10);
+  cursor:        pointer;
+}
+
+/* ── Checkbox & Radio ────────────────────────────────────── */
+.form-check {
+  display:     flex;
+  align-items: flex-start;
+  gap:         var(--space-3);
+  cursor:      pointer;
+  user-select: none;
+}
+
+.form-check-input {
+  flex-shrink:  0;
+  width:        1.125rem;
+  height:       1.125rem;
+  border:       2px solid var(--color-border);
+  border-radius:var(--radius-sm);
+  background-color: var(--color-white);
+  appearance:   none;
+  -webkit-appearance: none;
+  cursor:       pointer;
+  position:     relative;
+  margin-top:   0.1em;
+  transition:   background-color var(--duration-fast) var(--ease-out),
+                border-color     var(--duration-fast) var(--ease-out);
+}
+
+.form-check-input[type="radio"] {
+  border-radius: var(--radius-full);
+}
+
+.form-check-input:checked {
+  background-color: var(--color-wine);
+  border-color:     var(--color-wine);
+}
+
+.form-check-input[type="checkbox"]:checked::after {
+  content:    '';
+  position:   absolute;
+  inset:      0;
+  margin:     auto;
+  width:      0.35rem;
+  height:     0.6rem;
+  border:     2px solid var(--color-white);
+  border-top: none;
+  border-left:none;
+  transform:  rotate(45deg) translate(-1px, -1px);
+}
+
+.form-check-input[type="radio"]:checked::after {
+  content:         '';
+  position:        absolute;
+  inset:           0;
+  margin:          auto;
+  width:           0.45rem;
+  height:          0.45rem;
+  border-radius:   var(--radius-full);
+  background-color:var(--color-white);
+}
+
+.form-check-input:focus-visible {
+  outline:        2px solid var(--color-wine-light);
+  outline-offset: 2px;
+}
+
+.form-check-label {
+  font-size:   var(--text-base);
+  color:       var(--color-ink);
+  line-height: var(--leading-normal);
+}
+
+/* ── Toggle Switch ───────────────────────────────────────── */
+.form-switch {
+  display:     inline-flex;
+  align-items: center;
+  gap:         var(--space-3);
+  cursor:      pointer;
+}
+
+.form-switch-track {
+  width:         2.75rem;
+  height:        1.5rem;
+  border-radius: var(--radius-full);
+  background-color: var(--color-border);
+  position:      relative;
+  transition:    background-color var(--duration-base) var(--ease-out);
+  flex-shrink:   0;
+}
+
+.form-switch-thumb {
+  position:      absolute;
+  top:           3px;
+  left:          3px;
+  width:         1.125rem;
+  height:        1.125rem;
+  background:    var(--color-white);
+  border-radius: var(--radius-full);
+  box-shadow:    var(--shadow-sm);
+  transition:    transform var(--duration-base) var(--ease-spring);
+}
+
+.form-switch input:checked ~ .form-switch-track {
+  background-color: var(--color-wine);
+}
+
+.form-switch input:checked ~ .form-switch-track .form-switch-thumb {
+  transform: translateX(1.25rem);
+}
+
+/* ── Input with Icon ─────────────────────────────────────── */
+.form-input-wrap {
+  position:    relative;
+  display:     flex;
+  align-items: center;
+}
+
+.form-input-wrap .form-input {
+  padding-left: var(--space-10);
+}
+
+.form-input-icon-left {
+  position:    absolute;
+  left:        var(--space-3);
+  color:       var(--color-muted);
+  display:     flex;
+  align-items: center;
+  pointer-events: none;
+  font-size:   1.1em;
+}
+
+.form-input-icon-right {
+  position:    absolute;
+  right:       var(--space-3);
+  color:       var(--color-muted);
+  display:     flex;
+  align-items: center;
+}
+
+.form-input-wrap .form-input-icon-right ~ .form-input,
+.form-input-wrap .form-input:has(~ .form-input-icon-right) {
+  padding-right: var(--space-10);
+}
+
+/* ── File Upload ─────────────────────────────────────────── */
+.form-file-zone {
+  border:          2px dashed var(--color-border);
+  border-radius:   var(--radius-xl);
+  padding:         var(--space-8) var(--space-6);
+  text-align:      center;
+  cursor:          pointer;
+  transition:      border-color  var(--duration-base) var(--ease-out),
+                   background-color var(--duration-base) var(--ease-out);
+  background-color:var(--color-cream);
+}
+
+.form-file-zone:hover,
+.form-file-zone.is-dragover {
+  border-color:     var(--color-wine);
+  background-color: var(--color-wine-tint);
+}
+
+.form-file-zone input[type="file"] {
+  display: none;
+}
+
+/* ── Range Input ─────────────────────────────────────────── */
+.form-range {
+  -webkit-appearance: none;
+  width:           100%;
+  height:          0.375rem;
+  border-radius:   var(--radius-full);
+  background:      var(--color-border);
+  outline:         none;
+  cursor:          pointer;
+}
+
+.form-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width:           1.25rem;
+  height:          1.25rem;
+  border-radius:   var(--radius-full);
+  background:      var(--color-wine);
+  box-shadow:      var(--shadow-sm);
+  transition:      transform var(--duration-fast) var(--ease-spring);
+}
+
+.form-range::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+/* ── Fieldset ────────────────────────────────────────────── */
+.form-fieldset {
+  border:        1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding:       var(--space-6);
+  display:       flex;
+  flex-direction: column;
+  gap:           var(--space-5);
+}
+
+.form-legend {
+  font-family:    var(--font-serif);
+  font-size:      var(--text-md);
+  font-weight:    var(--weight-semibold);
+  color:          var(--color-wine);
+  padding:        0 var(--space-2);
+}
+
+/* ── Character Counter ───────────────────────────────────── */
+.form-char-count {
+  font-size: var(--text-xs);
+  color:     var(--color-muted);
+  text-align:right;
+}
+
+.form-char-count.is-near-limit  { color: var(--color-warning); }
+.form-char-count.is-over-limit  { color: var(--color-error);   }
+
+/* ── Form Section Divider ────────────────────────────────── */
+.form-divider {
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-4);
+  color:       var(--color-muted);
+  font-size:   var(--text-sm);
+}
+
+.form-divider::before,
+.form-divider::after {
+  content: '';
+  flex:    1;
+  height:  1px;
+  background: var(--color-border-light);
+}
+
+/* ── Multi-step Progress Indicator ──────────────────────── */
+.form-steps {
+  display:     flex;
+  align-items: center;
+  gap:         0;
+}
+
+.form-step {
+  display:     flex;
+  align-items: center;
+  flex:        1;
+  position:    relative;
+}
+
+.form-step-dot {
+  width:            2rem;
+  height:           2rem;
+  border-radius:    var(--radius-full);
+  border:           2px solid var(--color-border);
+  background:       var(--color-white);
+  display:          flex;
+  align-items:      center;
+  justify-content:  center;
+  font-size:        var(--text-xs);
+  font-weight:      var(--weight-semibold);
+  color:            var(--color-muted);
+  flex-shrink:      0;
+  z-index:          var(--z-raised);
+  transition:       background-color var(--duration-base) var(--ease-out),
+                    border-color     var(--duration-base) var(--ease-out);
+}
+
+.form-step.is-active .form-step-dot {
+  background-color: var(--color-wine);
+  border-color:     var(--color-wine);
+  color:            var(--color-white);
+}
+
+.form-step.is-complete .form-step-dot {
+  background-color: var(--color-success);
+  border-color:     var(--color-success);
+  color:            var(--color-white);
+}
+
+.form-step-line {
+  flex:       1;
+  height:     2px;
+  background: var(--color-border);
+  transition: background-color var(--duration-slow) var(--ease-out);
+}
+
+.form-step.is-complete + .form-step .form-step-line,
+.form-step.is-complete .form-step-line {
+  background: var(--color-success);
+}
+
+.form-step-label {
+  position:   absolute;
+  top:        2.25rem;
+  left:       50%;
+  transform:  translateX(-50%);
+  font-size:  var(--text-xs);
+  color:      var(--color-muted);
+  white-space:nowrap;
+  font-weight:var(--weight-medium);
+}
+
+.form-step.is-active .form-step-label {
+  color: var(--color-wine);
+  font-weight: var(--weight-semibold);
+}
+
+/* ============================================================
+   SipSavvy — styles/global.css
+   Base reset, typography, layout primitives, utilities.
+
+   IMPORT ORDER (every HTML page):
+     1. styles/variables.css
+     2. styles/animations.css
+     3. styles/buttons.css
+     4. styles/cards.css
+     5. styles/forms.css
+     6. styles/global.css          ← this file
+     7. styles/header.css
+     8. <page-specific>.css
+   ============================================================ */
+
+/* ── Box Model Reset ─────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin:     0;
+  padding:    0;
+}
+
+/* ── Root & Body ─────────────────────────────────────────── */
+html {
+  font-size:       16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family:      var(--font-sans);
+  font-size:        var(--text-base);
+  font-weight:      var(--weight-regular);
+  color:            var(--color-ink);
+  background-color: var(--color-cream);
+  line-height:      var(--leading-relaxed);
+  min-height:       100vh;
+  -webkit-font-smoothing:  antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Typography Scale ────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family:  var(--font-serif);
+  font-weight:  var(--weight-bold);
+  color:        var(--color-charcoal);
+  line-height:  var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
+}
+
+h1 { font-size: var(--text-4xl); }
+h2 { font-size: var(--text-3xl); }
+h3 { font-size: var(--text-2xl); }
+h4 { font-size: var(--text-xl);  }
+h5 { font-size: var(--text-lg);  }
+h6 { font-size: var(--text-md);  }
+
+p {
+  color:       var(--color-ink);
+  line-height: var(--leading-relaxed);
+  max-width:   68ch;
+}
+
+/* Allow prose paragraphs to span full width inside containers */
+.prose p { max-width: 100%; }
+
+/* ── Links ───────────────────────────────────────────────── */
+a {
+  color:           var(--color-wine);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition:      var(--transition-color);
+}
+
+a:hover {
+  color:           var(--color-wine-dark);
+  text-decoration-color: var(--color-wine-dark);
+}
+
+a:focus-visible {
+  outline:        2px solid var(--color-wine-light);
+  outline-offset: 3px;
+  border-radius:  var(--radius-sm);
+}
+
+/* Utility: remove underline */
+.link-clean {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ── Horizontal Rule ─────────────────────────────────────── */
+hr {
+  border:     none;
+  border-top: 1px solid var(--color-border-light);
+  margin:     var(--space-8) 0;
+}
+
+/* ── Lists ───────────────────────────────────────────────── */
+ul, ol {
+  padding-left: var(--space-6);
+  color:        var(--color-ink);
+  line-height:  var(--leading-relaxed);
+}
+
+li + li { margin-top: var(--space-1); }
+
+/* Unstyled list utility */
+.list-none {
+  list-style:  none;
+  padding-left: 0;
+}
+
+/* ── Inline Text ─────────────────────────────────────────── */
+strong, b { font-weight: var(--weight-semibold); color: var(--color-charcoal); }
+em, i     { font-style: italic; }
+
+mark {
+  background-color: var(--color-gold-light);
+  color:            var(--color-charcoal);
+  padding:          0 var(--space-1);
+  border-radius:    var(--radius-sm);
+}
+
+code {
+  font-family:      var(--font-mono);
+  font-size:        0.875em;
+  background-color: var(--color-cream-dark);
+  color:            var(--color-wine);
+  padding:          0.1em 0.4em;
+  border-radius:    var(--radius-sm);
+}
+
+/* ── Images ──────────────────────────────────────────────── */
+img, video, svg {
+  display:   block;
+  max-width: 100%;
+}
+
+img { height: auto; }
+
+/* ── Layout: Container ───────────────────────────────────── */
+.container {
+  width:     100%;
+  max-width: var(--max-width-xl);
+  margin:    0 auto;
+  padding:   0 var(--container-pad);
+}
+
+.container-sm  { max-width: var(--max-width-sm);  }
+.container-md  { max-width: var(--max-width-md);  }
+.container-lg  { max-width: var(--max-width-lg);  }
+.container-2xl { max-width: var(--max-width-2xl); }
+
+/* ── Layout: Section ─────────────────────────────────────── */
+.section {
+  padding-top:    var(--section-pad-y);
+  padding-bottom: var(--section-pad-y);
+}
+
+.section-sm {
+  padding-top:    var(--space-12);
+  padding-bottom: var(--space-12);
+}
+
+.section-lg {
+  padding-top:    var(--space-32);
+  padding-bottom: var(--space-32);
+}
+
+/* ── Layout: Flex helpers ────────────────────────────────── */
+.flex          { display: flex; }
+.flex-col      { flex-direction: column; }
+.flex-wrap     { flex-wrap: wrap; }
+.items-center  { align-items: center; }
+.items-start   { align-items: flex-start; }
+.items-end     { align-items: flex-end; }
+.justify-center{ justify-content: center; }
+.justify-between{ justify-content: space-between; }
+.justify-end   { justify-content: flex-end; }
+.flex-1        { flex: 1; }
+.gap-2         { gap: var(--space-2); }
+.gap-3         { gap: var(--space-3); }
+.gap-4         { gap: var(--space-4); }
+.gap-6         { gap: var(--space-6); }
+.gap-8         { gap: var(--space-8); }
+
+/* ── Layout: Grid helpers ────────────────────────────────── */
+.grid          { display: grid; }
+.grid-2        { grid-template-columns: repeat(2, 1fr); }
+.grid-3        { grid-template-columns: repeat(3, 1fr); }
+.grid-4        { grid-template-columns: repeat(4, 1fr); }
+
+@media (max-width: 768px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+}
+
+/* ── Spacing utilities ───────────────────────────────────── */
+.mt-2 { margin-top:    var(--space-2); }
+.mt-4 { margin-top:    var(--space-4); }
+.mt-6 { margin-top:    var(--space-6); }
+.mt-8 { margin-top:    var(--space-8); }
+.mb-2 { margin-bottom: var(--space-2); }
+.mb-4 { margin-bottom: var(--space-4); }
+.mb-6 { margin-bottom: var(--space-6); }
+.mb-8 { margin-bottom: var(--space-8); }
+
+/* ── Background Surface Utilities ────────────────────────── */
+.bg-wine        { background-color: var(--color-wine);      color: var(--color-white);  }
+.bg-wine-deep   { background-color: var(--color-wine-deeper); color: var(--color-white); }
+.bg-cream       { background-color: var(--color-cream);     }
+.bg-cream-dark  { background-color: var(--color-cream-dark);}
+.bg-white       { background-color: var(--color-white);     }
+.bg-gold        { background-color: var(--color-gold);      color: var(--color-charcoal); }
+
+/* ── Text Color Utilities ────────────────────────────────── */
+.text-wine    { color: var(--color-wine);    }
+.text-gold    { color: var(--color-gold);    }
+.text-muted   { color: var(--color-muted);   }
+.text-charcoal{ color: var(--color-charcoal);}
+.text-white   { color: var(--color-white);   }
+
+/* ── Text Alignment ──────────────────────────────────────── */
+.text-center { text-align: center; }
+.text-left   { text-align: left;   }
+.text-right  { text-align: right;  }
+
+/* ── Display helpers ─────────────────────────────────────── */
+.hidden         { display: none !important; }
+.sr-only        {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+/* ── Global Status / Toast Banners ──────────────────────── */
+.banner {
+  padding:      var(--space-3) var(--space-5);
+  border-radius:var(--radius-lg);
+  font-size:    var(--text-sm);
+  font-weight:  var(--weight-medium);
+  display:      flex;
+  align-items:  center;
+  gap:          var(--space-3);
+  line-height:  var(--leading-normal);
+}
+
+.banner-success {
+  background-color: var(--color-success-bg);
+  color:            var(--color-success);
+  border:           1px solid var(--color-success);
+}
+
+.banner-error {
+  background-color: var(--color-error-bg);
+  color:            var(--color-error);
+  border:           1px solid var(--color-error);
+}
+
+.banner-warning {
+  background-color: var(--color-warning-bg);
+  color:            var(--color-warning);
+  border:           1px solid var(--color-warning);
+}
+
+.banner-info {
+  background-color: var(--color-info-bg);
+  color:            var(--color-info);
+  border:           1px solid var(--color-info);
+}
+
+/* ── Badge / Pill ─────────────────────────────────────────── */
+.badge {
+  display:        inline-flex;
+  align-items:    center;
+  padding:        var(--space-1) var(--space-3);
+  border-radius:  var(--radius-full);
+  font-family:    var(--font-sans);
+  font-size:      var(--text-xs);
+  font-weight:    var(--weight-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  white-space:    nowrap;
+}
+
+.badge-wine    { background-color: var(--color-wine-tint);   color: var(--color-wine);    border: 1px solid var(--color-wine-muted); }
+.badge-gold    { background-color: var(--color-gold-tint);                   color: var(--color-gold-dark); border: 1px solid var(--color-gold); }
+.badge-success { background-color: var(--color-success-bg);  color: var(--color-success); }
+.badge-muted   { background-color: var(--color-cream-dark);  color: var(--color-muted);   }
+
+/* ── Divider with Label ───────────────────────────────────── */
+.divider-label {
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-4);
+  color:       var(--color-muted);
+  font-size:   var(--text-sm);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  margin:      var(--space-8) 0;
+}
+
+.divider-label::before,
+.divider-label::after {
+  content:    '';
+  flex:       1;
+  height:     1px;
+  background: var(--color-border-light);
+}
+
+/* ── Section Heading Block ────────────────────────────────── */
+.section-heading {
+  text-align:    center;
+  margin-bottom: var(--space-12);
+}
+
+.section-heading .eyebrow {
+  font-family:    var(--font-sans);
+  font-size:      var(--text-xs);
+  font-weight:    var(--weight-semibold);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color:          var(--color-wine);
+  margin-bottom:  var(--space-3);
+  display:        block;
+}
+
+.section-heading h2 {
+  margin-bottom: var(--space-4);
+}
+
+.section-heading p {
+  color:     var(--color-muted);
+  font-size: var(--text-md);
+  max-width: 52ch;
+  margin:    0 auto;
+}
+
+/* ── Overlay / Modal Backdrop ────────────────────────────── */
+.overlay-backdrop {
+  position:         fixed;
+  inset:            0;
+  background:       var(--overlay-dark);
+  z-index:          var(--z-overlay);
+  display:          flex;
+  align-items:      center;
+  justify-content:  center;
+  padding:          var(--space-4);
+  animation:        ss-fade-in var(--duration-base) var(--ease-out);
+}
+
+.modal {
+  background:    var(--color-white);
+  border-radius: var(--radius-2xl);
+  box-shadow:    var(--shadow-xl);
+  max-width:     var(--max-width-md);
+  width:         100%;
+  overflow:      hidden;
+  animation:     ss-scale-in var(--duration-slow) var(--ease-spring);
+}
+
+.modal-header {
+  padding:       var(--space-6);
+  border-bottom: 1px solid var(--color-border-light);
+  display:       flex;
+  align-items:   center;
+  justify-content: space-between;
+}
+
+.modal-body   { padding: var(--space-6); }
+.modal-footer {
+  padding:    var(--space-5) var(--space-6);
+  border-top: 1px solid var(--color-border-light);
+  display:    flex;
+  gap:        var(--space-3);
+  justify-content: flex-end;
+}
+
+/* ── Skip Link (accessibility) ───────────────────────────── */
+.skip-link {
+  position:    absolute;
+  top:         -100%;
+  left:        var(--space-4);
+  z-index:     var(--z-tooltip);
+  background:  var(--color-wine);
+  color:       var(--color-white);
+  padding:     var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  font-weight: var(--weight-semibold);
+  text-decoration: none;
+  transition:  top var(--duration-fast);
+}
+
+.skip-link:focus {
+  top: var(--space-4);
+}
+
+/* ── Responsive Typography Scaling ──────────────────────── */
+@media (max-width: 768px) {
+  h1 { font-size: var(--text-3xl); }
+  h2 { font-size: var(--text-2xl); }
+  h3 { font-size: var(--text-xl);  }
+  h4 { font-size: var(--text-lg);  }
+
+  .section        { padding-top: var(--space-12); padding-bottom: var(--space-12); }
+  .section-lg     { padding-top: var(--space-20); padding-bottom: var(--space-20); }
+  .container      { padding: 0 var(--space-4); }
+}
+
+@media (max-width: 480px) {
+  h1 { font-size: var(--text-2xl); }
+  h2 { font-size: var(--text-xl);  }
+}
+
+/* ============================================================
+   SipSavvy — styles/header.css
+   Site header: logo, nav, CTA, mobile drawer, scroll shrink.
+   All colours → var tokens. All motion → styles/animations.css classes.
+   No local @keyframes. No hard-coded hex values.
+
+   Depends on: styles/variables.css · styles/animations.css · styles/variables.css
+   ============================================================ */
+
+/* ── Header Shell ────────────────────────────────────────── */
+.site-header {
+  position:         fixed;
+  top:              0;
+  left:             0;
+  right:            0;
+  z-index:          var(--z-sticky);
+  height:           var(--header-height);
+  display:          flex;
+  align-items:      center;
+  background-color: transparent;
+  transition:       background-color var(--duration-slow)  var(--ease-out),
+                    height           var(--duration-slow)  var(--ease-out),
+                    box-shadow       var(--duration-base) var(--ease-out);
+  will-change:      background-color, height;
+}
+
+/* ── Scrolled / Compact State ────────────────────────────── */
+.site-header.is-scrolled {
+  background-color: var(--color-wine-deeper);
+  height:           var(--header-height-sm);
+  box-shadow:       var(--shadow-lg);
+}
+
+/* ── Transparent / Over Hero ─────────────────────────────── */
+.site-header.is-transparent {
+  background-color: transparent;
+  box-shadow:       none;
+}
+
+/* ── Solid Fallback (non-hero pages) ─────────────────────── */
+.site-header.is-solid {
+  background-color: var(--color-wine-deeper);
+  box-shadow:       var(--shadow-md);
+}
+
+/* ── Header Inner ────────────────────────────────────────── */
+.header-inner {
+  width:           100%;
+  max-width:       var(--max-width-xl);
+  margin:          0 auto;
+  padding:         0 var(--container-pad);
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  gap:             var(--space-6);
+}
+
+/* ── Logo ────────────────────────────────────────────────── */
+.header-logo {
+  display:         flex;
+  align-items:     center;
+  gap:             var(--space-3);
+  text-decoration: none;
+  flex-shrink:     0;
+  transition:      opacity var(--duration-base) var(--ease-out);
+}
+
+.header-logo:hover {
+  opacity: 0.88;
+}
+
+.header-logo:focus-visible {
+  outline:        2px solid var(--color-gold);
+  outline-offset: 4px;
+  border-radius:  var(--radius-sm);
+}
+
+.header-logo-mark {
+  /* Icon / emblem container — size scales with header height */
+  width:      2.25rem;
+  height:     2.25rem;
+  display:    flex;
+  align-items:center;
+  flex-shrink:0;
+  transition: transform var(--duration-base) var(--ease-spring);
+}
+
+.site-header.is-scrolled .header-logo-mark {
+  width:  1.875rem;
+  height: 1.875rem;
+}
+
+.header-logo:hover .header-logo-mark {
+  transform: rotate(-6deg) scale(1.08);
+}
+
+.header-logo-mark img,
+.header-logo-mark svg {
+  width:  100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.header-logo-wordmark {
+  font-family:    var(--font-serif);
+  font-size:      var(--text-xl);
+  font-weight:    var(--weight-bold);
+  color:          var(--color-white);
+  letter-spacing: var(--tracking-tight);
+  line-height:    1;
+  transition:     font-size var(--duration-slow) var(--ease-out);
+}
+
+.site-header.is-scrolled .header-logo-wordmark {
+  font-size: var(--text-lg);
+}
+
+.header-logo-tagline {
+  font-family:    var(--font-sans);
+  font-size:      var(--text-xs);
+  color:          var(--color-wine-muted);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  display:        block;
+  margin-top:     var(--space-1);
+}
+
+/* ── Primary Navigation ──────────────────────────────────── */
+.header-nav {
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-1);
+  list-style:  none;
+  padding:     0;
+  margin:      0;
+}
+
+.header-nav-item {
+  position: relative;
+}
+
+.header-nav-link {
+  font-family:    var(--font-sans);
+  font-size:      var(--text-sm);
+  font-weight:    var(--weight-medium);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color:          rgba(255, 255, 255, 0.82);
+  text-decoration:none;
+  padding:        var(--space-2) var(--space-3);
+  border-radius:  var(--radius-md);
+  display:        block;
+  position:       relative;
+  transition:     color            var(--duration-base) var(--ease-out),
+                  background-color var(--duration-base) var(--ease-out);
+}
+
+/* Animated underline */
+.header-nav-link::after {
+  content:          '';
+  position:         absolute;
+  bottom:           0;
+  left:             var(--space-3);
+  right:            var(--space-3);
+  height:           2px;
+  background-color: var(--color-gold);
+  border-radius:    var(--radius-full);
+  transform:        scaleX(0);
+  transform-origin: center;
+  transition:       transform var(--duration-base) var(--ease-out);
+}
+
+.header-nav-link:hover,
+.header-nav-link:focus-visible {
+  color:            var(--color-white);
+  background-color: rgba(255, 255, 255, 0.08);
+  outline:          none;
+}
+
+.header-nav-link:hover::after,
+.header-nav-link.is-active::after {
+  transform: scaleX(1);
+}
+
+.header-nav-link.is-active {
+  color: var(--color-white);
+}
+
+/* ── Dropdown Menu ───────────────────────────────────────── */
+.header-nav-item:hover .nav-dropdown,
+.header-nav-item:focus-within .nav-dropdown {
+  opacity:        1;
+  pointer-events: auto;
+  transform:      translateY(0);
+}
+
+.nav-dropdown {
+  position:         absolute;
+  top:              calc(100% + var(--space-2));
+  left:             50%;
+  transform:        translateX(-50%) translateY(-6px);
+  min-width:        14rem;
+  background-color: var(--color-white);
+  border:           1px solid var(--color-border-light);
+  border-radius:    var(--radius-xl);
+  box-shadow:       var(--shadow-xl);
+  padding:          var(--space-2);
+  list-style:       none;
+  opacity:          0;
+  pointer-events:   none;
+  transition:       opacity   var(--duration-base) var(--ease-out),
+                    transform var(--duration-base) var(--ease-out);
+  z-index:          var(--z-dropdown);
+}
+
+/* Arrow */
+.nav-dropdown::before {
+  content:     '';
+  position:    absolute;
+  top:         -6px;
+  left:        50%;
+  transform:   translateX(-50%);
+  border-left: 6px solid transparent;
+  border-right:6px solid transparent;
+  border-bottom: 6px solid var(--color-white);
+  filter:      drop-shadow(0 -2px 2px rgba(0,0,0,0.06));
+}
+
+.nav-dropdown-item a {
+  display:        flex;
+  align-items:    center;
+  gap:            var(--space-3);
+  padding:        var(--space-3) var(--space-4);
+  border-radius:  var(--radius-lg);
+  font-size:      var(--text-sm);
+  color:          var(--color-ink);
+  text-decoration:none;
+  font-weight:    var(--weight-medium);
+  transition:     background-color var(--duration-fast) var(--ease-out),
+                  color            var(--duration-fast) var(--ease-out);
+}
+
+.nav-dropdown-item a:hover {
+  background-color: var(--color-wine-tint);
+  color:            var(--color-wine);
+}
+
+.nav-dropdown-icon {
+  font-size: 1.1em;
+  color:     var(--color-wine-light);
+  flex-shrink:0;
+}
+
+/* ── Header CTA Area ─────────────────────────────────────── */
+.header-cta {
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-3);
+  flex-shrink: 0;
+}
+
+/* Book Now button inherits .btn .btn-gold from styles/variables.css  */
+/* No local overrides needed — token-driven sizing is exact. */
+
+/* ── Hamburger Toggle ────────────────────────────────────── */
+.header-menu-toggle {
+  display:          none; /* shown at mobile */
+  flex-direction:   column;
+  justify-content:  center;
+  align-items:      center;
+  gap:              5px;
+  width:            2.5rem;
+  height:           2.5rem;
+  background:       transparent;
+  border:           none;
+  cursor:           pointer;
+  padding:          var(--space-1);
+  border-radius:    var(--radius-md);
+  transition:       background-color var(--duration-fast) var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.header-menu-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.10);
+}
+
+.header-menu-toggle:focus-visible {
+  outline:        2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+.hamburger-line {
+  display:          block;
+  width:            1.375rem;
+  height:           2px;
+  background-color: var(--color-white);
+  border-radius:    var(--radius-full);
+  transition:       transform  var(--duration-base) var(--ease-inout),
+                    opacity    var(--duration-base) var(--ease-out),
+                    width      var(--duration-base) var(--ease-out);
+  transform-origin: center;
+}
+
+/* Open state — X morphing */
+.site-header.nav-open .hamburger-line:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.site-header.nav-open .hamburger-line:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.site-header.nav-open .hamburger-line:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ── Mobile Drawer ───────────────────────────────────────── */
+.mobile-nav {
+  position:         fixed;
+  top:              var(--header-height);
+  left:             0;
+  right:            0;
+  bottom:           0;
+  background-color: var(--color-wine-deeper);
+  z-index:          var(--z-overlay);
+  display:          flex;
+  flex-direction:   column;
+  padding:          var(--space-6) var(--space-6) var(--space-10);
+  overflow-y:       auto;
+  transform:        translateY(-100%);
+  opacity:          0;
+  pointer-events:   none;
+  transition:       transform var(--duration-slow) var(--ease-out),
+                    opacity   var(--duration-slow) var(--ease-out);
+}
+
+.site-header.nav-open ~ .mobile-nav,
+.mobile-nav.is-open {
+  transform:      translateY(0);
+  opacity:        1;
+  pointer-events: auto;
+}
+
+.mobile-nav-list {
+  list-style:     none;
+  padding:        0;
+  margin:         0 0 var(--space-8);
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--space-1);
+}
+
+.mobile-nav-link {
+  font-family:    var(--font-serif);
+  font-size:      var(--text-2xl);
+  font-weight:    var(--weight-bold);
+  color:          rgba(255, 255, 255, 0.82);
+  text-decoration:none;
+  padding:        var(--space-3) 0;
+  display:        block;
+  border-bottom:  1px solid rgba(255, 255, 255, 0.08);
+  transition:     color var(--duration-fast) var(--ease-out);
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link.is-active {
+  color: var(--color-gold-light);
+}
+
+.mobile-nav-cta {
+  margin-top: var(--space-6);
+  display:    flex;
+  flex-direction: column;
+  gap:        var(--space-3);
+}
+
+/* Mobile drawer stagger animation */
+.mobile-nav.is-open .mobile-nav-link {
+  animation: ss-fade-right var(--duration-slow) var(--ease-out) both;
+}
+
+.mobile-nav.is-open .mobile-nav-list li:nth-child(1) .mobile-nav-link { animation-delay:  60ms; }
+.mobile-nav.is-open .mobile-nav-list li:nth-child(2) .mobile-nav-link { animation-delay: 110ms; }
+.mobile-nav.is-open .mobile-nav-list li:nth-child(3) .mobile-nav-link { animation-delay: 160ms; }
+.mobile-nav.is-open .mobile-nav-list li:nth-child(4) .mobile-nav-link { animation-delay: 210ms; }
+.mobile-nav.is-open .mobile-nav-list li:nth-child(5) .mobile-nav-link { animation-delay: 260ms; }
+
+/* ── Body Offset — prevent content hiding under fixed header */
+.header-spacer {
+  height: var(--header-height);
+}
+
+/* Non-hero pages need the offset from the top             */
+body.page-solid .header-spacer { display: block; }
+body.page-hero  .header-spacer { display: none; }
+
+/* ── Responsive Breakpoints ──────────────────────────────── */
+@media (max-width: 900px) {
+  .header-nav       { display: none; }
+  .header-menu-toggle { display: flex; }
+  .header-cta  /* shown in mobile drawer instead */
+}
+
+@media (max-width: 480px) {
+  .header-logo-tagline { display: none; }
+  .header-logo-wordmark { font-size: var(--text-lg); }
+  .mobile-nav-link      { font-size: var(--text-xl); }
+}
+
+/* ============================================================
+   SipSavvy — styles/booking.css
+   Multi-step booking form with the wine→white→wine lifecycle.
+
+   LIFECYCLE:
+     Phase 1 — WINE:  Initial landing surface. Warm wine-tint
+               background, user selects experience / date.
+     Phase 2 — WHITE: Active input surface. Clean white panels,
+               user fills personal & payment details.
+     Phase 3 — WINE:  Confirmation surface. Returns to wine tint,
+               animated confirmation badge, receipt summary.
+
+   JS toggling: add  .booking-phase-white  or  .booking-phase-wine
+   to  .booking-wrapper  to trigger the phase surfaces. The
+   keyframe transitions are defined in styles/animations.css:
+     .booking-enter-white   and   .booking-enter-wine
+
+   All colours → var tokens (styles/variables.css).
+   All animations → class hooks from styles/animations.css.
+   Buttons  → .btn-*  classes from styles/variables.css.
+   Step dots → .form-steps from styles/forms.css.
+   No local @keyframes. No hard-coded hex values.
+
+   IMPORT ORDER (booking.html):
+     1. styles/variables.css
+     2. styles/animations.css
+     3. styles/variables.css
+     4. styles/cards.css
+     5. styles/forms.css
+     6. styles/global.css
+     7. styles/header.css
+     8. styles/booking.css        ← this file
+   ============================================================ */
+
+/* ── Page Layout ─────────────────────────────────────────── */
+.booking-page {
+  min-height:       100vh;
+  background-color: var(--color-cream);
+  padding-bottom:   var(--space-24);
+}
+
+/* Hero band behind the booking header */
+.booking-hero-band {
+  background: linear-gradient(
+    135deg,
+    var(--color-wine-deeper) 0%,
+    var(--color-wine)        100%
+  );
+  padding:    calc(var(--header-height) + var(--space-12))
+              var(--container-pad)
+              var(--space-16);
+  text-align: center;
+  position:   relative;
+  overflow:   hidden;
+}
+
+/* Subtle pattern overlay */
+.booking-hero-band::before {
+  content:    '';
+  position:   absolute;
+  inset:      0;
+  background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='20' cy='20' r='1'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.booking-hero-band .eyebrow {
+  color:          var(--color-gold-light);
+  margin-bottom:  var(--space-3);
+  display:        block;
+  font-family:    var(--font-sans);
+  font-size:      var(--text-xs);
+  font-weight:    var(--weight-semibold);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+}
+
+.booking-hero-band h1 {
+  color:         var(--color-white);
+  margin-bottom: var(--space-4);
+  position:      relative;
+  z-index:       var(--z-raised);
+}
+
+.booking-hero-band p {
+  color:   rgba(255,255,255,0.72);
+  max-width: 44ch;
+  margin:  0 auto;
+  position:relative;
+  z-index: var(--z-raised);
+}
+
+/* ── Wrapper — receives lifecycle phase classes ───────────── */
+.booking-wrapper {
+  max-width: var(--max-width-lg);
+  margin:    0 auto;
+  padding:   0 var(--container-pad);
+  position:  relative;
+  z-index:   var(--z-raised);
+  margin-top:-var(--space-10);  /* pulls card up over band edge */
+}
+
+/* ── Step Progress Bar ───────────────────────────────────── */
+.booking-progress {
+  margin-bottom: var(--space-8);
+  /* Reuses .form-steps layout from styles/forms.css */
+}
+
+/* Extend step labels below dots for booking context */
+.booking-progress .form-step-label {
+  top: 2.5rem;
+}
+
+/* Progress track line fill — driven by CSS custom prop */
+.booking-progress-track {
+  height:           4px;
+  background-color: var(--color-border-light);
+  border-radius:    var(--radius-full);
+  margin-bottom:    var(--space-8);
+  overflow:         hidden;
+}
+
+.booking-progress-fill {
+  height:           100%;
+  background:       linear-gradient(
+    to right,
+    var(--color-wine-light),
+    var(--color-wine)
+  );
+  border-radius:    var(--radius-full);
+  width:            var(--progress-value, 0%);
+  transition:       width var(--duration-lazy) var(--ease-out);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PHASE 1 — WINE SURFACE
+   Initial experience / date selection panel
+   ═══════════════════════════════════════════════════════════ */
+
+.booking-phase-wine .booking-panel {
+  background-color: var(--booking-surface-wine);
+  border:           1.5px solid var(--booking-surface-wine-border);
+}
+
+.booking-panel {
+  background-color: var(--booking-surface-wine); /* default = wine surface */
+  border:           1.5px solid var(--booking-surface-wine-border);
+  border-radius:    var(--radius-2xl);
+  box-shadow:       var(--shadow-xl);
+  overflow:         hidden;
+  /* Phase transitions applied by .booking-enter-white / .booking-enter-wine */
+}
+
+/* Panel header strip */
+.booking-panel-header {
+  padding:          var(--space-6) var(--space-8);
+  border-bottom:    1px solid var(--color-border-light);
+  display:          flex;
+  align-items:      center;
+  justify-content:  space-between;
+  gap:              var(--space-4);
+}
+
+.booking-panel-step-badge {
+  font-family:    var(--font-sans);
+  font-size:      var(--text-xs);
+  font-weight:    var(--weight-semibold);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color:          var(--color-wine);
+  background-color:var(--color-wine-tint);
+  border:         1px solid var(--color-wine-muted);
+  padding:        var(--space-1) var(--space-3);
+  border-radius:  var(--radius-full);
+}
+
+.booking-panel-body {
+  padding: var(--space-8);
+}
+
+.booking-panel-footer {
+  padding:        var(--space-5) var(--space-8);
+  border-top:     1px solid var(--color-border-light);
+  display:        flex;
+  align-items:    center;
+  justify-content:space-between;
+  gap:            var(--space-4);
+  flex-wrap:      wrap;
+  background-color: rgba(255,255,255,0.40);
+}
+
+/* ── Experience Picker (Step 1, Phase 1) ─────────────────── */
+.experience-picker {
+  display:               grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap:                   var(--space-5);
+  margin-bottom:         var(--space-8);
+}
+
+
+
+
+
+
+.experience-option {
+  border:           2px solid var(--color-border-light);
+  border-radius:    var(--radius-xl);
+  overflow:         hidden;
+  cursor:           pointer;
+  transition:       border-color var(--duration-base) var(--ease-out),
+                    box-shadow   var(--duration-base) var(--ease-out),
+                    transform    var(--duration-base) var(--ease-out);
+  background-color: var(--color-white);
+  position:         relative;
+}
+
+.experience-option:hover {
+  border-color: var(--color-wine-light);
+  box-shadow:   var(--shadow-wine);
+  transform:    translateY(-2px);
+}
+
+.experience-option.is-selected {
+  border-color: var(--color-wine);
+  box-shadow:   var(--shadow-wine);
+}
+
+/* Selection checkmark */
+.experience-option.is-selected::after {
+  content:          '\2713';
+  position:         absolute;
+  top:              var(--space-3);
+  right:            var(--space-3);
+  width:            1.5rem;
+  height:           1.5rem;
+  background-color: var(--color-wine);
+  color:            var(--color-white);
+  border-radius:    var(--radius-full);
+  display:          flex;
+  align-items:      center;
+  justify-content:  center;
+  font-size:        var(--text-xs);
+  font-weight:      var(--weight-bold);
+  line-height:      1.5rem;
+  text-align:       center;
+}
+
+.experience-option-media {
+  aspect-ratio: 16 / 9;
+  overflow:     hidden;
+}
+
+.experience-option-media img {
+  width:      100%;
+  height:     100%;
+  object-fit: cover;
+  transition: transform var(--duration-slower) var(--ease-out);
+}
+
+.experience-option:hover .experience-option-media img {
+  transform: scale(1.05);
+}
+
+.experience-option-body {
+  padding: var(--space-4);
+}
+
+.experience-option-title {
+  font-family:   var(--font-serif);
+  font-size:     var(--text-lg);
+  font-weight:   var(--weight-semibold);
+  color:         var(--color-charcoal);
+  margin-bottom: var(--space-1);
+}
+
+.experience-option-meta {
+  font-size: var(--text-xs);
+  color:     var(--color-muted);
+  display:   flex;
+  gap:       var(--space-3);
+  flex-wrap: wrap;
+}
+
+.experience-option-price {
+  font-family:  var(--font-serif);
+  font-size:    var(--text-lg);
+  font-weight:  var(--weight-bold);
+  color:        var(--color-wine);
+  margin-top:   var(--space-3);
+}
+
+.exp-price-row {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+  margin-top: 8px !important;
+}
+
+.exp-selected-btn {
+  display: none;
+  padding: 6px 14px;
+  background: #FFD700 !important; /* GOLD */
+  color: #000 !important;
+  font-weight: 600 !important;
+  border: none !important;
+  border-radius: 6px !important;
+  font-size: 0.85rem !important;
+  margin-left: 10px !important;
+  white-space: nowrap !important;
+}
+
+.experience-option.is-selected .exp-selected-btn {
+  display: inline-block !important;
+}
+
+.experience-option.is-selected::after,
+.experience-option.is-selected::before {
+  display: none !important;
+  content: none !important;
+  background: none !important;
+}
+
+
+
+/* ── Calendar / Date Picker (Step 1, Phase 1) ────────────── */
+.booking-calendar {
+  border:           1.5px solid var(--color-border);
+  border-radius:    var(--radius-xl);
+  overflow:         hidden;
+  background-color: var(--color-white);
+}
+
+.booking-calendar-header {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  padding:         var(--space-4) var(--space-5);
+  background-color:var(--color-cream);
+  border-bottom:   1px solid var(--color-border-light);
+}
+
+.booking-calendar-month {
+  font-family:  var(--font-serif);
+  font-size:    var(--text-lg);
+  font-weight:  var(--weight-semibold);
+  color:        var(--color-charcoal);
+}
+
+.booking-calendar-nav {
+  width:            2rem;
+  height:           2rem;
+  border-radius:    var(--radius-full);
+  border:           1px solid var(--color-border);
+  background:       var(--color-white);
+  cursor:           pointer;
+  display:          flex;
+  align-items:      center;
+  justify-content:  center;
+  color:            var(--color-ink);
+  transition:       background-color var(--duration-fast) var(--ease-out),
+                    border-color     var(--duration-fast) var(--ease-out);
+}
+
+.booking-calendar-nav:hover {
+  background-color: var(--color-wine-tint);
+  border-color:     var(--color-wine-muted);
+  color:            var(--color-wine);
+}
+
+.booking-calendar-grid {
+  display:               grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap:                   0;
+}
+
+.booking-calendar-day-label {
+  font-size:      var(--text-xs);
+  font-weight:    var(--weight-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color:          var(--color-muted);
+  text-align:     center;
+  padding:        var(--space-3) 0;
+  border-bottom:  1px solid var(--color-border-light);
+}
+
+.booking-calendar-cell {
+  aspect-ratio:   1;
+  display:        flex;
+  align-items:    center;
+  justify-content:center;
+  font-size:      var(--text-sm);
+  color:          var(--color-ink);
+  cursor:         pointer;
+  border:         1px solid transparent;
+  margin:         2px;
+  border-radius:  var(--radius-md);
+  transition:     background-color var(--duration-fast) var(--ease-out),
+                  color            var(--duration-fast) var(--ease-out),
+                  border-color     var(--duration-fast) var(--ease-out);
+  font-weight:    var(--weight-medium);
+  position:       relative;
+}
+
+.booking-calendar-cell:hover:not(.is-unavailable):not(.is-empty) {
+  background-color: var(--color-wine-tint);
+  color:            var(--color-wine);
+}
+
+.booking-calendar-cell.is-selected {
+  background-color: var(--color-wine);
+  color:            var(--color-white);
+  border-color:     var(--color-wine-dark);
+  font-weight:      var(--weight-bold);
+}
+
+.booking-calendar-cell.is-today {
+  border-color: var(--color-wine-muted);
+  font-weight:  var(--weight-bold);
+}
+
+.booking-calendar-cell.is-today::after {
+  content:          '';
+  position:         absolute;
+  bottom:           3px;
+  left:             50%;
+  transform:        translateX(-50%);
+  width:            4px;
+  height:           4px;
+  border-radius:    var(--radius-full);
+  background-color: var(--color-wine);
+}
+
+.booking-calendar-cell.is-selected.is-today::after {
+  background-color: var(--color-white);
+}
+
+.booking-calendar-cell.is-unavailable {
+  color:          var(--color-border);
+  cursor:         not-allowed;
+  pointer-events: none;
+}
+
+.booking-calendar-cell.is-past {
+  color:          var(--color-border);
+  cursor:         not-allowed;
+  pointer-events: none;
+  text-decoration:line-through;
+}
+
+.booking-calendar-cell.is-empty {
+  pointer-events: none;
+}
+
+/* ── Time Slot Picker ────────────────────────────────────── */
+.timeslot-grid {
+  display:               grid;
+  grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
+  gap:                   var(--space-3);
+  margin-top:            var(--space-5);
+}
+
+.timeslot-btn {
+  padding:        var(--space-3) var(--space-4);
+  border:         1.5px solid var(--color-border);
+  border-radius:  var(--radius-lg);
+  background:     var(--color-white);
+  font-family:    var(--font-sans);
+  font-size:      var(--text-sm);
+  font-weight:    var(--weight-medium);
+  color:          var(--color-ink);
+  cursor:         pointer;
+  text-align:     center;
+  transition:     border-color     var(--duration-fast) var(--ease-out),
+                  background-color var(--duration-fast) var(--ease-out),
+                  color            var(--duration-fast) var(--ease-out),
+                  box-shadow       var(--duration-fast) var(--ease-out);
+  line-height:    1;
+}
+
+.timeslot-btn:hover:not(.is-unavailable) {
+  border-color: var(--color-wine-light);
+  color:        var(--color-wine);
+}
+
+.timeslot-btn.is-selected {
+  border-color:     var(--color-wine);
+  background-color: var(--color-wine);
+  color:            var(--color-white);
+  box-shadow:       var(--shadow-wine);
+}
+
+.timeslot-btn.is-unavailable {
+  background-color: var(--color-cream-dark);
+  color:            var(--color-border);
+  cursor:           not-allowed;
+  pointer-events:   none;
+  text-decoration:  line-through;
+}
+
+/* ── Guest Count Spinner ─────────────────────────────────── */
+.guest-spinner {
+  display:     inline-flex;
+  align-items: center;
+  gap:         var(--space-3);
+  border:      1.5px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow:    hidden;
+  background:  var(--color-white);
+}
+
+.guest-spinner-btn {
+  width:            2.75rem;
+  height:           2.75rem;
+  border:           none;
+  background:       transparent;
+  font-size:        var(--text-lg);
+  font-weight:      var(--weight-bold);
+  color:            var(--color-wine);
+  cursor:           pointer;
+  display:          flex;
+  align-items:      center;
+  justify-content:  center;
+  transition:       background-color var(--duration-fast) var(--ease-out);
+  flex-shrink:      0;
+}
+
+.guest-spinner-btn:hover {
+  background-color: var(--color-wine-tint);
+}
+
+.guest-spinner-btn:disabled {
+  color:          var(--color-border);
+  pointer-events: none;
+}
+
+.guest-spinner-count {
+  font-family:  var(--font-serif);
+  font-size:    var(--text-xl);
+  font-weight:  var(--weight-bold);
+  color:        var(--color-charcoal);
+  min-width:    2rem;
+  text-align:   center;
+}
+
+.guest-spinner-label {
+  font-size:  var(--text-xs);
+  color:      var(--color-muted);
+  text-align: center;
+  margin-top: var(--space-1);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PHASE 2 — WHITE SURFACE
+   Personal & payment details panel
+   ═══════════════════════════════════════════════════════════ */
+
+.booking-phase-white .booking-panel {
+  background-color: var(--booking-surface-white);
+  border-color:     var(--booking-surface-white-border);
+}
+
+/* Inputs inside the white phase inherit full styles/forms.css styling */
+/* Additional booking-specific overrides below */
+
+.booking-section-title {
+  font-family:   var(--font-serif);
+  font-size:     var(--text-xl);
+  font-weight:   var(--weight-semibold);
+  color:         var(--color-charcoal);
+  margin-bottom: var(--space-5);
+  padding-bottom:var(--space-3);
+  border-bottom: 1px solid var(--color-border-light);
+  display:       flex;
+  align-items:   center;
+  gap:           var(--space-3);
+}
+
+.booking-section-icon {
+  width:            2rem;
+  height:           2rem;
+  border-radius:    var(--radius-full);
+  background-color: var(--color-wine-tint);
+  color:            var(--color-wine);
+  display:          flex;
+  align-items:      center;
+  justify-content:  center;
+  font-size:        0.875rem;
+  flex-shrink:      0;
+}
+
+/* Add-ons checklist */
+.addon-list {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--space-3);
+}
+
+.addon-item {
+  display:          flex;
+  align-items:      center;
+  justify-content:  space-between;
+  padding:          var(--space-4);
+  border:           1.5px solid var(--color-border-light);
+  border-radius:    var(--radius-lg);
+  cursor:           pointer;
+  transition:       border-color     var(--duration-fast) var(--ease-out),
+                    background-color var(--duration-fast) var(--ease-out);
+  background-color: var(--color-white);
+  gap:              var(--space-4);
+}
+
+.addon-item:hover {
+  border-color:     var(--color-wine-muted);
+  background-color: var(--color-wine-tint);
+}
+
+.addon-item.is-selected {
+  border-color:     var(--color-wine);
+  background-color: var(--color-wine-tint);
+}
+
+.addon-info { flex: 1; }
+
+.addon-name {
+  font-weight:   var(--weight-medium);
+  color:         var(--color-charcoal);
+  font-size:     var(--text-base);
+  margin-bottom: var(--space-1);
+}
+
+.addon-description {
+  font-size: var(--text-xs);
+  color:     var(--color-muted);
+}
+
+.addon-price {
+  font-family:  var(--font-serif);
+  font-size:    var(--text-lg);
+  font-weight:  var(--weight-bold);
+  color:        var(--color-wine);
+  white-space:  nowrap;
+  flex-shrink:  0;
+}
+
+/* Payment section — card input fields */
+.payment-card-row {
+  display:    grid;
+  grid-template-columns: 1fr 1fr;
+  gap:        var(--space-4);
+}
+
+@media (max-width: 480px) {
+  .payment-card-row { grid-template-columns: 1fr; }
+}
+
+/* Card type icons */
+.payment-accepted {
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-2);
+  margin-top:  var(--space-3);
+}
+
+.payment-card-icon {
+  height:           1.5rem;
+  width:            auto;
+  border:           1px solid var(--color-border-light);
+  border-radius:    var(--radius-sm);
+  padding:          2px var(--space-2);
+  background:       var(--color-white);
+  object-fit:       contain;
+  opacity:          0.70;
+}
+
+/* Security badge */
+.payment-secure-badge {
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-2);
+  font-size:   var(--text-xs);
+  color:       var(--color-success);
+  margin-top:  var(--space-3);
+  font-weight: var(--weight-medium);
+}
+
+/* ── Order Summary Sidebar ────────────────────────────────── */
+.booking-layout {
+  display:               grid;
+  grid-template-columns: 1fr 22rem;
+  gap:                   var(--space-8);
+  align-items:           start;
+}
+
+.booking-summary {
+  position:          sticky;
+  top:               calc(var(--header-height) + var(--space-4));
+  background-color:  var(--color-white);
+  border:            1.5px solid var(--color-border-light);
+  border-radius:     var(--radius-2xl);
+  box-shadow:        var(--shadow-md);
+  overflow:          hidden;
+}
+
+.booking-summary-header {
+  background-color: var(--color-wine);
+  padding:          var(--space-5) var(--space-6);
+  color:            var(--color-white);
+}
+
+.booking-summary-header h3 {
+  color:         var(--color-white);
+  font-size:     var(--text-lg);
+  margin-bottom: var(--space-1);
+}
+
+.booking-summary-header p {
+  font-size: var(--text-xs);
+  color:     rgba(255,255,255,0.65);
+}
+
+.booking-summary-body {
+  padding: var(--space-5) var(--space-6);
+}
+
+.booking-summary-experience {
+  display:          flex;
+  gap:              var(--space-4);
+  margin-bottom:    var(--space-5);
+  padding-bottom:   var(--space-5);
+  border-bottom:    1px solid var(--color-border-light);
+  align-items:      flex-start;
+}
+
+.booking-summary-thumb {
+  width:         4rem;
+  height:        3rem;
+  border-radius: var(--radius-md);
+  overflow:      hidden;
+  flex-shrink:   0;
+  background:    var(--color-cream-dark);
+}
+
+.booking-summary-thumb img {
+  width:      100%;
+  height:     100%;
+  object-fit: cover;
+}
+
+.booking-summary-exp-name {
+  font-family:   var(--font-serif);
+  font-size:     var(--text-md);
+  font-weight:   var(--weight-semibold);
+  color:         var(--color-charcoal);
+  margin-bottom: var(--space-1);
+}
+
+.booking-summary-exp-meta {
+  font-size: var(--text-xs);
+  color:     var(--color-muted);
+}
+
+/* Line items */
+.booking-summary-lines {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--space-3);
+  margin-bottom:  var(--space-5);
+}
+
+.booking-summary-line {
+  display:         flex;
+  justify-content: space-between;
+  align-items:     baseline;
+  gap:             var(--space-4);
+  font-size:       var(--text-sm);
+  color:           var(--color-ink);
+}
+
+.booking-summary-line-label { color: var(--color-muted); }
+
+.booking-summary-line-value {
+  font-weight: var(--weight-medium);
+  color:       var(--color-charcoal);
+}
+
+.booking-summary-total {
+  padding-top:   var(--space-4);
+  border-top:    2px solid var(--color-border-light);
+  display:       flex;
+  align-items:   baseline;
+  justify-content:space-between;
+  gap:           var(--space-4);
+}
+
+.booking-summary-total-label {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-semibold);
+  color:       var(--color-charcoal);
+}
+
+.booking-summary-total-price {
+  font-family:  var(--font-serif);
+  font-size:    var(--text-2xl);
+  font-weight:  var(--weight-bold);
+  color:        var(--color-wine);
+}
+
+.booking-summary-footer {
+  padding:          var(--space-4) var(--space-6);
+  border-top:       1px solid var(--color-border-light);
+  background-color: var(--color-cream);
+}
+
+/* Trust signals */
+.booking-trust-row {
+  display:     flex;
+  gap:         var(--space-4);
+  flex-wrap:   wrap;
+}
+
+.booking-trust-item {
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-2);
+  font-size:   var(--text-xs);
+  color:       var(--color-muted);
+}
+
+.booking-trust-icon {
+  color:      var(--color-wine);
+  font-size:  0.875rem;
+  flex-shrink:0;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PHASE 3 — WINE SURFACE (CONFIRMATION)
+   Return to wine tint after successful booking
+   ═══════════════════════════════════════════════════════════ */
+
+.booking-phase-confirmation .booking-panel {
+  background-color: var(--booking-surface-wine);
+  border-color:     var(--booking-surface-wine-border);
+}
+
+.booking-confirmation {
+  text-align:  center;
+  padding:     var(--space-12) var(--space-8);
+  max-width:   44ch;
+  margin:      0 auto;
+}
+
+/* Animated success badge — uses anim-pulse-wine then fades */
+.booking-confirmation-badge {
+  width:            5rem;
+  height:           5rem;
+  border-radius:    var(--radius-full);
+  background-color: var(--color-wine);
+  color:            var(--color-white);
+  display:          flex;
+  align-items:      center;
+  justify-content:  center;
+  margin:           0 auto var(--space-8);
+  font-size:        2rem;
+  box-shadow:       var(--shadow-wine);
+}
+/* anim-scale-in + anim-pulse-wine applied via JS on load */
+
+.booking-confirmation-badge.is-animate {
+  animation: ss-scale-in 600ms var(--ease-spring),
+             ss-wine-pulse 2s 700ms ease-in-out 3;
+}
+
+.booking-confirmation-heading {
+  font-family:   var(--font-serif);
+  font-size:     var(--text-3xl);
+  color:         var(--color-wine);
+  font-weight:   var(--weight-bold);
+  margin-bottom: var(--space-4);
+}
+
+.booking-confirmation-subtext {
+  font-size:     var(--text-base);
+  color:         var(--color-muted);
+  line-height:   var(--leading-relaxed);
+  margin-bottom: var(--space-8);
+}
+
+/* Booking reference card */
+.booking-reference-card {
+  background-color: var(--color-white);
+  border:           1.5px solid var(--color-border);
+  border-radius:    var(--radius-xl);
+  padding:          var(--space-6);
+  text-align:       left;
+  margin-bottom:    var(--space-8);
+}
+
+.booking-reference-id {
+  font-family:    var(--font-mono);
+  font-size:      var(--text-xl);
+  font-weight:    var(--weight-bold);
+  color:          var(--color-wine);
+  letter-spacing: var(--tracking-wide);
+  text-align:     center;
+  margin-bottom:  var(--space-5);
+  padding-bottom: var(--space-4);
+  border-bottom:  1px solid var(--color-border-light);
+}
+
+/* Detail rows */
+.booking-reference-row {
+  display:         flex;
+  justify-content: space-between;
+  align-items:     center;
+  gap:             var(--space-4);
+  font-size:       var(--text-sm);
+  padding:         var(--space-2) 0;
+}
+
+.booking-reference-row + .booking-reference-row {
+  border-top: 1px solid var(--color-border-light);
+}
+
+.booking-reference-label { color: var(--color-muted); }
+.booking-reference-value {
+  font-weight: var(--weight-semibold);
+  color:       var(--color-charcoal);
+  text-align:  right;
+}
+
+/* CTA row at bottom of confirmation */
+.booking-confirmation-actions {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--space-3);
+  align-items:    center;
+}
+
+.booking-confirmation-actions .btn { min-width: 16rem; justify-content: center; }
+
+/* ── Add-to-calendar strip ───────────────────────────────── */
+.add-to-calendar {
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-3);
+  font-size:   var(--text-sm);
+  color:       var(--color-muted);
+  flex-wrap:   wrap;
+  justify-content: center;
+  margin-top:  var(--space-4);
+}
+
+.add-to-calendar a {
+  display:      flex;
+  align-items:  center;
+  gap:          var(--space-1);
+  font-size:    var(--text-xs);
+  font-weight:  var(--weight-medium);
+  color:        var(--color-wine);
+  text-decoration: none;
+  padding:      var(--space-1) var(--space-3);
+  border:       1px solid var(--color-wine-muted);
+  border-radius:var(--radius-full);
+  transition:   background-color var(--duration-fast) var(--ease-out);
+}
+
+.add-to-calendar a:hover {
+  background-color: var(--color-wine-tint);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PHASE TRANSITION OVERRIDES
+   Applied by JS immediately before animation class swaps
+   ═══════════════════════════════════════════════════════════ */
+
+/* White entry */
+.booking-wrapper.booking-enter-white .booking-panel {
+  animation: ss-surface-to-white var(--duration-slower) var(--ease-out) forwards;
+}
+
+/* Wine return (step back or confirmation) */
+.booking-wrapper.booking-enter-wine .booking-panel {
+  animation: ss-surface-to-wine var(--duration-slower) var(--ease-out) forwards;
+}
+
+/* ── Step Nav Buttons ─────────────────────────────────────── */
+/* Uses .btn from styles/variables.css — only layout overrides here */
+.booking-nav-back {
+  /* Extends .btn .btn-ghost */
+  padding-left: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE — BOOKING
+   ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 960px) {
+  .booking-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-summary {
+    position:  static;
+    order:     -1; /* show summary above form on mobile */
+  }
+}
+
+@media (max-width: 640px) {
+  .booking-panel-body,
+  .booking-panel-header,
+  .booking-panel-footer {
+    padding-left:  var(--space-5);
+    padding-right: var(--space-5);
+  }
+
+  .experience-picker {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-confirmation { padding: var(--space-8) var(--space-4); }
+  .booking-confirmation-actions .btn { min-width: 0; width: 100%; }
+}
+
+@media (max-width: 400px) {
+  .booking-calendar-cell { font-size: var(--text-xs); }
+  .timeslot-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+
+
+/* ── Booking page extras ─────────────────────────────────── */
+.booking-step-panel { display: none; }
+.booking-step-panel.is-active { display: block; }
+.step-anim { animation: ss-fade-up .4s var(--ease-out) both; }
+
+/* Calendar cell sizing fix for inline display */
+.booking-calendar-grid { padding: 0 var(--space-3) var(--space-3); }
+.booking-calendar-cell { height: 2.4rem; font-size: .85rem; }
+
+/* Timeslot grid spacing */
+.timeslot-grid { margin-top: var(--space-4); }
+
+/* Summary sidebar sticky offset */
+@media (min-width: 961px) {
+  .booking-summary { top: calc(var(--header-height-sm) + 1rem); }
+}
+
+/* Addon checkbox visual */
+.addon-item input[type="checkbox"] { display: none; }
+.addon-item.is-selected { border-color: var(--color-wine); background-color: var(--color-wine-tint); }
+.btn-gold {
+  background-color: var(--color-gold);
+  border-color:     var(--color-gold);
+  color:            var(--color-charcoal);
+  box-shadow:       var(--shadow-gold);
+}
+.btn-gold:hover {
+  background-color: var(--color-gold-light);
+  border-color:     var(--color-gold-light);
+  transform:        translateY(-1px);
+  box-shadow:       var(--shadow-lg);
+}
+.btn-gold:active {
+  background-color: var(--color-gold-dark);
+  border-color:     var(--color-gold-dark);
+  transform:        translateY(0) scale(0.97);
+}

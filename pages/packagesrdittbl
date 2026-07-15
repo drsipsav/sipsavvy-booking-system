@@ -1,0 +1,10 @@
+﻿#,Location,Issue,Fix Applied
+1,Travel Fee — DEBUG block,"A red-background div (background:#e25a5a) labeled ""DEBUG: Travel Fee Outputs"" was left live in the page, rendering visibly for users",Removed entirely
+2,Travel Fee — floating feeCharge / milesCharge spans,"Two sets of <span class=""feeCharge""> and <span class=""milesCharge""> were sitting loose outside any container between .travel-section and .travel-fee-summary, rendering stray $0.00 text on screen",Removed
+3,"Travel Fee — duplicate id=""travelFeeAmt""","A second <span class=""summary-value"" id=""travelFeeAmt"">0.</span> floated outside its container with a malformed value (0. instead of $0.00) — duplicate IDs break getElementById",Removed the orphaned duplicate
+4,Travel Fee — empty <span></span> + empty label span,"Inside .travel-fee-row, a bare <span></span> and an empty <span class=""travel-fee-label""></span> added no content",Removed both
+5,Extra Hours buttons — data-name → data-addon-name,"Buttons for 2 hrs, 3 hrs, 4 hrs, and De-select used data-name=""Extra Hours"" while the 1 hr button correctly used data-addon-name. JS reading data-addon-name would silently ignore hours 2–4 and De-select",Fixed all 4 to data-addon-name
+6,Package cards — redundant <h3> dev labels,"Each of the 3 packages had a leftover <h3>Package essential</h3>, <h3>Package luxe</h3>, <h3>Package signature</h3> below the divider — visible on the page",Removed all 3
+7,Corporate package — inconsistent button class,"Used class=""package-select-btn"" while all other packages use class=""select-package-btn"" — JS selecting .select-package-btn would miss Corporate entirely",Changed to select-package-btn with full data-package-* attributes added
+8,Corporate package — unique IDs instead of standard classes,"id=""corporateSelected"" and id=""corporateDeselect"" instead of class=""btn-selected"" / class=""btn-deselect"" used by all other cards",Standardized to match the shared class pattern
+9,Checkout bar — <button> inside <h3>,"The ""COMPLETE YOUR ORDER"" button was wrapped in an <h3> tag — semantically invalid (interactive control inside a heading)",Replaced <h3> wrapper with <div>

@@ -1,0 +1,3 @@
+.cta-strip { ... }
+@media (max-width: 480px) { .cta-strip { ... } }
+

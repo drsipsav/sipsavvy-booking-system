@@ -1,0 +1,36 @@
+/* ============================================================
+   BASE
+   ============================================================ */
+@import "../styles/base/reset.css";
+@import "../styles/base/typography.css";
+@import "../styles/base/variables.css";
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+@import "../styles/layout/header.css";
+@import "../styles/layout/footer.css";
+@import "../styles/layout/grid.css";
+
+/* ============================================================
+   COMPONENTS
+   ============================================================ */
+@import "../styles/components/buttons.css";
+@import "../styles/components/forms.css";
+@import "../styles/components/cards.css";
+@import "../styles/components/modals.css";
+
+/* ============================================================
+   PAGES
+   ============================================================ */
+@import "../styles/pages/home.css";
+@import "../styles/pages/services.css";
+@import "../styles/pages/packages.css";
+@import "../styles/pages/booking.css";
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+@import "../styles/utilities/spacing.css";
+@import "../styles/utilities/display.css";
+@import "../styles/utilities/helpers.css";

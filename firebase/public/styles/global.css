@@ -1,0 +1,158 @@
+ /* ============================================================
+   SipSavvy — global.css (Corrected)
+============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-cream);
+  color: var(--color-ink);
+  min-height: 100vh;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--color-charcoal);
+}
+
+p {
+  color: var(--color-ink);
+  line-height: 1.6;
+}
+
+/* Links */
+a {
+  color: var(--color-wine);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--color-wine-dark);
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Utility */
+.hidden { display: none !important; }
+.text-center { text-align: center; }
+
+.addons-summary-final {
+  margin-top: 3rem;
+  padding: 2rem;
+  background: rgba(244, 241, 241, 0);
+  border-radius: 12px;
+  border: 1px solid rgba(219, 219, 219, 0.917);
+}
+
+.addons-summary-title {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.addons-summary-grid {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+}
+
+.total-row {
+
+  font-weight: 600;
+}
+
+.grand-row {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.summary-divider {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  margin: 1rem 0;
+}
+
+/* Wine‑Gold Summary Box */
+.winegold-box {
+  background: linear-gradient(135deg, #5a0010, #8a0030, #c9a84c);
+  padding: 2rem;
+  border-radius: 14px;
+  color: #fff;
+  margin-top: 3rem;
+  border: 1px solid rgba(255,255,255,0.25);
+  box-shadow: 0 0 22px rgba(0,0,0,0.35);
+}
+
+/* Title */
+.addons-summary-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+/* Two‑Column Grid */
+.addons-summary-grid {
+  display: grid;
+  gap: 0.75rem;
+}
+
+/* Rows */
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+/* Divider */
+.summary-divider {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.35);
+  margin: 1rem 0;
+}
+
+/* Totals */
+.total-row {
+  font-weight: 600;
+}
+
+.grand-row {
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: 0.5px;
+}
+
+body {
+  background-color:#3D1219; /* your dark theme */
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+}
+
+

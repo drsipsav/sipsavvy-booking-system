@@ -1,0 +1,105 @@
+                booking.html
+in booking.html, there are 3 steps. 
+these steps are: 
+step 1.     <div class="form-steps" style="margin-top:1rem;padding:0 .5rem;">
+        <div class="form-step is-active" id="dot0">
+          <div class="form-step-dot" data-step="0">1</div>
+          <span class="form-step-label">Experience</span>
+        </div>, 
+
+step 2.        <div class="form-step-line"></div>
+        <div class="form-step" id="dot1">
+          <div class="form-step-dot" data-step="1">2</div>
+          <span class="form-step-label">Details</span>
+        </div>, 
+	and 
+
+step 3.       <div class="form-step-line"></div>
+        <div class="form-step" id="dot2">
+          <div class="form-step-dot" data-step="2">3</div>
+          <span class="form-step-label">Confirm</span>
+        </div>
+      </div>. 
+there are also 3 containers in booking.html 
+there is a container per step. 
+
+container 1, the "experience" is data-step="0"; 
+container 2, the "details" is data-step="1"; 
+container 3, the "confirm" is data-step="2". 
+
+we go in sequence from step 1 to step 2 and finally to step 3. 
+
+step 1. container 1, "experience": 
+there are 5 boxes in this container. 
+the first 4 boxes are paired, 2 boxes to a row. 
+row 1 has box1 and box2: 
+box1:
+ number 1 of 3 packages present for selection
+The Essential Package
+Up to 40 Guests
+$600; 
+if this box is selected, the name of the selected package and price should be passed on to box5. the price should then be added to the total in box5.
+
+
+box2: 
+ number 2 of 3 packages present for selection 
+The Luxe Experience
+Up to 75 Guests
+$900 
+if this box is selected, the name of the selected package and price should be passed on to box5. the price should then be added to the total in box5.
+
+
+
+row 2 has box 3 and box 4: 
+box3: 
+ number 3 of 3 packages present for selection 
+The Signature SipSavvy Experience
+Up to 100 Guests
+$1200 
+if this box is selected, the name of the selected package and price should be passed on to box5. the price should then be added to the total in box5.
+
+box4: make the size of box4 the same as that of box3.
+ the add ons box. 
+✦  Add-Ons
+Synced from your selections
+Extra Hour
++$125
+Travel Fee
++$75
+Champagne Toast
++$25
+Reset All Selections; this button must be active.
+
+on this box, the travel fee would be the fee passed globally to it either from packages.html or addons.html. disable the selection box on this page for travel fee. 
+the add ons (extra hours and champagne toast) are adding properly to the add-ons total at the bottom of the page. 
+the travel fee amount passed on to booking.html globally should automatically be added to the add-ons total in the bottom of the page. on entering this box4, there should be the amount of the travel fee showing across the travel fee line and also in the total at the bottom of the box.
+
+box5: this box is in row3 
+ this the box that shows the selections that have been made. 
+it is titled, "Your Package". 
+there are 6 data rows, 
+there are 3 headers
+each data row is underlined. the row labels are left aligned.
+this is the setup of box5;: 
+top of the box, you have the header, "Your Package" 
+
+data row1: on the left is the label, "Package" and to the right is the description of the package selected; 
+
+data row2: label, "Package Price," and the globally passed price or the re-selected price from one of boxes 1-3 is reflected on this field. 
+another line across and below data row2 to separate data row2 from the next header title. 
+next is the header title, "Add-Ons" 
+
+next line is data row3: 
+label, "Extra Hours" and then price, right aligned; 
+
+next line is data row4: 
+label, "Champagne Toast Setup" and then price, right aligned; 
+
+next line is data row5: 
+label, "Travel Fee" and then price, right aligned;
+
+another line across and below data row5 to separate data row5 from the next header title. 
+next is the header title, "Package Selection Total" 
+
+next line is data row6: 
+right aligned is the sum of the selections .  

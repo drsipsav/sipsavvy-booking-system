@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SipSavvy — Curated Wine Experiences</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- TEST 123 -->
+
+  <!-- Correct CSS paths -->
+  <link rel="stylesheet" href="../styles/global.css">
+  <link rel="stylesheet" href="../styles/index.css">
+</head>
+<body class="page-hero">
+
+<!-- HEADER -->
+<header class="site-header is-transparent" id="siteHeader">
+  <div class="header-inner">
+    <div class="header-logo" role="img">
+      <div class="header-logo-mark">
+        <img src="../assets/images/logo.png" alt="SipSavvy Mobile Bartending">
+      </div>
+      <div>
+        <span class="header-logo-wordmark">SipSavvy</span>
+        <span class="header-logo-tagline">Mobile Bartending</span>
+      </div>
+    </div>
+
+    <nav aria-label="Primary">
+      <ul class="header-nav">
+        <li class="header-nav-item"><span class="header-nav-link is-active is-current" aria-current="page">Home</span></li>
+        <li class="header-nav-item"><a href="services.html" class="header-nav-link">Services</a></li>
+        <li class="header-nav-item"><a href="packages.html" class="header-nav-link">Packages</a></li>
+        <li class="header-nav-item"><a href="gallery.html" class="header-nav-link">Cocktail Gallery</a></li>
+        <li class="header-nav-item"><a href="experiences.html" class="header-nav-link">Experiences</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-cta">
+      <a href="booking.html" class="btn btn-gold btn-sm">Book Now</a>
+      <button class="header-menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="header-spacer"></div>
+
+<main id="main">
+
+<!-- INTRO VIDEO -->
+<section class="intro-video-section" id="intro-video">
+  <div class="intro-video-inner">
+    <h2 class="intro-video-heading">Meet Dr. SipSav</h2>
+    <p class="intro-video-subheading">
+      Discover the passion and expertise behind every curated SipSavvy experience — straight from our resident sommelier.
+    </p>
+  </div>
+
+  <div class="intro-video-wrap">
+    <video
+      id="drSipSavVideo"
+      class="intro-video"
+      src="../assets/videos/DrSipSav.mp4"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+      aria-label="Dr. SipSav — SipSavvy brand introduction video"
+    ></video>
+
+    <!-- Unmute Button -->
+    <button id="ssUnmuteBtn" onclick="ssTapUnmute()" aria-label="Tap to unmute video" style="
+      position:absolute;bottom:18px;right:18px;
+      display:flex;align-items:center;gap:7px;
+      padding:9px 18px;
+      background:rgba(30,12,14,0.72);
+      color:#E6CC80;
+      font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:700;
+      letter-spacing:0.08em;text-transform:uppercase;
+      border:1.5px solid rgba(201,168,76,0.55);
+      border-radius:999px;cursor:pointer;
+      backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+      transition:opacity 0.4s,transform 0.2s;
+      z-index:999999;
+    ">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+        <line x1="23" y1="9" x2="17" y2="15"/>
+        <line x1="17" y1="9" x2="23" y2="15"/>
+      </svg>
+      Tap for Sound
+    </button>
+  </div>
+
+  <p class="intro-video-tagline">
+    Premium mobile bartending for weddings, corporate events, private parties, and luxury gatherings
+  </p>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <span class="services-eyebrow">What We Offer</span>
+  <h2 class="services-heading">Our Services</h2>
+  <p class="services-subheading">Crafted Experiences. Signature Cocktails. Elevated Moments.</p>
+
+  <div class="services-grid">
+
+    <div class="service-card">
+      <div class="service-icon">🍸</div>
+      <h3 class="service-title">Mobile Bartending</h3>
+      <p class="service-desc">Professional, stylish bartending for any event size — weddings, birthdays, corporate events, and more.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">🍷</div>
+      <h3 class="service-title">Wine Tastings</h3>
+      <p class="service-desc">Curated wine experiences guided by our in‑house sommelier, tailored to your event theme.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">🍹</div>
+      <h3 class="service-title">Signature Cocktails</h3>
+      <p class="service-desc">Custom cocktail menus crafted to match your event’s style, flavor profile, and vibe.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <p>© 2026 SipSavvy Mobile Bartending — All Rights Reserved</p>
+</footer>
+
+</main>
+
+<!-- JS -->
+<script src="../scripts/site.js" defer></script>
+
+</body>
+</html>

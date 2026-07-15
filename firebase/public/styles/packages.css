@@ -1,0 +1,1878 @@
+/* ============================================================
+   SipSavvy — packages.css (Corrected)
+============================================================ */
+
+/* Make add‑on rows sit BELOW */
+.addon-check-row,
+.addon-check-top,
+.addon-buttons {
+  position: relative;
+  z-index: 1;
+}
+
+/* Make the travel section sit ABOVE everything */
+.travel-section {
+  position: relative;
+  z-index: 9999 !important;
+}
+
+.addons-heading-experience {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  color: var(--color-#ffffff);
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.package-deselect-btn {
+  display: none;
+}
+
+.title-section {
+    text-align: center;
+}
+
+.packages-hero {
+  background: var(--color-cream);
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.packages-hero-eyebrow {
+    color: #4A0E1F; /* dark wine */
+    text-align: center; /* optional if you want it centered too */
+}
+
+.packages-hero-heading {
+  font-family: var(--font-serif);
+  font-size: 2.6rem;
+  color: var(--color-wine);
+}
+
+.pricing-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 24px;
+  transition: 0.25s ease;
+}
+
+.pricing-card.active {
+  border-color: var(--color-wine);
+}
+
+.selected-badge {
+  background: var(--color-gold);
+  color: var(--color-charcoal);
+}
+
+.checkout-bar {
+  background: var(--color-wine);
+  color: var(--color-cream);
+  padding: 20px;
+  border-radius: 14px;
+  border-top: 3px solid var(--color-gold);
+}
+
+.checkout-bar * {
+  color: var(--color-cream);
+}
+
+/* Action row */
+.package-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Default SELECT button */
+.package-select-btn {
+  background: var(--color-gold);
+  color: var(--color-wine);
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+/* SELECTED button (hidden by default) */
+.package-selected-btn {
+  display: none;
+  background: var(--color-gold);
+  color: var(--color-wine);
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Hover effect */
+.package-select-btn:hover,
+.package-selected-btn:hover {
+  background: var(--color-gold-light);
+  transform: translateY(-2px);
+}
+
+/* When card is active */
+.pricing-card.active .package-select-btn {
+  display: none;
+}
+
+.pricing-card.active .package-selected-btn {
+  display: inline-block;
+}
+
+/* Selected card styling */
+.pricing-card.active {
+  background: var(--color-cream-dark);
+  border-color: var(--color-wine);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  transform: translateY(-4px);
+}
+
+/* Center all text inside package cards */
+.pricing-card {
+  text-align: center;
+}
+
+/* Center the guest count */
+.pricing-card-guests {
+  text-align: center;
+}
+
+/* Center the features list */
+.pricing-features {
+  padding-left: 0;
+  text-align: center;
+}
+
+.pricing-features li {
+  list-style: none;
+  margin-bottom: 6px;
+}
+
+/* Center the price */
+.pricing-price {
+  text-align: center;
+  margin-top: 12px;
+}
+
+/* Mobile formatting */
+@media (max-width: 600px) {
+  .pricing-card {
+    padding: 20px 16px;
+  }
+
+  .pricing-card-title {
+    font-size: 1.3rem;
+  }
+
+  .pricing-card-guests {
+    font-size: 0.95rem;
+  }
+
+  .pricing-features li {
+    font-size: 0.9rem;
+  }
+
+  .pricing-price {
+    font-size: 1.3rem;
+  }
+}
+
+/* Add‑Ons Section */
+.addons-heading {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  color: var(--color-wine);
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.addons-heading-experience {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  color: var(--color-#ffffff);
+  text-align: center;
+  margin-bottom: 10px;
+} 
+
+.addons-subhead {
+  text-align: center;
+  color: var(--color-muted);
+  margin-bottom: 30px;
+}
+
+/* Add‑On Row */
+.addon-check-row {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin-bottom: 16px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+/* Active State */
+.addon-check-row.active {
+  background: var(--color-cream-dark);
+  border-color: var(--color-wine);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+/* Layout */
+.addon-check-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 60px !important; /* FIX: separates it from the travel section */
+  position: relative;
+  z-index: 1;
+}
+
+.travel-section {
+  position: relative;
+  z-index: 10; /* ensures button is clickable */
+}
+
+
+.addon-check-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Checkbox */
+.addon-check-box {
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--color-wine);
+  border-radius: 6px;
+  transition: 0.25s ease;
+}
+
+.addon-check-row.active .addon-check-box {
+  background: var(--color-gold);
+  border-color: var(--color-gold);
+}
+
+/* Icons */
+.addon-icon {
+  font-size: 1.4rem;
+}
+
+/* Text */
+.addon-check-label {
+  font-weight: 700;
+  color: var(--color-wine);
+  font-size: 1rem;
+}
+
+.addon-check-desc {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.addon-check-price {
+  font-weight: 700;
+  color: var(--color-wine);
+  font-size: 1rem;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .addon-check-row {
+    padding: 16px;
+  }
+
+  .addon-check-label {
+    font-size: 0.95rem;
+  }
+
+  .addon-check-desc {
+    font-size: 0.85rem;
+  }
+
+  .addon-check-price {
+    font-size: 0.95rem;
+  }
+}
+
+/* Extra Hour Button Row */
+.extra-hour-buttons {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+/* Hour Buttons */
+.hour-btn {
+  background: var(--color-gold);
+  color: var(--color-wine);
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.hour-btn:hover {
+  background: var(--color-gold-light);
+  transform: translateY(-2px);
+}
+
+/* Active hour button */
+.hour-btn.active {
+  background: var(--color-wine);
+  color: var(--color-cream);
+}
+
+/* De-select button */
+.none-btn {
+  background: var(--color-border);
+  color: var(--color-wine);
+}
+
+.none-btn.active {
+  background: var(--color-wine);
+  color: var(--color-cream);
+}
+
+/* Extra Hour row active styling */
+.addon-extra-hour.active {
+  background: var(--color-cream-dark);
+  border-color: var(--color-wine);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+/* Sector Buttons */
+.travel-sector-buttons {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.sector-btn {
+  background: var(--color-gold);
+  color: var(--color-wine);
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.sector-btn:hover {
+  background: var(--color-gold-light);
+  transform: translateY(-2px);
+}
+
+.sector-btn.active {
+  background: var(--color-wine);
+  color: var(--color-cream);
+}
+
+.clear-btn {
+  background: var(--color-border);
+  color: var(--color-wine);
+}
+
+.clear-btn.active {
+  background: var(--color-wine);
+  color: var(--color-cream);
+}
+
+.champagne-buttons {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.champagne-btn {
+  background: var(--color-gold);
+  color: var(--color-wine);
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.champagne-btn:hover {
+  background: var(--color-gold-light);
+  transform: translateY(-2px);
+}
+
+.champagne-btn.active {
+  background: var(--color-wine);
+  color: var(--color-cream);
+}
+
+.clear-btn {
+  background: var(--color-border);
+  color: var(--color-wine);
+}
+
+.clear-btn.active {
+  background: var(--color-wine);
+  color: var(--color-cream);
+}
+
+/* Dropdown */
+.travel-city-dropdown {
+  margin-top: 14px;
+  text-align: center;
+}
+
+.travel-city-dropdown.hidden {
+  display: none;
+}
+
+.travel-city-select {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  font-size: 1rem;
+  margin-top: 6px;
+}
+
+.addons-summary-final {
+  margin-top: 3rem;
+  padding: 2rem;
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.addons-summary-title {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.addons-summary-grid {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+}
+
+.total-row {
+  font-weight: 600;
+}
+
+.grand-row {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.summary-divider {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  margin: 1rem 0;
+}
+
+/* Wine‑Gold Summary Box */
+.winegold-box {
+  background: linear-gradient(135deg, #5a0010, #8a0030, #c9a84c);
+  padding: 2rem;
+  border-radius: 14px;
+  color: #fff;
+  margin-top: 3rem;
+  border: 1px solid rgba(255,255,255,0.25);
+  box-shadow: 0 0 22px rgba(0,0,0,0.35);
+}
+
+/* Title */
+.addons-summary-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+/* Two‑Column Grid */
+.addons-summary-grid {
+  display: grid;
+  gap: 0.75rem;
+}
+
+/* Rows */
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+/* Divider */
+.summary-divider {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.35);
+  margin: 1rem 0;
+}
+
+/* Totals */
+.total-row {
+  font-weight: 600;
+}
+
+.grand-row {
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: 0.5px;
+}
+
+/* Larger, richer typography inside package cards */
+.pricing-card {
+  font-size: 1.15rem; /* base size boost */
+}
+
+.pricing-card-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.pricing-card-guests {
+  font-size: 1.2rem;
+}
+
+.pricing-features li {
+  font-size: 1.15rem;
+  line-height: 1.5;
+}
+
+.pricing-price {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+/* Force all text inside package cards to be dark and readable */
+.pricing-card,
+.pricing-card * {
+  color: #2a0e0e !important; /* deep wine / dark brown */
+}
+
+.package-actions button {
+  font-size: 1.1rem;
+}
+
+/* Wine‑Gold background for description areas only */
+.pricing-features {
+  background: linear-gradient(135deg, #3a0012 0%, #b8860b 100%);
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  margin: 1rem 0;
+}
+
+/* Make the text readable on the wine‑gold background */
+.pricing-features li {
+  color: #fff !important;
+  font-size: 1.15rem;
+  line-height: 1.55;
+  font-weight: 500;
+}
+
+/* Wine‑Gold background for description + price + buttons */
+.pricing-card .pricing-features,
+.pricing-card .pricing-price,
+.pricing-card .package-actions {
+  background: linear-gradient(135deg, #3a0012 0%, #b8860b 100%);
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  margin: 1rem 0;
+}
+
+/* Make text readable on wine‑gold */
+.pricing-card .pricing-features li,
+.pricing-card .pricing-price,
+.pricing-card .package-actions button {
+  color: #fff !important;
+}
+
+/* Optional: cream price instead of white */
+.pricing-card .pricing-price {
+  color: #f8e9c8 !important; /* elegant cream tone */
+  font-weight: 700;
+  font-size: 1.8rem;
+}
+
+/* Create one continuous wine‑gold block */
+.pricing-card .pricing-features,
+.pricing-card .pricing-price,
+.pricing-card .package-actions {
+  background: linear-gradient(135deg, #3a0012 0%, #b8860b 100%);
+  color: #fff !important;
+  margin: 0;                 /* remove spacing between sections */
+  padding: 1.25rem;
+  border-radius: 0;          /* remove individual rounding */
+}
+
+/* Round the top of the block */
+.pricing-card .pricing-features {
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+/* Round the bottom of the block */
+.pricing-card .package-actions {
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+/* Make price cream-colored for elegance */
+.pricing-card .pricing-price {
+  color: #f8e9c8 !important;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+/* Improve readability of feature list */
+.pricing-card .pricing-features li {
+  font-size: 1.2rem;
+  line-height: 1.55;
+  color: #fff !important;
+}
+
+/* Buttons inside the unified block */
+.pricing-card .package-actions button {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.4);
+  color: #fff !important;
+  font-size: 1.1rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+}
+
+/* Add‑Ons section title + subtitle */
+.addons-section-title,
+.addons-section-subtitle {
+  color: #ffffff !important;
+}
+
+/* Remove the period from the subtitle */
+.addons-section-subtitle::after {
+  content: "";
+}
+
+/* FORCE Add‑Ons header text to white */
+#addons,
+#addons * {
+  color: #ffffff !important;
+}
+
+/* FORCE Add‑Ons header text to white — bulletproof */
+section#addons h2,
+section#addons p {
+  color: #ffffff !important;
+}
+
+/* Bulletproof Add‑Ons header styling */
+#addons h2,
+#addons p {
+  color: #ffffff !important;
+  text-align: center !important;
+}
+
+/* Restore strong, readable font sizes */
+#addons h2 {
+  font-size: 2rem !important;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+#addons p {
+  font-size: 1.2rem !important;
+  font-weight: 400;
+  margin-top: 0;
+}
+
+/* Restore correct two-line header branding on packages.html */
+.header-branding {
+  display: flex;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+}
+
+.header-branding span {
+  white-space: normal !important;
+  line-height: 1.1;
+}
+
+header {
+  background-color: var(--deep-wine) !important;
+}
+
+/* Ensure the header background matches all other pages */
+header {
+  background-color: var(--deep-wine) !important;
+}
+
+/* Force the logo text to stack correctly */
+header .header-logo-wordmark,
+header .header-logo-tagline {
+  display: block !important;
+  white-space: normal !important;
+  line-height: 1.1;
+  text-align: left;
+}
+
+/* Optional: adjust spacing to match other pages */
+header .header-logo-wordmark {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+header .header-logo-tagline {
+  font-size: 1rem;
+  font-weight: 400;
+  margin-top: 0.1rem;
+}
+
+/* Make the tagline "Mobile Bartending" wine‑gold on packages.html */
+.header-logo-tagline {
+  color: var(--wine-gold) !important;
+}
+
+/* FORCE "Mobile Bartending" to wine‑gold on packages.html */
+header .header-logo-tagline,
+header a .header-logo-tagline,
+.site-header .header-logo-tagline {
+  color: #ef88b5 !important;   /* wine‑gold */
+}
+
+
+/* Make each package card rose pink */
+.page-packages .pricing-card {
+  background-color: #ffe4ec; /* rose pink */
+}
+
+.page-packages .addons-sub {
+  color: #ffffff; /* white */
+}
+
+.travel-error {
+  color: #b00020;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.travel-spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 3px solid #ccc;
+  border-top-color: #5C1228; /* wine tint */
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin-left: 8px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.travel-retry-btn {
+  margin-top: 8px;
+  padding: 6px 12px;
+  background: #5C1228;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.travel-retry-btn:hover {
+  background: #7a1a36;
+}
+
+/* Base button style (Select + Selected + Deselect) */
+.package-actions button {
+  background: #5C1228;     /* your wine tint */
+  color: #FFFFFF;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+/* Hover */
+.package-actions button:hover {
+  background: #7A1A36;
+}
+
+/* Selected button should look EXACTLY like Select */
+.package-selected-btn {
+  background: #FFD700;     /* gold */
+  color: #2C2020;
+  font-weight: 600;
+}
+
+/* Hover for selected */
+.package-selected-btn:hover {
+  background: #E6C200;
+}
+
+
+/* Base button style (shared by all three buttons) */
+.package-actions button {
+  background: #5C1228; /* wine tint */
+  color: #FFFFFF;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+/* Hover for all buttons */
+.package-actions button:hover {
+  background: #7A1A36;
+}
+
+/* Selected button (gold) */
+.package-selected-btn {
+  background: #FFD700; /* gold */
+  color: #2C2020;
+  font-weight: 600;
+}
+
+.package-selected-btn:hover {
+  background: #E6C200;
+}
+
+/* ⭐ DESELECT BUTTON — Rose‑Gold Accent */
+.package-deselect-btn {
+  background: #E8C4B8; /* rose‑gold shimmer */
+  color: #2C2020;
+  font-weight: 500;
+  border: none;
+}
+
+.package-deselect-btn:hover {
+  background: #D9B2A6; /* slightly darker rose‑gold */
+}
+
+.bottom-totals-container {
+  background-color: #f5f0e6; /* soft beige */
+  color: #000;              /* ensure text is visible */
+}
+
+.bottom-package-name,
+.bottom-package-price,
+.bottom-addons-total,
+.bottom-travel-fee,
+.bottom-grand-total {
+  color: #5C1228 !important;
+}
+
+
+/* MATCH EXTRA HOURS + CHAMPAGNE TOAST BACKGROUND */
+#travelAddressBox {
+  background-color: #F4D9D3;   /* same soft rose‑gold pink */
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+  border: 1px solid #E8C4B8;   /* subtle rose‑gold border */
+}
+
+/* DEEP WINE TEXT */
+#travelAddressBox,
+#travelAddressBox label,
+#travelAddressBox span,
+#travelAddressBox input,
+#travelAddressBox button {
+  color: #5C1228 !important;   /* deep wine */
+}
+
+/* BUTTON STYLE (OPTIONAL BUT ON‑BRAND) */
+#confirmLocationBtn {
+  background-color: #5C1228;   /* deep wine */
+  color: #FFD700;              /* gold text */
+  border: 1px solid #FFD700;
+  padding: 10px 18px;
+  border-radius: 6px;
+  margin-top: 12px;
+  cursor: pointer;
+}
+
+#confirmLocationBtn:hover {
+  background-color: #7A1E33;   /* lighter wine hover */
+}
+
+/* FORCE ALL FOOTER BAR TEXT TO WHITE */
+#footerBar,
+#footerBar * {
+  color: #FFFFFF !important;
+}
+
+/* FORCE ALL FOOTER TOTALS TO WHITE */
+#checkoutTotal,
+#checkoutAddons,
+#checkoutTravelFee,
+.footer-package-price,
+.footer-total,
+.footer-bar *,
+.checkout-footer *,
+.bottom-footer *,
+#bottomGrandTotal,
+#bottomTravelFee {
+  color: #FFFFFF !important;
+}
+
+/* FORCE ALL TEXT INSIDE THE CHECKOUT BAR TO WHITE */
+#checkoutBar,
+#checkoutBar * {
+  color: #FFFFFF !important;
+}
+
+/* INDIVIDUAL LINES IN CHECKOUT BAR — FORCE WHITE TEXT */
+.footer-package-name {
+  color: #FFFFFF !important;
+}
+
+.footer-package-price {
+  color: #FFFFFF !important;
+}
+
+#checkoutAddons {
+  color: #FFFFFF !important;
+}
+
+#checkoutTravelFee {
+  color: #FFFFFF !important;
+}
+
+#checkoutTotal {
+  color: #FFFFFF !important;
+}
+
+#checkoutContinue {
+  color: #FFFFFF !important;
+}
+
+/* 1. Scope to the checkout bar block */
+.checkout-wrapper .checkout-bar .checkout-content span,
+.checkout-wrapper .checkout-bar .checkout-content a {
+  color: #FFFFFF !important;
+}
+
+.checkout-wrapper .checkout-bar .checkout-content .footer-package-name {
+  color: #FFFFFF !important;
+}
+
+.checkout-wrapper .checkout-bar .checkout-content .footer-package-price {
+  color: #FFFFFF !important;
+}
+
+.checkout-wrapper .checkout-bar .checkout-content #checkoutAddons {
+  color: #FFFFFF !important;
+}
+
+.checkout-wrapper .checkout-bar .checkout-content #checkoutTravelFee {
+  color: #FFFFFF !important;
+}
+
+.checkout-wrapper .checkout-bar .checkout-content #checkoutTotal {
+  color: #FFFFFF !important;
+}
+
+.checkout-wrapper .checkout-bar .checkout-content #checkoutContinue {
+  color: #FFFFFF !important;
+}
+
+
+.travel-confirm-btn { color: #fff !important; }
+
+
+#confirmLocationBtn,
+.travel-confirm-btn,
+button.travel-confirm-btn {
+  color: #ffffff !important;
+  border: 1px solid #FFD700;
+  background-color: #5C1228 !important;
+  font-weight: 600;
+}
+
+#confirmLocationBtn {
+  color: #ffffff !important;
+  opacity: 1 !important;
+  mix-blend-mode: normal !important;
+  filter: none !important;
+  text-shadow: none !important;
+  isolation: isolate !important;
+  position: relative !important;
+  z-index: 999 !important;
+}
+
+#confirmLocationBtn {
+  background-color: #F5E9D3 !important; /* beige / cream */
+  color: #5C1228 !important;            /* wine text for contrast */
+  font-weight: 600;
+}
+
+#travelAddressBox {
+  background-color: #F7D6E0 !important; /* soft rose‑pink */
+  padding: 16px !important;
+  border-radius: 10px !important;
+}
+
+#regionSelect,
+#countySelect,
+#citySelect,
+#eventLocation,
+#eventZip {
+  background-color: #ffffff !important;  /* pure white */
+  color: #5C1228 !important;             /* wine text for readability */
+  font-weight: 500;
+}
+
+#confirmLocationBtn,
+.ss-location-btn {
+  background-color: #5C1228;   /* deep wine */
+  color: #FFFFFF;              /* white text */
+  border: none;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 12px;
+  transition: 0.25s ease;
+}
+
+#confirmLocationBtn:hover,
+.ss-location-btn:hover {
+  background-color: #4A0E20;   /* darker wine hover */
+}
+
+
+#confirmLocationBtn {
+  display: block !important;
+  background-color: #5C1228 !important; /* wine */
+  color: #FFFFFF !important;            /* white text */
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  width: 100%;
+  margin-top: 12px;
+  cursor: pointer;
+}
+
+
+#confirmLocationBtn,
+.ss-location-btn {
+  color: #FFFFFF !important;        /* force white text */
+  background-color: #5C1228 !important; /* wine */
+  opacity: 1 !important;            /* ensure visible */
+  visibility: visible !important;
+  display: block !important;
+}
+
+.travel-fee-summary span,
+.travel-fee-summary .travel-fee-label {
+  color: #5C1228 !important;
+}
+
+
+
+.packages-section {
+  background-color: #541E25;
+}
+
+.packages-section {
+  background-color: #FBF7F4;
+}
+
+
+/* ============================================================
+   TRAVEL FEE SYSTEM — MOVED FROM INLINE <style>
+============================================================ */
+
+.travel-error {
+  color: #b00020;
+  font-weight: 600;
+}
+
+.travel-spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 3px solid #ccc;
+  border-top-color: #5C1228;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin-top: 6px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.travel-retry-btn {
+  margin-top: 8px;
+  padding: 6px 12px;
+  background: #5C1228;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.travel-retry-btn:hover {
+  background: #7a1a36;
+}
+
+.travel-confirm-btn {
+  margin-top: 10px;
+  padding: 10px 16px;
+  background: #5C1228;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  width: 100%;
+  display: none;
+}
+
+.travel-confirm-btn:hover {
+  background: #7a1a36;
+}
+
+.travel-success {
+  animation: travelSuccessPulse 0.6s ease-out;
+}
+
+@keyframes travelSuccessPulse {
+  0% {
+    transform: scale(0.95);
+    color: #5C1228;
+    text-shadow: none;
+  }
+  40% {
+    transform: scale(1.05);
+    color: #FFD700;
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+  }
+  100% {
+    transform: scale(1);
+    color: #5C1228;
+    text-shadow: none;
+  }
+}
+
+.packages-section {
+  background-color: #FBF7F4;
+}
+
+/* FORCE RESTORE OLD PACKAGES BACKGROUND */
+body.page-packages,
+.packages-section,
+.section-bg.packages-section,
+.pricing-section,
+.section-bg.pricing-section,
+.section-container,
+.content-wrapper {
+  background-color: #541E25 !important;
+}
+
+.packages-section,
+.pricing-section {
+  background-color: #E8C4B8 !important;
+}
+
+    /* ═══════════════════════════════════════════
+       2 · HERO
+    ═══════════════════════════════════════════ */
+    .hero {
+      position: relative;
+      min-height: 420px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(160deg, rgba(201,168,76,.12) 0%, transparent 55%),
+        radial-gradient(ellipse at 70% 40%, rgba(201,168,76,.08) 0%, transparent 60%),
+        var(--bg);
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C9A84C' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-content { position: relative; max-width: 680px; }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      padding: 5px 14px;
+      border: 1px solid var(--border);
+      border-radius: 50px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.18;
+      margin-bottom: 18px;
+    }
+    .hero h1 em { font-style: normal; color: var(--gold); }
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin: 0 auto 28px;
+    }
+    .hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      padding: 13px 28px;
+      border-radius: 50px;
+      background: var(--gold);
+      color: #000;
+      font-size: .9rem;
+      font-weight: 600;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .btn-outline {
+      padding: 13px 28px;
+      border-radius: 50px;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: .9rem;
+      font-weight: 500;
+      transition: border-color var(--transition), color var(--transition), transform var(--transition);
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+
+/* ═══════════════════════════════════════════
+       3 · SECTION WRAPPER
+    ═══════════════════════════════════════════ */
+    .section {
+      padding: 80px 24px;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 52px;
+    }
+    .section-eyebrow {
+      display: inline-block;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .section-header p {
+      color: var(--text-muted);
+      font-size: .97rem;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+    .section-divider {
+      width: 52px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      border-radius: 2px;
+      margin: 16px auto 0;
+    }
+
+    /* ═══════════════════════════════════════════
+       4 · PACKAGE CARDS
+    ═══════════════════════════════════════════ */
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .pkg-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 28px 28px;
+      display: flex;
+      flex-direction: column;
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .pkg-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--border);
+      transition: background var(--transition);
+    }
+    .pkg-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .pkg-card:hover::before { background: var(--gold); }
+    .pkg-card.featured {
+      border-color: rgba(201,168,76,.5);
+      box-shadow: 0 0 0 1px rgba(201,168,76,.18), var(--shadow);
+    }
+    .pkg-card.featured::before { background: var(--gold); }
+
+    .pkg-badge {
+      position: absolute;
+      top: 18px; right: 18px;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #000;
+      background: var(--gold);
+      padding: 4px 10px;
+      border-radius: 50px;
+    }
+    .pkg-icon {
+      font-size: 2rem;
+      margin-bottom: 16px;
+    }
+    .pkg-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .pkg-tagline {
+      font-size: .83rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+    .pkg-price {
+      margin-bottom: 22px;
+    }
+    .pkg-price .amount {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    .pkg-price .suffix {
+      font-size: .82rem;
+      color: var(--text-muted);
+      margin-left: 4px;
+    }
+    .pkg-features {
+      list-style: none;
+      flex: 1;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .pkg-features li {
+      font-size: .875rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .pkg-features li::before {
+      content: '✦';
+      color: var(--gold);
+      font-size: .65rem;
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+    .pkg-select-btn {
+      display: block;
+      width: 100%;
+      padding: 13px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: .88rem;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: transparent;
+      transition: background var(--transition), border-color var(--transition),
+                  color var(--transition), transform var(--transition);
+    }
+    .pkg-select-btn:hover,
+    .pkg-select-btn.selected {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #000;
+      transform: translateY(-1px);
+    }
+    .pkg-card.featured .pkg-select-btn {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #000;
+    }
+    .pkg-card.featured .pkg-select-btn:hover { background: var(--gold-light); }
+
+    /* ═══════════════════════════════════════════
+       5 · ADD-ONS
+    ═══════════════════════════════════════════ */
+    .addons-section { background: var(--bg-section); }
+    .addons-section .section { padding-top: 72px; padding-bottom: 72px; }
+
+    .addons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 18px;
+    }
+    .addon-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      cursor: pointer;
+      transition: border-color var(--transition), transform var(--transition);
+      position: relative;
+    }
+    .addon-card:hover { border-color: rgba(201,168,76,.5); transform: translateY(-2px); }
+    .addon-card.selected {
+      border-color: var(--gold);
+      background: rgba(201,168,76,.06);
+    }
+    .addon-checkbox {
+      width: 20px;
+      height: 20px;
+      border: 1.5px solid var(--border);
+      border-radius: 5px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color var(--transition), background var(--transition);
+    }
+    .addon-card.selected .addon-checkbox {
+      border-color: var(--gold);
+      background: var(--gold);
+    }
+    .addon-card.selected .addon-checkbox::after {
+      content: '✓';
+      color: #000;
+      font-size: .7rem;
+      font-weight: 700;
+    }
+    .addon-info { flex: 1; }
+    .addon-name {
+      font-size: .92rem;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+    .addon-desc {
+      font-size: .78rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .addon-price {
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+/* ── Wine divider — packages section ── */
+.package-actions {
+  margin-bottom: 24px;
+}
+
+.pkg-wine-divider {
+  display: block;
+  width: 100%;
+  border: none;
+  border-top: 2px solid #722F37;
+  opacity: 0.78;
+  margin-top: 0;
+}
+
+/* Remove card bottom padding so line sits flush */
+.package-card {
+  padding-bottom: 0;
+}
+
+/* Space between last button and the wine line */
+.package-actions {
+  margin-bottom: 20px;
+}
+
+/* Wine line + space before next card header */
+.pkg-wine-divider {
+  display: block;
+  width: 100%;
+  border: none;
+  border-top: 2px solid #722F37;
+  opacity: 0.78;
+  margin: 0 0 28px 0;
+}
+
+/* ── Hero section — gold text on wine background ── */
+.wine-rose-bg .packages-hero-eyebrow {
+  color: #C9A84C;
+}
+
+.wine-rose-bg .packages-hero-heading {
+  color: #C9A84C;
+}
+
+.wine-rose-bg .packages-hero-heading em {
+  color: #ffffff;        /* lighter gold for the italic "Perfect" #E5C87E */
+  font-style: italic;
+}
+
+.wine-rose-bg .packages-hero-sub {
+  color: #F0DFA0;        /* soft warm gold for the body text */
+}
+
+.wine-rose-bg .packages-hero-sub-center {
+  text-align: center;
+  color: #F0DFA0;        /* soft warm gold for the body text */   
+}
+
+.qm-card {
+  background: #1A0D0D;  /* deep dark, guaranteed contrast */
+  border: 1px solid rgba(201, 168, 76, 0.35); /* subtle gold border */
+}
+
+.travel-confirm-btn {
+  background: #FFD700;          /* gold */
+  color: #000;                  /* black text */
+  padding: 12px 28px;
+  border: none;
+  border-radius: 999px;         /* oval shape */
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background .15s, transform .15s;
+}
+
+.travel-confirm-btn:hover {
+  background: #E6C200;          /* darker gold */
+  transform: translateY(-1px);
+}
+
+.travel-confirm-btn:active {
+  background: #CCA700;
+  transform: translateY(0);
+}
+
+.travel-confirm-btn {
+  background: var(--color-gold);     /* same gold variable you use */
+  color: #000000;                    /* same black text */
+  padding: 12px 32px;                /* same spacing */
+  border: none;
+  border-radius: 999px;              /* same oval shape */
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;                /* same size */
+  font-weight: 700;                  /* same weight */
+  letter-spacing: 0.10em;            /* same spacing */
+  text-transform: uppercase;         /* same style */
+  cursor: pointer;
+  transition: background .15s ease, transform .15s ease;
+}
+
+.travel-confirm-btn:hover {
+  background: #d4b200;               /* same hover gold */
+  transform: translateY(-1px);       /* same lift effect */
+}
+
+.travel-confirm-btn:active {
+  background: #b89600;               /* same pressed gold */
+  transform: translateY(0);
+}
+
+button#confirmLocationBtn.travel-confirm-btn {
+  background: #FFD700 !important;
+  color: #000 !important;
+  padding: 12px 32px !important;
+  border: none !important;
+  border-radius: 999px !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.10em !important;
+  text-transform: uppercase !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  transition: background .15s ease !important;
+}
+
+button#confirmLocationBtn.travel-confirm-btn:hover {
+  background: #E6C200 !important;
+}
+
+.package-card.selected {
+  border: 3px solid #8B0000;
+  background-color: #fff7f7;
+  transform: scale(1.02);
+  transition: 0.2s ease;
+}
+
+.package-selected-btn {
+  display: none !important;
+}
+
+.package-card.selected .package-selected-btn {
+  display: block !important;
+}
+
+.package-selected-btn {
+  display: none !important;
+}
+
+.package-card.selected .package-selected-btn {
+  display: block !important;
+}
+
+.active-package {
+  border: 3px solid var(--wine);
+  box-shadow: 0 0 12px rgba(120, 0, 40, 0.35);
+  transform: scale(1.02);
+  transition: all 0.25s ease;
+}
+
+.package-deselect-btn,
+.package-selected-btn,
+.package-select-btn {
+  position: relative;
+  z-index: 9999;
+  pointer-events: auto;
+}
+
+.package-card {
+  position: relative;
+  z-index: 1;
+}
+
+.package-actions {
+  position: relative;
+  z-index: 9999;
+}
+
+.package-actions button {
+  position: relative;
+  z-index: 9999;
+  pointer-events: auto;
+}
+
+/* ───────────────────────────────
+   PACKAGE BUTTONS — ALWAYS CLICKABLE
+   ─────────────────────────────── */
+
+.package-actions {
+  position: relative;
+  z-index: 50; /* ensures button layer is above card content */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* All three buttons share the same stacking context */
+.package-actions button {
+  position: relative;
+  z-index: 9999;
+  pointer-events: auto;
+  width: 100%;
+  padding: 12px 0;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+/* ───────────────────────────────
+   SELECT BUTTON (Wine Color)
+   ─────────────────────────────── */
+.package-select-btn {
+  background-color: #722F37;
+  color: #fff;
+  display: inline-block;
+}
+
+/* ───────────────────────────────
+   SELECTED BUTTON (Dark Wine)
+   ─────────────────────────────── */
+.package-selected-btn {
+  background-color: #4E1F25;
+  color: #fff;
+  display: none;
+}
+
+/* ───────────────────────────────
+   DESELECT BUTTON (Light Wine Outline)
+   ─────────────────────────────── */
+.package-deselect-btn {
+  background-color: transparent;
+  border: 2px solid #722F37;
+  color: #722F37;
+  display: none;
+}
+
+/* ───────────────────────────────
+   ACTIVE PACKAGE CARD HIGHLIGHT
+   ─────────────────────────────── */
+.package-card.active-package {
+  border: 2px solid #722F37;
+  box-shadow: 0 0 10px rgba(114, 47, 55, 0.25);
+  position: relative;
+  z-index: 10;
+}
+
+
+/* ⭐ Right-align all value fields in Container 1 → Box 5 */
+#container1 .summary-row span:last-child,
+#container1 .c1-line span:last-child,
+#container1 #sumTravelFee,
+#container1 .feeCharge[data-ss-travel="fee"],
+#container1 #sumGrandTotal {
+  display: block;
+  width: 100%;
+  text-align: right;
+  font-weight: 600;
+}
+
+/* Package + Package Price rows */
+.summary-row span:last-child {
+  display: inline-block;
+  margin-left: auto;
+  text-align: right;
+}
+
+/* All add‑on lines */
+.c1-line span:last-child {
+  display: inline-block;
+  margin-left: auto;
+  text-align: right;
+}
+
+/* Travel fee + fee charge + grand total */
+#sumTravelFee,
+.feeCharge[data-ss-travel="fee"],
+#sumGrandTotal {
+  display: inline-block;
+  margin-left: auto;
+  text-align: right;
+}
+
+/* Make the rows flex so we can push the value to the right */
+.summary-row,
+.c1-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Right-align the value spans */
+.summary-row span:last-child,
+.c1-line span:last-child,
+#sumTravelFee,
+.feeCharge[data-ss-travel="fee"],
+#sumGrandTotal {
+  text-align: right;
+}
+
+* {
+  pointer-events: auto !important;
+}
+
+.travel-fee-row .summary-value,
+.travel-fee-row .summary-label,
+.travel-fee-row span {
+  color: var(--color-wine) !important;
+  font-weight: 700 !important;
+}
+
+.checkout-btn {
+  background: var(--color-wine) !important;
+  color: #fff !important;
+  font-weight: 700;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+.checkout-btn-wrap {
+  display: inline-block;
+}
+
+.checkout-btn {
+  background: #FFD700 !important;      /* gold */
+  color: #000 !important;              /* black text */
+  padding: 14px 32px;
+  border: none;
+  border-radius: 999px;                /* full oval */
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background .15s, transform .15s;
+}
+
+.checkout-btn:hover {
+  background: #E6C200 !important;      /* deeper gold */
+  transform: translateY(-1px);
+}
+
+.checkout-btn:active {
+  background: #CCA700 !important;
+  transform: translateY(0);
+}
+
+

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SipSavvy — Booking</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../styles/global.css">
+  <link rel="stylesheet" href="../styles/header.css">
+  <link rel="stylesheet" href="../styles/booking.css">
+
+  <!-- Page-specific header gradient + tweaks -->
+  <style>
+    #site-header {
+      background: linear-gradient(135deg, #992642 0%, #5C1228 100%);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+      color: #ffffff;
+    }
+
+    #site-header a {
+      color: #ffffff;
+    }
+
+    #site-header .btn-primary {
+      background: #FFD700;
+      color: #5C1228;
+    }
+
+    .progress-steps {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .progress-steps .step {
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      background: rgba(0, 0, 0, 0.18);
+      opacity: 0.85;
+    }
+
+    .progress-steps .step.completed {
+      background: rgba(255, 215, 0, 0.18);
+      border-color: rgba(255, 215, 0, 0.7);
+    }
+
+    .progress-steps .step.current {
+      background: #FFD700;
+      color: #5C1228;
+      border-color: #FFD700;
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+
+
+
+<header class="site-header" id="top">
+  <div class="header-inner">
+
+    <div class="header-logo" role="img">
+      <div class="header-logo-mark">
+        <img src="../assets/images/logo.png" alt="SipSavvy Mobile Bartending">
+      </div>
+      <div>
+        <span class="header-logo-wordmark">SipSavvy</span>
+        <span class="header-logo-tagline">Mobile Bartending</span>
+      </div>
+    </div>
+
+    <nav aria-label="Primary">
+      <ul class="header-nav">
+        <li class="header-nav-item"><a href="index.html"       class="header-nav-link">Home</a></li>
+        <li class="header-nav-item"><a href="services.html"    class="header-nav-link">Services</a></li>
+
+        <!-- FIX #1: Packages link is now clickable -->
+        <li class="header-nav-item"><a href="packages.html"    class="header-nav-link">Packages</a></li>
+
+        <li class="header-nav-item"><a href="gallery.html"     class="header-nav-link">Gallery</a></li>
+        <li class="header-nav-item"><a href="experiences.html" class="header-nav-link">Experiences</a></li>
+      </ul>
+    </nav>
+
+    <div style="display:flex;align-items:center;gap:var(--space-3);">
+
+      <!-- FIX #2: Book Now now points back to packages.html -->
+      <a href="packages.html#addons" class="btn-gold">Book Now</a>
+
+      <button class="header-menu-toggle" id="menuToggle"
+              aria-label="Open menu" aria-expanded="false">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+
+  </div>
+</header>
+
+
+<!-- PROGRESS STEPS BELOW HEADER -->
+<div class="progress-steps">
+  <div class="step completed">Packages</div>
+  <div class="step completed">Add‑Ons</div>
+  <div class="step current">Booking</div>
+</div>
+
+
+<main class="booking-layout">
+  <!-- Sticky summary sidebar -->
+  <aside class="booking-summary">
+    <h2>Your Selection</h2>
+
+    <h3>Package</h3>
+    <p id="selected-package">None selected</p>
+
+    <h3>Add‑Ons</h3>
+    <ul id="selected-addons"></ul>
+
+    <button id="clearBooking" class="btn-primary btn-secondary">
+      Clear & Re‑Select
+    </button>
+  </aside>
+
+  <!-- Booking form -->
+  <section class="booking-form">
+    <h1>Booking Details</h1>
+    <form>
+      <div class="form-row">
+        <label for="fullName">Full Name</label>
+        <input id="fullName" name="fullName" type="text" required>
+      </div>
+
+      <div class="form-row">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" required>
+      </div>
+
+      <div class="form-row">
+        <label for="eventDate">Event Date</label>
+        <input id="eventDate" name="eventDate" type="date" required>
+      </div>
+
+      <div class="form-row">
+        <label for="guestCount">Guest Count</label>
+        <input id="guestCount" name="guestCount" type="number" min="1" required>
+      </div>
+
+      <div class="form-row">
+        <label for="notes">Notes / Special Requests</label>
+        <textarea id="notes" name="notes" rows="4"></textarea>
+      </div>
+
+      <button type="submit" class="btn-primary">Submit Booking Request</button>
+    </form>
+  </section>
+</main>
+
+<!-- Hidden email summary field -->
+<textarea id="emailSummary" style="display:none;"></textarea>
+
+<!-- Email summary generator -->
+<script>
+  function generateEmailSummary() {
+    const pkg = localStorage.getItem('selectedPackage') || "None selected";
+    const addons = JSON.parse(localStorage.getItem('selectedAddons') || "[]");
+
+    const summary = `
+SipSavvy Booking Summary
+
+Package:
+- ${pkg}
+
+Add-Ons:
+${addons.length ? addons.map(a => "- " + a).join("\n") : "- None selected"}
+
+Customer Details:
+Name: ${document.querySelector('[name="fullName"]')?.value || ""}
+Email: ${document.querySelector('[name="email"]')?.value || ""}
+Event Date: ${document.querySelector('[name="eventDate"]')?.value || ""}
+Guest Count: ${document.querySelector('[name="guestCount"]')?.value || ""}
+Notes: ${document.querySelector('[name="notes"]')?.value || ""}
+    `;
+
+    document.getElementById("emailSummary").value = summary;
+  }
+</script>
+
+<!-- Load selected package + add-ons + clear behavior -->
+<script>
+  // Load selected package
+  const pkg = localStorage.getItem('selectedPackage');
+  if (pkg) {
+    document.getElementById('selected-package').textContent = pkg;
+  }
+
+  // Load selected add-ons
+  const addons = JSON.parse(localStorage.getItem('selectedAddons') || "[]");
+  const addonsContainer = document.getElementById('selected-addons');
+
+  if (addons.length) {
+    addonsContainer.innerHTML = addons.map(a => `<li>${a}</li>`).join('');
+  } else {
+    addonsContainer.innerHTML = "<li>No add-ons selected</li>";
+  }
+
+  // Clear everything and return to packages
+  document.getElementById('clearBooking').addEventListener('click', () => {
+    localStorage.removeItem('selectedPackage');
+    localStorage.removeItem('selectedAddons');
+    window.location.href = "packages.html";
+  });
+</script>
+
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+  const tl = gsap.timeline({ defaults: { duration: 0.8, ease: "power3.out" } });
+
+  // Animate progress steps
+  tl.from(".progress-steps .step", {
+    opacity: 0,
+    y: -16,
+    stagger: 0.08
+  });
+
+  // Sidebar + form slide-in
+  tl.from(".booking-summary", {
+    x: -40,
+    opacity: 0
+  }, "-=0.4");
+
+  tl.from(".booking-form", {
+    x: 40,
+    opacity: 0
+  }, "-=0.6");
+
+  // Form rows subtle stagger
+  tl.from(".booking-form .form-row", {
+    opacity: 0,
+    y: 18,
+    stagger: 0.08,
+    duration: 0.6,
+    ease: "power2.out"
+  }, "-=0.4");
+</script>
+
+<!-- Firebase + final submit handler -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "YOUR_KEY",
+    authDomain: "YOUR_DOMAIN",
+    projectId: "YOUR_PROJECT",
+    storageBucket: "YOUR_BUCKET",
+    messagingSenderId: "YOUR_SENDER",
+    appId: "YOUR_APP_ID"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  document.querySelector("form").addEventListener("submit", async e => {
+    e.preventDefault();
+
+    generateEmailSummary();
+
+    const pkg = localStorage.getItem('selectedPackage');
+    const addons = JSON.parse(localStorage.getItem('selectedAddons') || "[]");
+
+    const data = {
+      fullName: document.querySelector('[name="fullName"]').value,
+      email: document.querySelector('[name="email"]').value,
+      eventDate: document.querySelector('[name="eventDate"]').value,
+      guestCount: document.querySelector('[name="guestCount"]').value,
+      notes: document.querySelector('[name="notes"]').value,
+      package: pkg,
+      addons: addons,
+      timestamp: new Date().toISOString()
+    };
+
+    await addDoc(collection(db, "bookings"), data);
+
+    window.location.href = "confirmation.html";
+  });
+</script>
+
+</body>
+</html>

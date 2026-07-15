@@ -1,0 +1,240 @@
+/* ============================================================
+   SipSavvy Design System — animations.css
+   Global keyframes + utility motion classes.
+   Respects prefers-reduced-motion throughout.
+   Import AFTER variables.css.
+   ============================================================ */
+
+/* ── Keyframe Library ─────────────────────────────────────── */
+
+@keyframes ss-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes ss-fade-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+@keyframes ss-fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+@keyframes ss-fade-down {
+  from { opacity: 0; transform: translateY(-24px); }
+  to   { opacity: 1; transform: translateY(0);     }
+}
+
+@keyframes ss-fade-left {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0);    }
+}
+
+@keyframes ss-fade-right {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0);     }
+}
+
+@keyframes ss-scale-in {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1);    }
+}
+
+@keyframes ss-scale-out {
+  from { opacity: 1; transform: scale(1);    }
+  to   { opacity: 0; transform: scale(0.92); }
+}
+
+@keyframes ss-slide-up {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0);    }
+}
+
+@keyframes ss-slide-down {
+  from { transform: translateY(-100%); }
+  to   { transform: translateY(0);     }
+}
+
+/* Booking lifecycle: wine surface pulses on transition */
+@keyframes ss-surface-to-white {
+  0%   { background-color: var(--booking-surface-wine);
+         border-color:     var(--booking-surface-wine-border); }
+  100% { background-color: var(--booking-surface-white);
+         border-color:     var(--booking-surface-white-border); }
+}
+
+@keyframes ss-surface-to-wine {
+  0%   { background-color: var(--booking-surface-white);
+         border-color:     var(--booking-surface-white-border); }
+  100% { background-color: var(--booking-surface-wine);
+         border-color:     var(--booking-surface-wine-border); }
+}
+
+@keyframes ss-wine-pulse {
+  0%, 100% { box-shadow: 0 0 0 0   rgba(114, 47, 55, 0); }
+  50%       { box-shadow: 0 0 0 8px rgba(114, 47, 55, 0.18); }
+}
+
+@keyframes ss-shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+@keyframes ss-spin {
+  from { transform: rotate(0deg);   }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes ss-bounce {
+  0%, 100% { transform: translateY(0);    animation-timing-function: var(--ease-out); }
+  50%       { transform: translateY(-12px); animation-timing-function: var(--ease-in);  }
+}
+
+@keyframes ss-shake {
+  0%, 100% { transform: translateX(0);   }
+  20%       { transform: translateX(-6px); }
+  40%       { transform: translateX(6px);  }
+  60%       { transform: translateX(-4px); }
+  80%       { transform: translateX(4px);  }
+}
+
+@keyframes ss-hero-zoom {
+  from { transform: scale(1.06); }
+  to   { transform: scale(1);    }
+}
+
+@keyframes ss-underline-grow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@keyframes ss-progress-fill {
+  from { width: 0%; }
+  to   { width: var(--progress-value, 100%); }
+}
+
+/* ── Utility Animation Classes ────────────────────────────── */
+
+/* Entry animations — add class to trigger */
+.anim-fade-in       { animation: ss-fade-in  var(--duration-slow) var(--ease-out) both; }
+.anim-fade-up       { animation: ss-fade-up   var(--duration-slow) var(--ease-out) both; }
+.anim-fade-down     { animation: ss-fade-down var(--duration-slow) var(--ease-out) both; }
+.anim-fade-left     { animation: ss-fade-left var(--duration-slow) var(--ease-out) both; }
+.anim-fade-right    { animation: ss-fade-right var(--duration-slow) var(--ease-out) both; }
+.anim-scale-in      { animation: ss-scale-in var(--duration-slow) var(--ease-spring) both; }
+
+/* Continuous */
+.anim-spin          { animation: ss-spin   800ms linear infinite; }
+.anim-bounce        { animation: ss-bounce 1.2s var(--ease-inout) infinite; }
+.anim-pulse-wine    { animation: ss-wine-pulse 2s ease-in-out infinite; }
+.anim-shimmer       { animation: ss-shimmer 1.8s linear infinite;
+                      background: linear-gradient(
+                        90deg,
+                        var(--color-cream-dark) 25%,
+                        var(--color-cream) 50%,
+                        var(--color-cream-dark) 75%
+                      );
+                      background-size: 200% auto; }
+
+/* Attention / feedback */
+.anim-shake         { animation: ss-shake 400ms var(--ease-out); }
+
+/* Stagger delay helpers */
+.anim-delay-1 { animation-delay:  100ms; }
+.anim-delay-2 { animation-delay:  200ms; }
+.anim-delay-3 { animation-delay:  300ms; }
+.anim-delay-4 { animation-delay:  400ms; }
+.anim-delay-5 { animation-delay:  500ms; }
+.anim-delay-6 { animation-delay:  700ms; }
+
+/* Duration overrides */
+.anim-fast          { animation-duration: var(--duration-fast);   }
+.anim-slow          { animation-duration: var(--duration-slower); }
+
+/* ── Booking Lifecycle Motion Classes ─────────────────────── */
+/* Applied by JS on step change */
+
+/* Step panel entering the active (white) state */
+.booking-enter-white {
+  animation: ss-surface-to-white var(--duration-slower) var(--ease-out) forwards,
+             ss-fade-up           var(--duration-slow)   var(--ease-out) both;
+}
+
+/* Step panel returning to wine (confirmation / idle) */
+.booking-enter-wine {
+  animation: ss-surface-to-wine var(--duration-slower) var(--ease-out) forwards,
+             ss-scale-in         var(--duration-slow)   var(--ease-spring) both;
+}
+
+/* Booking step progress bar fill */
+.booking-progress-fill {
+  animation: ss-progress-fill var(--duration-lazy) var(--ease-out) forwards;
+}
+
+/* ── Scroll-triggered Reveal (JS adds .is-visible) ────────── */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--duration-slower) var(--ease-out),
+              transform var(--duration-slower) var(--ease-out);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity var(--duration-slower) var(--ease-out),
+              transform var(--duration-slower) var(--ease-out);
+}
+
+.reveal-left.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── Hero Pan ─────────────────────────────────────────────── */
+.hero-bg-zoom {
+  animation: ss-hero-zoom 1.4s var(--ease-out) both;
+}
+
+/* ── Hover Lift (non-button contexts) ─────────────────────── */
+.hover-lift {
+  transition: transform var(--duration-base) var(--ease-out),
+              box-shadow var(--duration-base) var(--ease-out);
+}
+.hover-lift:hover {
+  transform:  translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ── Reduced Motion Override ──────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration:       0.01ms !important;
+    animation-iteration-count: 1     !important;
+    transition-duration:      0.01ms !important;
+  }
+  .reveal,
+  .reveal-left {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.travel-dropdown-anim {
+  animation: ss-fade-down 350ms var(--ease-out) both;
+}
+
+.travel-collapse-anim {
+  animation: ss-fade-up 250ms var(--ease-out) reverse both;
+}
+

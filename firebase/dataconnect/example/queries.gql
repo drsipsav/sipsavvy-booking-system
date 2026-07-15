@@ -1,0 +1,182 @@
+mutation CreateClient($data: Client_Data!) @auth(level: USER) {
+  client_insert(data: $data)
+}
+
+mutation UpsertClient($data: Client_Data!) @auth(level: USER) {
+  client_upsert(data: $data)
+}
+
+mutation UpdateClient($id: UUID!, $data: Client_Data!) @auth(level: USER) {
+  client_update(id: $id, data: $data)
+}
+
+mutation DeleteClient($id: UUID!) @auth(level: USER) {
+  client_delete(id: $id)
+}
+
+query GetClient($id: UUID!) @auth(level: USER) {
+  client(id: $id) {
+    id
+    name
+    email
+  }
+}
+
+query ListClients @auth(level: USER) {
+  clients {
+    id
+    name
+  }
+}
+
+mutation CreateServicePackage($data: ServicePackage_Data!) @auth(level: PUBLIC, insecureReason: "Publicly accessible service pricing.") {
+  servicePackage_insert(data: $data)
+}
+
+mutation UpsertServicePackage($data: ServicePackage_Data!) @auth(level: PUBLIC, insecureReason: "Publicly accessible service pricing.") {
+  servicePackage_upsert(data: $data)
+}
+
+mutation UpdateServicePackage($id: UUID!, $data: ServicePackage_Data!) @auth(level: PUBLIC, insecureReason: "Publicly accessible service pricing.") {
+  servicePackage_update(id: $id, data: $data)
+}
+
+mutation DeleteServicePackage($id: UUID!) @auth(level: PUBLIC, insecureReason: "Publicly accessible service pricing.") {
+  servicePackage_delete(id: $id)
+}
+
+query GetServicePackage($id: UUID!) @auth(level: PUBLIC, insecureReason: "Publicly accessible service pricing.") {
+  servicePackage(id: $id) {
+    title
+    basePrice
+  }
+}
+
+query ListServicePackages @auth(level: PUBLIC, insecureReason: "Publicly accessible service pricing.") {
+  servicePackages {
+    title
+    basePrice
+  }
+}
+
+mutation CreateEvent($data: Event_Data!) @auth(level: USER) {
+  event_insert(data: $data)
+}
+
+mutation UpsertEvent($data: Event_Data!) @auth(level: USER) {
+  event_upsert(data: $data)
+}
+
+mutation UpdateEvent($id: UUID!, $data: Event_Data!) @auth(level: USER) {
+  event_update(id: $id, data: $data)
+}
+
+mutation DeleteEvent($id: UUID!) @auth(level: USER) {
+  event_delete(id: $id)
+}
+
+query GetEvent($id: UUID!) @auth(level: USER) {
+  event(id: $id) {
+    date
+    location
+    status
+  }
+}
+
+query ListEvents @auth(level: USER) {
+  events {
+    id
+    date
+    location
+  }
+}
+
+mutation CreateBookingRequest($data: BookingRequest_Data!) @auth(level: USER) {
+  bookingRequest_insert(data: $data)
+}
+
+mutation UpsertBookingRequest($data: BookingRequest_Data!) @auth(level: USER) {
+  bookingRequest_upsert(data: $data)
+}
+
+mutation UpdateBookingRequest($id: UUID!, $data: BookingRequest_Data!) @auth(level: USER) {
+  bookingRequest_update(id: $id, data: $data)
+}
+
+mutation DeleteBookingRequest($id: UUID!) @auth(level: USER) {
+  bookingRequest_delete(id: $id)
+}
+
+query GetBookingRequest($id: UUID!) @auth(level: USER) {
+  bookingRequest(id: $id) {
+    totalQuote
+    paymentStatus
+  }
+}
+
+query ListBookingRequests @auth(level: USER) {
+  bookingRequests {
+    id
+    totalQuote
+  }
+}
+
+mutation CreateReview($data: Review_Data!) @auth(level: USER) {
+  review_insert(data: $data)
+}
+
+mutation UpsertReview($data: Review_Data!) @auth(level: USER) {
+  review_upsert(data: $data)
+}
+
+mutation UpdateReview($id: UUID!, $data: Review_Data!) @auth(level: USER) {
+  review_update(id: $id, data: $data)
+}
+
+mutation DeleteReview($id: UUID!) @auth(level: USER) {
+  review_delete(id: $id)
+}
+
+query GetReview($id: UUID!) @auth(level: USER) {
+  review(id: $id) {
+    rating
+    comment
+  }
+}
+
+query ListReviews @auth(level: USER) {
+  reviews {
+    id
+    rating
+  }
+}
+
+mutation CreateMixologist($data: Mixologist_Data!) @auth(level: USER) {
+  mixologist_insert(data: $data)
+}
+
+mutation UpsertMixologist($data: Mixologist_Data!) @auth(level: USER) {
+  mixologist_upsert(data: $data)
+}
+
+mutation UpdateMixologist($id: UUID!, $data: Mixologist_Data!) @auth(level: USER) {
+  mixologist_update(id: $id, data: $data)
+}
+
+mutation DeleteMixologist($id: UUID!) @auth(level: USER) {
+  mixologist_delete(id: $id)
+}
+
+query GetMixologist($id: UUID!) @auth(level: USER) {
+  mixologist(id: $id) {
+    name
+    specialty
+  }
+}
+
+query ListMixologists @auth(level: USER) {
+  mixologists {
+    id
+    name
+  }
+}

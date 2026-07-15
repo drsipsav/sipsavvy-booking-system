@@ -1,0 +1,49 @@
+sipsavvyLIVE/
+│
+└── firebase/
+    │
+    ├── public/                         ← Firebase Hosting serves THIS folder
+    │   ├── index.html
+    │   ├── services.html
+    │   ├── packages.html
+    │   ├── booking.html
+    │   ├── gallery.html
+    │   ├── experiences.html
+    │   │
+    │   ├── components/
+    │   │   └── assets/
+    │   │       └── images/
+    │   │
+    │   ├── scripts/
+    │   │   ├── firebase-init.js
+    │   │   ├── firestore-booking.js
+    │   │   ├── firestore-admin.js
+    │   │   ├── auth.js
+    │   │   ├── travelFee.js
+    │   │   ├── travelFeeEngine.js
+    │   │   ├── shared-booking.js
+    │   │   ├── totals.js
+    │   │   ├── booking.js
+    │   │   ├── packages.js
+    │   │   ├── addons.js
+    │   │   └── global-guard.js
+    │   │
+    │   └── styles/
+    │       ├── main.css
+    │       └── booking.css
+    │
+    ├── admin/                          ← Admin dashboard (protected)
+    │   ├── index.html
+    │   ├── admin.css
+    │   └── admin.js
+    │
+    ├── functions/                      ← Firebase Cloud Functions backend
+    │   ├── index.js
+    │   ├── package.json
+    │   └── node_modules/
+    │
+    ├── firestore.rules                 ← Firestore security rules
+    ├── firestore.indexes.json          ← Firestore indexes
+    │
+    ├── firebase.json                   ← Hosting + Functions config
+    └── .firebaserc                     ← Firebase project alias

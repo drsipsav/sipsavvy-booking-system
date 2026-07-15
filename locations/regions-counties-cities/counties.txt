@@ -1,0 +1,28 @@
+function sortTravelLocations(data) {
+  const sorted = {};
+
+  // Sort regions alphabetically
+  const regions = Object.keys(data).sort((a, b) => a.localeCompare(b));
+
+  regions.forEach(region => {
+    const counties = Object.keys(data[region]).sort((a, b) => a.localeCompare(b));
+    sorted[region] = {};
+
+    counties.forEach(county => {
+      const cities = Object.keys(data[region][county]).sort((a, b) => a.localeCompare(b));
+      sorted[region][county] = {};
+
+      cities.forEach(city => {
+        sorted[region][county][city] = data[region][county][city];
+      });
+    });
+  });
+
+  return sorted;
+}
+
+// ===== RUN IT =====
+const SORTED_TRAVEL_LOCATIONS = sortTravelLocations(window.TRAVEL_LOCATIONS);
+
+// ===== OPTIONAL: PRINT TO CONSOLE =====
+console.log(JSON.stringify(SORTED_TRAVEL_LOCATIONS, null, 2));

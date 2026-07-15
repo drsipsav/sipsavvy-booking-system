@@ -1,0 +1,55 @@
+/* ============================================================
+   SIP SAVVY ADMIN — GLOBAL BASE STYLES
+   (Overrides public global.css completely)
+   ============================================================ */
+
+html, body {
+    background: #F8F3F2;
+    color: #000;
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+/* ADMIN BRAND COLORS */
+:root {
+    --wine: #5C1228;
+    --wine-dark: #4a0e21;
+    --gold: #FFD700;
+    --rose: #E8C4B8;
+    --bg: #F8F3F2;
+}
+
+:root {
+  /* Colors */
+  --wine: #5C1228;
+  --wine-dark: #4a0e21;
+  --gold: #FFD700;
+  --rose: #E8C4B8;
+  --bg: #F8F3F2;
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+
+  /* Typography */
+  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 20px;
+  --font-size-xl: 24px;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  /* Shadows */
+  --shadow-soft: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-strong: 0 10px 30px rgba(0,0,0,0.18);
+}

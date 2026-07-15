@@ -1,0 +1,323 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+  <title>Your SipSavvy Booking is Confirmed</title>
+  <!--[if mso]>
+  <noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript>
+  <![endif]-->
+  <style type="text/css">
+    /* Client-safe resets */
+    body, table, td, p, a, li { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+    table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+    img { -ms-interpolation-mode: bicubic; border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
+    body { margin: 0 !important; padding: 0 !important; width: 100% !important; }
+
+    /* Responsive */
+    @media only screen and (max-width: 620px) {
+      .email-container { width: 100% !important; }
+      .stack-col { display: block !important; width: 100% !important; }
+      .hide-mobile { display: none !important; }
+      .pad-mobile { padding: 24px 20px !important; }
+      .hero-text { font-size: 28px !important; line-height: 34px !important; }
+      .detail-row td { display: block !important; width: 100% !important; }
+      .cal-btn { display: block !important; margin: 6px auto !important; }
+    }
+
+    /* Dark mode */
+    @media (prefers-color-scheme: dark) {
+      .dm-bg   { background-color: #1e1218 !important; }
+      .dm-card { background-color: #2c1a20 !important; }
+      .dm-text { color: #f0e0e2 !important; }
+    }
+  </style>
+</head>
+<body style="margin:0;padding:0;background-color:#F0E8E1;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;" class="dm-bg">
+
+<!-- Preheader text (hidden, sets preview in email clients) -->
+<div style="display:none;font-size:1px;color:#F0E8E1;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;">
+  Your reservation for {{EXPERIENCE_NAME}} is confirmed for {{DATE}} at {{TIME}}. Booking ref: {{BOOKING_REF}} ✓
+</div>
+
+<!-- Email wrapper -->
+<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"
+  style="background-color:#F0E8E1;" class="dm-bg">
+<tr><td align="center" style="padding:32px 16px;">
+
+  <!-- Main container -->
+  <table class="email-container" role="presentation" cellspacing="0" cellpadding="0" border="0"
+    width="600" style="max-width:600px;margin:0 auto;">
+
+    <!-- ══ HEADER ══════════════════════════════════════════ -->
+    <tr>
+      <td style="background-color:#3D1219;border-radius:12px 12px 0 0;padding:28px 40px;text-align:center;">
+        <!-- Logo mark SVG -->
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+        <tr>
+          <td align="center" style="padding-bottom:8px;">
+            <div style="display:inline-block;width:44px;height:44px;background-color:rgba(255,255,255,0.1);border-radius:50%;line-height:44px;text-align:center;font-size:22px;">🍷</div>
+          </td>
+        </tr>
+        <tr>
+          <td align="center">
+            <p style="margin:0;font-family:Georgia,'Times New Roman',serif;font-size:22px;font-weight:700;color:#FFFFFF;letter-spacing:-0.02em;line-height:1.2;">
+              SipSavvy
+            </p>
+            <p style="margin:4px 0 0;font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#E6CC80;">
+              Wine Experiences
+            </p>
+          </td>
+        </tr>
+        </table>
+      </td>
+    </tr>
+
+    <!-- ══ HERO ════════════════════════════════════════════ -->
+    <tr>
+      <td style="background-color:#722F37;padding:48px 40px 40px;text-align:center;" class="pad-mobile">
+        <!-- Checkmark badge -->
+        <div style="display:inline-block;width:64px;height:64px;background-color:rgba(255,255,255,0.15);border-radius:50%;line-height:64px;text-align:center;font-size:28px;margin-bottom:20px;">✓</div>
+        <h1 class="hero-text" style="margin:0 0 12px;font-family:Georgia,'Times New Roman',serif;font-size:32px;font-weight:700;color:#FFFFFF;line-height:38px;letter-spacing:-0.02em;">
+          You're All Set!
+        </h1>
+        <p style="margin:0;font-size:16px;color:rgba(255,255,255,0.82);line-height:24px;max-width:400px;margin:0 auto;">
+          Your reservation is confirmed. We can't wait to share this experience with you.
+        </p>
+      </td>
+    </tr>
+
+    <!-- ══ BOOKING REFERENCE BAND ══════════════════════════ -->
+    <tr>
+      <td style="background-color:#541E25;padding:16px 40px;text-align:center;" class="pad-mobile">
+        <p style="margin:0;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.55);">
+          Booking Reference
+        </p>
+        <p style="margin:6px 0 0;font-family:'Courier New',Courier,monospace;font-size:22px;font-weight:700;color:#C9A84C;letter-spacing:0.08em;">
+          {{BOOKING_REF}}
+        </p>
+      </td>
+    </tr>
+
+    <!-- ══ BOOKING DETAILS CARD ═════════════════════════════ -->
+    <tr>
+      <td style="background-color:#FFFFFF;padding:40px;" class="pad-mobile dm-card">
+
+        <h2 style="margin:0 0 24px;font-family:Georgia,'Times New Roman',serif;font-size:20px;font-weight:700;color:#2C2020;letter-spacing:-0.01em;" class="dm-text">
+          Your Reservation Details
+        </h2>
+
+        <!-- Detail rows -->
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"
+          style="border:1.5px solid #EDE4E4;border-radius:10px;overflow:hidden;">
+
+          <!-- Experience -->
+          <tr style="border-bottom:1px solid #EDE4E4;">
+            <td style="padding:14px 20px;background-color:#FBF7F4;width:38%;">
+              <p style="margin:0;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#7A6A6A;">Experience</p>
+            </td>
+            <td style="padding:14px 20px;border-left:1px solid #EDE4E4;">
+              <p style="margin:0;font-size:15px;font-weight:600;color:#2C2020;" class="dm-text">{{EXPERIENCE_NAME}}</p>
+            </td>
+          </tr>
+
+          <!-- Date -->
+          <tr style="border-bottom:1px solid #EDE4E4;">
+            <td style="padding:14px 20px;background-color:#FBF7F4;">
+              <p style="margin:0;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#7A6A6A;">Date</p>
+            </td>
+            <td style="padding:14px 20px;border-left:1px solid #EDE4E4;">
+              <p style="margin:0;font-size:15px;font-weight:600;color:#2C2020;" class="dm-text">{{DATE}}</p>
+            </td>
+          </tr>
+
+          <!-- Time -->
+          <tr style="border-bottom:1px solid #EDE4E4;">
+            <td style="padding:14px 20px;background-color:#FBF7F4;">
+              <p style="margin:0;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#7A6A6A;">Time</p>
+            </td>
+            <td style="padding:14px 20px;border-left:1px solid #EDE4E4;">
+              <p style="margin:0;font-size:15px;font-weight:600;color:#2C2020;" class="dm-text">{{TIME}}</p>
+            </td>
+          </tr>
+
+          <!-- Guests -->
+          <tr style="border-bottom:1px solid #EDE4E4;">
+            <td style="padding:14px 20px;background-color:#FBF7F4;">
+              <p style="margin:0;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#7A6A6A;">Guests</p>
+            </td>
+            <td style="padding:14px 20px;border-left:1px solid #EDE4E4;">
+              <p style="margin:0;font-size:15px;font-weight:600;color:#2C2020;" class="dm-text">{{GUEST_COUNT}} guest(s)</p>
+            </td>
+          </tr>
+
+          <!-- Add-ons -->
+          <tr style="border-bottom:1px solid #EDE4E4;">
+            <td style="padding:14px 20px;background-color:#FBF7F4;">
+              <p style="margin:0;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#7A6A6A;">Add-Ons</p>
+            </td>
+            <td style="padding:14px 20px;border-left:1px solid #EDE4E4;">
+              <p style="margin:0;font-size:15px;color:#4A3A3A;" class="dm-text">{{ADDONS}}</p>
+            </td>
+          </tr>
+
+          <!-- Total -->
+          <tr>
+            <td style="padding:16px 20px;background-color:#F5E9EA;">
+              <p style="margin:0;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#722F37;">Total Paid</p>
+            </td>
+            <td style="padding:16px 20px;border-left:1px solid #EDE4E4;background-color:#F5E9EA;">
+              <p style="margin:0;font-family:Georgia,'Times New Roman',serif;font-size:22px;font-weight:700;color:#722F37;">{{TOTAL}}</p>
+            </td>
+          </tr>
+
+        </table>
+
+        <!-- Add to Calendar -->
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-top:28px;">
+        <tr>
+          <td>
+            <p style="margin:0 0 14px;font-size:13px;font-weight:600;color:#7A6A6A;letter-spacing:0.04em;text-transform:uppercase;">Add to your calendar</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+            <tr>
+              <td style="padding-right:8px;">
+                <a href="{{GOOGLE_CAL_URL}}" class="cal-btn"
+                  style="display:inline-block;padding:10px 20px;background-color:#F5E9EA;border:1.5px solid #C48C95;border-radius:999px;font-size:12px;font-weight:600;color:#722F37;text-decoration:none;letter-spacing:0.04em;">
+                  Google Calendar
+                </a>
+              </td>
+              <td style="padding-right:8px;">
+                <a href="{{APPLE_CAL_URL}}" class="cal-btn"
+                  style="display:inline-block;padding:10px 20px;background-color:#F5E9EA;border:1.5px solid #C48C95;border-radius:999px;font-size:12px;font-weight:600;color:#722F37;text-decoration:none;letter-spacing:0.04em;">
+                  Apple Calendar
+                </a>
+              </td>
+              <td>
+                <a href="{{OUTLOOK_CAL_URL}}" class="cal-btn"
+                  style="display:inline-block;padding:10px 20px;background-color:#F5E9EA;border:1.5px solid #C48C95;border-radius:999px;font-size:12px;font-weight:600;color:#722F37;text-decoration:none;letter-spacing:0.04em;">
+                  Outlook
+                </a>
+              </td>
+            </tr>
+            </table>
+          </td>
+        </tr>
+        </table>
+
+      </td>
+    </tr>
+
+    <!-- ══ WHAT TO EXPECT ════════════════════════════════════ -->
+    <tr>
+      <td style="background-color:#FBF7F4;padding:40px;" class="pad-mobile">
+        <h2 style="margin:0 0 20px;font-family:Georgia,'Times New Roman',serif;font-size:20px;font-weight:700;color:#2C2020;letter-spacing:-0.01em;">
+          What to Expect
+        </h2>
+
+        <!-- Item 1 -->
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom:16px;">
+        <tr>
+          <td width="36" valign="top" style="padding-right:14px;padding-top:2px;">
+            <div style="width:32px;height:32px;background-color:#722F37;border-radius:50%;text-align:center;line-height:32px;font-size:14px;color:#FFFFFF;">1</div>
+          </td>
+          <td>
+            <p style="margin:0 0 2px;font-size:14px;font-weight:600;color:#2C2020;">Arrive 10 minutes early</p>
+            <p style="margin:0;font-size:13px;color:#7A6A6A;line-height:20px;">Check in at the front reception and let our team know you're here. Your sommelier will greet you personally.</p>
+          </td>
+        </tr>
+        </table>
+
+        <!-- Item 2 -->
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom:16px;">
+        <tr>
+          <td width="36" valign="top" style="padding-right:14px;padding-top:2px;">
+            <div style="width:32px;height:32px;background-color:#722F37;border-radius:50%;text-align:center;line-height:32px;font-size:14px;color:#FFFFFF;">2</div>
+          </td>
+          <td>
+            <p style="margin:0 0 2px;font-size:14px;font-weight:600;color:#2C2020;">Dress for the occasion</p>
+            <p style="margin:0;font-size:13px;color:#7A6A6A;line-height:20px;">Smart casual is perfect. Vineyard terrain means flat or low-heeled footwear is recommended for outdoor sessions.</p>
+          </td>
+        </tr>
+        </table>
+
+        <!-- Item 3 -->
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+        <tr>
+          <td width="36" valign="top" style="padding-right:14px;padding-top:2px;">
+            <div style="width:32px;height:32px;background-color:#722F37;border-radius:50%;text-align:center;line-height:32px;font-size:14px;color:#FFFFFF;">3</div>
+          </td>
+          <td>
+            <p style="margin:0 0 2px;font-size:14px;font-weight:600;color:#2C2020;">Eat something beforehand</p>
+            <p style="margin:0;font-size:13px;color:#7A6A6A;line-height:20px;">We'll have food available, but starting with a light meal ensures you can fully appreciate every pour.</p>
+          </td>
+        </tr>
+        </table>
+
+        <!-- Location box -->
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-top:28px;">
+        <tr>
+          <td style="background-color:#FFFFFF;border:1.5px solid #DDCCCC;border-radius:10px;padding:20px 24px;">
+            <p style="margin:0 0 4px;font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#7A6A6A;">Location</p>
+            <p style="margin:0 0 8px;font-size:15px;font-weight:600;color:#2C2020;">{{VENUE_NAME}}</p>
+            <p style="margin:0 0 12px;font-size:13px;color:#4A3A3A;line-height:20px;">{{VENUE_ADDRESS}}</p>
+            <a href="{{MAPS_URL}}" style="font-size:13px;font-weight:600;color:#722F37;text-decoration:underline;">Get Directions →</a>
+          </td>
+        </tr>
+        </table>
+
+      </td>
+    </tr>
+
+    <!-- ══ CTA STRIP ════════════════════════════════════════ -->
+    <tr>
+      <td style="background-color:#FFFFFF;padding:32px 40px;text-align:center;border-top:1px solid #EDE4E4;" class="pad-mobile">
+        <p style="margin:0 0 20px;font-size:14px;color:#7A6A6A;line-height:22px;">
+          Questions about your booking? We're here to help.
+        </p>
+        <a href="mailto:hello@sipsavvy.com"
+          style="display:inline-block;padding:14px 32px;background-color:#722F37;border-radius:999px;font-size:14px;font-weight:600;color:#FFFFFF;text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;">
+          Contact Us
+        </a>
+        <p style="margin:20px 0 0;font-size:12px;color:#7A6A6A;">
+          Free cancellation up to 48 hours before your experience. &middot;
+          <a href="{{CANCEL_URL}}" style="color:#722F37;text-decoration:underline;">Cancel booking</a>
+        </p>
+      </td>
+    </tr>
+
+    <!-- ══ FOOTER ═══════════════════════════════════════════ -->
+    <tr>
+      <td style="background-color:#3D1219;border-radius:0 0 12px 12px;padding:28px 40px;text-align:center;" class="pad-mobile">
+        <p style="margin:0 0 8px;font-family:Georgia,'Times New Roman',serif;font-size:16px;font-weight:700;color:#FFFFFF;">SipSavvy</p>
+        <p style="margin:0 0 16px;font-size:12px;color:rgba(255,255,255,0.50);line-height:18px;">
+          Curated wine experiences at independent family vineyards.
+        </p>
+        <p style="margin:0 0 16px;">
+          <a href="{{INSTAGRAM_URL}}" style="color:rgba(255,255,255,0.55);text-decoration:none;font-size:12px;margin:0 8px;">Instagram</a>
+          &middot;
+          <a href="{{FACEBOOK_URL}}" style="color:rgba(255,255,255,0.55);text-decoration:none;font-size:12px;margin:0 8px;">Facebook</a>
+          &middot;
+          <a href="{{WEBSITE_URL}}" style="color:rgba(255,255,255,0.55);text-decoration:none;font-size:12px;margin:0 8px;">Website</a>
+        </p>
+        <p style="margin:0;font-size:11px;color:rgba(255,255,255,0.30);line-height:18px;">
+          &copy; 2026 SipSavvy Experiences, LLC. All rights reserved.<br>
+          <a href="{{UNSUBSCRIBE_URL}}" style="color:rgba(255,255,255,0.30);text-decoration:underline;">Unsubscribe</a>
+          &nbsp;&middot;&nbsp;
+          <a href="{{PRIVACY_URL}}" style="color:rgba(255,255,255,0.30);text-decoration:underline;">Privacy Policy</a>
+        </p>
+      </td>
+    </tr>
+
+  </table><!-- /email-container -->
+
+</td></tr>
+</table><!-- /email-wrapper -->
+
+</body>
+</html>

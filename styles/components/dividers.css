@@ -1,0 +1,4 @@
+.divider-label { ... }
+.divider-label::before,
+.divider-label::after { ... }
+

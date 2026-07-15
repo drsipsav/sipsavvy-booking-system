@@ -1,0 +1,5 @@
+﻿Condition,Refund
+Guest cancels ≥ 48 h before,Full refund (100%)
+Guest cancels < 48 h before,No refund — CANCELLATION_WINDOW_EXPIRED
+Admin cancels (any time),Full refund via force: true
+pending booking cancelled,Full refund (payment not yet captured)

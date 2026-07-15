@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add-Ons — SipSavvy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+
+/* ── Design Tokens ─────────────────────────────────────────── */
+:root {
+  --color-wine:          #722F37;
+  --color-wine-dark:     #541E25;
+  --color-wine-deeper:   #3D1219;
+  --color-wine-light:    #9B4451;
+  --color-wine-muted:    #C48C95;
+  --color-wine-tint:     #F5E9EA;
+  --color-white:         #FFFFFF;
+  --color-gold:          #C9A84C;
+  --color-gold-light:    #E6CC80;
+  --color-gold-dark:     #A07C2E;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans:  'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-lg:   1.25rem;
+  --text-xl:   1.5rem;
+  --text-2xl:  1.875rem;
+  --text-3xl:  2.25rem;
+  --text-4xl:  3rem;
+  --tracking-tight:   -0.025em;
+  --tracking-wide:     0.05em;
+  --tracking-wider:    0.1em;
+  --tracking-widest:   0.2em;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+  --space-1: 0.25rem; --space-2: 0.5rem;  --space-3: 0.75rem;
+  --space-4: 1rem;    --space-5: 1.25rem; --space-6: 1.5rem;
+  --space-8: 2rem;    --space-10: 2.5rem; --space-12: 3rem;
+  --space-16: 4rem;   --space-20: 5rem;
+  --max-width-xl: 80rem;
+  --header-height:    4.5rem;
+  --header-height-sm: 3.5rem;
+  --radius-md:   0.5rem;
+  --radius-lg:   0.75rem;
+  --radius-xl:   1rem;
+  --radius-2xl:  1.5rem;
+  --radius-full: 9999px;
+  --shadow-lg:  0 8px 32px rgba(44,32,32,0.22);
+  --shadow-xl:  0 16px 56px rgba(44,32,32,0.28);
+  --shadow-gold:0 4px 20px rgba(201,168,76,0.30);
+  --z-sticky:  200;
+  --z-overlay: 300;
+  --ease-out:   cubic-bezier(0.22,1,0.36,1);
+  --ease-inout: cubic-bezier(0.65,0,0.35,1);
+  --duration-base: 250ms;
+  --duration-slow: 400ms;
+}
+
+/* ── Reset ──────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-sans);
+  background: #541E25;
+  color: var(--color-wine-tint);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+img { max-width: 100%; display: block; }
+a   { text-decoration: none; color: inherit; }
+
+/* ══ HEADER ════════════════════════════════════════════════════ */
+.site-header {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: var(--z-sticky);
+  height: var(--header-height);
+  display: flex; align-items: center;
+  background-color: var(--color-wine-deeper);
+  transition: height var(--duration-slow) var(--ease-out),
+              box-shadow var(--duration-base) var(--ease-out);
+}
+.site-header.scrolled {
+  height: var(--header-height-sm);
+  box-shadow: 0 2px 24px rgba(0,0,0,0.35);
+}
+.header-inner {
+  width: 100%; max-width: var(--max-width-xl);
+  margin: 0 auto; padding: 0 var(--space-6);
+  display: flex; align-items: center;
+  justify-content: space-between; gap: var(--space-6);
+}
+
+/* Logo */
+.header-logo {
+  display: flex; align-items: center; gap: var(--space-3);
+  flex-shrink: 0; cursor: default; pointer-events: none;
+}
+.header-logo-mark {
+  width: 2.25rem; height: 2.25rem;
+  display: flex; align-items: center;
+}
+.header-logo-mark img { width: 100%; height: 100%; object-fit: contain; }
+.header-logo-wordmark {
+  font-family: var(--font-serif); font-size: var(--text-xl);
+  font-weight: var(--weight-bold); color: var(--color-white);
+  letter-spacing: var(--tracking-tight); line-height: 1;
+}
+.header-logo-tagline {
+  font-family: var(--font-sans); font-size: var(--text-xs);
+  color: var(--color-wine-muted); letter-spacing: var(--tracking-wider);
+  text-transform: uppercase; display: block; margin-top: var(--space-1);
+}
+
+/* Nav */
+.header-nav {
+  display: flex; align-items: center; gap: var(--space-1);
+  list-style: none; padding: 0; margin: 0;
+}
+.header-nav-link {
+  font-family: var(--font-sans); font-size: var(--text-sm);
+  font-weight: var(--weight-medium); letter-spacing: var(--tracking-wide);
+  text-transform: uppercase; color: rgba(255,255,255,0.82);
+  padding: var(--space-2) var(--space-3); border-radius: var(--radius-md);
+  display: block; position: relative;
+  transition: color var(--duration-base) var(--ease-out),
+              background-color var(--duration-base) var(--ease-out);
+}
+.header-nav-link::after {
+  content: ''; position: absolute; bottom: 0;
+  left: var(--space-3); right: var(--space-3);
+  height: 2px; background: var(--color-gold);
+  border-radius: var(--radius-full);
+  transform: scaleX(0); transform-origin: center;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+.header-nav-link:hover { color: var(--color-white); background: rgba(255,255,255,0.08); }
+.header-nav-link:hover::after { transform: scaleX(1); }
+
+/* CTA + Back */
+.header-cta { display: flex; align-items: center; gap: var(--space-3); flex-shrink: 0; }
+.btn-back {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-sans); font-size: var(--text-xs);
+  font-weight: var(--weight-semibold); letter-spacing: var(--tracking-wide);
+  text-transform: uppercase; color: rgba(255,255,255,0.8);
+  border: 2px solid rgba(255,255,255,0.35); border-radius: var(--radius-full);
+  padding: var(--space-2) var(--space-5); cursor: pointer;
+  transition: background var(--duration-base) var(--ease-out),
+              border-color var(--duration-base) var(--ease-out);
+}
+.btn-back:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.6); }
+
+/* Hamburger */
+.header-menu-toggle {
+  display: none; flex-direction: column; justify-content: center;
+  align-items: center; gap: 5px; width: 2.5rem; height: 2.5rem;
+  background: transparent; border: none; cursor: pointer;
+  padding: var(--space-1); border-radius: var(--radius-md);
+  -webkit-tap-highlight-color: transparent;
+}
+.header-menu-toggle:hover { background: rgba(255,255,255,0.10); }
+.hamburger-line {
+  display: block; width: 1.375rem; height: 2px;
+  background: var(--color-white); border-radius: var(--radius-full);
+  transition: transform var(--duration-base) var(--ease-inout),
+              opacity   var(--duration-base) var(--ease-out);
+  transform-origin: center;
+}
+.site-header.nav-open .hamburger-line:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.site-header.nav-open .hamburger-line:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.site-header.nav-open .hamburger-line:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile drawer */
+.mobile-nav {
+  position: fixed; top: var(--header-height); left: 0; right: 0; bottom: 0;
+  background: var(--color-wine-deeper); z-index: var(--z-overlay);
+  display: flex; flex-direction: column;
+  padding: var(--space-6) var(--space-6) var(--space-10);
+  overflow-y: auto; transform: translateY(-100%); opacity: 0; pointer-events: none;
+  transition: transform var(--duration-slow) var(--ease-out),
+              opacity   var(--duration-slow) var(--ease-out);
+}
+.mobile-nav.is-open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+.mobile-nav-list {
+  list-style: none; padding: 0; margin: 0 0 var(--space-8);
+  display: flex; flex-direction: column; gap: var(--space-1);
+}
+.mobile-nav-link {
+  font-family: var(--font-serif); font-size: var(--text-2xl);
+  font-weight: var(--weight-bold); color: rgba(255,255,255,0.82);
+  display: block; padding: var(--space-3) 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  transition: color var(--duration-base) var(--ease-out);
+}
+.mobile-nav-link:hover { color: var(--color-gold-light); }
+.mobile-back-wrap { margin-top: var(--space-6); }
+
+/* Responsive header */
+@media (max-width: 900px) {
+  .header-nav         { display: none; }
+  .header-menu-toggle { display: flex; }
+}
+@media (max-width: 480px) {
+  .header-logo-tagline  { display: none; }
+  .header-logo-wordmark { font-size: var(--text-lg); }
+}
+
+/* ══ HERO ══════════════════════════════════════════════════════ */
+.addons-hero {
+  background: #541E25;
+  padding: 140px 24px 64px;
+  text-align: center;
+}
+.addons-hero-eyebrow {
+  display: inline-block; font-family: var(--font-sans);
+  font-size: var(--text-xs); font-weight: 700;
+  letter-spacing: 0.20em; text-transform: uppercase;
+  color: var(--color-gold); margin-bottom: 14px;
+}
+.addons-hero-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-weight: 900; color: var(--color-white);
+  line-height: 1.1; margin-bottom: 14px;
+}
+.addons-hero-sub {
+  font-family: var(--font-sans); font-size: var(--text-base);
+  color: var(--color-wine-muted); max-width: 46ch;
+  margin: 0 auto; line-height: 1.7;
+}
+
+/* ══ NAV CONTAINERS ════════════════════════════════════════════ */
+.addons-nav-section {
+  background: #541E25;
+  padding: 0 24px 80px;
+}
+.addons-nav-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.addon-nav-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+  padding: 36px 28px 32px;
+  background: var(--color-wine-deeper);
+  border: 1px solid rgba(201,168,76,0.22);
+  border-radius: var(--radius-2xl);
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s var(--ease-out),
+              box-shadow 0.25s var(--ease-out),
+              border-color 0.25s var(--ease-out);
+}
+.addon-nav-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-gold), var(--color-gold-light), var(--color-gold));
+  opacity: 0;
+  transition: opacity 0.25s var(--ease-out);
+}
+.addon-nav-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-xl);
+  border-color: rgba(201,168,76,0.55);
+}
+.addon-nav-card:hover::before { opacity: 1; }
+.addon-nav-card:active { transform: translateY(-2px); }
+
+.addon-nav-icon {
+  width: 56px; height: 56px;
+  border-radius: var(--radius-full);
+  background: rgba(201,168,76,0.12);
+  border: 1px solid rgba(201,168,76,0.28);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem;
+  flex-shrink: 0;
+  transition: background 0.25s var(--ease-out);
+}
+.addon-nav-card:hover .addon-nav-icon {
+  background: rgba(201,168,76,0.22);
+}
+.addon-nav-label {
+  font-family: var(--font-sans); font-size: var(--text-xs);
+  font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--color-gold);
+}
+.addon-nav-title {
+  font-family: var(--font-serif); font-size: 1.2rem;
+  font-weight: 700; color: var(--color-white);
+  line-height: 1.25;
+}
+.addon-nav-desc {
+  font-family: var(--font-sans); font-size: var(--text-sm);
+  color: var(--color-wine-muted); line-height: 1.6;
+  max-width: 22ch;
+}
+.addon-nav-arrow {
+  margin-top: 6px;
+  font-size: var(--text-sm);
+  color: var(--color-gold);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  transition: transform 0.2s var(--ease-out);
+}
+.addon-nav-card:hover .addon-nav-arrow { transform: translateY(3px); }
+
+/* ══ ADD-ON SECTIONS (placeholders) ═══════════════════════════ */
+.addon-section {
+  padding: 80px 24px 80px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.addon-section-divider {
+  border: none;
+  border-top: 1px solid rgba(201,168,76,0.15);
+  max-width: 960px;
+  margin: 0 auto;
+}
+.addon-section-eyebrow {
+  display: inline-block; font-family: var(--font-sans);
+  font-size: var(--text-xs); font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--color-gold); margin-bottom: 10px;
+}
+.addon-section-title {
+  font-family: var(--font-serif); font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 900; color: var(--color-white);
+  line-height: 1.15; margin-bottom: 8px;
+}
+.addon-section-sub {
+  font-family: var(--font-sans); font-size: var(--text-sm);
+  color: var(--color-wine-muted); margin-bottom: 40px; line-height: 1.7;
+}
+
+/* Placeholder box */
+.addon-placeholder {
+  background: var(--color-wine-deeper);
+  border: 1px solid rgba(201,168,76,0.18);
+  border-radius: var(--radius-2xl);
+  padding: 48px 36px;
+  text-align: center;
+  color: rgba(255,255,255,0.35);
+  font-family: var(--font-sans); font-size: var(--text-sm);
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+
+/* ══ FOOTER ════════════════════════════════════════════════════ */
+.site-footer {
+  background: var(--color-wine-deeper);
+  color: rgba(255,255,255,0.72);
+  padding: var(--space-20) 0 var(--space-10);
+}
+.footer-grid {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: var(--space-12); max-width: var(--max-width-xl);
+  margin: 0 auto; padding: 0 var(--space-6);
+}
+.footer-brand .header-logo-wordmark { font-size: var(--text-xl); margin-bottom: var(--space-4); display: block; }
+.footer-brand p { font-size: var(--text-sm); color: rgba(255,255,255,0.55); line-height: 1.625; max-width: 100%; }
+.footer-socials { display: flex; gap: var(--space-3); margin-top: var(--space-5); }
+.footer-social-link {
+  width: 2.25rem; height: 2.25rem; border-radius: var(--radius-full);
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+  transition: background var(--duration-base) var(--ease-out);
+}
+.footer-social-link:hover { background: var(--color-wine); }
+.footer-col-title {
+  font-family: var(--font-sans); font-size: var(--text-xs); font-weight: 700;
+  letter-spacing: var(--tracking-widest); text-transform: uppercase;
+  color: var(--color-white); margin-bottom: var(--space-5);
+}
+.footer-links { list-style: none; padding: 0; display: flex; flex-direction: column; gap: var(--space-3); }
+.footer-links a { font-size: var(--text-sm); color: rgba(255,255,255,0.60); transition: color 150ms; }
+.footer-links a:hover { color: var(--color-gold-light); }
+.footer-bottom {
+  max-width: var(--max-width-xl); margin: var(--space-12) auto 0;
+  padding: var(--space-6) var(--space-6) 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: var(--space-4);
+  font-size: var(--text-xs); color: rgba(255,255,255,0.40);
+}
+.footer-bottom a { color: rgba(255,255,255,0.40); }
+.footer-bottom a:hover { color: rgba(255,255,255,0.75); }
+@media (max-width: 1024px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--space-8); } }
+@media (max-width: 768px)  { .footer-grid { grid-template-columns: 1fr; } }
+
+/* Responsive nav containers */
+@media (max-width: 768px) {
+  .addons-nav-grid { grid-template-columns: 1fr; max-width: 420px; }
+}
+
+/* ══ BOX 1 — EXTRA HOUR ═══════════════════════════════════════ */
+.extra-hour-box {
+  background: var(--color-wine-deeper);
+  border: 1px solid rgba(201,168,76,0.22);
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.extra-hour-hd {
+  padding: 28px 32px 22px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: center; gap: 16px;
+}
+.extra-hour-hd-icon {
+  width: 50px; height: 50px; border-radius: var(--radius-full);
+  background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.28);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; flex-shrink: 0;
+}
+.extra-hour-hd h3 {
+  font-family: var(--font-serif); font-size: 1.25rem; font-weight: 700;
+  color: var(--color-white); line-height: 1.2;
+}
+.extra-hour-hd p {
+  font-family: var(--font-sans); font-size: var(--text-sm);
+  color: var(--color-wine-muted); margin-top: 4px;
+}
+.hour-options-list { padding: 4px 0; }
+.hour-option {
+  display: flex; align-items: center; gap: 20px;
+  padding: 20px 32px; cursor: pointer;
+  border: none; background: none; width: 100%; text-align: left;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: background 0.2s var(--ease-out);
+  position: relative;
+}
+.hour-option:last-child { border-bottom: none; }
+.hour-option:hover  { background: rgba(201,168,76,0.06); }
+.hour-option.active { background: rgba(201,168,76,0.10); }
+.hour-option.active::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 4px; background: var(--color-gold); border-radius: 0 3px 3px 0;
+}
+.hour-radio {
+  width: 22px; height: 22px; border-radius: var(--radius-full);
+  border: 2px solid rgba(201,168,76,0.35);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: border-color 0.2s, background 0.2s;
+}
+.hour-option.active .hour-radio {
+  border-color: var(--color-gold);
+  background: var(--color-gold);
+}
+.hour-radio-dot {
+  width: 8px; height: 8px; border-radius: var(--radius-full);
+  background: var(--color-wine-deeper); opacity: 0;
+  transition: opacity 0.18s;
+}
+.hour-option.active .hour-radio-dot { opacity: 1; }
+.hour-info { flex: 1; }
+.hour-label {
+  font-family: var(--font-serif); font-size: 1.05rem; font-weight: 700;
+  color: var(--color-white); display: flex; align-items: center; gap: 10px;
+  line-height: 1.2;
+}
+.hour-badge {
+  font-family: var(--font-sans); font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  background: rgba(201,168,76,0.15); color: var(--color-gold);
+  padding: 2px 8px; border-radius: var(--radius-full);
+  border: 1px solid rgba(201,168,76,0.28);
+}
+.hour-sub {
+  font-family: var(--font-sans); font-size: var(--text-xs);
+  color: var(--color-wine-muted); margin-top: 4px;
+}
+.hour-price {
+  font-family: var(--font-serif); font-size: 1.35rem; font-weight: 900;
+  color: var(--color-gold); flex-shrink: 0; letter-spacing: -0.01em;
+}
+.extra-hour-ft {
+  padding: 22px 32px 28px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: center;
+  justify-content: space-between; flex-wrap: wrap; gap: 12px;
+}
+.extra-hour-ft-lbl {
+  font-family: var(--font-sans); font-size: var(--text-xs); font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--color-wine-muted); margin-bottom: 4px;
+}
+.extra-hour-total {
+  font-family: var(--font-serif); font-size: 2rem; font-weight: 900;
+  color: var(--color-gold); transition: all 0.25s var(--ease-out);
+}
+.extra-hour-empty {
+  font-family: var(--font-sans); font-size: var(--text-sm);
+  color: rgba(255,255,255,0.25); font-style: italic;
+}
+.btn-hour-clear {
+  font-family: var(--font-sans); font-size: var(--text-xs);
+  font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  color: rgba(255,255,255,0.30); background: none;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-full); padding: 6px 14px; cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+.btn-hour-clear:hover { color: rgba(255,255,255,0.70); border-color: rgba(255,255,255,0.35); }
+@media (max-width: 600px) {
+  .hour-option    { padding: 16px 20px; gap: 14px; }
+  .extra-hour-hd  { padding: 22px 20px 18px; }
+  .extra-hour-ft  { padding: 18px 20px 24px; }
+  .extra-hour-total { font-size: 1.6rem; }
+}
+
+/* ══ BOX 2 — TRAVEL FEE ══════════════════════════════════════ */
+.travel-box {
+  background: var(--color-wine-deeper);
+  border: 1px solid rgba(201,168,76,0.22);
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.travel-box-hd {
+  padding: 28px 32px 22px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: center; gap: 16px;
+}
+.travel-box-hd-icon {
+  width: 50px; height: 50px; border-radius: var(--radius-full);
+  background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.28);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; flex-shrink: 0;
+}
+.travel-box-hd h3 {
+  font-family: var(--font-serif); font-size: 1.25rem; font-weight: 700;
+  color: var(--color-white); line-height: 1.2;
+}
+.travel-box-hd p {
+  font-family: var(--font-sans); font-size: var(--text-sm);
+  color: var(--color-wine-muted); margin-top: 4px;
+}
+.travel-admin-note {
+  font-family: var(--font-sans); font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.10em; text-transform: uppercase;
+  color: rgba(201,168,76,0.45); margin-top: 8px;
+  display: inline-block;
+}
+
+/* Accordion */
+.travel-accordion { border-bottom: 1px solid rgba(255,255,255,0.06); }
+.travel-region { border-top: 1px solid rgba(255,255,255,0.06); }
+.travel-region-btn {
+  width: 100%; display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; padding: 20px 32px;
+  background: none; border: none; cursor: pointer; text-align: left;
+  transition: background 0.2s var(--ease-out);
+}
+.travel-region-btn:hover { background: rgba(201,168,76,0.05); }
+.travel-region.open .travel-region-btn { background: rgba(201,168,76,0.08); }
+.travel-region-label-wrap { display: flex; align-items: center; gap: 12px; }
+.travel-region-icon {
+  width: 36px; height: 36px; border-radius: var(--radius-full);
+  background: rgba(201,168,76,0.10); border: 1px solid rgba(201,168,76,0.22);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; flex-shrink: 0;
+}
+.travel-region-name {
+  font-family: var(--font-serif); font-size: 1.05rem; font-weight: 700;
+  color: var(--color-white); line-height: 1.2;
+}
+.travel-region-from {
+  font-family: var(--font-sans); font-size: var(--text-xs);
+  color: var(--color-wine-muted); margin-top: 3px;
+}
+.travel-region-chevron {
+  font-size: 0.8rem; color: var(--color-gold);
+  transition: transform 0.25s var(--ease-out); flex-shrink: 0;
+}
+.travel-region.open .travel-region-chevron { transform: rotate(180deg); }
+
+/* Accordion body */
+.travel-region-body {
+  overflow: hidden; max-height: 0;
+  transition: max-height 0.4s var(--ease-out);
+}
+.travel-region-body-inner { padding: 0 32px 24px; }
+
+/* County group (Maryland) */
+.travel-county-group { margin-bottom: 18px; }
+.travel-county-group:last-child { margin-bottom: 0; }
+.travel-county-label {
+  font-family: var(--font-sans); font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--color-gold); padding: 10px 0 8px;
+  border-bottom: 1px solid rgba(201,168,76,0.15); margin-bottom: 10px;
+}
+
+/* Area buttons */
+.travel-area-list { display: flex; flex-direction: column; gap: 4px; }
+.travel-area-btn {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; padding: 11px 16px;
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius-lg); cursor: pointer; text-align: left;
+  transition: background 0.18s, border-color 0.18s;
+  position: relative;
+}
+.travel-area-btn:hover:not(.unavailable) {
+  background: rgba(201,168,76,0.08);
+  border-color: rgba(201,168,76,0.28);
+}
+.travel-area-btn.selected {
+  background: rgba(201,168,76,0.12);
+  border-color: rgba(201,168,76,0.50);
+}
+.travel-area-btn.selected::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 4px; background: var(--color-gold); border-radius: 4px 0 0 4px;
+}
+.travel-area-btn.unavailable {
+  opacity: 0.38; cursor: not-allowed;
+  background: rgba(255,255,255,0.02);
+}
+.travel-area-name {
+  font-family: var(--font-sans); font-size: var(--text-sm);
+  font-weight: 500; color: var(--color-white);
+}
+.travel-area-btn.unavailable .travel-area-name { color: rgba(255,255,255,0.45); }
+.travel-area-fee {
+  font-family: var(--font-serif); font-size: 0.95rem; font-weight: 700;
+  color: var(--color-gold); white-space: nowrap;
+}
+.travel-area-unavail-tag {
+  font-family: var(--font-sans); font-size: 0.62rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35); background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  padding: 2px 8px; border-radius: var(--radius-full);
+}
+
+/* Footer */
+.travel-box-ft {
+  padding: 22px 32px 28px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: center;
+  justify-content: space-between; flex-wrap: wrap; gap: 12px;
+}
+.travel-ft-lbl {
+  font-family: var(--font-sans); font-size: var(--text-xs); font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--color-wine-muted); margin-bottom: 4px;
+}
+.travel-ft-area {
+  font-family: var(--font-sans); font-size: var(--text-sm);
+  color: rgba(255,255,255,0.55); margin-bottom: 4px; font-style: italic;
+}
+.travel-total {
+  font-family: var(--font-serif); font-size: 2rem; font-weight: 900;
+  color: var(--color-gold); transition: all 0.25s var(--ease-out);
+}
+.travel-empty {
+  font-family: var(--font-sans); font-size: var(--text-sm);
+  color: rgba(255,255,255,0.25); font-style: italic;
+}
+.btn-travel-clear {
+  font-family: var(--font-sans); font-size: var(--text-xs);
+  font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  color: rgba(255,255,255,0.30); background: none;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-full); padding: 6px 14px; cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+.btn-travel-clear:hover { color: rgba(255,255,255,0.70); border-color: rgba(255,255,255,0.35); }
+@media (max-width: 600px) {
+  .travel-region-btn        { padding: 16px 20px; }
+  .travel-region-body-inner { padding: 0 20px 20px; }
+  .travel-box-hd            { padding: 22px 20px 18px; }
+  .travel-box-ft            { padding: 18px 20px 24px; }
+  .travel-total             { font-size: 1.6rem; }
+}
+
+/* ══ BOX 3 — CHAMPAGNE TOAST ══════════════════════════════════ */
+.toast-box {
+  background: var(--color-wine-deeper);
+  border: 1px solid rgba(201,168,76,0.22);
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.toast-box-hd {
+  padding: 28px 32px 22px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: center; gap: 16px;
+}
+.toast-box-hd-icon {
+  width: 50px; height: 50px; border-radius: var(--radius-full);
+  background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.28);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; flex-shrink: 0;
+}
+.toast-box-hd h3 {
+  font-family: var(--font-serif); font-size: 1.25rem; font-weight: 700;
+  color: var(--color-white); line-height: 1.2;
+}
+.toast-box-hd p {
+  font-family: var(--font-sans); font-size: var(--text-sm);
+  color: var(--color-wine-muted); margin-top: 4px;
+}
+
+/* Tier options */
+.toast-options-list { padding: 4px 0; }
+.toast-option {
+  display: flex; align-items: center; gap: 20px;
+  padding: 22px 32px; cursor: pointer;
+  border: none; background: none; width: 100%; text-align: left;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: background 0.2s var(--ease-out);
+  position: relative;
+}
+.toast-option:last-child { border-bottom: none; }
+.toast-option:hover  { background: rgba(201,168,76,0.06); }
+.toast-option.active { background: rgba(201,168,76,0.10); }
+.toast-option.active::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 4px; background: var(--color-gold); border-radius: 0 3px 3px 0;
+}
+
+/* Radio dot */
+.toast-radio {
+  width: 22px; height: 22px; border-radius: var(--radius-full);
+  border: 2px solid rgba(201,168,76,0.35);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: border-color 0.2s, background 0.2s;
+}
+.toast-option.active .toast-radio {
+  border-color: var(--color-gold);
+  background: var(--color-gold);
+}
+.toast-radio-dot {
+  width: 8px; height: 8px; border-radius: var(--radius-full);
+  background: var(--color-wine-deeper); opacity: 0;
+  transition: opacity 0.18s;
+}
+.toast-option.active .toast-radio-dot { opacity: 1; }
+
+/* Info */
+.toast-info { flex: 1; }
+.toast-label {
+  font-family: var(--font-serif); font-size: 1.05rem; font-weight: 700;
+  color: var(--color-white); display: flex; align-items: center;
+  flex-wrap: wrap; gap: 10px; line-height: 1.3;
+}
+.toast-badge {
+  font-family: var(--font-sans); font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  background: rgba(201,168,76,0.15); color: var(--color-gold);
+  padding: 2px 8px; border-radius: var(--radius-full);
+  border: 1px solid rgba(201,168,76,0.28);
+}
+.toast-sub {
+  font-family: var(--font-sans); font-size: var(--text-xs);
+  color: var(--color-wine-muted); margin-top: 5px; line-height: 1.5;
+}
+.toast-guest-bar {
+  display: flex; align-items: center; gap: 6px;
+  margin-top: 8px;
+}
+.toast-guest-pip {
+  height: 4px; border-radius: var(--radius-full);
+  background: rgba(201,168,76,0.20);
+  transition: background 0.2s;
+}
+.toast-option.active .toast-guest-pip { background: var(--color-gold); }
+.toast-price {
+  font-family: var(--font-serif); font-size: 1.35rem; font-weight: 900;
+  color: var(--color-gold); flex-shrink: 0; letter-spacing: -0.01em;
+}
+
+/* Footer */
+.toast-box-ft {
+  padding: 22px 32px 28px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: center;
+  justify-content: space-between; flex-wrap: wrap; gap: 12px;
+}
+.toast-ft-lbl {
+  font-family: var(--font-sans); font-size: var(--text-xs); font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--color-wine-muted); margin-bottom: 4px;
+}
+.toast-ft-tier {
+  font-family: var(--font-sans); font-size: var(--text-sm);
+  color: rgba(255,255,255,0.55); margin-bottom: 4px; font-style: italic;
+}
+.toast-total {
+  font-family: var(--font-serif); font-size: 2rem; font-weight: 900;
+  color: var(--color-gold); transition: all 0.25s var(--ease-out);
+}
+.toast-empty {
+  font-family: var(--font-sans); font-size: var(--text-sm);
+  color: rgba(255,255,255,0.25); font-style: italic;
+}
+.btn-toast-clear {
+  font-family: var(--font-sans); font-size: var(--text-xs);
+  font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  color: rgba(255,255,255,0.30); background: none;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-full); padding: 6px 14px; cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+.btn-toast-clear:hover { color: rgba(255,255,255,0.70); border-color: rgba(255,255,255,0.35); }
+@media (max-width: 600px) {
+  .toast-option   { padding: 16px 20px; gap: 14px; }
+  .toast-box-hd   { padding: 22px 20px 18px; }
+  .toast-box-ft   { padding: 18px 20px 24px; }
+  .toast-total    { font-size: 1.6rem; }
+} 
+
+.travel-selected-badge {
+  display: none;
+  background: #FFD700;
+  color: #000;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  margin-left: auto;
+  box-shadow: 0 0 8px rgba(255,215,0,0.4);
+}
+
+.travel-area-btn.selected .travel-selected-badge {
+  display: inline-block;
+}
+
+.travel-distance-badge {
+  font-size: 0.75rem;
+  color: var(--color-gold-light);
+  margin-top: 6px;
+  opacity: 0.85;
+}
+
+
+</style>
+ <script>
+    console.log("🔥 packages.html script loaded");
+</script>
+</head>
+<body>
+
+<!-- ══ HEADER ═══════════════════════════════════════════════════ -->
+<header class="site-header" id="top">
+  <div class="header-inner">
+
+    <div class="header-logo" role="img">
+      <div class="header-logo-mark">
+        <img src="../components/assets/images/logo.png" alt="SipSavvy Mobile Bartending">
+      </div>
+      <div>
+        <span class="header-logo-wordmark">SipSavvy</span>
+        <span class="header-logo-tagline">Mobile Bartending</span>
+      </div>
+    </div>
+
+    <nav aria-label="Primary">
+      <ul class="header-nav">
+        <li><a href="index.html"       class="header-nav-link">Home</a></li>
+        <li><a href="services.html"    class="header-nav-link">Services</a></li>
+        <li><a href="packages.html"    class="header-nav-link">Packages</a></li>
+        <li><a href="gallery.html"     class="header-nav-link">Gallery</a></li>
+        <li><a href="experiences.html" class="header-nav-link">Experiences</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-cta">
+      <a href="#" id="backBtn" class="btn-back">&#8592; Back</a>
+      <button class="header-menu-toggle" id="menuToggle"
+              aria-label="Open menu" aria-expanded="false">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+
+  </div>
+</header>
+
+<!-- Mobile drawer -->
+<nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
+  <ul class="mobile-nav-list">
+    <li><a href="index.html"       class="mobile-nav-link">Home</a></li>
+    <li><a href="services.html"    class="mobile-nav-link">Services</a></li>
+    <li><a href="packages.html"    class="mobile-nav-link">Packages</a></li>
+    <li><a href="gallery.html"     class="mobile-nav-link">Gallery</a></li>
+    <li><a href="experiences.html" class="mobile-nav-link">Experiences</a></li>
+  </ul>
+  <div class="mobile-back-wrap">
+    <a href="#" id="mobileBackBtn" class="btn-back" style="display:inline-flex;">&#8592; Back</a>
+  </div>
+</nav>
+
+<!-- ══ HERO ═════════════════════════════════════════════════════ -->
+<section class="addons-hero">
+  <span class="addons-hero-eyebrow">Customize Your Event</span>
+  <h1 class="addons-hero-heading">SipSavvy Add-Ons</h1>
+  <p class="addons-hero-sub">Enhance your experience with premium additions tailored to your event.</p>
+</section>
+
+<!-- ══ 3 NAV CONTAINERS ══════════════════════════════════════════ -->
+<section class="addons-nav-section">
+  <div class="addons-nav-grid">
+
+    <!-- Container 1 — Extra Hour -->
+    <a href="#extra-hour" class="addon-nav-card">
+      <div class="addon-nav-icon">⏱</div>
+      <h2 class="addon-nav-title">Extra Hour</h2>
+      <p class="addon-nav-desc">Extend your bar service by up to 4 additional hours.</p>
+      <span class="addon-nav-arrow">↓ View Options</span>
+    </a>
+
+    <!-- Container 2 — Travel Fee -->
+    <a href="#travel-fee" class="addon-nav-card">
+      <div class="addon-nav-icon">🚗</div>
+      <h2 class="addon-nav-title">Travel Fee</h2>
+      <p class="addon-nav-desc">DC, Maryland &amp; Northern Virginia — starting from $75.</p>
+      <span class="addon-nav-arrow">↓ View Areas</span>
+    </a>
+
+    <!-- Container 3 — Champagne Toast -->
+    <a href="#champagne-toast" class="addon-nav-card">
+      <div class="addon-nav-icon">🥂</div>
+      <h2 class="addon-nav-title">Champagne Toast Setup</h2>
+      <p class="addon-nav-desc">Elegant toast service priced by your guest count.</p>
+      <span class="addon-nav-arrow">↓ View Pricing</span>
+    </a>
+
+  </div>
+</section>
+
+<!-- ══ SECTION 1 — EXTRA HOUR ══════════════════════════════════ -->
+<hr class="addon-section-divider">
+<div id="extra-hour" class="addon-section">
+  <h2 class="addon-section-title">Extra Hour</h2>
+  <p class="addon-section-sub">Extend your bartending service — choose up to 4 additional hours. Your sub-total is calculated automatically.</p>
+
+  <div class="extra-hour-box">
+
+    <!-- Header -->
+    <div class="extra-hour-hd">
+      <div class="extra-hour-hd-icon">⏱</div>
+      <div>
+        <h3>Extra Hour Add-On</h3>
+        <p>Select the number of additional hours needed for your event.</p>
+      </div>
+    </div>
+
+    <!-- Options -->
+
+      <button class="hour-option" data-price="125" onclick="selectHours(event, this, 1)">
+        <div class="hour-radio"><div class="hour-radio-dot"></div></div>
+        <div class="hour-info">
+          <div class="hour-label">
+            + 1 Hour
+            <span class="hour-badge">Most Popular</span>
+          </div>
+          <div class="hour-sub">One additional hour of bartending service</div>
+        </div>
+        <div class="hour-price">$125.00</div> 
+      </button>
+
+      <button class="hour-option" data-price="250" onclick="selectHours(event, this, 1)">
+        <div class="hour-radio"><div class="hour-radio-dot"></div></div>
+        <div class="hour-info">
+          <div class="hour-label">+ 2 Hours</div>
+          <div class="hour-sub">Two additional hours of bartending service</div>
+        </div>
+        <div class="hour-price">$250.00</div>
+      </button>
+
+      <button class="hour-option" data-price="375" onclick="selectHours(event, this, 1)">
+        <div class="hour-radio"><div class="hour-radio-dot"></div></div>
+        <div class="hour-info">
+          <div class="hour-label">+ 3 Hours</div>
+          <div class="hour-sub">Three additional hours of bartending service</div>
+        </div>
+        <div class="hour-price">$375.00</div>
+      </button>
+
+      <button class="hour-option" data-price="500" onclick="selectHours(event, this, 1)">
+        <div class="hour-radio"><div class="hour-radio-dot"></div></div>
+        <div class="hour-info">
+          <div class="hour-label">
+            + 4 Hours
+            <span class="hour-badge" style="background:rgba(201,168,76,0.22);">Maximum</span>
+          </div>
+          <div class="hour-sub">Four additional hours of bartending service</div>
+        </div>
+        <div class="hour-price">$500.00</div>
+      </button>
+
+    </div>
+
+    <!-- Footer / Total -->
+    <div class="extra-hour-ft">
+      <div>
+        <div class="extra-hour-ft-lbl">Extra Hour Sub-Total</div>
+        <div id="hourTotal" class="extra-hour-empty">No hours selected</div>
+      </div>
+      <button class="btn-hour-clear" id="hourClearBtn" onclick="clearHour()" style="display:none;">✕ Clear</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ SECTION 2 — TRAVEL FEE ════════════════════════════════════ -->
+<hr class="addon-section-divider">
+<div id="travel-fee" class="addon-section">
+  <h2 class="addon-section-title">Travel Fee</h2>
+  <p class="addon-section-sub">Select your service area below. Fees start from $75 and are dynamically managed — no page rebuild needed when rates change.</p>
+
+  <div class="travel-box">
+
+    <!-- Header -->
+    <div class="travel-box-hd">
+      <div class="travel-box-hd-icon">🚗</div>
+      <div>
+        <h3>Travel Fee Add-On</h3>
+        <p>Choose your area from Washington DC, Maryland, or Northern Virginia.</p>
+        <span class="travel-admin-note">⚙ Admin: update fees in the TRAVEL_FEES config in script</span>
+      </div>
+    </div>
+
+    <!-- Accordion — built by JS from TRAVEL_FEES config -->
+    <div class="travel-accordion" id="travelAccordion"></div>
+<div id="travel-section">
+  <h3>Select Your Travel Area</h3>
+
+  <button class="travel-area-btn" data-name="Waldorf, MD" data-fee="15">Waldorf</button>
+  <button class="travel-area-btn" data-name="Brandywine, MD" data-fee="15">Brandywine</button>
+  <button class="travel-area-btn" data-name="Accokeek, MD" data-fee="15">Accokeek</button>
+  <button class="travel-area-btn" data-name="Clinton, MD" data-fee="15">Clinton</button>
+  <button class="travel-area-btn" data-name="White Plains, MD" data-fee="15">White Plains</button>
+
+  <button class="travel-area-btn" data-name="Hughesville, MD" data-fee="45">Hughesville</button>
+  <button class="travel-area-btn" data-name="Mechanicsville, MD" data-fee="45">Mechanicsville</button>
+  <button class="travel-area-btn" data-name="Prince Frederick, MD" data-fee="45">Prince Frederick</button>
+</div>
+
+<div class="travel-summary-box">
+  <p><strong>Distance:</strong> <span data-ss-travel="distance">—</span></p>
+  <p><strong>Travel Fee:</strong> <span data-ss-travel="fee">—</span></p>
+  <p><strong>Summary:</strong> <span data-ss-travel="summary">No travel area selected</span></p>
+</div>
+
+
+    <!-- Footer -->
+    <div class="travel-box-ft">
+<span data-ss-travel="distance">—</span>   <!-- e.g., "23.4 mi" -->
+<span data-ss-travel="fee">—</span>        <!-- e.g., "$45" -->
+<span data-ss-travel="summary">No travel area selected</span>
+
+  <div>
+    <div class="travel-ft-lbl">Travel Fee Sub-Total</div>
+
+    <!-- Selected Area -->
+    <div id="travelArea" class="travel-ft-area" style="display:none;"></div>
+
+    <!-- Travel Fee -->
+    <div id="travelTotal" class="travel-empty">No area selected</div>
+
+    <!-- ⭐ Distance Badge -->
+    <div id="travelDistance" class="travel-distance-badge" style="display:none;">
+      Distance: <span id="travelDistanceMiles">0</span> miles
+    </div>
+
+    <!-- ⭐ Map Preview -->
+    <div id="travelMapPreview" style="display:none; margin-top:12px;">
+      <iframe id="travelMapFrame"
+        width="100%" height="220"
+        style="border-radius:12px; border:1px solid rgba(255,255,255,0.15);"
+        loading="lazy" allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+
+  <!-- Clear Button -->
+  <button class="btn-travel-clear" id="travelClearBtn" onclick="clearTravel()" style="display:none;">
+    ✕ Clear
+  </button>
+
+</div>
+
+
+  </div>
+</div>
+
+<!-- ══ SECTION 3 — CHAMPAGNE TOAST ═══════════════════════════════ -->
+<hr class="addon-section-divider">
+<div id="champagne-toast" class="addon-section">
+  <h2 class="addon-section-title">Champagne Toast Setup</h2>
+  <p class="addon-section-sub">Select the tier that matches your guest count. Pricing is based on the number of guests attending your event.</p>
+
+  <div class="toast-box">
+
+    <!-- Header -->
+    <div class="toast-box-hd">
+      <div class="toast-box-hd-icon">🥂</div>
+      <div>
+        <h3>Champagne Toast Setup</h3>
+        <p>Choose a guest tier — your add-on price is calculated automatically.</p>
+      </div>
+    </div>
+
+    <!-- Tier Options -->
+    <div class="toast-options-list">
+
+      <!-- Tier 1: Up to 50 guests -->
+      <button class="toast-option" data-price="25" data-tier="Up to 50 Guests" onclick="selectToast(this)">
+        <div class="toast-radio"><div class="toast-radio-dot"></div></div>
+        <div class="toast-info">
+          <div class="toast-label">
+            Up to 50 Guests
+            <span class="toast-badge">Starter</span>
+          </div>
+          <div class="toast-sub">Champagne toast setup for events with up to 50 guests</div>
+          <div class="toast-guest-bar">
+            <div class="toast-guest-pip" style="width:50px;"></div>
+            <div class="toast-guest-pip" style="width:50px; background:rgba(201,168,76,0.07);"></div>
+            <div class="toast-guest-pip" style="width:50px; background:rgba(201,168,76,0.07);"></div>
+          </div>
+        </div>
+        <div class="toast-price">$25.00</div>
+      </button>
+
+      <!-- Tier 2: Up to 80 guests -->
+      <button class="toast-option" data-price="40" data-tier="Up to 80 Guests" onclick="selectToast(this)">
+        <div class="toast-radio"><div class="toast-radio-dot"></div></div>
+        <div class="toast-info">
+          <div class="toast-label">
+            Up to 80 Guests
+            <span class="toast-badge">Most Popular</span>
+          </div>
+          <div class="toast-sub">Champagne toast setup for events with up to 80 guests</div>
+          <div class="toast-guest-bar">
+            <div class="toast-guest-pip" style="width:50px;"></div>
+            <div class="toast-guest-pip" style="width:50px;"></div>
+            <div class="toast-guest-pip" style="width:50px; background:rgba(201,168,76,0.07);"></div>
+          </div>
+        </div>
+        <div class="toast-price">$40.00</div>
+      </button>
+
+      <!-- Tier 3: Up to 100 guests -->
+      <button class="toast-option" data-price="50" data-tier="Up to 100 Guests" onclick="selectToast(this)">
+        <div class="toast-radio"><div class="toast-radio-dot"></div></div>
+        <div class="toast-info">
+          <div class="toast-label">
+            Up to 100 Guests
+            <span class="toast-badge" style="background:rgba(201,168,76,0.22);">Maximum</span>
+          </div>
+          <div class="toast-sub">Champagne toast setup for events with up to 100 guests</div>
+          <div class="toast-guest-bar">
+            <div class="toast-guest-pip" style="width:50px;"></div>
+            <div class="toast-guest-pip" style="width:50px;"></div>
+            <div class="toast-guest-pip" style="width:50px;"></div>
+          </div>
+        </div>
+        <div class="toast-price">$50.00</div>
+      </button>
+
+    </div>
+
+    <!-- Footer / Total -->
+    <div class="toast-box-ft">
+      <div>
+        <div class="toast-ft-lbl">Champagne Toast Sub-Total</div>
+        <div id="toastTier" class="toast-ft-tier" style="display:none;"></div>
+        <div id="toastTotal" class="toast-empty">No tier selected</div>
+      </div>
+      <button class="btn-toast-clear" id="toastClearBtn" onclick="clearToast()" style="display:none;">✕ Clear</button>
+    </div>
+
+  </div> 
+  <div>      +++++++++++++++++++++++++++++++++++++++++++
+      <p id="selected-package" class="addons-selected-package"></p>
+      <p class="addons-total-line">
+  <strong>Add‑Ons Total:</strong>
+  <span id="addons-live-total">$0</span>
+</p>
+      +++++++++++++++++++++++++++++++++++++++++++ </div>
+</div>
+
+<!-- ══ FOOTER ════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="header-logo-wordmark">SipSavvy</span>
+      <p>Premium mobile bartending for every occasion — crafted cocktails, luxury setup, unforgettable moments.</p>
+      <div class="footer-socials">
+        <a href="#" class="footer-social-link" aria-label="Instagram">📸</a>
+        <a href="#" class="footer-social-link" aria-label="Facebook">👍</a>
+        <a href="#" class="footer-social-link" aria-label="TikTok">🎵</a>
+        <a href="#" class="footer-social-link" aria-label="YouTube">▶️</a>
+      </div>
+    </div>
+    <div>
+      <p class="footer-col-title">Add-Ons</p>
+      <ul class="footer-links">
+        <li><a href="#extra-hour">Extra Hour</a></li>
+        <li><a href="#travel-fee">Travel Fee</a></li>
+        <li><a href="#champagne-toast">Champagne Toast</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="packages.html">Packages</a></li>
+        <li><a href="experiences.html">Experiences</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Support</p>
+      <ul class="footer-links">
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Cancellation Policy</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="booking.html">Book Now</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 SipSavvy, LLC. All rights reserved.</p>
+    <div style="display:flex;gap:1.5rem;">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+  </div>
+</footer>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKkzsct1oV6maX5ED46b_BeuYEdJLeZsM&libraries=places"></script>
+<script>
+/* -----------------------------------------------------------
+   HEADER + MOBILE NAV
+----------------------------------------------------------- */
+(function () {
+  const hdr = document.querySelector('.site-header');
+  if (!hdr) return;
+  window.addEventListener('scroll', () => {
+    hdr.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+})();
+
+(function () {
+  const toggle = document.getElementById('menuToggle');
+  const nav    = document.getElementById('mobileNav');
+  const hdr    = document.getElementById('top');
+  if (!toggle || !nav) return;
+
+  toggle.addEventListener('click', () => {
+    const open = nav.classList.toggle('is-open');
+    hdr.classList.toggle('nav-open', open);
+    toggle.setAttribute('aria-expanded', open);
+  });
+})();
+</script>
+
+
+<!-- ---------------------------------------------------------
+     TRAVEL ENGINE (unchanged)
+---------------------------------------------------------- -->
+<script>
+/* KEEP your existing travel engine exactly as-is */
+</script>
+
+
+<!-- ---------------------------------------------------------
+     ADD‑ONS ENGINE (FINAL, CLEAN VERSION)
+---------------------------------------------------------- -->
+<script>
+  let addonState = {
+  package: {
+    name: localStorage.getItem("selectedPackageName") || false,
+    price: Number(localStorage.getItem("selectedPackagePrice")) || 0
+  },
+  hour: false,
+  hourCount: 1,
+  travel: false,
+  champagne: false,
+  champTier: 1
+};
+
+
+
+const CHAMP_PRICES = { 1: 25, 2: 40, 3: 50 };
+const CHAMP_LABELS = {
+  1: "Champagne (up to 40)",
+  2: "Champagne (up to 80)",
+  3: "Champagne (up to 100)"
+};
+
+/* Toggle main add‑on row */
+function toggleAddon(key) {
+  addonState[key] = !addonState[key];
+
+  document.getElementById(`row-${key}`)?.classList.toggle("is-checked", addonState[key]);
+  document.getElementById(`box-${key}`)?.classList.toggle("is-checked", addonState[key]);
+
+  updateAddonUI();
+}
+
+/* Extra Hours */
+function selectHours(event, btn, hrs) {
+  event.stopPropagation();
+  addonState.hourCount = hrs;
+
+  document.querySelectorAll('#sub-hour .addon-sub-btn')
+    .forEach(b => b.classList.remove('is-active'));
+
+  btn.classList.add('is-active');
+
+  const priceEl = document.getElementById('price-hour');
+  if (priceEl) priceEl.textContent = `+$${hrs * 125}`;
+
+  updateAddonUI();
+}
+
+/* Champagne tiers */
+function selectChampagne(event, btn, tier, price) {
+  event.stopPropagation();
+  addonState.champTier = tier;
+
+  document.querySelectorAll('#sub-champagne .addon-sub-btn')
+    .forEach(b => b.classList.remove('is-active'));
+
+  btn.classList.add('is-active');
+
+  const priceEl = document.getElementById('price-champagne');
+  if (priceEl) priceEl.textContent = `+$${price}`;
+
+  updateAddonUI();
+}
+
+(function loadAddonsOnAddonsPage() {
+  const saved = JSON.parse(localStorage.getItem("ss_addons") || "{}");
+  const total = localStorage.getItem("addons_total") || 0;
+
+  // Example: show summary on add-ons.html
+  const summary = document.getElementById("addonsSummary");
+  if (summary) {
+    const tiers = { 1: "Standard", 2: "Premium", 3: "Luxury" };
+    let parts = [];
+
+    if (saved.hour && saved.hourCount > 0)
+      parts.push(`${saved.hourCount} Hour${saved.hourCount > 1 ? 's' : ''}`);
+
+    if (saved.travel)
+      parts.push("Travel Fee");
+
+    if (saved.champagne && saved.champTier > 0)
+      parts.push(`Champagne ${tiers[saved.champTier]}`);
+
+    summary.textContent =
+      parts.length === 0
+        ? "No add‑ons selected"
+        : `Includes: ${parts.join(", ")} — Total: $${total}`;
+  }
+})();
+</script>
+
+<!-- ---------------------------------------------------------
+     ADD‑ONS ENGINE (WITH PACKAGE SUPPORT)
+---------------------------------------------------------- -->
+<script>
+
+
+/* Toggle main add‑on row */
+function toggleAddon(key) {
+  addonState[key] = !addonState[key];
+
+  document.getElementById(`row-${key}`)?.classList.toggle("is-checked", addonState[key]);
+  document.getElementById(`box-${key}`)?.classList.toggle("is-checked", addonState[key]);
+
+  updateAddonUI();
+}
+
+/* Extra Hours */
+function selectHours(event, btn, hrs) {
+  event.stopPropagation();
+  addonState.hourCount = hrs;
+
+  document.querySelectorAll('#sub-hour .addon-sub-btn')
+    .forEach(b => b.classList.remove('is-active'));
+
+  btn.classList.add('is-active');
+
+  const priceEl = document.getElementById('price-hour');
+  if (priceEl) priceEl.textContent = `+$${hrs * 125}`;
+
+  updateAddonUI();
+}
+
+/* Champagne tiers */
+function selectChampagne(event, btn, tier, price) {
+  event.stopPropagation();
+  addonState.champTier = tier;
+
+  document.querySelectorAll('#sub-champagne .addon-sub-btn')
+    .forEach(b => b.classList.remove('is-active'));
+
+  btn.classList.add('is-active');
+
+  const priceEl = document.getElementById('price-champagne');
+  if (priceEl) priceEl.textContent = `+$${price}`;
+
+  updateAddonUI();
+}
+
+/* Update total + preview */
+function updateAddonUI() {
+  let total = 0;
+  const labels = [];
+
+  // 1) Base package (from packages.html)
+  if (addonState.package.name && addonState.package.price > 0) {
+    total += addonState.package.price;
+    labels.push(`${addonState.package.name} ($${addonState.package.price})`);
+  }
+
+  // 2) Extra hours
+  if (addonState.hour) {
+    const hPrice = addonState.hourCount * 125;
+    total += hPrice;
+    labels.push(`${addonState.hourCount} Extra Hour${addonState.hourCount > 1 ? 's' : ''} ($${hPrice})`);
+  }
+
+  // 3) Travel fee
+  if (addonState.travel) {
+    total += 75;
+    labels.push("Travel Fee ($75)");
+  }
+
+  // 4) Champagne toast
+  if (addonState.champagne) {
+    const cPrice = CHAMP_PRICES[addonState.champTier];
+    total += cPrice;
+    labels.push(`${CHAMP_LABELS[addonState.champTier]} ($${cPrice})`);
+  }
+
+  // Update "Add‑Ons Total:" line
+  const totalEl = document.getElementById("addons-live-total");
+  if (totalEl) {
+    totalEl.textContent = `$${total}`;
+  }
+
+  // Optional: if you have a breakdown element, update it too
+  const breakdownEl = document.getElementById("addons-breakdown");
+  if (breakdownEl) {
+    breakdownEl.textContent = labels.length ? labels.join(" · ") : "No add‑ons selected";
+  }
+
+  // Optional: show selected package near total if you add this element
+  const pkgEl = document.getElementById("selected-package");
+  if (pkgEl && addonState.package.name && addonState.package.price > 0) {
+    pkgEl.textContent = `${addonState.package.name}: $${addonState.package.price}`;
+  }
+}
+
+/* Initialize on load so package shows immediately */
+document.addEventListener("DOMContentLoaded", updateAddonUI);
+</script>
+
+<!-- ---------------------------------------------------------
+     SELF-DISABLING SAME-PAGE LINKS
+---------------------------------------------------------- -->
+<script>
+(function () {
+  const page = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+  document.addEventListener('click', function (e) {
+    const a = e.target.closest ? e.target.closest('a[href]') : null;
+    if (!a) return;
+    const href = (a.getAttribute('href') || '').toLowerCase()
+               .split('?')[0].split('#')[0].replace(/^\.?\//, '');
+    if (href === page) { e.preventDefault(); e.stopImmediatePropagation(); }
+  }, true);
+})();
+</script>
+
+</body>
+</html>

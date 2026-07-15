@@ -1,0 +1,61 @@
+/* ============================
+   SipSavvy Staff Manager — Luxury
+   ============================ */
+
+.staff-controls {
+  padding: 24px 32px;
+}
+
+.staff-table-section {
+  padding: 0 32px 40px;
+}
+
+.staff-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  animation: fadeIn 0.8s ease;
+}
+
+.staff-table th {
+  background: var(--wine);
+  color: white;
+  padding: 14px;
+  text-align: left;
+}
+
+.staff-table td {
+  padding: 14px;
+  border-bottom: 1px solid #eee;
+}
+
+.staff-action-btn {
+  background: var(--wine);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.staff-action-btn:hover {
+  background: var(--gold);
+  color: var(--wine);
+}
+
+/* DARK MODE */
+body.dark .staff-table {
+  background: var(--dark-panel);
+  color: white;
+}
+
+body.dark .staff-table th {
+  background: var(--wine);
+}
+
+body.dark .staff-table td {
+  border-bottom: 1px solid var(--dark-border);
+}

@@ -1,0 +1,58 @@
+/* ============================================================
+   packages-overrides.css — SipSavvy Packages Page
+   Save to: ../styles/packages-overrides.css
+   Loaded last in <head> to ensure specificity wins
+   ============================================================ */
+
+/* ── Hero text — on wine/rose background ── */
+section.title-section.wine-rose-bg .packages-hero-eyebrow,
+.wine-rose-bg .packages-hero-eyebrow {
+  color: #C9A84C !important;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+section.title-section.wine-rose-bg .packages-hero-heading,
+.wine-rose-bg .packages-hero-heading {
+  color: #C9A84C !important;
+}
+
+section.title-section.wine-rose-bg .packages-hero-heading em,
+.wine-rose-bg .packages-hero-heading em {
+  color: #E5C87E !important;
+  font-style: italic;
+}
+
+/* ── Hero subtitle — dark for contrast on lighter background ── */
+section.title-section.wine-rose-bg .packages-hero-sub,
+.wine-rose-bg .packages-hero-sub,
+.packages-hero-sub {
+  color: #1A0505 !important;
+}
+
+/* ── Add-Ons section — all text white ── */
+.addons-section-wrap,
+.addons-section-wrap *,
+.packages-addons,
+.packages-addons * {
+  color: #ffffff !important;
+}
+
+/* ── Wine divider — packages section ── */
+.package-card {
+  padding-bottom: 0;
+}
+
+.package-actions {
+  margin-bottom: 20px;
+}
+
+.pkg-wine-divider {
+  display: block;
+  width: 100%;
+  border: none;
+  border-top: 2px solid #722F37;
+  opacity: 0.78;
+  margin: 0 0 28px 0;
+}

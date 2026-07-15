@@ -1,0 +1,32 @@
+mutation SeedData @transaction {
+  client_insertMany(data: [
+    { name: "Tech Innovations", email: "contact@tech.io", phone: "555-0101" },
+    { name: "Creative Studios", email: "hello@creative.studio", phone: "555-0102" },
+    { name: "Global Logistics", email: "ops@global.logistics", phone: "555-0103" }
+  ])
+  servicePackage_insertMany(data: [
+    { title: "Standard Bar", description: "Beer and Wine", basePrice: 500.0, includesStaff: true, includesGlassware: true },
+    { title: "Premium Open Bar", description: "Full spirits and cocktail menu", basePrice: 1200.0, includesStaff: true, includesGlassware: true },
+    { title: "Mocktail Bar", description: "Non-alcoholic specialty drinks", basePrice: 400.0, includesStaff: true, includesGlassware: true }
+  ])
+  event_insertMany(data: [
+    { date: "2024-12-01", location: "Grand Hall", guestCount: 50, status: "Confirmed", corporateTaxId: "TAX100" },
+    { date: "2024-12-05", location: "Sky Lounge", guestCount: 25, status: "Pending", corporateTaxId: "TAX200" },
+    { date: "2024-12-10", location: "Garden Center", guestCount: 100, status: "Confirmed", corporateTaxId: "TAX300" }
+  ])
+  bookingRequest_insertMany(data: [
+    { requestDate: "2024-10-01T10:00:00Z", totalQuote: 500.0, paymentStatus: "Paid" },
+    { requestDate: "2024-10-05T14:30:00Z", totalQuote: 1200.0, paymentStatus: "Pending" },
+    { requestDate: "2024-10-10T09:15:00Z", totalQuote: 400.0, paymentStatus: "Paid" }
+  ])
+  review_insertMany(data: [
+    { rating: 5, comment: "Excellent service!" },
+    { rating: 4, comment: "Great variety of drinks." },
+    { rating: 5, comment: "Professional and timely." }
+  ])
+  mixologist_insertMany(data: [
+    { name: "Alice Barman", certificationLevel: "Master", specialty: "Classic Cocktails" },
+    { name: "Bob Shaker", certificationLevel: "Advanced", specialty: "Molecular Mixology" },
+    { name: "Charlie Pour", certificationLevel: "Certified", specialty: "Tiki Drinks" }
+  ])
+}

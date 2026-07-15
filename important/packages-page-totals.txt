@@ -1,0 +1,75 @@
+header Totals:         
+    <span class="header-total">Header Total: $0</span>
+    <span class="header-package-price">Package Price Total: $0</span>
+    <span id="headerTotal">headerTotal: $0.00</span>
+
+bottom totals: 
+  <span class="addons-extra-hours">extra-hours: $0</span>
+  <span class="addons-champagne-toast">champagne: $0</span>
+  <span class="addons-total">addons-total: $0</span>
+
+footer totals:      
+      <span id="checkoutAddons">Add‑Ons: $0</span>
+      <span id="checkoutTravelFee">TravelFee: $0.00</span>
+      <span id="checkoutTotal">Total: $0</span>
+      <span id="checkoutTotal">Total: $+++0.00</span>
+
+
+
+
+⭐ ADD THESE UI UPDATES INSIDE updateTotals()
+(After you calculate packagePrice, addonsTotal, travelFee, and grandTotal)
+
+
+✅ HEADER TOTALS// HEADER TOTALS
+const headerTotalEl = document.querySelector(".header-total");
+if (headerTotalEl) headerTotalEl.textContent = `Header Total: $${grandTotal.toFixed(2)}`;
+
+const headerPackageEl = document.querySelector(".header-package-price");
+if (headerPackageEl) headerPackageEl.textContent = `Package Price Total: $${packagePrice.toFixed(2)}`;
+
+const headerTotal2 = document.getElementById("headerTotal");
+if (headerTotal2) headerTotal2.textContent = `headerTotal: $${grandTotal.toFixed(2)}`;
+
+
+✅ BOTTOM TOTALS
+// BOTTOM TOTALS
+const extraHoursEl = document.querySelector(".addons-extra-hours");
+if (extraHoursEl) extraHoursEl.textContent = `extra-hours: $${getAddon("extra-hours")}`;
+
+const champagneEl = document.querySelector(".addons-champagne-toast");
+if (champagneEl) champagneEl.textContent = `champagne: $${getAddon("champagne-toast")}`;
+
+const addonsTotalEl = document.querySelector(".addons-total");
+if (addonsTotalEl) addonsTotalEl.textContent = `addons-total: $${addonsTotal.toFixed(2)}`;
+
+
+✅ FOOTER TOTALS
+// FOOTER TOTALS
+const checkoutAddons = document.getElementById("checkoutAddons");
+if (checkoutAddons) checkoutAddons.textContent = `Add‑Ons: $${addonsTotal.toFixed(2)}`;
+
+const checkoutTravelFee = document.getElementById("checkoutTravelFee");
+if (checkoutTravelFee) checkoutTravelFee.textContent = `TravelFee: $${travelFee.toFixed(2)}`;
+
+const checkoutTotal = document.getElementById("checkoutTotal");
+if (checkoutTotal) checkoutTotal.textContent = `Total: $${grandTotal.toFixed(2)}`;
+
+
+⭐ IMPORTANT — You MUST have these helper functions at the top of updateTotals.js 
+
+function getAddon(key) {
+  const addons = JSON.parse(localStorage.getItem("ss_addons") || "{}");
+  return Number(addons[key] || 0);
+}
+
+function getTravelFee() {
+  return Number(localStorage.getItem("ss_travel_fee") || 0);
+}
+These prevent the crashes
+
+
+
+
+
+

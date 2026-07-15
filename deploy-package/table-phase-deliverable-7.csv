@@ -1,0 +1,8 @@
+﻿Phase,Deliverable,Files
+1 — CSS Framework,"140+ brand tokens, 15 keyframes, 6 button/card variants",10
+2 — HTML Pages,"Homepage, booking flow, admin dashboard",3
+3 — JavaScript,"site.js, booking.js, admin.js",3
+4 — Email Templates,"Confirmation, reminder, cancellation",3
+5 — API Spec,"OpenAPI 3.1.0 (28 endpoints), api-reference.md",2
+6 — Deployment,"Node server, routes, services, Docker, Nginx, scripts",32
+Total,,53 files

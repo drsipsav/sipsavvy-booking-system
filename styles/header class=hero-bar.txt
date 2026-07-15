@@ -1,0 +1,7 @@
+<header class="hero-bar">
+      <h2>Bookings Dashboard</h2>
+      <button id="themeToggle" class="btn-gold">🌙 Theme</button>
+    </header>
+
+
+header bg color index.html #8f3f32

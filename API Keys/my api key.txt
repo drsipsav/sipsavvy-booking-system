@@ -1,0 +1,20 @@
+my api key      5-20-2026  assist by copilot
+AIzaSyBSWS6WROxleQDaLfgJlwmeYYmVuJ78jwc
+AIzaSyBV0hILvm0HRmTLcb9W7eyXayNj54GSOu0          yes 
+
+calculateTravelFee("Baltimore, MD").then(console.log)
+
+
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKkzsct1oV6maX5ED46b_BeuYEdJLeZsM&libraries=places&loading=async" 
+
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBV0hILvm0HRmTLcb9W7eyXayNj54GSOu0&libraries=places"></script> 
+
+AIzaSyA5eadxqipdX7KH3d5tNLd3YfZbyjt-5hw     6/03/26
+
+AIzaSyBmkYxQy5voKEdE0X_EOBI845ZQy4_YsBc     6/03/26 #2
+
+
+
+

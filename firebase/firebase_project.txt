@@ -1,0 +1,41 @@
+
+Project name
+SipSavvy Booking System
+
+Project ID 
+sipsavvy-booking-system
+
+Project number 
+483097824089
+
+Environment
+This setting customizes your project for different stages of the app lifecycle
+
+Environment type
+Unspecified 
+_______________________________
+
+App nickname
+SipSavvy Web
+App ID 
+1:483097824089:web:b82ef2a5019ebdaa60da48
+
+_____________________________
+
+SipSavvy llc
+Organization • United States • ID: 8322-6649-7359
+
+____________________________________
+
+Login to Google Cloud using:
+    gcloud auth application-default login --project sipsavvy-booking-system
+
+Then start the Genkit developer experience by running:
+    cd functions && npm run genkit:start
+
+_______________________________
+
+site will go live at: 
+https://sipsavvy-booking-system.web.app 
+and 
+https://sipsavvy-booking-system.firebaseapp.com

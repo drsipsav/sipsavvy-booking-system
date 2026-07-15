@@ -1,0 +1,35 @@
+/* ============================================================
+   SIP SAVVY — GOLD GRADIENT BORDER SYSTEM
+   ============================================================ */
+
+.border-gold {
+  border: 2px solid transparent;
+  border-radius: 12px;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(135deg, #FFD700, #E8C4B8) border-box;
+}
+
+.border-gold-dark {
+  border: 2px solid transparent;
+  border-radius: 12px;
+  background: linear-gradient(#2A0A15, #2A0A15) padding-box,
+              linear-gradient(135deg, #FFD700, #E8C4B8) border-box;
+}
+
+.border-gold-hover:hover {
+  filter: brightness(1.15);
+}
+
+.border-gold {
+  border: 2px solid transparent;
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(135deg, #FFD700, #E8C4B8) border-box;
+}
+
+.border-gold-soft {
+  border: 1px solid rgba(255,215,0,0.5);
+  border-radius: var(--radius-md);
+}
+

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Booking Confirmed — SipSavvy</title>
+
+  <link rel="stylesheet" href="../styles/global.css">
+  <link rel="stylesheet" href="../styles/confirmation.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+
+<body>
+
+<section class="confirmation">
+  <h1>Thank You!</h1>
+  <p>Your booking request has been received.</p>
+
+  <div class="summary-box">
+    <h2>Your Selection</h2>
+
+    <h3>Package</h3>
+    <p id="confirm-package"></p>
+
+    <h3>Add‑Ons</h3>
+    <ul id="confirm-addons"></ul>
+  </div>
+
+  <a href="index.html" class="btn-primary">Return Home</a>
+</section>
+
+<script>
+  // Load package
+  const pkg = localStorage.getItem('selectedPackage');
+  document.getElementById('confirm-package').textContent = pkg || "None selected";
+
+  // Load add-ons
+  const addons = JSON.parse(localStorage.getItem('selectedAddons') || "[]");
+  const list = document.getElementById('confirm-addons');
+  list.innerHTML = addons.length
+    ? addons.map(a => `<li>${a}</li>`).join('')
+    : "<li>No add-ons selected</li>";
+
+  // GSAP animations
+  gsap.from(".confirmation h1", { opacity: 0, y: -20, duration: 0.8, ease: "power3.out" });
+  gsap.from(".confirmation p", { opacity: 0, y: 10, duration: 0.8, delay: 0.2 });
+  gsap.from(".summary-box", { opacity: 0, y: 30, duration: 0.9, delay: 0.35, ease: "power3.out" });
+  gsap.from(".btn-primary", { opacity: 0, scale: 0.9, duration: 0.6, delay: 0.6 });
+</script>
+
+</body>
+</html>
